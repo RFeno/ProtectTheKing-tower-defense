@@ -50,26 +50,36 @@ void Game::startWave(int numberOfEnemies)
         //creation of ennemies randomly
         switch(typeOfEnemy)
         {
-//            case 1:
-//
-//                KnightOfDeath knightofd;
-//                this->mapOfGame.getEnemies().push_back(knightofd->clone());
-//                break;
-//
-//            case 2:
-//                Ogre ogre;
-//                this->mapOfGame.getEnemies().push_back(ogre->clone());
-//                break;
-//            case 3:
-//                Orc orc;
-//                this->mapOfGame.getEnemies().push_back(orc->clone());
-//                break;
-//            case 4:
-//                ShadowMonster shadowM;
-//                this->mapOfGame.getEnemies().push_back(shadowM->clone());
-//                break;
-//            default:
-//                cout << "error the create enemies for wave " << endl;
+            case 1:
+                {
+                    //ask if we need to delete if we clone
+                    KnightOfDeath* knightofd = new KnightOfDeath;
+                    this->mapOfGame->getEnemies().push_back(knightofd->clone());
+                    delete knightofd;
+                    break;
+                }
+            case 2:
+                {
+                    Ogre* ogre = new Ogre;
+                    this->mapOfGame->getEnemies().push_back(ogre->clone());
+                    break;
+                }
+
+            case 3:
+                {
+                    Orc* orc = new Orc;
+                    mapOfGame->getEnemies().push_back(orc->clone());
+                    break;
+                }
+            case 4:
+                {
+                    ShadowMonster* shadowM = new ShadowMonster;
+                    mapOfGame->getEnemies().push_back(shadowM->clone());
+                    break;
+                }
+
+            default:
+                cout << "error the create enemies for wave " << endl;
         }
     }
 }
