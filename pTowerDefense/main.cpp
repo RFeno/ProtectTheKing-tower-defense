@@ -7,6 +7,9 @@
 #include "vMainMenu.h"
 #include "Game.h"
 #include "KnightOfDeath.h"
+#include "Ogre.h"
+#include "Orc.h"
+#include "ShadowMonster.h"
 
 using namespace std;
 using namespace sf;
@@ -23,69 +26,14 @@ int main()
 
     //mainMenu.loadFont();
 
-    //here the tests for the class of diagram will be realized
-    Player playerOne("Saviour");
+    Game game("Saviour");
 
-    TowerEarth towerEarthOne;
-
-    //Enemies enemyOne(100);
-    KnightOfDeath enemyTwo;
-
-
-   //test attack of tower
-
-    cout << "the health of enemy two: " << enemyTwo.getHealth() <<endl;
-
-    cout << "the tower attack enemy two whith " <<towerEarthOne.getDamage() << "damage"<< endl;
-
-    towerEarthOne.attackEnemy(enemyTwo);
-
-    cout << "the health of enemy two: " << enemyTwo.getHealth() <<endl;
-
-    //test tower improving
-    cout << "*****************************************************" << endl;
-    cout << "the level of tower:" <<towerEarthOne.getLevel() << endl;
-    towerEarthOne.improveLevel();
-    cout << "improve level of tower:" <<endl;
-    cout << "the level of tower:" <<towerEarthOne.getLevel() << endl;
-    towerEarthOne.improveLevel();
-    cout << "improve level of tower:" <<endl;
-    cout << "the level of tower:" <<towerEarthOne.getLevel() << endl;
-    towerEarthOne.improveLevel();
-    cout << "improve level of tower:" <<endl;
-    cout << "the level of tower:" <<towerEarthOne.getLevel() << endl;
-    towerEarthOne.improveLevel();
-    cout << "improve level of tower:" <<endl;
-    cout << "the level of tower:" <<towerEarthOne.getLevel() << endl;
-
-    cout << "*****************************************************" << endl;
-    cout << "achat de 4 tours différentes" <<endl;
-    //cout << towerOne.toString() << endl;
-
-    playerOne.setCoins(1500);
-    playerOne.buyTower(earth);
-    playerOne.buyTower(ice);
-    playerOne.buyTower(sand);
-    playerOne.buyTower(iron);
-
-//    cout << "afficher les tours que le joueur one possède" <<endl;
-//    for(Tower* t: playerOne.getTowers())
-//    {
-//        cout << t->toString() << endl;
-//    }
-//
-//    for(list<Tower>::iterator it = playerOne.getTowers().begin(); it!=playerOne.getTowers().end() ; it++)
-//    {
-//        Tower t = *it;
-//        cout << t.toString() << endl;
-//    }
-
-
-    Game game(playerOne.getName());
     game.startWave(15);
 
+    cout << to_string(game.getMap()->getEnemies().size()) <<endl;
 
 
+    cout << game.getMap()->strEnemies() << endl;
 
     return 0;
 }

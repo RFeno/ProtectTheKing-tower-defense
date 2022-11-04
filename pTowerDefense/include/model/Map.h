@@ -7,11 +7,18 @@
 class Map
 {
     public:
+
         Map();
         virtual ~Map();
+
         Map(const Map& other);
         Map& operator=(const Map& other);
 
+        //methods
+        std::string strEnemies()const;
+
+
+        //getters and setters
         std::list<Tower*> getTowers()const
         {
             return listOfTower;

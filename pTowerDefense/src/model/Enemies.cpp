@@ -36,5 +36,5 @@ void Enemies::receiveDamage(int damage)
 
 string Enemies::getInformations()const
 {
-    return "";
+    return "[Enemies => health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
 }

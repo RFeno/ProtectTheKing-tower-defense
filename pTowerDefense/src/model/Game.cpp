@@ -14,11 +14,9 @@ using namespace std;
 //ctor
 Game::Game(string nameOfPlayer)
 {
-
     this->player = new Player(nameOfPlayer);
     this->king = new King();
     this->mapOfGame = new Map();
-
 }
 //dtor
 Game::~Game()
@@ -46,35 +44,42 @@ void Game::startWave(int numberOfEnemies)
     {
         int typeOfEnemy = rand()%4 +1;
 
-        cout<< typeOfEnemy << endl;
         //creation of ennemies randomly
         switch(typeOfEnemy)
         {
+
             case 1:
                 {
+                    cout << to_string(mapOfGame->getEnemies().size()) << endl;
                     //ask if we need to delete if we clone
                     KnightOfDeath* knightofd = new KnightOfDeath;
-                    this->mapOfGame->getEnemies().push_back(knightofd->clone());
-                    delete knightofd;
+                    mapOfGame->getEnemies().push_back(knightofd->clone());
+
+                    //delete knightofd;
                     break;
                 }
             case 2:
                 {
+                    cout << to_string(mapOfGame->getEnemies().size()) << endl;
                     Ogre* ogre = new Ogre;
                     this->mapOfGame->getEnemies().push_back(ogre->clone());
+                    delete ogre;
                     break;
                 }
-
             case 3:
                 {
+                    cout << to_string(mapOfGame->getEnemies().size()) << endl;
                     Orc* orc = new Orc;
                     mapOfGame->getEnemies().push_back(orc->clone());
+                    delete orc;
                     break;
                 }
             case 4:
                 {
-                    ShadowMonster* shadowM = new ShadowMonster;
-                    mapOfGame->getEnemies().push_back(shadowM->clone());
+                    cout << to_string(mapOfGame->getEnemies().size()) << endl;
+                    //ShadowMonster* shadowM = ;
+                    mapOfGame->getEnemies().push_back(new ShadowMonster);
+                    //delete shadowM;
                     break;
                 }
 

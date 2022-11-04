@@ -11,6 +11,17 @@ Tower::Tower(int damage, int level, int price): damage(damage), level(level), pr
     {
         throw runtime_error("The level of tower cannot be below one");
     }
+
+    if(level<=0)
+    {
+        throw runtime_error("The price of tower cannot be below or egal to 0");
+    }
+
+    if(level<=0)
+    {
+        throw runtime_error("The damage of tower cannot be below or egal to 0");
+    }
+
 }
 
 Tower::~Tower()

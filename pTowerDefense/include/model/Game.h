@@ -20,12 +20,17 @@ class Game
         Game(const Game& other);
         Game& operator=(const Game& other);
 
+        Map* getMap()const
+        {
+            return mapOfGame;
+        }
+
     protected:
 
     private:
         Player *player;
         King *king;
-        Map *mapOfGame;
+        Map* mapOfGame;
         int numberOfEnemies;
 };
 
