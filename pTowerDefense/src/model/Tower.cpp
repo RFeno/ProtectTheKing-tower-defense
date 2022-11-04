@@ -1,0 +1,53 @@
+#include "Tower.h"
+#include <Enemies.h>
+#include <stdexcept>
+#include <iostream>
+using namespace std;
+
+Tower::Tower(int damage, int level, int price): damage(damage), level(level), price(price)
+{
+    //ctor
+    if(level<=0)
+    {
+        throw runtime_error("The level of tower cannot be below one");
+    }
+}
+
+Tower::~Tower()
+{
+    //dtor
+}
+
+Tower::Tower(const Tower& other)
+{
+    //copy ctor
+}
+
+/*Tower& Tower::operator=(const Tower& rhs)
+{
+    if (this == &rhs) return *this; // handle self assignment
+    //assignment operator
+    return *this;
+}*/
+
+/* the tower attack the enemies cible */
+void Tower::attackEnemy(Enemies& target)const
+{
+    target.receiveDamage(damage);
+}
+/* improve the level of the tower (increase damage */
+bool Tower::improveLevel()
+{
+    if(level+1 <= 3)
+    {
+        level++;
+        return true;
+    }
+    cout << "the tower canno't be improve above level 3" << endl;
+    return false;
+}
+/* show the state of the tower */
+string Tower::toString()const
+{
+    return "[Tower: damage=> " + to_string(damage) + " level=>" + to_string(level) + " price=>"+ to_string(price) + "]";
+}

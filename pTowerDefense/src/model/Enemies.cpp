@@ -1,0 +1,40 @@
+#include "Enemies.h"
+#include <string>
+
+using namespace std;
+
+Enemies::Enemies(int health, int attackSpeed, int marketValue, int scoreValue, int damage): health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage)
+{
+    //ctor
+}
+
+Enemies::~Enemies()
+{
+    //dtor
+}
+
+/*Enemies& Enemies::operator=(const Enemies& rhs)
+{
+    if (this == &rhs) return *this; // handle self assignment
+    //assignment operator
+    return *this;
+}*/
+
+/*
+* this method decrease the health of the enemy
+* if the health is lower of egal to 0 the enemy die
+*/
+void Enemies::receiveDamage(int damage)
+{
+    setHealth(getHealth()-damage);
+
+    if(this->health<=0)
+    {
+        //die();
+    }
+}
+
+string Enemies::getInformations()const
+{
+    return "";
+}
