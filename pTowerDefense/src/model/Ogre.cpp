@@ -21,3 +21,8 @@ Ogre& Ogre::operator=(const Ogre& rhs)
     //assignment operator
     return *this;
 }
+
+Ogre* Ogre::clone()const
+{
+    return new Ogre(*this);
+}

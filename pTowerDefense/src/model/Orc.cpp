@@ -21,3 +21,8 @@ Orc& Orc::operator=(const Orc& rhs)
     //assignment operator
     return *this;
 }
+
+Orc* Orc::clone()const
+{
+    return new Orc(*this);
+}

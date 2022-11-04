@@ -14,16 +14,18 @@ using namespace std;
 //ctor
 Game::Game(string nameOfPlayer)
 {
-    this->player = Player(nameOfPlayer);
-    //this->king = King;
-    this->king = King();
-    this->mapOfGame = Map();
+
+    this->player = new Player(nameOfPlayer);
+    this->king = new King();
+    this->mapOfGame = new Map();
 
 }
 //dtor
 Game::~Game()
 {
-
+    delete player;
+    delete king;
+    delete mapOfGame;
 }
 
 Game::Game(const Game& other)
@@ -48,24 +50,26 @@ void Game::startWave(int numberOfEnemies)
         //creation of ennemies randomly
         switch(typeOfEnemy)
         {
-            case 1:
-
-                KnightOfDeath knightofd;
-                this->mapOfGame.getEnemies().push_back(knightofd->clone());
-                break;
-
-            case 2:
-                Ogre ogre;
-                this->mapOfGame.getEnemies().push_back(ogre->clone());
-                break;
-            case 3:
-                Orc orc;
-                this->mapOfGame.getEnemies().push_back(orc->clone());
-                break;
-            case 4:
-                ShadowMonster shadowM;
-                this->mapOfGame.getEnemies().push_back(shadowM->clone());
-                break;
+//            case 1:
+//
+//                KnightOfDeath knightofd;
+//                this->mapOfGame.getEnemies().push_back(knightofd->clone());
+//                break;
+//
+//            case 2:
+//                Ogre ogre;
+//                this->mapOfGame.getEnemies().push_back(ogre->clone());
+//                break;
+//            case 3:
+//                Orc orc;
+//                this->mapOfGame.getEnemies().push_back(orc->clone());
+//                break;
+//            case 4:
+//                ShadowMonster shadowM;
+//                this->mapOfGame.getEnemies().push_back(shadowM->clone());
+//                break;
+//            default:
+//                cout << "error the create enemies for wave " << endl;
         }
     }
 }

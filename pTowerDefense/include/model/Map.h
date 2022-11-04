@@ -19,7 +19,7 @@ class Map
 
         std::list<Enemies*> getEnemies()const
         {
-            return listOfEnemies();
+            return listOfEnemies;
         }
 
     protected:

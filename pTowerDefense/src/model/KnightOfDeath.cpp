@@ -21,3 +21,8 @@ KnightOfDeath& KnightOfDeath::operator=(const KnightOfDeath& rhs)
     //assignment operator
     return *this;
 }
+
+KnightOfDeath* KnightOfDeath::clone()const
+{
+    return new KnightOfDeath(*this);
+}

@@ -23,9 +23,9 @@ class Game
     protected:
 
     private:
-        Player player;
-        King king;
-        Map mapOfGame;
+        Player *player;
+        King *king;
+        Map *mapOfGame;
         int numberOfEnemies;
 };
 

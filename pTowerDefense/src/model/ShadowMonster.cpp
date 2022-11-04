@@ -21,3 +21,8 @@ ShadowMonster& ShadowMonster::operator=(const ShadowMonster& rhs)
     //assignment operator
     return *this;
 }
+
+ShadowMonster* ShadowMonster::clone()const
+{
+    return new ShadowMonster(*this);
+}
