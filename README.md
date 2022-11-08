@@ -25,6 +25,3 @@
 
 #### * Noel Alexandre
 
-#### * Dorchy Lucas
-
-#### * Shaw Axel 
