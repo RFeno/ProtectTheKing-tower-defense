@@ -50,6 +50,7 @@
 		<Unit filename="include/model/Gremlin.h" />
 		<Unit filename="include/model/King.h" />
 		<Unit filename="include/model/KnightOfDeath.h" />
+		<Unit filename="include/model/Map.h" />
 		<Unit filename="include/model/Observable.h" />
 		<Unit filename="include/model/Observer.h" />
 		<Unit filename="include/model/Ogre.h" />
@@ -71,6 +72,7 @@
 		<Unit filename="src/model/Gremlin.cpp" />
 		<Unit filename="src/model/King.cpp" />
 		<Unit filename="src/model/KnightOfDeath.cpp" />
+		<Unit filename="src/model/Map.cpp" />
 		<Unit filename="src/model/Observable.cpp" />
 		<Unit filename="src/model/Observer.cpp" />
 		<Unit filename="src/model/Ogre.cpp" />

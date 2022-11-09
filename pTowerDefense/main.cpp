@@ -16,13 +16,13 @@ using namespace sf;
 
 int main()
 {
-//    const int WIN_WIDTH = 1400;
-//    const int WIN_HEIGHT = 800;
-//
-//    RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king - Welcome");
-//
-//    vMainMenu mainMenu;
-//    mainMenu.launchMenu(window);
+    const int WIN_WIDTH = 1400;
+    const int WIN_HEIGHT = 800;
+
+    RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king - Welcome");
+
+    vMainMenu mainMenu;
+    mainMenu.launchMenu(window);
 
     //mainMenu.loadFont();
 

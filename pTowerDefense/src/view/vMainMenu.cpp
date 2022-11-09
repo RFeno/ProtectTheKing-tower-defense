@@ -127,11 +127,13 @@ void vMainMenu::loadSprite()
     //set positions
     playSprite.setPosition(sf::Vector2f(600, 600));
     settingsSprite.setPosition(sf::Vector2f(1230, 15));
-    logoSprite.setPosition(sf::Vector2f(250, 200));
+    logoSprite.setPosition(sf::Vector2f(200, -30));
+    musiqueOnSprite.setPosition(Vector2f(0, 15));
     musiqueOnSprite.setPosition(Vector2f(0, 15));
 
     //change widht
     playSprite.setScale(0.5f, 0.5f);
+    logoSprite.setScale(1.0f, 1.0f);
 }
 
 /* to verify if all images is accessible and charge in the texture */
@@ -181,11 +183,11 @@ bool vMainMenu::verifyImage()
 void vMainMenu::drawEntities(RenderWindow& window)
 {
     //display elemeents
-    window.draw(bgSprite);
+    //window.draw(bgSprite);
     window.draw(musiqueOnSprite);
     window.draw(settingsSprite);
-    window.draw(playSprite);
     window.draw(logoSprite);
+    window.draw(playSprite);
 }
 
 //fonction for actionEvent on Buttons Sprite
