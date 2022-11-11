@@ -5,8 +5,15 @@
 class Enemies
 {
     public:
-        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
 
+        //canonic form
+        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
+        virtual ~Enemies();
+        Enemies(const Enemies& other);
+        Enemies& operator=(const Enemies& other);
+
+
+        //methods
         void attackTower();
         void die();
         void walk();
@@ -25,7 +32,7 @@ class Enemies
             }
         }
 
-        int getHealth()
+        int getHealth()const
         {
             return health;
         }
@@ -33,16 +40,17 @@ class Enemies
         std::string getInformations()const;
 
 
-        virtual ~Enemies();
 
+        //to make it available in subclasses
     protected:
-
-    private:
         int health;
         double attackSpeed;
         int marketValue;
         int scoreValue;
         int damage;
+
+    private:
+
 
 };
 

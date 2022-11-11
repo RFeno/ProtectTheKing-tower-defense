@@ -7,7 +7,7 @@
 class ShadowMonster : public Enemies
 {
     public:
-        ShadowMonster();
+        ShadowMonster(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
         virtual ~ShadowMonster();
         ShadowMonster(const ShadowMonster& other);
         ShadowMonster& operator=(const ShadowMonster& other);

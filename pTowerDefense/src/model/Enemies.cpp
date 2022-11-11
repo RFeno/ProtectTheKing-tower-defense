@@ -13,12 +13,24 @@ Enemies::~Enemies()
     //dtor
 }
 
-/*Enemies& Enemies::operator=(const Enemies& rhs)
+Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage)
+{
+   //copy ctor
+}
+
+Enemies& Enemies::operator=(const Enemies& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    this->attackSpeed=rhs.attackSpeed;
+    this->damage=rhs.damage;
+    this->health=rhs.health;
+    this->marketValue=rhs.marketValue;
+    this->scoreValue=rhs.scoreValue;
+
     //assignment operator
     return *this;
-}*/
+}
 
 /*
 * this method decrease the health of the enemy

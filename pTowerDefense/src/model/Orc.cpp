@@ -1,6 +1,6 @@
 #include "Orc.h"
 
-Orc::Orc()
+Orc::Orc(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
 }
@@ -10,7 +10,7 @@ Orc::~Orc()
     //dtor
 }
 
-Orc::Orc(const Orc& other)
+Orc::Orc(const Orc& other):Enemies(other)
 {
     //copy ctor
 }

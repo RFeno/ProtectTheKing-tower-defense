@@ -1,6 +1,6 @@
 #include "KnightOfDeath.h"
 
-KnightOfDeath::KnightOfDeath()
+KnightOfDeath::KnightOfDeath(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
 }
@@ -10,7 +10,7 @@ KnightOfDeath::~KnightOfDeath()
     //dtor
 }
 
-KnightOfDeath::KnightOfDeath(const KnightOfDeath& other)
+KnightOfDeath::KnightOfDeath(const KnightOfDeath& other):Enemies(other)
 {
     //copy ctor
 }

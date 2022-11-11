@@ -1,6 +1,6 @@
 #include "Gremlin.h"
-
-Gremlin::Gremlin()
+#include "Enemies.h"
+Gremlin::Gremlin(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
 }
@@ -10,7 +10,7 @@ Gremlin::~Gremlin()
     //dtor
 }
 
-Gremlin::Gremlin(const Gremlin& other)
+Gremlin::Gremlin(const Gremlin& other):Enemies(other)
 {
     //copy ctor
 }

@@ -1,6 +1,6 @@
 #include "ShadowMonster.h"
 
-ShadowMonster::ShadowMonster()
+ShadowMonster::ShadowMonster(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
 }
@@ -10,7 +10,7 @@ ShadowMonster::~ShadowMonster()
     //dtor
 }
 
-ShadowMonster::ShadowMonster(const ShadowMonster& other)
+ShadowMonster::ShadowMonster(const ShadowMonster& other):Enemies(other)
 {
     //copy ctor
 }

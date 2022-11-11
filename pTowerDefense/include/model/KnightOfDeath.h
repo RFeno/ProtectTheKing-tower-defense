@@ -7,7 +7,7 @@
 class KnightOfDeath : public Enemies
 {
     public:
-        KnightOfDeath();
+        KnightOfDeath(int health=40, int attackSpeed=1, int marketValue=40, int scoreValue=40, int damage=1);
         virtual ~KnightOfDeath();
         KnightOfDeath(const KnightOfDeath& other);
         KnightOfDeath& operator=(const KnightOfDeath& other);
