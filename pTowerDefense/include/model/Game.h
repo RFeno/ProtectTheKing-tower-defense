@@ -25,13 +25,15 @@ class Game
             return mapOfGame;
         }
 
+
+
     protected:
 
     private:
         Player *player;
         King *king;
-        Map* mapOfGame;
-        int numberOfEnemies;
+        Map *mapOfGame;
+
 };
 
 #endif // GAME_H

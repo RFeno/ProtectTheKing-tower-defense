@@ -3,28 +3,28 @@
 #include "Tower.h"
 #include "Enemies.h"
 #include <list>
-
+#include <vector>
 class Map
 {
     public:
 
         Map();
         virtual ~Map();
-
         Map(const Map& other);
         Map& operator=(const Map& other);
 
         //methods
         std::string strEnemies()const;
 
+        /*const devant les getters */
 
         //getters and setters
-        std::list<Tower*> getTowers()const
+        std::vector<Tower*> &getTowers()
         {
             return listOfTower;
         }
 
-        std::list<Enemies*> getEnemies()const
+        std::vector<Enemies*> &getEnemies()
         {
             return listOfEnemies;
         }
@@ -32,8 +32,9 @@ class Map
     protected:
 
     private:
-        std::list<Tower*> listOfTower;
-        std::list<Enemies*> listOfEnemies;
+        std::vector<Tower*> listOfTower;
+        std::vector<Enemies*> listOfEnemies;
+
 };
 
 #endif // MAP_H

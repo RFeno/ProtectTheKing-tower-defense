@@ -1,6 +1,10 @@
 #include "Map.h"
 #include <string>
 #include <iostream>
+
+
+#include <Tower.h>
+#include <Enemies.h>
 using namespace std;
 
 Map::Map()
@@ -12,15 +16,15 @@ Map::~Map()
 {
     //dtor
 
-    for(list<Enemies*>::iterator it = listOfEnemies.begin(); it!=listOfEnemies.end() ; it++)
-    {
-       delete *it;
-    }
-
-    for(list<Tower*>::iterator it = listOfTower.begin(); it!=listOfTower.end() ; it++)
-    {
-       delete *it;
-    }
+//   for(Enemies* enemy: *listOfEnemies)
+//   {
+//        delete enemy;
+//   }
+//
+//   for(Tower* tower: *listOfTower)
+//   {
+//       delete tower;
+//   }
 }
 
 Map::Map(const Map& other)
@@ -37,13 +41,11 @@ Map& Map::operator=(const Map& rhs)
 
 string Map::strEnemies()const
 {
-    string result ="list of enemies\n";
-    for(Enemies* en: listOfEnemies)
+    string result ="list of enemies[\n";
+    for(Enemies *en: listOfEnemies)
     {
-        result+= en->getInformations();
-        //to delete
-        //cout << en->getInformations() << endl;
+        result+= en->getInformations() +"\n";
     }
-    return result;
+    return result+="]";
 }
 
