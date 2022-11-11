@@ -38,7 +38,7 @@ Game& Game::operator=(const Game& rhs)
     return *this;
 }
 /* launch the wave, generat*/
-void Game::startWave(int numberOfEnemies)
+void Game::createWave(int numberOfEnemies)
 {
     KnightOfDeath knightofd;
     Orc orc;
@@ -55,7 +55,6 @@ void Game::startWave(int numberOfEnemies)
         {
             case 1:
                 {
-                    //mapOfGame.getEnemies().push_back(knightofd.clone());
                     mapOfGame->getEnemies().push_back(knightofd.clone());
                     break;
                 }

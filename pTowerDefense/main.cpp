@@ -31,7 +31,7 @@ int main()
 
     Game game("PlayerName");
 
-    game.startWave(15);
+    game.createWave(15);
 
     cout << game.getMap()->strEnemies() << endl;
 

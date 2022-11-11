@@ -13,7 +13,8 @@ class Game
         //mehtods
         void play();
         bool gameOver();
-        void startWave(int numberOfEnemies);
+        void createWave(int numberOfEnemies);
+        void startWave();
         bool endWave();
 
         virtual ~Game();
