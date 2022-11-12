@@ -7,26 +7,6 @@ using namespace sf;
 
 using namespace std;
 
-//global variables
-
-Texture bgTexture;
-Texture logoTexture;
-Texture musiqueOnTexture;
-Texture musiqueOffTexture;
-Texture settingsTexture;
-Texture playTexture;
-
-Sprite bgSprite;
-Sprite ogreSprite;
-Sprite musiqueOnSprite;
-Sprite musiqueOffSprite;
-Sprite settingsSprite;
-Sprite playSprite;
-Sprite logoSprite;
-
-const int WIN_WIDTH = 1400;
-const int WIN_HEIGHT = 800;
-
 vMainMenu::vMainMenu()
 {
     //ctor

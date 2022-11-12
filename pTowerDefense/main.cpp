@@ -10,6 +10,7 @@
 #include "Ogre.h"
 #include "Orc.h"
 #include "ShadowMonster.h"
+#include "vGameBoard.h"
 
 #include <vector>
 
@@ -19,15 +20,18 @@ using namespace sf;
 int main()
 {
     srand(time(0));
-//    const int WIN_WIDTH = 1400;
-//    const int WIN_HEIGHT = 800;
-//
-//    RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king - Welcome");
-//
+    const int WIN_WIDTH = 1400;
+    const int WIN_HEIGHT = 800;
+
+    RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king - Welcome");
+
 //    vMainMenu mainMenu;
 //    mainMenu.launchMenu(window);
 
     //mainMenu.loadFont();
+
+    vGameBoard gameBoard;
+    gameBoard.launchView(window);
 
     Game game("PlayerName");
 

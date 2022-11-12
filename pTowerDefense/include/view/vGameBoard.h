@@ -2,6 +2,7 @@
 #define VGAMEBOARD_H
 
 #include <SFML/Graphics.hpp>
+#include <Enemies.h>
 
 using namespace sf;
 
@@ -13,6 +14,22 @@ class vGameBoard
         vGameBoard(const vGameBoard& other);
         vGameBoard& operator=(const vGameBoard& other);
 
+        Texture mapTexture;
+        Texture pauseTexture;
+        //Texture musiqueOnTexture;
+        Texture acideCloudTexture;
+        Texture lightningTexture;
+        Texture fireTexture;
+        Texture enemyTexture;
+
+        Sprite mapSprite;
+        Sprite pauseSprite;
+        //Sprite musiqueOnSprite;
+        Sprite acideCloudSprite;
+        Sprite lightningSprite;
+        Sprite fireSprite;
+        Sprite enemySprite;
+
         void launchView(RenderWindow& window);
         void loadSprite();
         void loadFont();
@@ -23,7 +40,7 @@ class vGameBoard
 
     protected:
 
-    private:
+    private;
 };
 
 #endif // VGAMEBOARD_H

@@ -37,6 +37,16 @@ class Enemies
             return health;
         }
 
+        void setX(int x)
+        {
+            this->x = x;
+        }
+
+        void setY(int y)
+        {
+            this->y = y;
+        }
+
         std::string getInformations()const;
 
 
@@ -48,6 +58,8 @@ class Enemies
         int marketValue;
         int scoreValue;
         int damage;
+        int x = 0;
+        int y = 0;
 
     private:
 
