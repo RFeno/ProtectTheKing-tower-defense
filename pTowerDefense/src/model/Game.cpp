@@ -16,14 +16,14 @@ Game::Game(string nameOfPlayer)
 {
     this->player = new Player(nameOfPlayer);
     this->king = new King();
-    //this->mapOfGame = new Map();
+    this->mapOfGame = new Map();
 }
 //dtor
 Game::~Game()
 {
     delete player;
     delete king;
-    //delete mapOfGame;
+    delete mapOfGame;
 }
 
 Game::Game(const Game& other)
@@ -40,39 +40,42 @@ Game& Game::operator=(const Game& rhs)
 /* launch the wave, generat*/
 void Game::createWave(int numberOfEnemies)
 {
-    KnightOfDeath knightofd;
-    Orc orc;
-    Ogre ogre;
-    ShadowMonster shadowM;
+    KnightOfDeath* knightofd = new KnightOfDeath();
+    Orc* orc = new Orc();
+    Ogre* ogre = new Ogre();
+    ShadowMonster* shadowM = new ShadowMonster();
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
         int typeOfEnemy = rand()%4 +1;
 
         //creation of ennemies randomly
+        //the clone is created in the method addEnemy
 
         switch(typeOfEnemy)
         {
             case 1:
                 {
-                    mapOfGame->getEnemies().push_back(knightofd.clone());
+                    //mapOfGame->getEnemies().push_back(knightofd.clone());
+                    mapOfGame->addEnemy(knightofd);
                     break;
                 }
             case 2:
                 {
-
-
-                    mapOfGame->getEnemies().push_back(ogre.clone());
+                    mapOfGame->addEnemy(ogre);
+                    //mapOfGame->getEnemies().push_back(ogre.clone());
                     break;
                 }
             case 3:
                 {
-                    mapOfGame->getEnemies().push_back(orc.clone());
+                    mapOfGame->addEnemy(orc);
+                    //mapOfGame->getEnemies().push_back(orc.clone());
                     break;
                 }
             case 4:
                 {
-                    mapOfGame->getEnemies().push_back(shadowM.clone());
+                    mapOfGame->addEnemy(shadowM);
+                    //mapOfGame->getEnemies().push_back(shadowM.clone());
                     break;
                 }
 
@@ -80,6 +83,10 @@ void Game::createWave(int numberOfEnemies)
                 cout << "error the create enemies for wave " << endl;
         }
     }
+    delete knightofd;
+    delete ogre;
+    delete orc;
+    delete shadowM;
 }
 /* is launch after all enemies are dead */
 bool Game::endWave()

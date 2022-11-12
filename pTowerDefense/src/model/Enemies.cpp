@@ -50,3 +50,4 @@ string Enemies::getInformations()const
 {
     return "[Enemies => health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
 }
+

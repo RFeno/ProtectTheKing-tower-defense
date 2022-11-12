@@ -49,3 +49,6 @@ string Map::strEnemies()const
     return result+="]";
 }
 
+void Map::addEnemy(const Enemies* enemy){
+    listOfEnemies.push_back(enemy->clone());
+}

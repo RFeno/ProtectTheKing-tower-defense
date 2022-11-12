@@ -15,6 +15,7 @@ class Map
 
         //methods
         std::string strEnemies()const;
+        void addEnemy(const Enemies* enemy);
 
         /*const devant les getters */
 
@@ -24,7 +25,7 @@ class Map
             return listOfTower;
         }
 
-        std::vector<Enemies*> &getEnemies()
+        std::vector<Enemies*> getEnemies()
         {
             return listOfEnemies;
         }
