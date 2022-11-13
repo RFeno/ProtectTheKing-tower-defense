@@ -12,11 +12,13 @@
 using namespace std;
 
 //ctor
-Game::Game(string nameOfPlayer)
+Game::Game()
 {
-    this->player = new Player(nameOfPlayer);
+    this->player = new Player();
     this->king = new King();
     this->mapOfGame = new Map();
+    numberOfWave =1;
+    numberOfEnemies = 5;
 }
 //dtor
 Game::~Game()

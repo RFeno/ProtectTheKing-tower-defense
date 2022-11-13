@@ -2,17 +2,23 @@
 #define VGAMEBOARD_H
 
 #include <SFML/Graphics.hpp>
-#include <Enemies.h>
+#include "Enemies.h"
+#include "Game.h"
 
 using namespace sf;
 
 class vGameBoard
 {
     public:
+
+        const int WALK_SPEED = 1;
+
         vGameBoard();
         virtual ~vGameBoard();
         vGameBoard(const vGameBoard& other);
         vGameBoard& operator=(const vGameBoard& other);
+
+
 
         Texture mapTexture;
         Texture pauseTexture;
@@ -38,9 +44,21 @@ class vGameBoard
         void InputHandler(Event event, RenderWindow &window);
         bool isSpriteClicked (Sprite &spr, RenderWindow &window);
 
+        //methods
+        void launchGame();
+        void animationEnemyWalk();
+        void displayEnd();
+        bool setTower(int y, int x, int type);
+        bool setTower(int y, int x, Tower* t);
+        void activeFireSpell();
+        void activeLightningSpeel();
+        void activeCloudSpell();
+
     protected:
 
     private:
+        Game game;
+        std::vector<Sprite*> listOfEnemies;
 };
 
 #endif // VGAMEBOARD_H

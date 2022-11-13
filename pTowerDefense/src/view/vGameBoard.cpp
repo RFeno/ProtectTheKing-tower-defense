@@ -1,12 +1,10 @@
 #include "vGameBoard.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
+#include <unistd.h>
 using namespace sf;
 
 using namespace std;
-
-
 
 vGameBoard::vGameBoard()
 {
@@ -18,10 +16,10 @@ vGameBoard::~vGameBoard()
     //dtor
 }
 
-vGameBoard::vGameBoard(const vGameBoard& other)
+/*vGameBoard::vGameBoard(const vGameBoard& other)
 {
     //copy ctor
-}
+}*/
 
 vGameBoard& vGameBoard::operator=(const vGameBoard& rhs)
 {
@@ -54,43 +52,32 @@ void vGameBoard::launchView(RenderWindow& window)
             window.display();
         }
     }
-
     else
         cout << "error" <<endl;
+
+
 }
 
 /*to manage the events */
 void vGameBoard::InputHandler(Event event, RenderWindow &window)
 {
     // close the window
-//    if (event.type == Event::Closed)
-//    {
-//        window.close();
-//    }
-//
-//    // detect mouse click
-//    if (event.type == Event::MouseButtonPressed)
-//    {
-//        if (event.mouseButton.button == Mouse::Left)
-//        {
-//            cout << "Play :" <<isSpriteClicked(playSprite, window) << endl;
-//            cout << "Settings :" <<isSpriteClicked(settingsSprite, window) << endl;
-//            cout << "Musique :" <<isSpriteClicked(musiqueOnSprite, window) << endl;
-//
-//            if(isSpriteClicked(playSprite, window) == 1)
-//            {
-//                window.close();
-//                RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king - Game");
-////                vGame game;
-////                game.launchGame(window);
-//            }
-//
-//        }
-//        if (event.mouseButton.button == Mouse::Right)
-//        {
-//              cout << "right click"<< endl;
-//        }
-//    }
+    if (event.type == Event::Closed)
+    {
+        window.close();
+    }
+    // detect mouse click
+    if (event.type == Event::MouseButtonPressed)
+    {
+        if (event.mouseButton.button == Mouse::Left)
+        {
+            animationEnemyWalk();
+        }
+        if (event.mouseButton.button == Mouse::Right)
+        {
+              cout << "right click"<< endl;
+        }
+    }
 
 }
 
@@ -107,7 +94,7 @@ void vGameBoard::loadSprite()
     // Les 2 premiers argument = position d'origine
     // Les 2 d'après, taille d'un sprite
     // Donc si tu veux prendre le deuxième sprite -> + 377 au premier argument et ansi de suite
-    enemySprite.setTextureRect(IntRect(0,0,377,404));
+    enemySprite.setTextureRect(IntRect(8,0,377,404));
 
 
     //set positions
@@ -116,13 +103,13 @@ void vGameBoard::loadSprite()
     //logoSprite.setPosition(sf::Vector2f(200, -30));
     //musiqueOnSprite.setPosition(Vector2f(0, 15));
     //musiqueOnSprite.setPosition(Vector2f(0, 15));
-    enemySprite.setPosition(Vector2f(10, 532));
+    enemySprite.setPosition(Vector2f(10, 535));
 
     //change widht
     //playSprite.setScale(0.5f, 0.5f);
     //logoSprite.setScale(1.0f, 1.0f);
-    mapSprite.setScale(0.72f,0.75f);
-    enemySprite.setScale(0.31f,0.31f);
+    mapSprite.setScale(0.73f,0.75f);
+    enemySprite.setScale(0.28,0.28f);
 }
 
 /* to verify if all images is accessible and charge in the texture */
@@ -212,4 +199,19 @@ bool vGameBoard::isSpriteClicked (Sprite &spr, RenderWindow &window )
 	{
 		return false;
 	}
+}
+
+void vGameBoard::animationEnemyWalk()
+{
+    int nbMoves= 10;
+    while(nbMoves>0)
+    {
+        enemySprite.move(WALK_SPEED,0);
+        //sleep(1);
+        nbMoves--;
+    }
+//    for(int i=0;i<=game.getMap().getEnemies()->size();i++)
+//    {
+//
+//    }
 }

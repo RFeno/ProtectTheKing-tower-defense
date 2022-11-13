@@ -8,7 +8,7 @@
 class Game
 {
     public:
-        Game(std::string nameOfPlayer);
+        Game();
 
         //mehtods
         void play();
@@ -28,8 +28,6 @@ class Game
             return mapOfGame;
         }
 
-
-
     protected:
 
     private:
@@ -37,6 +35,8 @@ class Game
         King *king;
         Map *mapOfGame;
         int numberOfEnemies;
+        int numberOfWave;
+
 
 };
 
