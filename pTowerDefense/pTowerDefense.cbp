@@ -63,6 +63,7 @@
 		<Unit filename="include/model/TowerIce.h" />
 		<Unit filename="include/model/TowerIron.h" />
 		<Unit filename="include/model/TowerSand.h" />
+		<Unit filename="include/view/vGameBoard.h" />
 		<Unit filename="include/view/vMainMenu.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/model/AcidCloudSpell.cpp" />
@@ -85,6 +86,7 @@
 		<Unit filename="src/model/TowerIce.cpp" />
 		<Unit filename="src/model/TowerIron.cpp" />
 		<Unit filename="src/model/TowerSand.cpp" />
+		<Unit filename="src/view/vGameBoard.cpp" />
 		<Unit filename="src/view/vMainMenu.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

@@ -116,13 +116,13 @@ void vGameBoard::loadSprite()
     //logoSprite.setPosition(sf::Vector2f(200, -30));
     //musiqueOnSprite.setPosition(Vector2f(0, 15));
     //musiqueOnSprite.setPosition(Vector2f(0, 15));
-    enemySprite.setPosition(Vector2f(330, 720));
+    enemySprite.setPosition(Vector2f(10, 532));
 
     //change widht
     //playSprite.setScale(0.5f, 0.5f);
     //logoSprite.setScale(1.0f, 1.0f);
-    mapSprite.setScale(0.74f,0.75f);
-    enemySprite.setScale(0.2f,0.2f);
+    mapSprite.setScale(0.72f,0.75f);
+    enemySprite.setScale(0.31f,0.31f);
 }
 
 /* to verify if all images is accessible and charge in the texture */

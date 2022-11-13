@@ -15,6 +15,8 @@ class Game
         bool gameOver();
         void createWave(int numberOfEnemies);
         void startWave();
+        void ennemiesWalk();
+        void TowerAttack();
         bool endWave();
 
         virtual ~Game();
@@ -34,6 +36,7 @@ class Game
         Player *player;
         King *king;
         Map *mapOfGame;
+        int numberOfEnemies;
 
 };
 

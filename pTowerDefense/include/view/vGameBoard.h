@@ -40,7 +40,7 @@ class vGameBoard
 
     protected:
 
-    private;
+    private:
 };
 
 #endif // VGAMEBOARD_H

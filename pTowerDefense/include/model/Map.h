@@ -20,12 +20,12 @@ class Map
         /*const devant les getters */
 
         //getters and setters
-        std::vector<Tower*> &getTowers()
+        std::vector<Tower*> getTowers()const
         {
             return listOfTower;
         }
 
-        std::vector<Enemies*> getEnemies()
+        std::vector<Enemies*> getEnemies()const
         {
             return listOfEnemies;
         }
