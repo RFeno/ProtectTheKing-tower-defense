@@ -44,9 +44,9 @@ int main()
 
 
 //
-//    cout << game.getMap()->strEnemies() << endl;
+    cout << game.getMap()->strEnemies() << endl;
 //
-//    cout << game.getMap()->getEnemies().size() << endl;
+    cout << game.getMap()->getEnemies().size() << endl;
 
     return 0;
 }

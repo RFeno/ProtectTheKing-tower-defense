@@ -26,6 +26,7 @@ class vGameBoard
         Texture acideCloudTexture;
         Texture lightningTexture;
         Texture fireTexture;
+        std::vector<Sprite> enemiesSprite;
         Texture enemyTexture;
 
         Sprite mapSprite;
@@ -47,6 +48,7 @@ class vGameBoard
         //methods
         void launchGame();
         void animationEnemyWalk();
+        void enemiesSpawn();
         void displayEnd();
         bool setTower(int y, int x, int type);
         bool setTower(int y, int x, Tower* t);

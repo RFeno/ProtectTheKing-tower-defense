@@ -6,9 +6,23 @@ using namespace sf;
 
 using namespace std;
 
+Clock animClock;
+Clock spawnClock;;
+int x = 0;
+int y = 0;
+int SPRITE_WIDTH = 377;
+int SPRITE_HEIGHT = 404;
+int dist = 0;
+int idSpawn = 0;
+
 vGameBoard::vGameBoard()
 {
     //ctor
+    game.createWave(5);
+    for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++){
+        enemiesSprite.push_back(enemySprite);
+    }
+
 }
 
 vGameBoard::~vGameBoard()
@@ -46,6 +60,9 @@ void vGameBoard::launchView(RenderWindow& window)
             {
                 InputHandler(event, window);
             }
+            //enemiesSpawn();
+            animationEnemyWalk();
+
 
             window.clear();
             drawEntities(window);
@@ -71,7 +88,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow &window)
     {
         if (event.mouseButton.button == Mouse::Left)
         {
-            animationEnemyWalk();
+
         }
         if (event.mouseButton.button == Mouse::Right)
         {
@@ -94,7 +111,7 @@ void vGameBoard::loadSprite()
     // Les 2 premiers argument = position d'origine
     // Les 2 d'après, taille d'un sprite
     // Donc si tu veux prendre le deuxième sprite -> + 377 au premier argument et ansi de suite
-    enemySprite.setTextureRect(IntRect(8,0,377,404));
+    enemySprite.setTextureRect(IntRect(0,0,377,404));
 
 
     //set positions
@@ -178,6 +195,9 @@ void vGameBoard::drawEntities(RenderWindow& window)
 //    window.draw(playSprite);
     window.draw(mapSprite);
     window.draw(enemySprite);
+    for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++){
+        window.draw(enemiesSprite[i]);
+    }
 }
 
 //fonction for actionEvent on Buttons Sprite
@@ -203,15 +223,34 @@ bool vGameBoard::isSpriteClicked (Sprite &spr, RenderWindow &window )
 
 void vGameBoard::animationEnemyWalk()
 {
-    int nbMoves= 10;
-    while(nbMoves>0)
-    {
-        enemySprite.move(WALK_SPEED,0);
-        //sleep(1);
-        nbMoves--;
+
+    enemySprite.setTextureRect(IntRect(x*SPRITE_WIDTH,y*SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT));
+    //enemiesSprite[id].setTextureRect(IntRect(x*SPRITE_WIDTH,y*SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT));
+
+    if(animClock.getElapsedTime().asSeconds() > 0.1f){
+        if(x*SPRITE_WIDTH >= (int)enemyTexture.getSize().x - SPRITE_WIDTH){
+            x = 0;
+        }
+        else{
+            x++;
+        }
+
+        animClock.restart();
     }
-//    for(int i=0;i<=game.getMap().getEnemies()->size();i++)
-//    {
-//
-//    }
+    enemySprite.setPosition(Vector2f(10 + dist, 535));
+    //enemiesSprite[id].setPosition(Vector2f(10 + dist, 535));
+    dist += WALK_SPEED;
+}
+
+void vGameBoard::enemiesSpawn(){
+    if(spawnClock.getElapsedTime().asSeconds() > 2 && idSpawn < (int)game.getMap()->getEnemies().size()){
+        enemiesSprite[idSpawn].setTexture(enemyTexture);
+        enemiesSprite[idSpawn].setTextureRect(IntRect(0,0,377,404));
+        enemiesSprite[idSpawn].setPosition(Vector2f(10, 535));
+        enemiesSprite[idSpawn].setScale(0.28,0.28f);
+        idSpawn++;
+        spawnClock.restart();
+        cout<<"test 2"<<endl;
+    }
+
 }
