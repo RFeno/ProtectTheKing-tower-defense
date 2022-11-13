@@ -1,8 +1,8 @@
 #ifndef KING_H
 #define KING_H
+#include "Observable.h"
 
-
-class King
+class King : public Observable
 {
     public:
         King();
@@ -14,6 +14,7 @@ class King
         {
             return numberOfLives;
         }
+
 
 
     protected:

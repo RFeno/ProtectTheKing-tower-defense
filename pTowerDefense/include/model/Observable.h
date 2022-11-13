@@ -12,6 +12,7 @@ class Observable
         void addObs(Observer* obs);
         void deleteObs(Observer* obs);
         void notify();
+        int searchObs(Observer* obs);
 
         //destructors
         virtual ~Observable();

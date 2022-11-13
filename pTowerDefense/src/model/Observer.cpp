@@ -1,5 +1,10 @@
 #include "Observer.h"
 
+#include <iostream>
+#include "Observable.h"
+
+using namespace std;
+
 Observer::Observer()
 {
     //ctor
@@ -21,3 +26,9 @@ Observer& Observer::operator=(const Observer& rhs)
     //assignment operator
     return *this;
 }
+
+void Observer::update(const Observable* obs)
+{
+    cout << "test observer" << endl;
+}
+
