@@ -21,3 +21,8 @@ Gremlin& Gremlin::operator=(const Gremlin& rhs)
     //assignment operator
     return *this;
 }
+
+Gremlin* Gremlin::clone()const
+{
+    return new Gremlin(*this);
+}

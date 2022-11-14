@@ -9,6 +9,7 @@ class Gremlin : public Enemies
         virtual ~Gremlin();
         Gremlin(const Gremlin& other);
         Gremlin& operator=(const Gremlin& other);
+        Gremlin* clone()const;
 
     protected:
 
