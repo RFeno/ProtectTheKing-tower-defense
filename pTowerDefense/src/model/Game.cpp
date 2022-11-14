@@ -8,6 +8,7 @@
 #include "Orc.h"
 #include "ShadowMonster.h"
 #include "KnightOfDeath.h"
+#include "Gremlin.h"
 
 using namespace std;
 
@@ -46,10 +47,11 @@ void Game::createWave(int numberOfEnemies)
     Orc* orc = new Orc();
     Ogre* ogre = new Ogre();
     ShadowMonster* shadowM = new ShadowMonster();
+    Gremlin *gremlin = new Gremlin();
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
-        int typeOfEnemy = rand()%4 +1;
+        int typeOfEnemy = rand()%5 +1;
 
         //creation of ennemies randomly
         //the clone is created in the method addEnemy
@@ -80,6 +82,11 @@ void Game::createWave(int numberOfEnemies)
                     //mapOfGame->getEnemies().push_back(shadowM.clone());
                     break;
                 }
+            case 5:
+                {
+                     mapOfGame->addEnemy(gremlin);
+                    break;
+                }
 
             default:
                 cout << "error the create enemies for wave " << endl;
@@ -89,6 +96,7 @@ void Game::createWave(int numberOfEnemies)
     delete ogre;
     delete orc;
     delete shadowM;
+    delete gremlin;
 }
 /* is launch after all enemies are dead */
 bool Game::endWave()

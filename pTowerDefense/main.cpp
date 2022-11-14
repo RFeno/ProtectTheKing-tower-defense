@@ -21,12 +21,8 @@ int main()
 //    vMainMenu mainMenu;
 //    mainMenu.launchMenu(window);
 
-
-    Game game;
-    game.createWave(15);
-
-    vGameBoard gameBoard;
-    gameBoard.launchView(window);
+    vGameBoard gameBoard(window);
+    gameBoard.launchView();
 
     //gestion du temps
 //    for(int i=0;i<5;i++)
@@ -44,9 +40,7 @@ int main()
 
 
 //
-    cout << game.getMap()->strEnemies() << endl;
-//
-    cout << game.getMap()->getEnemies().size() << endl;
+
 
     return 0;
 }
