@@ -1224,47 +1224,50 @@
 
 1664897974 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/FireSpell.h
 
-1668202111 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Gremlin.cpp
+1668449006 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Gremlin.cpp
 	"Gremlin.h"
 	"Enemies.h"
 
-1668202191 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Gremlin.h
+1668449050 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Gremlin.h
 	"Enemies.h"
 
 1667465414 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/King.cpp
 	"King.h"
 
-1667400918 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/King.h
+1668372633 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/King.h
+	"Observable.h"
 
 1668202124 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/KnightOfDeath.cpp
 	"KnightOfDeath.h"
 
-1668201934 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/KnightOfDeath.h
+1668452511 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/KnightOfDeath.h
 	<Enemies.h>
 
-1668198827 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Observable.cpp
+1668373194 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Observable.cpp
 	"Observable.h"
 
-1667468502 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Observable.h
+1668372716 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Observable.h
 	<Observer.h>
 	<vector>
 
 1667468580 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Observer.h
 	<vector>
 
-1668198826 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Observer.cpp
+1668373352 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Observer.cpp
 	"Observer.h"
+	<iostream>
+	"Observable.h"
 
 1668202068 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Ogre.cpp
 	"Ogre.h"
 
-1668201985 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Ogre.h
+1668452538 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Ogre.h
 	<Enemies.h>
 
 1668202233 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Orc.cpp
 	"Orc.h"
 
-1668201970 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Orc.h
+1668452559 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/Orc.h
 	<Enemies.h>
 
 1667583073 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Player.cpp
@@ -1300,7 +1303,7 @@
 1668202140 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/ShadowMonster.cpp
 	"ShadowMonster.h"
 
-1668201961 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/ShadowMonster.h
+1668452642 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/model/ShadowMonster.h
 	<Enemies.h>
 
 1667212754 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Spell.cpp
@@ -1330,13 +1333,13 @@
 	<iostream>
 	<vGame.h>
 
-1668280056 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/view/vMainMenu.h
+1668421531 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/view/vMainMenu.h
 	<SFML/Graphics.hpp>
 
 1667463909 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/view/vGame.h
 	<SFML/Graphics.hpp>
 
-1668367608 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/main.cpp
+1668450692 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/main.cpp
 	<SFML/Graphics.hpp>
 	"iostream"
 	"vMainMenu.h"
@@ -1358,7 +1361,7 @@
 	<list>
 	<vector>
 
-1668367557 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Game.cpp
+1668451598 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Game.cpp
 	"Game.h"
 	"Player.h"
 	"King.h"
@@ -1369,6 +1372,7 @@
 	"Orc.h"
 	"ShadowMonster.h"
 	"KnightOfDeath.h"
+	"Gremlin.h"
 
 1668280056 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/model/Map.cpp
 	"Map.h"
@@ -1377,13 +1381,18 @@
 	<Tower.h>
 	<Enemies.h>
 
-1668367042 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/view/vGameBoard.cpp
+1668452245 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/src/view/vGameBoard.cpp
 	"vGameBoard.h"
 	<SFML/Graphics.hpp>
 	<iostream>
 	<unistd.h>
+	"Ogre.h"
+	"Orc.h"
+	"ShadowMonster.h"
+	"KnightOfDeath.h"
+	"Gremlin.h"
 
-1668367544 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/view/vGameBoard.h
+1668451688 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pTowerDefense/include/view/vGameBoard.h
 	<SFML/Graphics.hpp>
 	"Enemies.h"
 	"Game.h"
