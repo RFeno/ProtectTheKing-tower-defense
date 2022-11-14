@@ -16,10 +16,11 @@ vGameBoard::vGameBoard(RenderWindow& window)
 {
     this->windowFromMain = &window;
     //ctor
-    game.createWave(8);
+    game.createWave(20);
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
     {
         enemiesSprite.push_back(new Sprite());
+        isSpawn.push_back(false);
     }
 
     cout << game.getMap()->getEnemies().size() << endl;
@@ -117,7 +118,7 @@ void vGameBoard::loadSprite()
         {
             enemiesSprite[i]->setTexture(ogreTexture);
             enemiesSprite[i]->setTextureRect(IntRect(0,0,OGRE_WIDTH,OGRE_HEIGHT));
-            enemiesSprite[i]->setPosition(Vector2f(i*100, 535));
+            enemiesSprite[i]->setPosition(Vector2f(10, 535));
             enemiesSprite[i]->setScale(0.28,0.28f);
         }
 
@@ -125,7 +126,7 @@ void vGameBoard::loadSprite()
         {
             enemiesSprite[i]->setTexture(orcTexture);
             enemiesSprite[i]->setTextureRect(IntRect(0,0,ORC_WIDTH,ORC_HEIGHT));
-            enemiesSprite[i]->setPosition(Vector2f(i*100, 545));
+            enemiesSprite[i]->setPosition(Vector2f(10, 545));
             enemiesSprite[i]->setScale(0.28f,0.28f);
         }
 
@@ -133,7 +134,7 @@ void vGameBoard::loadSprite()
         {
             enemiesSprite[i]->setTexture(shadowMonsterTexture);
             enemiesSprite[i]->setTextureRect(IntRect(0,0,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
-            enemiesSprite[i]->setPosition(Vector2f(i*100, 553));
+            enemiesSprite[i]->setPosition(Vector2f(10, 553));
             enemiesSprite[i]->setScale(0.28f,0.28f);
         }
 
@@ -141,7 +142,7 @@ void vGameBoard::loadSprite()
         {
             enemiesSprite[i]->setTexture(knightOfDeathTexture);
             enemiesSprite[i]->setTextureRect(IntRect(0,0,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
-            enemiesSprite[i]->setPosition(Vector2f(i*100, 518));
+            enemiesSprite[i]->setPosition(Vector2f(10, 518));
             enemiesSprite[i]->setScale(0.28f,0.28f);
         }
 
@@ -149,7 +150,7 @@ void vGameBoard::loadSprite()
         {
             enemiesSprite[i]->setTexture(gremlinTexture);
             enemiesSprite[i]->setTextureRect(IntRect(0,0,GREMLIN_WIDTH,GREMLIN_HEIGHT));
-            enemiesSprite[i]->setPosition(Vector2f(i*100, 575));
+            enemiesSprite[i]->setPosition(Vector2f(10, 575));
             enemiesSprite[i]->setScale(0.28f,0.28f);
         }
     }
@@ -203,13 +204,27 @@ bool vGameBoard::verifyImage()
 /* to draw the entitties in the window */
 bool vGameBoard::drawEntities(RenderWindow& window)
 {
-    //display elemeents
+    //display elements
     window.draw(mapSprite);
 
-    for(size_t i=0;i<enemiesSprite.size();i++)
+    // enemies spawn one per one
+    if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)enemiesSprite.size())
     {
-        window.draw(*enemiesSprite[i]);
+        //window.draw(*enemiesSprite[idSpawn]);
+        isSpawn[idSpawn] = true;
+        idSpawn++;
+        spawnClock.restart();
     }
+
+    for(int i=0;i<(int)enemiesSprite.size();i++)
+    {
+        if(isSpawn[i]) window.draw(*enemiesSprite[i]);
+    }
+
+//    for(size_t i=0;i<enemiesSprite.size();i++)
+//    {
+//        window.draw(*enemiesSprite[i]);
+//    }
 
     return true;
 
@@ -238,7 +253,7 @@ bool vGameBoard::isSpriteClicked (Sprite &spr, RenderWindow &window )
 
 void vGameBoard::animationEnemyWalk()
 {
-    if(animClock.getElapsedTime().asSeconds() > 0.1f)
+    if(animClock.getElapsedTime().asSeconds() > 0.08f)
     {
          for(size_t i=0;i<enemiesSprite.size();i++)
          {
@@ -271,7 +286,7 @@ void vGameBoard::animationEnemyWalk()
 
          }
 
-        if(x_Ogre*OGRE_WIDTH >= (int)ogreTexture.getSize().x - OGRE_HEIGHT)
+        if(x_Ogre*OGRE_WIDTH >= (int)ogreTexture.getSize().x - OGRE_WIDTH)
         {
             x_Ogre = 0;
         }
@@ -282,7 +297,7 @@ void vGameBoard::animationEnemyWalk()
 
 
 
-        if(x_shadowMonster*SHADOWMONSTER_WIDTH >= (int)shadowMonsterTexture.getSize().x - SHADOWMONSTER_HEIGHT)
+        if(x_shadowMonster*SHADOWMONSTER_WIDTH >= (int)shadowMonsterTexture.getSize().x - SHADOWMONSTER_WIDTH)
         {
             x_shadowMonster = 0;
         }
@@ -293,7 +308,7 @@ void vGameBoard::animationEnemyWalk()
 
 
 
-        if(x_Orc*ORC_WIDTH >= (int)orcTexture.getSize().x - ORC_HEIGHT)
+        if(x_Orc*ORC_WIDTH >= (int)orcTexture.getSize().x - ORC_WIDTH)
         {
             x_Orc = 0;
         }
@@ -302,7 +317,7 @@ void vGameBoard::animationEnemyWalk()
             x_Orc++;
         }
 
-        if(x_gremlin*GREMLIN_WIDTH >= (int)gremlinTexture.getSize().x - GREMLIN_HEIGHT)
+        if(x_gremlin*GREMLIN_WIDTH >= (int)gremlinTexture.getSize().x - GREMLIN_WIDTH)
         {
             x_gremlin = 0;
         }
@@ -311,7 +326,7 @@ void vGameBoard::animationEnemyWalk()
             x_gremlin++;
         }
 
-        if(x_knight*KNIGHTOFDEATH_WIDTH >= (int)knightOfDeathTexture.getSize().x - KNIGHTOFDEATH_HEIGHT)
+        if(x_knight*KNIGHTOFDEATH_WIDTH >= (int)knightOfDeathTexture.getSize().x - KNIGHTOFDEATH_WIDTH)
         {
             x_knight = 0;
         }
@@ -320,10 +335,13 @@ void vGameBoard::animationEnemyWalk()
             x_knight++;
         }
 
-        /*for(size_t i=0;i<enemiesSprite.size();i++)
+        for(int i=0;i< (int)enemiesSprite.size();i++)
         {
-           enemiesSprite[i]->move(WALK_SPEED,0);
-        }*/
+            if(isSpawn[i])
+            {
+                enemiesSprite[i]->move(WALK_SPEED,0);
+            }
+        }
 
         animClock.restart();
 

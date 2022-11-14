@@ -11,9 +11,6 @@ class vGameBoard
 {
     public:
 
-        const int WALK_SPEED = 2;
-        int distanceMove =1;
-
         vGameBoard(RenderWindow& window);
         virtual ~vGameBoard();
         vGameBoard(const vGameBoard& other);
@@ -80,6 +77,13 @@ class vGameBoard
 
         Clock animClock;
         Clock spawnClock;
+
+        const int WALK_SPEED = 3;
+
+        int idSpawn = 0;
+        int spawnTime = 2;
+
+        std::vector<bool> isSpawn;
 
 
         //view
