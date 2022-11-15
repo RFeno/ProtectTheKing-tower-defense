@@ -28,6 +28,16 @@ class Game
             return mapOfGame;
         }
 
+        int getNumberOfEnemies()
+        {
+            return numberOfEnemies;
+        }
+
+        void setNumberOfEnemies(int number)
+        {
+            numberOfEnemies = number;
+        }
+
     protected:
 
     private:

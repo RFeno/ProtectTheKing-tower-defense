@@ -6,6 +6,8 @@ class Enemies
 {
     public:
 
+        static inline int compteur = 0;
+
         //canonic form
         Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
         virtual ~Enemies();
@@ -60,6 +62,7 @@ class Enemies
         int damage;
         int x = 0;
         int y = 0;
+        int *id;
 
     private:
 

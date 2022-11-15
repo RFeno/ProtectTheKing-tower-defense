@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Enemies.h"
 #include "Game.h"
+#include "vEnnemy.h"
 
 using namespace sf;
 
@@ -44,10 +45,6 @@ class vGameBoard
     protected:
 
     private:
-        bool animatedEnemmyWalk;
-        Game game;
-        RenderWindow *windowFromMain;
-
         const int OGRE_WIDTH = 377 ;
         const int OGRE_HEIGHT = 404;
         const int ORC_WIDTH = 339;
@@ -58,6 +55,9 @@ class vGameBoard
         const int SHADOWMONSTER_HEIGHT = 302;
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
+
+        //std::vector<Sprite*> enemiesSprite;
+        std::vector<vEnnemy*> listOfEnnemies;
 
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
         int x_Ogre = 0;
@@ -77,38 +77,46 @@ class vGameBoard
 
         Clock animClock;
         Clock spawnClock;
+        //bool animatedEnemmyWalk;
+        Game game;
+        RenderWindow *windowFromMain;
 
         const int WALK_SPEED = 3;
 
         int idSpawn = 0;
-        int spawnTime = 2;
+        int spawnTime = 3;
 
         std::vector<bool> isSpawn;
 
-
-        //view
-        Texture mapTexture;
-        Texture pauseTexture;
-        Texture acideCloudTexture;
-        Texture lightningTexture;
-        Texture fireTexture;
-        std::vector<Sprite*> enemiesSprite;
-
+        //enemies
         Texture gremlinTexture;
         Texture knightOfDeathTexture;
         Texture shadowMonsterTexture;
         Texture ogreTexture;
         Texture orcTexture;
 
+        //map and entitites
         Sprite mapSprite;
         Sprite pauseSprite;
-        //Sprite musiqueOnSprite;
         Sprite acideCloudSprite;
         Sprite lightningSprite;
         Sprite fireSprite;
+        Texture mapTexture;
+        Texture pauseTexture;
+        Texture acideCloudTexture;
+        Texture lightningTexture;
+        Texture fireTexture;
 
-
-
+        //Towers textures
+        Texture earthTowerTexture;
+        Texture sandTowerTexture;
+        Texture iceTowerTexture;
+        Texture ironTowerTexture;
+        //Tower sprites
+        Sprite earthTowerSprite;
+        Sprite sandTowerSprite;
+        Sprite iceTowerSprite;
+        Sprite ironTowerSprite;
 
 };
 

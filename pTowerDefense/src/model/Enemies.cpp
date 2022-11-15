@@ -6,11 +6,13 @@ using namespace std;
 Enemies::Enemies(int health, int attackSpeed, int marketValue, int scoreValue, int damage): health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage)
 {
     //ctor
+    this->id = new int(++compteur);
 }
 
 Enemies::~Enemies()
 {
     //dtor
+    delete id;
 }
 
 Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage)

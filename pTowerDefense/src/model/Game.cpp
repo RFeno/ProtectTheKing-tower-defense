@@ -19,7 +19,7 @@ Game::Game()
     this->king = new King();
     this->mapOfGame = new Map();
     numberOfWave =1;
-    numberOfEnemies = 5;
+    numberOfEnemies = 15;
 }
 //dtor
 Game::~Game()
