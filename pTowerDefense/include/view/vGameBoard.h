@@ -5,6 +5,7 @@
 #include "Enemies.h"
 #include "Game.h"
 #include "vEnnemy.h"
+#include "vTower.h"
 
 using namespace sf;
 
@@ -28,9 +29,9 @@ class vGameBoard
         bool verifyImage();
         bool verifyImageTower();
         bool verifyImageMonsters();
-        bool verifyImageSpell();
+        bool verifyImageMapEntities();
 
-        bool drawEntities(RenderWindow& window);
+        bool drawEntities();
         void InputHandler(Event event, RenderWindow *window);
         bool isSpriteClicked (Sprite &spr, RenderWindow &window);
 
@@ -41,8 +42,11 @@ class vGameBoard
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
+
         bool setTower(int y, int x, int type);
         bool setTower(int y, int x, Tower* t);
+
+
         void activeFireSpell();
         void activeLightningSpeel();
         void activeCloudSpell();
@@ -72,7 +76,8 @@ class vGameBoard
         int spawnTime = 3;
 
         //std::vector<Sprite*> enemiesSprite;
-        std::vector<vEnnemy*> listOfEnnemies;
+        std::vector<vEnnemy*> listOfvEnnemies;
+        std::vector<vTower*> listOfvTower;
 
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
         int x_Ogre = 0;
@@ -117,17 +122,26 @@ class vGameBoard
         Texture fireTexture;
 
         //Towers textures
+        /* without number = icon button*/
+        Texture earthTowerTexture;
+
         Texture earthTowerTexture1;
         Texture earthTowerTexture2;
         Texture earthTowerTexture3;
+
+        Texture sandTowerTexture;
 
         Texture sandTowerTexture1;
         Texture sandTowerTexture2;
         Texture sandTowerTexture3;
 
+        Texture iceTowerTexture;
+
         Texture iceTowerTexture1;
         Texture iceTowerTexture2;
         Texture iceTowerTexture3;
+
+        Texture ironTowerTexture;
 
         Texture ironTowerTexture1;
         Texture ironTowerTexture2;

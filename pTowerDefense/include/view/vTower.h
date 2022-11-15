@@ -1,6 +1,8 @@
 #ifndef VTOWER_H
 #define VTOWER_H
 
+#include <SFML/Graphics.hpp>
+#include "Tower.h"
 
 class vTower
 {
