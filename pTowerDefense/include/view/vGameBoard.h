@@ -33,7 +33,7 @@ class vGameBoard
 
         bool drawEntities();
         void InputHandler(Event event, RenderWindow *window);
-        bool isSpriteClicked (Sprite &spr, RenderWindow &window);
+        bool isSpriteClicked (Sprite &spr);
 
         //methods
         void launchGame();
@@ -70,6 +70,8 @@ class vGameBoard
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
+        const int NUMBER_ACIDE_SPELL = 14;
+
         const int WALK_SPEED = 3;
 
         int idSpawn = 0;
@@ -78,6 +80,9 @@ class vGameBoard
         //std::vector<Sprite*> enemiesSprite;
         std::vector<vEnnemy*> listOfvEnnemies;
         std::vector<vTower*> listOfvTower;
+        std::vector<Sprite*> listOfAcideCloudSpell;
+        std::vector<Sprite*> listOfFireSpell;
+        std::vector<Sprite*> listOfLigntningSpell;
 
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
         int x_Ogre = 0;
@@ -94,6 +99,8 @@ class vGameBoard
 
         int x_knight = 0;
         int y_knight = 0;
+
+        int x_acide = 0;
 
         Clock animClock;
         Clock spawnClock;
@@ -120,6 +127,8 @@ class vGameBoard
         Texture acideCloudTexture;
         Texture lightningTexture;
         Texture fireTexture;
+
+        Texture acideCloudEffectTexture;
 
         //Towers textures
         /* without number = icon button*/

@@ -21,9 +21,14 @@ vGameBoard::vGameBoard(RenderWindow& window)
 vGameBoard::~vGameBoard()
 {
     //dtor
-    for(vEnnemy *enemy: listOfvEnnemies)
+    for(vEnnemy *venemy: listOfvEnnemies)
     {
-        delete enemy;
+        delete venemy;
+    }
+
+    for(Sprite *acide: listOfAcideCloudSpell)
+    {
+        delete acide;
     }
 }
 
@@ -85,6 +90,14 @@ void vGameBoard::launchWave(int numberOfEnnemies)
         listOfvEnnemies.push_back(venemy);
     }
 
+
+    for(int i=0; i < 10; i++)
+    {
+        listOfAcideCloudSpell.push_back(new Sprite());
+    }
+
+
+
     cout << game.getMap()->getEnemies().size() << endl;
     cout << game.getMap()->strEnemies() << endl;
 
@@ -110,6 +123,11 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         if (event.mouseButton.button == Mouse::Right)
         {
               cout << "right click"<< endl;
+
+             if(isSpriteClicked(acideCloudSprite) == 1)
+            {
+
+            }
         }
     }
 
@@ -166,6 +184,15 @@ void vGameBoard::loadSprite()
              listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(10, 575));
              listOfvEnnemies[i]->getSprite()->setScale(0.28f,0.28f);
         }
+    }
+
+    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        listOfAcideCloudSpell.push_back(new Sprite());
+        listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
+        listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,909,2398));
+        listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
+        listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
     }
 
 
@@ -225,6 +252,8 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(earthTowerSprite);
 
 
+
+
     // enemies spawn one per one
     if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
     {
@@ -242,15 +271,20 @@ bool vGameBoard::drawEntities()
         }
     }
 
+    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        windowFromMain->draw(*listOfAcideCloudSpell[i]);
+    }
+
     return true;
 
 }
 
 //fonction for actionEvent on Buttons Sprite
-bool vGameBoard::isSpriteClicked (Sprite &spr, RenderWindow &window )
+bool vGameBoard::isSpriteClicked (Sprite &spr)
 {
     //take the position of the mouse
-    Vector2i mousePos = Mouse::getPosition(window);
+    Vector2i mousePos = Mouse::getPosition(*windowFromMain);
 
     //condition if it is in the sprite
 	if(mousePos.x > spr.getPosition().x
@@ -329,6 +363,18 @@ void vGameBoard::animationEnemyWalk()
             x_knight++;
         }
 
+         if(x_acide*909 >= (int)acideCloudEffectTexture.getSize().x - 909)
+        {
+            x_acide = 0;
+        }
+        else
+        {
+            x_acide++;
+        }
+
+
+
+
         //for the deplacement
         for(int i=0;i< (int)listOfvEnnemies.size();i++)
         {
@@ -337,6 +383,8 @@ void vGameBoard::animationEnemyWalk()
                  listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
             }
         }
+
+
 
         animClock.restart();
     }
@@ -377,6 +425,14 @@ void vGameBoard::adaptAnimationSprite()
              listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
         }
      }
+
+     for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
+     {
+        listOfAcideCloudSpell[i]->setTextureRect(IntRect(x_acide*909,0,909,2938));
+     }
+
+
+
 }
 
 /* to verify if all images is accessible and charge in the texture */
@@ -481,6 +537,14 @@ bool vGameBoard::verifyImageMapEntities()
          cout << "ERROR chargement texture" << endl;
          return false;
     }
+
+    if (!acideCloudEffectTexture.loadFromFile("res/images/sprites/spells/acideCloud.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+
 
 
     return true;
