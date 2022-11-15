@@ -6,16 +6,13 @@ using namespace sf;
 vEnnemy::vEnnemy(Enemies *enemy, Sprite *enemySprite, bool walk, bool animated, bool spawn): enemy(enemy), enemySprite(enemySprite), walk(walk), animated(animated), spawn(spawn)
 {
     //ctor
-    /*enemy=nullptr;
-    enemySprite=nullptr;*/
-    spawn=false;
-    walk=false;
-    animated=false;
 }
 
 vEnnemy::~vEnnemy()
 {
     //dtor
+    //the map delete the enemy
+    delete enemySprite;
 }
 
 vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite), walk(other.walk), animated(other.animated), spawn(other.spawn)

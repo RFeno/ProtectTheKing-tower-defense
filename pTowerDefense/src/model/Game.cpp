@@ -18,8 +18,11 @@ Game::Game()
     this->player = new Player();
     this->king = new King();
     this->mapOfGame = new Map();
+
+    //after each wave this number will be incremented
     numberOfWave =1;
-    numberOfEnemies = 15;
+    //the first wave will be countains this number of enemies
+    numberOfEnemies = 5;
 }
 //dtor
 Game::~Game()
@@ -92,6 +95,7 @@ void Game::createWave(int numberOfEnemies)
                 cout << "error the create enemies for wave " << endl;
         }
     }
+
     delete knightofd;
     delete ogre;
     delete orc;

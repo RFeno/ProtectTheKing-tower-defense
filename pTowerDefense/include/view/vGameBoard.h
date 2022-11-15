@@ -12,15 +12,24 @@ class vGameBoard
 {
     public:
 
+        //canonic
         vGameBoard(RenderWindow& window);
         virtual ~vGameBoard();
         vGameBoard(const vGameBoard& other);
         vGameBoard& operator=(const vGameBoard& other);
 
         void launchView();
+
         void loadSprite();
+
         void loadFont();
+
+        //laod images
         bool verifyImage();
+        bool verifyImageTower();
+        bool verifyImageMonsters();
+        bool verifyImageSpell();
+
         bool drawEntities(RenderWindow& window);
         void InputHandler(Event event, RenderWindow *window);
         bool isSpriteClicked (Sprite &spr, RenderWindow &window);
@@ -37,6 +46,7 @@ class vGameBoard
         void activeFireSpell();
         void activeLightningSpeel();
         void activeCloudSpell();
+        void adaptAnimationSprite();
 
 
 
@@ -55,6 +65,11 @@ class vGameBoard
         const int SHADOWMONSTER_HEIGHT = 302;
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
+
+        const int WALK_SPEED = 3;
+
+        int idSpawn = 0;
+        int spawnTime = 3;
 
         //std::vector<Sprite*> enemiesSprite;
         std::vector<vEnnemy*> listOfEnnemies;
@@ -77,16 +92,9 @@ class vGameBoard
 
         Clock animClock;
         Clock spawnClock;
-        //bool animatedEnemmyWalk;
+
         Game game;
         RenderWindow *windowFromMain;
-
-        const int WALK_SPEED = 3;
-
-        int idSpawn = 0;
-        int spawnTime = 3;
-
-        std::vector<bool> isSpawn;
 
         //enemies
         Texture gremlinTexture;
@@ -95,12 +103,13 @@ class vGameBoard
         Texture ogreTexture;
         Texture orcTexture;
 
-        //map and entitites
+        //map and entitites sprites
         Sprite mapSprite;
         Sprite pauseSprite;
         Sprite acideCloudSprite;
         Sprite lightningSprite;
         Sprite fireSprite;
+        //map and entitites textures
         Texture mapTexture;
         Texture pauseTexture;
         Texture acideCloudTexture;
@@ -108,10 +117,22 @@ class vGameBoard
         Texture fireTexture;
 
         //Towers textures
-        Texture earthTowerTexture;
-        Texture sandTowerTexture;
-        Texture iceTowerTexture;
-        Texture ironTowerTexture;
+        Texture earthTowerTexture1;
+        Texture earthTowerTexture2;
+        Texture earthTowerTexture3;
+
+        Texture sandTowerTexture1;
+        Texture sandTowerTexture2;
+        Texture sandTowerTexture3;
+
+        Texture iceTowerTexture1;
+        Texture iceTowerTexture2;
+        Texture iceTowerTexture3;
+
+        Texture ironTowerTexture1;
+        Texture ironTowerTexture2;
+        Texture ironTowerTexture3;
+
         //Tower sprites
         Sprite earthTowerSprite;
         Sprite sandTowerSprite;
