@@ -42,7 +42,6 @@ class vGameBoard
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
-        void animationEnemyAttack(vEnnemy* vEnnemy);
 
         bool setTower(int y, int x, int type);
         bool setTower(int y, int x, Tower* t);
@@ -52,6 +51,7 @@ class vGameBoard
         void activeLightningSpeel();
         void activeCloudSpell();
         void adaptAnimationSprite();
+        void adaptAnimationTexture();
 
 
     protected:

@@ -25,7 +25,7 @@ class vEnnemy
             return spawn;
         }
 
-        bool isWalk()const
+        bool isWalking()const
         {
             return walk;
         }
