@@ -16,8 +16,7 @@ class Map
         //methods
         std::string strEnemies()const;
         void addEnemy(const Enemies* enemy);
-
-        /*const devant les getters */
+        void addTower(const Tower* tower);
 
         //getters and setters
         std::vector<Tower*> getTowers()const

@@ -9,6 +9,7 @@ class vMainMenu
     public:
         //constructors
         vMainMenu();
+
         //methods
         void launchMenu(RenderWindow& window);
         void loadSprite();

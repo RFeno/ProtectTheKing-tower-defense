@@ -2,8 +2,7 @@
 
 TowerSand::TowerSand(int damage,int level,int price):Tower(damage,level,price)
 {
-    //this->type=sand;
-    setType(sand);
+    this->type=sand;
 }
 
 TowerSand::~TowerSand()
@@ -21,4 +20,9 @@ TowerSand& TowerSand::operator=(const TowerSand& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
+}
+
+TowerSand* TowerSand::clone()const
+{
+    return new TowerSand(*this);
 }

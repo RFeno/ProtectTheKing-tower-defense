@@ -2,8 +2,7 @@
 
 TowerEarth::TowerEarth(int damage,int level,int price):Tower(damage,level,price)
 {
-    //this->type=earth;
-    setType(earth);
+    this->type=earth;
 }
 
 TowerEarth::~TowerEarth()

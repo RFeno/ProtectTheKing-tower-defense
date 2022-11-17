@@ -43,43 +43,5 @@ void Player::addScore(int ScoreToAdd)
 */
 void Player::buyTower(TypeOfTower type)
 {
-//    switch(type)
-//    {
-//        case earth:
-//
-//            if(coins-type >=0)
-//            {
-//                listOfTower.push_back(new TowerEarth);
-//                setCoins(coins-=type);
-//            }
-//            break;
-//
-//        case ice:
-//
-//            if(coins-type >=0)
-//            {
-//                listOfTower.push_back(new TowerIce);
-//                setCoins(coins-=type);
-//            }
-//
-//            break;
-//
-//        case iron:
-//
-//            if(coins-type >=0)
-//            {
-//                listOfTower.push_back(new TowerIron);
-//                setCoins(coins-=type);
-//            }
-//
-//            break;
-//
-//        case sand:
-//            if(coins-type >=0)
-//            {
-//                listOfTower.push_back(new TowerSand);
-//                setCoins(coins-=type);
-//            }
-//            break;
-//    }
+
 }

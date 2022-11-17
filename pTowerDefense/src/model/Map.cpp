@@ -49,6 +49,12 @@ string Map::strEnemies()const
     return result+="]";
 }
 
-void Map::addEnemy(const Enemies* enemy){
+void Map::addEnemy(const Enemies* enemy)
+{
     listOfEnemies.push_back(enemy->clone());
+}
+
+void Map::addTower(const Tower* tower)
+{
+    listOfTower.push_back(tower->clone());
 }

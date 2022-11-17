@@ -2,8 +2,7 @@
 
 TowerIron::TowerIron(int damage,int level,int price):Tower(damage,level,price)
 {
-    //this->type=iron;
-    setType(iron);
+    this->type=iron;
 }
 
 
@@ -23,3 +22,8 @@ TowerIron& TowerIron::operator=(const TowerIron& rhs)
     //assignment operator
     return *this;
 }*/
+
+TowerIron* TowerIron::clone()const
+{
+    return new TowerIron(*this);
+}

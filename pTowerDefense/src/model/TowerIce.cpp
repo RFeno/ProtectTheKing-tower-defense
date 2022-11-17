@@ -2,8 +2,7 @@
 
 TowerIce::TowerIce(int damage,int level,int price):Tower(damage,level,price)
 {
-    //this->type=ice;
-    setType(ice);
+    this->type=ice;
 }
 
 TowerIce::~TowerIce()
@@ -21,4 +20,9 @@ TowerIce& TowerIce::operator=(const TowerIce& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
+}
+
+TowerIce* TowerIce::clone()const
+{
+    return new TowerIce(*this);
 }

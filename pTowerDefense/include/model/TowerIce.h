@@ -7,10 +7,11 @@
 class TowerIce : public Tower
 {
     public:
-        TowerIce(int damage=40,int level=1,int price=150);
+        TowerIce(int damage=40,int level=1,int price=ice);
         virtual ~TowerIce();
         TowerIce(const TowerIce& other);
         TowerIce& operator=(const TowerIce& other);
+        TowerIce* clone()const;
 
     protected:
 

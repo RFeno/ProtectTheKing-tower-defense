@@ -2,7 +2,7 @@
 #define TOWER_H
 #include <Enemies.h>
 
-/* classe abstraite */
+
 enum TypeOfTower : int
 {
     sand = 100,
@@ -10,7 +10,7 @@ enum TypeOfTower : int
     earth = 250,
     iron = 400
 };
-
+/* classe abstraite */
 class Tower
 {
     public:
@@ -72,12 +72,13 @@ class Tower
 
 
     protected:
-
-    private:
         int damage;
         int level;
         int price;
         TypeOfTower type;
+
+    private:
+
 };
 
 #endif // TOWER_H

@@ -7,7 +7,7 @@
 class TowerEarth : public Tower
 {
     public:
-        TowerEarth(int damage=60,int level=1,int price=250);
+        TowerEarth(int damage=60,int level=1,int price=earth);
 
         virtual ~TowerEarth();
 

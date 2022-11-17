@@ -66,6 +66,7 @@
 		<Unit filename="include/view/vEnnemy.h" />
 		<Unit filename="include/view/vGameBoard.h" />
 		<Unit filename="include/view/vMainMenu.h" />
+		<Unit filename="include/view/vTower.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/model/AcidCloudSpell.cpp" />
 		<Unit filename="src/model/Enemies.cpp" />
@@ -90,6 +91,7 @@
 		<Unit filename="src/view/vEnnemy.cpp" />
 		<Unit filename="src/view/vGameBoard.cpp" />
 		<Unit filename="src/view/vMainMenu.cpp" />
+		<Unit filename="src/view/vTower.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

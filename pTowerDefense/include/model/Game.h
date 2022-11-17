@@ -28,7 +28,12 @@ class Game
             return mapOfGame;
         }
 
-        int getNumberOfEnemies()
+        Player* getPlayer()const
+        {
+            return player;
+        }
+
+        int getNumberOfEnemies()const
         {
             return numberOfEnemies;
         }

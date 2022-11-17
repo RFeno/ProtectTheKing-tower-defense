@@ -7,8 +7,9 @@
 class TowerIron : public Tower
 {
     public:
-        TowerIron(int damage=80,int level=1,int price=400);
+        TowerIron(int damage=80,int level=1,int price=iron);
         virtual ~TowerIron();
+        TowerIron* clone()const;
 
     protected:
 
