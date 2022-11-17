@@ -38,7 +38,7 @@ class vGameBoard
         //methods
         void launchGame();
         void launchWave(int numberOfEnemies);
-        void animationEnemyWalk();
+        void enemyAnimation();
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
@@ -112,11 +112,18 @@ class vGameBoard
         Texture shadowMonsterTexture;
         Texture ogreTexture;
         Texture orcTexture;
+
         Texture gremlinAttackTexture;
         Texture knightOfDeathAttackTexture;
         Texture shadowMonsterAttackTexture;
         Texture ogreAttackTexture;
         Texture orcAttackTexture;
+
+        Texture gremlinDeadTexture;
+        Texture knightOfDeathDeadTexture;
+        Texture shadowMonsterDeadTexture;
+        Texture ogreDeadTexture;
+        Texture orcDeadTexture;
 
         //map and entitites sprites
         Sprite mapSprite;
