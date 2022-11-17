@@ -42,9 +42,10 @@ class vGameBoard
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
+        void buyTower(TypeOfTower type);
 
-        bool setTower(int y, int x, int type);
-        bool setTower(int y, int x, Tower* t);
+        bool setTower(int x, int y, int type);
+        //bool setTower(int y, int x, Tower* t);
 
 
         void activeFireSpell();
@@ -52,6 +53,7 @@ class vGameBoard
         void activeCloudSpell();
         void adaptAnimationSprite();
         void adaptAnimationTexture();
+        void adaptPartOfTexture();
 
 
     protected:
@@ -68,9 +70,10 @@ class vGameBoard
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
+
         const int NUMBER_ACIDE_SPELL = 13;
 
-        const int WALK_SPEED = 7;
+        const int WALK_SPEED = 2;
 
         int idSpawn = 0;
         int spawnTime = 3;
@@ -102,6 +105,7 @@ class vGameBoard
 
         Clock animClock;
         Clock spawnClock;
+        Clock attackClock;
 
         Game game;
         RenderWindow *windowFromMain;

@@ -13,7 +13,7 @@ class vTower
         Tower *tower;
 
     public:
-        vTower();
+        vTower(int x, int y, sf::Sprite* sprite, Tower* tower);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
