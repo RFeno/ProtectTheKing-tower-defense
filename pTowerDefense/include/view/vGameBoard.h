@@ -70,7 +70,7 @@ class vGameBoard
 
         const int NUMBER_ACIDE_SPELL = 13;
 
-        const int WALK_SPEED = 3;
+        const int WALK_SPEED = 7;
 
         int idSpawn = 0;
         int spawnTime = 3;

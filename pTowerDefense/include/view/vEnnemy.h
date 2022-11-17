@@ -25,9 +25,14 @@ class vEnnemy
             return spawn;
         }
 
-        bool getWalk()const
+        bool isWalk()const
         {
             return walk;
+        }
+
+        void setWalk(bool walk)
+        {
+            this->walk=walk;
         }
 
         bool getAnimated()const

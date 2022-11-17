@@ -86,7 +86,7 @@ void vGameBoard::launchWave(int numberOfEnnemies)
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
     {
         //clone enemies because AI
-        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]->clone(),new Sprite(),false,false,false,false);
+        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]->clone(),new Sprite(),true,false,false,false);
         listOfvEnnemies.push_back(venemy);
     }
 
@@ -381,7 +381,10 @@ void vGameBoard::animationEnemyWalk()
         {
             if(listOfvEnnemies[i]->isSpawn())
             {
-                listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
+                if(listOfvEnnemies[i]->isWalk())
+                {
+                    listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
+                }
             }
 
             if((int)listOfvEnnemies[i]->getSprite()->getPosition().x % 100 == 0)
@@ -391,6 +394,7 @@ void vGameBoard::animationEnemyWalk()
 
             if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200)
             {
+                listOfvEnnemies[i]->setWalk(false);
                 listOfvEnnemies[i]->setAttack(true);
             }
 
