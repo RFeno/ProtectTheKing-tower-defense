@@ -10,6 +10,11 @@
 #include "Gremlin.h"
 #include "vEnnemy.h"
 
+#include "TowerEarth.h"
+#include "TowerIce.h"
+#include "TowerIron.h"
+#include "TowerSand.h"
+
 using namespace sf;
 using namespace std;
 
@@ -48,13 +53,14 @@ void vGameBoard::launchView()
 {
     //vsynch activation
     windowFromMain->setVerticalSyncEnabled(true);
+
     // limit the window to 60 images per second
     windowFromMain->setFramerateLimit(60);
 
     if(verifyImage())
     {
         loadSprite();
-         while (windowFromMain->isOpen())
+        while (windowFromMain->isOpen())
         {
             Event event;
             while (windowFromMain->pollEvent(event))
@@ -63,7 +69,9 @@ void vGameBoard::launchView()
             }
 
             enemyAnimation();
+
             windowFromMain->clear();
+
             drawEntities();
 
             windowFromMain->display();
@@ -91,7 +99,7 @@ void vGameBoard::launchWave(int numberOfEnnemies)
     }
 
 
-    for(int i=0; i < 10; i++)
+    for(int i=0; i < NUMBER_ACIDE_SPELL; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
     }
@@ -118,7 +126,18 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     {
         if (event.mouseButton.button == Mouse::Left)
         {
-            //animationEnemyWalk();
+            if(isSpriteClicked(earthTowerSprite))
+            {
+                cout << "button buy earthTower click" << endl;
+
+                if(game.getMap()->getTowers().size() <7)
+                {
+                    if(game.getPlayer()->getCoins() - earth <= 0 )
+                    {
+                        buyTower(earth);
+                    }
+                }
+            }
         }
         if (event.mouseButton.button == Mouse::Right)
         {
@@ -252,10 +271,10 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(earthTowerSprite);
 
 
-    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
-    }
+    }*/
 
 
     // enemies spawn one per one
@@ -269,7 +288,7 @@ bool vGameBoard::drawEntities()
 
     for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
-        if(listOfvEnnemies[i]->isSpawn())
+        if(listOfvEnnemies[i]->isSpawn() && !listOfvEnnemies[i]->isDead())
         {
             windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
         }
@@ -305,10 +324,129 @@ void vGameBoard::enemyAnimation()
     //method adapts which parts of sprite sheet we need to display
     adaptAnimationSprite();
 
+    //for the deplacement
+        for(int i=0;i< (int)listOfvEnnemies.size();i++)
+        {
+            if(listOfvEnnemies[i]->isSpawn())
+            {
+                if(listOfvEnnemies[i]->isWalking())
+                {
+                    listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
+                }
+            }
+
+            // if one ennemy reach the king , he attacks him
+            if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200 && !listOfvEnnemies[i]->isDead())
+            {
+                listOfvEnnemies[i]->setWalk(false);
+                listOfvEnnemies[i]->setAttack(true);
+            }
+
+            /*if(listOfvEnnemies[i]->isAttacking())
+            {
+                for(size_t i=0;i<listOfvEnnemies.size();i++)
+                {
+                    if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
+                    {
+                        if(x_Ogre == 9)
+                        {
+                            cout<< "test2" << endl;
+                            listOfvEnnemies[i]->setAttack(false);
+                            listOfvEnnemies[i]->setDead(true);
+                        }
+                    }
+
+                    if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
+                    {
+                        if(x_Orc == 9)
+                        {
+                            cout<< "test2" << endl;
+                            listOfvEnnemies[i]->setAttack(false);
+                            listOfvEnnemies[i]->setDead(true);
+                        }
+                    }
+
+                    if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
+                    {
+                        if(x_shadowMonster == 9)
+                        {
+                            cout<< "test2" << endl;
+                            listOfvEnnemies[i]->setAttack(false);
+                            listOfvEnnemies[i]->setDead(true);
+                        }
+                    }
+
+                    if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
+                    {
+                        if(x_knight == 9)
+                        {
+                            cout<< "test2" << endl;
+                            listOfvEnnemies[i]->setAttack(false);
+                            listOfvEnnemies[i]->setDead(true);
+                        }
+                    }
+
+                    if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
+                    {
+                       if(x_gremlin == 9)
+                        {
+                            cout<< "test2" << endl;
+                            listOfvEnnemies[i]->setAttack(false);
+                            listOfvEnnemies[i]->setDead(true);
+                        }
+                    }
+                }
+            }*/
+        }
+}
+
+void vGameBoard::animationEnemyWalk2(Sprite *enemy)
+{
+   //to implemented
+}
+
+/*methods adapte which parts of sprite sheet we need to display*/
+void vGameBoard::adaptAnimationSprite()
+{
+    adaptPartOfTexture();
+    for(size_t i=0;i<listOfvEnnemies.size();i++)
+     {
+        if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
+        {
+             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
+        }
+
+         if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
+        {
+             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Orc*ORC_WIDTH,y_Orc*ORC_HEIGHT,ORC_WIDTH,ORC_HEIGHT));
+        }
+
+        if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
+        {
+             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_shadowMonster*SHADOWMONSTER_WIDTH,y_shadowMonster*SHADOWMONSTER_HEIGHT,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
+        }
+
+        if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
+        {
+             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_knight*KNIGHTOFDEATH_WIDTH,y_knight*KNIGHTOFDEATH_HEIGHT,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
+        }
+
+        if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
+        {
+             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
+        }
+     }
+
+     for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
+     {
+        listOfAcideCloudSpell[i]->setTextureRect(IntRect(x_acide*909,0,909,2938));
+     }
+}
+
+void vGameBoard::adaptPartOfTexture()
+{
     if(animClock.getElapsedTime().asSeconds() > 0.08f)
     {
-
-
         if(x_Ogre*OGRE_WIDTH >= (int)ogreTexture.getSize().x - OGRE_WIDTH)
         {
             x_Ogre = 0;
@@ -317,7 +455,6 @@ void vGameBoard::enemyAnimation()
         {
             x_Ogre++;
         }
-
 
 
         if(x_shadowMonster*SHADOWMONSTER_WIDTH >= (int)shadowMonsterTexture.getSize().x - SHADOWMONSTER_WIDTH)
@@ -370,132 +507,8 @@ void vGameBoard::enemyAnimation()
         {
             x_acide++;
         }
-
-
-        //for the deplacement
-        for(int i=0;i< (int)listOfvEnnemies.size();i++)
-        {
-            if(listOfvEnnemies[i]->isSpawn())
-            {
-                if(listOfvEnnemies[i]->isWalking())
-                {
-                    listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
-                }
-            }
-
-            // if one ennemy reach the king , he attacks him
-            if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200 && listOfvEnnemies[i]->isDead() == false)
-            {
-                if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
-                {
-                    cout<< "test" << endl;
-                }
-
-                listOfvEnnemies[i]->setDead(true);
-                listOfvEnnemies[i]->setWalk(false);
-            }
-
-//            if(listOfvEnnemies[i]->isAttacking())
-//            {
-//                for(size_t i=0;i<listOfvEnnemies.size();i++)
-//                {
-//                    if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
-//                    {
-//                        if(x_Ogre == 9)
-//                        {
-//                            cout<< "test2" << endl;
-//                            listOfvEnnemies[i]->setAttack(false);
-//                            listOfvEnnemies[i]->setDead(true);
-//                        }
-//                    }
-//
-//                    if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
-//                    {
-//                        if(x_Orc == 9)
-//                        {
-//                            cout<< "test2" << endl;
-//                            listOfvEnnemies[i]->setAttack(false);
-//                            listOfvEnnemies[i]->setDead(true);
-//                        }
-//                    }
-//
-//                    if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
-//                    {
-//                        if(x_shadowMonster == 9)
-//                        {
-//                            cout<< "test2" << endl;
-//                            listOfvEnnemies[i]->setAttack(false);
-//                            listOfvEnnemies[i]->setDead(true);
-//                        }
-//                    }
-//
-//                    if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
-//                    {
-//                        if(x_knight == 9)
-//                        {
-//                            cout<< "test2" << endl;
-//                            listOfvEnnemies[i]->setAttack(false);
-//                            listOfvEnnemies[i]->setDead(true);
-//                        }
-//                    }
-//
-//                    if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
-//                    {
-//                       if(x_gremlin == 9)
-//                        {
-//                            cout<< "test2" << endl;
-//                            listOfvEnnemies[i]->setAttack(false);
-//                            listOfvEnnemies[i]->setDead(true);
-//                        }
-//                    }
-//                }
-//            }
-        }
-
         animClock.restart();
     }
-}
-
-void vGameBoard::animationEnemyWalk2(Sprite *enemy)
-{
-   //to implemented
-}
-
-/*methods adapte which parts of sprite sheet we need to display*/
-void vGameBoard::adaptAnimationSprite()
-{
-    for(size_t i=0;i<listOfvEnnemies.size();i++)
-     {
-        if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
-        {
-             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
-        }
-
-         if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
-        {
-             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Orc*ORC_WIDTH,y_Orc*ORC_HEIGHT,ORC_WIDTH,ORC_HEIGHT));
-        }
-
-        if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
-        {
-             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_shadowMonster*SHADOWMONSTER_WIDTH,y_shadowMonster*SHADOWMONSTER_HEIGHT,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
-        }
-
-        if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
-        {
-             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_knight*KNIGHTOFDEATH_WIDTH,y_knight*KNIGHTOFDEATH_HEIGHT,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
-        }
-
-        if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
-        {
-             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
-        }
-     }
-
-     for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
-     {
-        listOfAcideCloudSpell[i]->setTextureRect(IntRect(x_acide*909,0,909,2938));
-     }
 }
 
 void vGameBoard::adaptAnimationTexture()
@@ -586,6 +599,55 @@ void vGameBoard::adaptAnimationTexture()
             }
         }
     }
+}
+
+void vGameBoard::buyTower(TypeOfTower type)
+{
+
+    switch(type)
+    {
+        case earth:
+            {
+                TowerEarth* tower = new TowerEarth;
+                game.getMap()->addTower(tower);
+
+                //back = last element
+                vTower *vtower = new vTower(1,1,new Sprite(),game.getMap()->getTowers().back());
+
+                listOfvTower.push_back(vtower);
+
+
+                delete tower;
+                break;
+            }
+
+        case ice:
+        {
+            TowerIce* tower = new TowerIce;
+            game.getMap()->addTower(tower);
+            delete tower;
+            break;
+        }
+
+
+        case iron:
+        {
+            TowerIron* tower = new TowerIron;
+            game.getMap()->addTower(tower);
+            delete tower;
+            break;
+        }
+
+        case sand:
+            {
+                TowerSand* tower = new TowerSand;
+                game.getMap()->addTower(tower);
+                delete tower;
+                break;
+            }
+    }
+
+    cout << game.getMap()->getTowers().size() << endl;
 }
 
 /* to verify if all images is accessible and charge in the texture */
@@ -756,10 +818,6 @@ bool vGameBoard::verifyImageMapEntities()
          cout << "ERROR chargement texture" << endl;
          return false;
     }
-
-
-
-
     return true;
 }
 

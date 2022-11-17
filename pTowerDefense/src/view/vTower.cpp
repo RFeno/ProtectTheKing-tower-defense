@@ -1,6 +1,10 @@
 #include "vTower.h"
 
-vTower::vTower()
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
+
+vTower::vTower(int x, int y, Sprite* sprite , Tower* tower): x(x), y(y), towerSprite(sprite), tower(tower)
 {
     //ctor
 }
@@ -8,6 +12,8 @@ vTower::vTower()
 vTower::~vTower()
 {
     //dtor
+    delete tower;
+    delete towerSprite;
 }
 
 vTower::vTower(const vTower& other)
