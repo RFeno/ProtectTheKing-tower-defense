@@ -422,31 +422,26 @@ void vGameBoard::animationEnemyAttack(vEnnemy* vEnnemy)
     if(dynamic_cast<Ogre*>(vEnnemy->getEnnemy()))
     {
         vEnnemy->getSprite()->setTexture(ogreAttackTexture);
-        vEnnemy->getSprite()->setTextureRect(IntRect(0,0,OGRE_WIDTH,OGRE_HEIGHT));
     }
 
      if(dynamic_cast<Orc*>(vEnnemy->getEnnemy()))
     {
         vEnnemy->getSprite()->setTexture(orcAttackTexture);
-        vEnnemy->getSprite()->setTextureRect(IntRect(0,0,ORC_WIDTH,ORC_HEIGHT));
     }
 
     if(dynamic_cast<ShadowMonster*>(vEnnemy->getEnnemy()))
     {
          vEnnemy->getSprite()->setTexture(shadowMonsterAttackTexture);
-         vEnnemy->getSprite()->setTextureRect(IntRect(0,0,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
     }
 
     if(dynamic_cast<KnightOfDeath*>(vEnnemy->getEnnemy()))
     {
          vEnnemy->getSprite()->setTexture(knightOfDeathAttackTexture);
-         vEnnemy->getSprite()->setTextureRect(IntRect(0,0,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
     }
 
      if(dynamic_cast<Gremlin*>(vEnnemy->getEnnemy()))
     {
          vEnnemy->getSprite()->setTexture(gremlinAttackTexture);
-         vEnnemy->getSprite()->setTextureRect(IntRect(0,0,GREMLIN_WIDTH,GREMLIN_HEIGHT));
     }
 
 }
