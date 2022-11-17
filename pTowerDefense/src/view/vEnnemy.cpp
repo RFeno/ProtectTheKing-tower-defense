@@ -3,7 +3,7 @@
 
 using namespace sf;
 
-vEnnemy::vEnnemy(Enemies *enemy, Sprite *enemySprite, bool walk, bool animated, bool spawn): enemy(enemy), enemySprite(enemySprite), walk(walk), animated(animated), spawn(spawn)
+vEnnemy::vEnnemy(Enemies *enemy, Sprite *enemySprite, bool walk, bool animated, bool spawn, bool attack): enemy(enemy), enemySprite(enemySprite), walk(walk), animated(animated), spawn(spawn), attack(attack)
 {
     //ctor
 }
@@ -15,7 +15,7 @@ vEnnemy::~vEnnemy()
     delete enemySprite;
 }
 
-vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite), walk(other.walk), animated(other.animated), spawn(other.spawn)
+vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite), walk(other.walk), animated(other.animated), spawn(other.spawn), attack(other.attack)
 {
     //copy ctor
 }

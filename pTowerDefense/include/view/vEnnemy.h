@@ -9,7 +9,7 @@ class vEnnemy
 {
     public:
 
-        vEnnemy(Enemies *enemy, sf::Sprite *enemySprite, bool walk, bool animated, bool spawn);
+        vEnnemy(Enemies *enemy, sf::Sprite *enemySprite, bool walk, bool animated, bool spawn, bool attack);
         virtual ~vEnnemy();
         vEnnemy(const vEnnemy& other);
         vEnnemy& operator=(const vEnnemy& other);
@@ -40,6 +40,11 @@ class vEnnemy
             return enemySprite;
         }
 
+        bool isAttacking()
+        {
+            return attack;
+        }
+
         void setSprite(sf::Sprite *enemySprite)
         {
             this->enemySprite=enemySprite;
@@ -55,6 +60,11 @@ class vEnnemy
             this->spawn=spawn;
         }
 
+        void setAttack(bool attack)
+        {
+            this->attack=attack;
+        }
+
 
     protected:
 
@@ -64,6 +74,7 @@ class vEnnemy
         bool walk;
         bool animated;
         bool spawn;
+        bool attack;
 
 
 

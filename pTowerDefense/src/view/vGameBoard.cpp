@@ -86,7 +86,7 @@ void vGameBoard::launchWave(int numberOfEnnemies)
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
     {
         //clone enemies because AI
-        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]->clone(),new Sprite(),false,false,false);
+        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]->clone(),new Sprite(),false,false,false,false);
         listOfvEnnemies.push_back(venemy);
     }
 
@@ -149,7 +149,7 @@ void vGameBoard::loadSprite()
         {
             listOfvEnnemies[i]->getSprite()->setTexture(ogreTexture);
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(0,0,OGRE_WIDTH,OGRE_HEIGHT));
-            listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(10, 535));
+            listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(-40, 510));
             listOfvEnnemies[i]->getSprite()->setScale(0.28,0.28f);
         }
 
@@ -157,7 +157,7 @@ void vGameBoard::loadSprite()
         {
             listOfvEnnemies[i]->getSprite()->setTexture(orcTexture);
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(0,0,ORC_WIDTH,ORC_HEIGHT));
-            listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(10, 545));
+            listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(-40, 520));
             listOfvEnnemies[i]->getSprite()->setScale(0.28f,0.28f);
         }
 
@@ -165,7 +165,7 @@ void vGameBoard::loadSprite()
         {
              listOfvEnnemies[i]->getSprite()->setTexture(shadowMonsterTexture);
              listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(0,0,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
-             listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(10, 553));
+             listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(-40, 527));
              listOfvEnnemies[i]->getSprite()->setScale(0.28f,0.28f);
         }
 
@@ -173,7 +173,7 @@ void vGameBoard::loadSprite()
         {
              listOfvEnnemies[i]->getSprite()->setTexture(knightOfDeathTexture);
              listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(0,0,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
-             listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(10, 518));
+             listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(-40, 493));
              listOfvEnnemies[i]->getSprite()->setScale(0.28f,0.28f);
         }
 
@@ -181,7 +181,7 @@ void vGameBoard::loadSprite()
         {
              listOfvEnnemies[i]->getSprite()->setTexture(gremlinTexture);
              listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(0,0,GREMLIN_WIDTH,GREMLIN_HEIGHT));
-             listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(10, 575));
+             listOfvEnnemies[i]->getSprite()->setPosition(Vector2f(-40, 550));
              listOfvEnnemies[i]->getSprite()->setScale(0.28f,0.28f);
         }
     }
@@ -252,6 +252,10 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(earthTowerSprite);
 
 
+    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        windowFromMain->draw(*listOfAcideCloudSpell[i]);
+    }
 
 
     // enemies spawn one per one
@@ -271,10 +275,7 @@ bool vGameBoard::drawEntities()
         }
     }
 
-    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
-    {
-        windowFromMain->draw(*listOfAcideCloudSpell[i]);
-    }
+
 
     return true;
 
@@ -380,7 +381,23 @@ void vGameBoard::animationEnemyWalk()
         {
             if(listOfvEnnemies[i]->isSpawn())
             {
-                 listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
+                listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
+            }
+
+            if((int)listOfvEnnemies[i]->getSprite()->getPosition().x % 100 == 0)
+            {
+                cout<<listOfvEnnemies[0]->getSprite()->getPosition().x<<endl;
+            }
+
+            if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200)
+            {
+                listOfvEnnemies[i]->setAttack(true);
+            }
+
+            if(listOfvEnnemies[i]->isAttacking())
+            {
+                animationEnemyAttack(listOfvEnnemies[i]);
+                listOfvEnnemies[i]->setAttack(false);
             }
         }
 
@@ -393,6 +410,41 @@ void vGameBoard::animationEnemyWalk()
 void vGameBoard::animationEnemyWalk2(Sprite *enemy)
 {
    //to implemented
+}
+
+void vGameBoard::animationEnemyAttack(vEnnemy* vEnnemy)
+{
+    // Change the texture
+    if(dynamic_cast<Ogre*>(vEnnemy->getEnnemy()))
+    {
+        vEnnemy->getSprite()->setTexture(ogreAttackTexture);
+        vEnnemy->getSprite()->setTextureRect(IntRect(0,0,OGRE_WIDTH,OGRE_HEIGHT));
+    }
+
+     if(dynamic_cast<Orc*>(vEnnemy->getEnnemy()))
+    {
+        vEnnemy->getSprite()->setTexture(orcAttackTexture);
+        vEnnemy->getSprite()->setTextureRect(IntRect(0,0,ORC_WIDTH,ORC_HEIGHT));
+    }
+
+    if(dynamic_cast<ShadowMonster*>(vEnnemy->getEnnemy()))
+    {
+         vEnnemy->getSprite()->setTexture(shadowMonsterAttackTexture);
+         vEnnemy->getSprite()->setTextureRect(IntRect(0,0,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
+    }
+
+    if(dynamic_cast<KnightOfDeath*>(vEnnemy->getEnnemy()))
+    {
+         vEnnemy->getSprite()->setTexture(knightOfDeathAttackTexture);
+         vEnnemy->getSprite()->setTextureRect(IntRect(0,0,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
+    }
+
+     if(dynamic_cast<Gremlin*>(vEnnemy->getEnnemy()))
+    {
+         vEnnemy->getSprite()->setTexture(gremlinAttackTexture);
+         vEnnemy->getSprite()->setTextureRect(IntRect(0,0,GREMLIN_WIDTH,GREMLIN_HEIGHT));
+    }
+
 }
 
 /*methods adapte which parts of sprite sheet we need to display*/
@@ -462,7 +514,7 @@ bool vGameBoard::verifyImageTower()
 
 bool vGameBoard::verifyImageMonsters()
 {
-    if (!ogreTexture.loadFromFile("res/images/sprites/1/1_enemies_1_RUN_spritesheet.png"))
+    if (!ogreTexture.loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
@@ -487,6 +539,36 @@ bool vGameBoard::verifyImageMonsters()
     }
 
     if (!knightOfDeathTexture.loadFromFile("res/images/sprites/9/spritesheet_WALK.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!ogreAttackTexture.loadFromFile("res/images/sprites/1/1_enemies_1_ATTACK_spritesheet.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!orcAttackTexture.loadFromFile("res/images/sprites/2/spritesheet_ATTACK.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!gremlinAttackTexture.loadFromFile("res/images/sprites/3/spritesheet_ATTACK.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!shadowMonsterAttackTexture.loadFromFile("res/images/sprites/5/spritesheet_ATTACK.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!knightOfDeathAttackTexture.loadFromFile("res/images/sprites/9/spritesheet_ATTACK.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;

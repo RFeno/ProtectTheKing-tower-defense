@@ -42,6 +42,7 @@ class vGameBoard
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
+        void animationEnemyAttack(vEnnemy* vEnnemy);
 
         bool setTower(int y, int x, int type);
         bool setTower(int y, int x, Tower* t);
@@ -51,9 +52,6 @@ class vGameBoard
         void activeLightningSpeel();
         void activeCloudSpell();
         void adaptAnimationSprite();
-
-
-
 
 
     protected:
@@ -70,7 +68,7 @@ class vGameBoard
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
-        const int NUMBER_ACIDE_SPELL = 14;
+        const int NUMBER_ACIDE_SPELL = 13;
 
         const int WALK_SPEED = 3;
 
@@ -114,6 +112,11 @@ class vGameBoard
         Texture shadowMonsterTexture;
         Texture ogreTexture;
         Texture orcTexture;
+        Texture gremlinAttackTexture;
+        Texture knightOfDeathAttackTexture;
+        Texture shadowMonsterAttackTexture;
+        Texture ogreAttackTexture;
+        Texture orcAttackTexture;
 
         //map and entitites sprites
         Sprite mapSprite;
