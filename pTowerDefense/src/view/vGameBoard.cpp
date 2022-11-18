@@ -219,6 +219,7 @@ void vGameBoard::loadSprite()
 
     //towers
     earthTowerSprite.setTexture(earthTowerTexture);
+    //earthTowerSprite.setColor(Color::Red);
     iceTowerSprite.setTexture(iceTowerTexture);
     sandTowerSprite.setTexture(sandTowerTexture);
     ironTowerSprite.setTexture(ironTowerTexture);
@@ -304,8 +305,8 @@ bool vGameBoard::isSpriteClicked (Sprite &spr)
 
     //condition if it is in the sprite
 	if(mousePos.x > spr.getPosition().x
-		&& mousePos.x < spr.getPosition().x + spr.getTexture()->getSize().x
-		&& mousePos.y > spr.getPosition().y && mousePos.y < spr.getPosition().y + spr.getTexture()->getSize().y
+		&& mousePos.x < spr.getPosition().x + (spr.getTexture()->getSize().x * spr.getScale().x)
+		&& mousePos.y > spr.getPosition().y && mousePos.y < spr.getPosition().y + (spr.getTexture()->getSize().y * spr.getScale().y)
 		&& Mouse::isButtonPressed(Mouse::Left)
 	)
 	{
