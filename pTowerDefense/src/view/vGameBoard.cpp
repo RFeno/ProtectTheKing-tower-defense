@@ -126,6 +126,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     {
         if (event.mouseButton.button == Mouse::Left)
         {
+            // buy earth tower
             if(isSpriteClicked(earthTowerSprite))
             {
                 cout << "button buy earthTower click" << endl;
@@ -135,6 +136,48 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     if(game.getPlayer()->getCoins() - earth <= 0 )
                     {
                         buyTower(earth);
+                    }
+                }
+            }
+
+            // buy sand tower
+            if(isSpriteClicked(sandTowerSprite))
+            {
+                cout << "button buy sandTower click" << endl;
+
+                if(game.getMap()->getTowers().size() <7)
+                {
+                    if(game.getPlayer()->getCoins() - sand <= 0 )
+                    {
+                        buyTower(sand);
+                    }
+                }
+            }
+
+            // buy earth tower
+            if(isSpriteClicked(iceTowerSprite))
+            {
+                cout << "button buy iceTower click" << endl;
+
+                if(game.getMap()->getTowers().size() <7)
+                {
+                    if(game.getPlayer()->getCoins() - ice <= 0 )
+                    {
+                        buyTower(ice);
+                    }
+                }
+            }
+
+            // buy iron tower
+            if(isSpriteClicked(ironTowerSprite))
+            {
+                cout << "button buy ironTower click" << endl;
+
+                if(game.getMap()->getTowers().size() <7)
+                {
+                    if(game.getPlayer()->getCoins() - iron <= 0 )
+                    {
+                        buyTower(iron);
                     }
                 }
             }
@@ -611,26 +654,34 @@ void vGameBoard::buyTower(TypeOfTower type)
     switch(type)
     {
         case earth:
-            {
-                TowerEarth* tower = new TowerEarth;
-                game.getMap()->addTower(tower);
+        {
+            TowerEarth* tower = new TowerEarth;
+            game.getMap()->addTower(tower);
 
-                Vector2f* position = getPositionOfNewTower();
+            Vector2f* position = getPositionOfNewTower();
 
-                //back = last element
-                vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
+            //back = last element
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
 
-                listOfvTower.push_back(vtower);
+            listOfvTower.push_back(vtower);
 
 
-                delete tower;
-                break;
-            }
+            delete tower;
+            break;
+        }
 
         case ice:
         {
             TowerIce* tower = new TowerIce;
             game.getMap()->addTower(tower);
+
+            Vector2f* position = getPositionOfNewTower();
+
+            //back = last element
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(iceTowerTexture1));
+
+            listOfvTower.push_back(vtower);
+
             delete tower;
             break;
         }
@@ -640,17 +691,33 @@ void vGameBoard::buyTower(TypeOfTower type)
         {
             TowerIron* tower = new TowerIron;
             game.getMap()->addTower(tower);
+
+            Vector2f* position = getPositionOfNewTower();
+
+            //back = last element
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(ironTowerTexture1));
+
+            listOfvTower.push_back(vtower);
+
             delete tower;
             break;
         }
 
         case sand:
-            {
-                TowerSand* tower = new TowerSand;
-                game.getMap()->addTower(tower);
-                delete tower;
-                break;
-            }
+        {
+            TowerSand* tower = new TowerSand;
+            game.getMap()->addTower(tower);
+
+            Vector2f* position = getPositionOfNewTower();
+
+            //back = last element
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(sandTowerTexture1));
+
+            listOfvTower.push_back(vtower);
+
+            delete tower;
+            break;
+        }
     }
 
     cout << game.getMap()->getTowers().size() << endl;
@@ -731,6 +798,24 @@ bool vGameBoard::verifyImage()
 bool vGameBoard::verifyImageTower()
 {
     if (!earthTowerTexture1.loadFromFile("res/images/towers/earth1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!iceTowerTexture1.loadFromFile("res/images/towers/ice1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!sandTowerTexture1.loadFromFile("res/images/towers/sand1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!ironTowerTexture1.loadFromFile("res/images/towers/iron1.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
