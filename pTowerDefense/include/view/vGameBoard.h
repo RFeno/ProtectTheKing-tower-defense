@@ -43,6 +43,7 @@ class vGameBoard
         void enemiesSpawn();
         void displayEnd();
         void buyTower(TypeOfTower type);
+        sf::Vector2f* getPositionOfNewTower();
 
         bool setTower(int x, int y, int type);
         //bool setTower(int y, int x, Tower* t);

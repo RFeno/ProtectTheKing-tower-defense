@@ -267,15 +267,6 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(sandTowerSprite);
     windowFromMain->draw(earthTowerSprite);
 
-    //towers
-    for(int i = 0; i < (int)listOfvTower.size(); i++){
-        listOfvTower[i]->getSprite()->setPosition(100,370);
-        windowFromMain->draw(*(listOfvTower[i]->getSprite()));
-    }
-
-
-
-
     /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
@@ -291,6 +282,7 @@ bool vGameBoard::drawEntities()
         spawnClock.restart();
     }
 
+    //ennemies
     for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
         if(listOfvEnnemies[i]->isSpawn() && !listOfvEnnemies[i]->isDead())
@@ -298,6 +290,13 @@ bool vGameBoard::drawEntities()
             windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
         }
     }
+
+    //towers
+    for(int i = 0; i < (int)listOfvTower.size(); i++){
+        listOfvTower[i]->getSprite()->setPosition(*(listOfvTower[i]->getPosition()));
+        windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+    }
+
     return true;
 }
 
@@ -616,8 +615,10 @@ void vGameBoard::buyTower(TypeOfTower type)
                 TowerEarth* tower = new TowerEarth;
                 game.getMap()->addTower(tower);
 
+                Vector2f* position = getPositionOfNewTower();
+
                 //back = last element
-                vTower *vtower = new vTower(1,1,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
+                vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
 
                 listOfvTower.push_back(vtower);
 
@@ -653,6 +654,58 @@ void vGameBoard::buyTower(TypeOfTower type)
     }
 
     cout << game.getMap()->getTowers().size() << endl;
+}
+
+Vector2f* vGameBoard::getPositionOfNewTower()
+{
+    int x;
+    int y;
+    switch((int)listOfvTower.size())
+    {
+        case 0:
+            {
+                x=100;
+                y=370;
+                break;
+            }
+        case 1:
+            {
+                x=40;
+                y=600;
+                break;
+            }
+        case 2:
+            {
+                x=350;
+                y=370;
+                break;
+            }
+        case 3:
+            {
+                x=300;
+                y=600;
+                break;
+            }
+        case 4:
+            {
+                x=650;
+                y=370;
+                break;
+            }
+        case 5:
+            {
+                x=990;
+                y=370;
+                break;
+            }
+        case 6:
+            {
+                x=970;
+                y=600;
+                break;
+            }
+    }
+    return new Vector2f(x,y);
 }
 
 /* to verify if all images is accessible and charge in the texture */

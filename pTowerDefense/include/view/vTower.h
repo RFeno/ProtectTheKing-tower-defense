@@ -7,14 +7,13 @@
 class vTower
 {
     private:
-        int x;
-        int y;
+        sf::Vector2f* position;
         sf::Sprite *towerSprite;
         Tower *tower;
         sf::Texture* towerTexture;
 
     public:
-        vTower(int x, int y, sf::Sprite* sprite, Tower* tower, sf::Texture* towerTexture);
+        vTower(sf::Vector2f* position, sf::Sprite* sprite, Tower* tower, sf::Texture* towerTexture);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
@@ -22,6 +21,11 @@ class vTower
         sf::Sprite* getSprite()
         {
             return towerSprite;
+        }
+
+        sf::Vector2f* getPosition()
+        {
+            return position;
         }
 
     protected:
