@@ -217,40 +217,36 @@ void vGameBoard::loadSprite()
 
     mapSprite.setTexture(mapTexture);
 
-    //towers
+    mapSprite.setScale(0.73f,0.75f);
+
+    //towers buttons
     earthTowerSprite.setTexture(earthTowerTexture);
-    //earthTowerSprite.setColor(Color::Red);
     iceTowerSprite.setTexture(iceTowerTexture);
     sandTowerSprite.setTexture(sandTowerTexture);
     ironTowerSprite.setTexture(ironTowerTexture);
-
-    //spells
-    acideCloudSprite.setTexture(acideCloudTexture);
-    fireSprite.setTexture(fireTexture);
-    lightningSprite.setTexture(lightningTexture);
-
-    //size
-    acideCloudSprite.setScale(0.50f,0.50f);
-    fireSprite.setScale(0.50f,0.50f);
-    lightningSprite.setScale(0.50,0.50f);
 
     earthTowerSprite.setScale(0.50f,0.50f);
     iceTowerSprite.setScale(0.50f,0.50f);
     sandTowerSprite.setScale(0.50f,0.50f);
     ironTowerSprite.setScale(0.50f,0.50f);
-    mapSprite.setScale(0.73f,0.75f);
-
-
-    //positions
-    acideCloudSprite.setPosition(Vector2f(10, 5));
-    fireSprite.setPosition(Vector2f(110, 5));
-    lightningSprite.setPosition(Vector2f(210, 5));
 
     earthTowerSprite.setPosition(Vector2f(1006,5));
     iceTowerSprite.setPosition(Vector2f(1106,5));
     sandTowerSprite.setPosition(Vector2f(1206,5));
     ironTowerSprite.setPosition(Vector2f(1306,5));
 
+    //spells buttons
+    acideCloudSprite.setTexture(acideCloudTexture);
+    fireSprite.setTexture(fireTexture);
+    lightningSprite.setTexture(lightningTexture);
+
+    acideCloudSprite.setScale(0.50f,0.50f);
+    fireSprite.setScale(0.50f,0.50f);
+    lightningSprite.setScale(0.50,0.50f);
+
+    acideCloudSprite.setPosition(Vector2f(10, 5));
+    fireSprite.setPosition(Vector2f(110, 5));
+    lightningSprite.setPosition(Vector2f(210, 5));
 }
 
 
@@ -270,6 +266,14 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(iceTowerSprite);
     windowFromMain->draw(sandTowerSprite);
     windowFromMain->draw(earthTowerSprite);
+
+    //towers
+    for(int i = 0; i < (int)listOfvTower.size(); i++){
+        listOfvTower[i]->getSprite()->setPosition(100,370);
+        windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+    }
+
+
 
 
     /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
@@ -613,7 +617,7 @@ void vGameBoard::buyTower(TypeOfTower type)
                 game.getMap()->addTower(tower);
 
                 //back = last element
-                vTower *vtower = new vTower(1,1,new Sprite(),game.getMap()->getTowers().back());
+                vTower *vtower = new vTower(1,1,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
 
                 listOfvTower.push_back(vtower);
 
@@ -673,6 +677,11 @@ bool vGameBoard::verifyImage()
 
 bool vGameBoard::verifyImageTower()
 {
+    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
     return true;
 }
 

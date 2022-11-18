@@ -4,9 +4,10 @@
 
 using namespace sf;
 
-vTower::vTower(int x, int y, Sprite* sprite , Tower* tower): x(x), y(y), towerSprite(sprite), tower(tower)
+vTower::vTower(int x, int y, Sprite* sprite , Tower* tower, Texture* towerTexture): x(x), y(y), towerSprite(sprite), tower(tower), towerTexture(towerTexture)
 {
     //ctor
+    sprite->setTexture(*towerTexture);
 }
 
 vTower::~vTower()
