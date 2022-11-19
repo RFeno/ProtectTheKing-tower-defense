@@ -43,7 +43,14 @@ class vGameBoard
         void enemiesSpawn();
         void displayEnd();
         void buyTower(TypeOfTower type);
-        sf::Vector2f* getPositionOfNewTower();
+
+        /*these methods are used to calculate the positions of the towers*/
+        sf::Vector2f* getPositionOfNewTower(TypeOfTower type);
+        sf::Vector2f* getPositionOfEarth();
+        sf::Vector2f* getPositionOfIron();
+        sf::Vector2f* getPositionOfIce();
+        sf::Vector2f* getPositionOfSand();
+
 
         bool setTower(int x, int y, int type);
         //bool setTower(int y, int x, Tower* t);

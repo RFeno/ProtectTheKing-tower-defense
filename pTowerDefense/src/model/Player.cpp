@@ -7,14 +7,6 @@
 
 using namespace std;
 
-Player::Player()
-{
-    //ctor
-    this->name="name";
-    this->coins = 0;
-    this->score = 0;
-}
-
 Player::Player(string name, int coins, int score): name(name),coins(coins),score(score)
 {
     //ctor

@@ -133,11 +133,14 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
                 if(game.getMap()->getTowers().size() <7)
                 {
-                    if(game.getPlayer()->getCoins() - earth <= 0 )
+                    cout << game.getPlayer()->getCoins() << " - " << earth << endl;
+                    if(game.getPlayer()->getCoins() - earth >= 0 )
                     {
+                        //dont forget to remove coins in player wallet
                         buyTower(earth);
                     }
                 }
+
             }
 
             // buy sand tower
@@ -147,7 +150,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
                 if(game.getMap()->getTowers().size() <7)
                 {
-                    if(game.getPlayer()->getCoins() - sand <= 0 )
+                    if(game.getPlayer()->getCoins() - sand >= 0 )
                     {
                         buyTower(sand);
                     }
@@ -161,7 +164,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
                 if(game.getMap()->getTowers().size() <7)
                 {
-                    if(game.getPlayer()->getCoins() - ice <= 0 )
+                    if(game.getPlayer()->getCoins() - ice >= 0 )
                     {
                         buyTower(ice);
                     }
@@ -175,13 +178,16 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
                 if(game.getMap()->getTowers().size() <7)
                 {
-                    if(game.getPlayer()->getCoins() - iron <= 0 )
+
+                    if(game.getPlayer()->getCoins() - iron >= 0 )
                     {
                         buyTower(iron);
                     }
                 }
             }
         }
+
+
         if (event.mouseButton.button == Mouse::Right)
         {
               cout << "right click"<< endl;
@@ -335,7 +341,8 @@ bool vGameBoard::drawEntities()
     }
 
     //towers
-    for(int i = 0; i < (int)listOfvTower.size(); i++){
+    for(int i = 0; i < (int)listOfvTower.size(); i++)
+    {
         listOfvTower[i]->getSprite()->setPosition(*(listOfvTower[i]->getPosition()));
         windowFromMain->draw(*(listOfvTower[i]->getSprite()));
     }
@@ -658,7 +665,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerEarth* tower = new TowerEarth;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower();
+            Vector2f* position = getPositionOfNewTower(earth);
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
@@ -675,7 +682,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerIce* tower = new TowerIce;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower();
+            Vector2f* position = getPositionOfNewTower(ice);
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(iceTowerTexture1));
@@ -692,7 +699,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerIron* tower = new TowerIron;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower();
+            Vector2f* position = getPositionOfNewTower(iron);
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(ironTowerTexture1));
@@ -708,7 +715,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerSand* tower = new TowerSand;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower();
+            Vector2f* position = getPositionOfNewTower(sand);
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(sandTowerTexture1));
@@ -723,10 +730,45 @@ void vGameBoard::buyTower(TypeOfTower type)
     cout << game.getMap()->getTowers().size() << endl;
 }
 
-Vector2f* vGameBoard::getPositionOfNewTower()
+/*
+depending on the type of tower the player wants to buy
+this method will call the correct method which will return an x and y position
+*/
+Vector2f* vGameBoard::getPositionOfNewTower(TypeOfTower type)
+{
+    switch(type)
+    {
+        case earth:
+
+            return getPositionOfEarth();
+            break;
+
+        case iron:
+
+            return getPositionOfIron();
+            break;
+
+        case ice:
+
+            return getPositionOfIce();
+            break;
+
+        case sand:
+
+            return getPositionOfSand();
+            break;
+    }
+    //impossible to get here
+    return nullptr;
+}
+/*
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+Vector2f* vGameBoard::getPositionOfEarth()
 {
     int x;
     int y;
+
     switch((int)listOfvTower.size())
     {
         case 0:
@@ -769,6 +811,175 @@ Vector2f* vGameBoard::getPositionOfNewTower()
             {
                 x=970;
                 y=600;
+                break;
+            }
+    }
+    //dont forget to delete
+    return new Vector2f(x,y);
+}
+
+/*
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+Vector2f* vGameBoard::getPositionOfIce()
+{
+    int x;
+    int y;
+
+    switch((int)listOfvTower.size())
+    {
+        case 0:
+            {
+                x=100;
+                y=385;
+                break;
+            }
+        case 1:
+            {
+                x=40;
+                y=630;
+                break;
+            }
+        case 2:
+            {
+                x=350;
+                y=395;
+                break;
+            }
+        case 3:
+            {
+                x=300;
+                y=630;
+                break;
+            }
+        case 4:
+            {
+                x=650;
+                y=385;
+                break;
+            }
+        case 5:
+            {
+                x=990;
+                y=390;
+                break;
+            }
+        case 6:
+            {
+                x=970;
+                y=625;
+                break;
+            }
+    }
+    return new Vector2f(x,y);
+}
+
+/*
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+Vector2f* vGameBoard::getPositionOfIron()
+{
+    int x;
+    int y;
+
+    switch((int)listOfvTower.size())
+    {
+        case 0:
+            {
+                x=100;
+                y=330;
+                break;
+            }
+        case 1:
+            {
+                x=38;
+                y=575;
+                break;
+            }
+        case 2:
+            {
+                x=355;
+                y=330;
+                break;
+            }
+        case 3:
+            {
+                x=297;
+                y=575;
+                break;
+            }
+        case 4:
+            {
+                x=655;
+                y=330;
+                break;
+            }
+        case 5:
+            {
+                x=990;
+                y=330;
+                break;
+            }
+        case 6:
+            {
+                x=970;
+                y=575;
+                break;
+            }
+    }
+    return new Vector2f(x,y);
+}
+
+/*
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+Vector2f* vGameBoard::getPositionOfSand()
+{
+    int x;
+    int y;
+
+    switch((int)listOfvTower.size())
+    {
+        case 0:
+            {
+                x=100;
+                y=340;
+                break;
+            }
+        case 1:
+            {
+                x=40;
+                y=575;
+                break;
+            }
+        case 2:
+            {
+                x=350;
+                y=340;
+                break;
+            }
+        case 3:
+            {
+                x=300;
+                y=575;
+                break;
+            }
+        case 4:
+            {
+                x=650;
+                y=340;
+                break;
+            }
+        case 5:
+            {
+                x=990;
+                y=340;
+                break;
+            }
+        case 6:
+            {
+                x=970;
+                y=575;
                 break;
             }
     }

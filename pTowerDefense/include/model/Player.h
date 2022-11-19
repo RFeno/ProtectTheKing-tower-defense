@@ -11,8 +11,7 @@ class Player
     public:
 
         //constructors
-        Player(); // delete this for the security
-        Player(std::string name,int coins = 0,int score = 0); //don't forget value default begins always by the right
+        Player(std::string name="Anonymous",int coins = 400,int score = 0); //don't forget value default begins always by the right
 
 
         //methods
