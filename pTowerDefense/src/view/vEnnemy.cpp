@@ -13,6 +13,8 @@ vEnnemy::~vEnnemy()
     //dtor
     //the map delete the enemy
     delete enemySprite;
+    delete healthBarGreenSprite;
+    delete healthBarRedSprite;
 }
 
 vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite), walk(other.walk), animated(other.animated), spawn(other.spawn), attack(other.attack), dead(other.dead)

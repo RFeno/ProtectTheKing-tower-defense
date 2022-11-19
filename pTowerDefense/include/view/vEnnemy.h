@@ -85,8 +85,17 @@ class vEnnemy
     protected:
 
     private:
+        //model
         Enemies* enemy;
+        //texture
+        static sf::Texture healthBarGreenTexture;
+        static sf::Texture healthBarRedTexture;
+        //sprites
         sf::Sprite *enemySprite;
+        sf::Sprite *healthBarGreenSprite;
+        sf::Sprite *healthBarRedSprite;
+
+
         bool walk;
         bool animated;
         bool spawn;

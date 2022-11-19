@@ -93,6 +93,7 @@ class vGameBoard
         std::vector<Sprite*> listOfFireSpell;
         std::vector<Sprite*> listOfLigntningSpell;
 
+
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
         int x_Ogre = 0;
         int y_Ogre = 0;

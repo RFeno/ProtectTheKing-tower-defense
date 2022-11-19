@@ -133,12 +133,20 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
                 if(game.getMap()->getTowers().size() <7)
                 {
-                    cout << game.getPlayer()->getCoins() << " - " << earth << endl;
+                    //display error message
                     if(game.getPlayer()->getCoins() - earth >= 0 )
                     {
                         //dont forget to remove coins in player wallet
                         buyTower(earth);
                     }
+                    else
+                    {
+                        //display not enough coins message
+                    }
+                }
+                else
+                {
+                    //display all tower places are occupied
                 }
 
             }
@@ -178,7 +186,6 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
                 if(game.getMap()->getTowers().size() <7)
                 {
-
                     if(game.getPlayer()->getCoins() - iron >= 0 )
                     {
                         buyTower(iron);
