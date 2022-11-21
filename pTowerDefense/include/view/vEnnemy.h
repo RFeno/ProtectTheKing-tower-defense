@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Enemies.h"
-
+//#include "vState.h"
 
 class vEnnemy
 {
@@ -87,13 +87,18 @@ class vEnnemy
     private:
         //model
         Enemies* enemy;
+
         //texture
         static sf::Texture healthBarGreenTexture;
         static sf::Texture healthBarRedTexture;
+
         //sprites
         sf::Sprite *enemySprite;
         sf::Sprite *healthBarGreenSprite;
         sf::Sprite *healthBarRedSprite;
+
+        //DP
+        //vState *state;
 
 
         bool walk;

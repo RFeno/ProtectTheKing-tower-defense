@@ -13,6 +13,7 @@ class vTower
         sf::Texture* towerTexture;
 
     public:
+
         vTower(sf::Vector2f* position, sf::Sprite* sprite, Tower* tower, sf::Texture* towerTexture);
         virtual ~vTower();
         vTower(const vTower& other);

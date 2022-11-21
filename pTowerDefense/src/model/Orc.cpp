@@ -1,6 +1,6 @@
 #include "Orc.h"
 
-Orc::Orc(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
+Orc::Orc(int health, int attackSpeed, int marketValue, int scoreValue, int damage, State *state):Enemies(health,attackSpeed,marketValue,scoreValue,damage,state)
 {
     //ctor
 }

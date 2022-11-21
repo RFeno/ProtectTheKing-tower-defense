@@ -1,26 +1,29 @@
 #ifndef KING_H
 #define KING_H
-#include "Observable.h"
 
-class King : public Observable
+class King
 {
     public:
-        King();
+
+        King(int health=1000);
         virtual ~King();
         King(const King& other);
         King& operator=(const King& other);
 
-        int getNumberOflives()
+        int getHealth()
         {
-            return numberOfLives;
+            return health;
         }
+
+        void setHealth(int health);
+        void receiveDamage(int damage);
 
 
 
     protected:
 
     private:
-        int numberOfLives;
+        int health;
 };
 
 #endif // KING_H

@@ -4,10 +4,12 @@
 #include "Enemies.h"
 #include <list>
 #include <vector>
+
 class Map
 {
     public:
 
+        //canonique
         Map();
         virtual ~Map();
         Map(const Map& other);
@@ -17,8 +19,11 @@ class Map
         std::string strEnemies()const;
         void addEnemy(const Enemies* enemy);
         void addTower(const Tower* tower);
+        bool removeEnemy(Enemies &enemy);
+        int searchEnemy(const Enemies &enemy);
 
         //getters and setters
+        //pointeurs ou référence
         std::vector<Tower*> getTowers()const
         {
             return listOfTower;

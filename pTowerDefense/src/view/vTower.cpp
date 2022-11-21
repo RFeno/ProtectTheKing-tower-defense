@@ -17,7 +17,7 @@ vTower::~vTower()
     delete towerSprite;
     delete position;
     //est ce neccessaire appel au constructeur de copy renvoie un nouveau pointeur ?
-    delete towerTexture;
+    //delete towerTexture;
 }
 
 vTower::vTower(const vTower& other)

@@ -1,6 +1,6 @@
 #include "KnightOfDeath.h"
 
-KnightOfDeath::KnightOfDeath(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
+KnightOfDeath::KnightOfDeath(int health, int attackSpeed, int marketValue, int scoreValue, int damage, State *state):Enemies(health,attackSpeed,marketValue,scoreValue,damage,state)
 {
     //ctor
 }

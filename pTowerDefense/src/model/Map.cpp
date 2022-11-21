@@ -16,7 +16,8 @@ Map::~Map()
 {
     //dtor
     //double delete ? because delete in game and here ?
-   /*for(Enemies* enemy: listOfEnemies)
+
+   for(Enemies* enemy: listOfEnemies)
    {
         delete enemy;
    }
@@ -24,7 +25,7 @@ Map::~Map()
    for(Tower* tower: listOfTower)
    {
        delete tower;
-   }*/
+   }
 }
 
 Map::Map(const Map& other)

@@ -2,37 +2,34 @@
 #define ENEMIES_H
 #include <string>
 
+
+class State;
+class King;
+
 class Enemies
 {
     public:
-
         static inline int compteur = 0;
 
         //canonic form
-        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
+        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1, State *state=nullptr);
+
         virtual ~Enemies();
         Enemies(const Enemies& other);
         Enemies& operator=(const Enemies& other);
 
-
         //methods
-        void attackTower();
-        void die();
-        void walk();
+        void attackKing(King &king);
+        void walk(int x);
         void receiveDamage(int damage);
+        void changeState(State *state);
+        void die();
+
         virtual Enemies* clone()const =0;
 
-
         //getters and setters
-        void setHealth(int health)
-        {
-            this->health=health;
+        void setHealth(int health);
 
-            if(health<0)
-            {
-                health=0;
-            }
-        }
 
         int getHealth()const
         {
@@ -63,6 +60,8 @@ class Enemies
         int x = 0;
         int y = 0;
         int *id;
+        State *state;
+
 
     private:
 

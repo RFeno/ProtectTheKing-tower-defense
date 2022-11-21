@@ -9,6 +9,7 @@
 #include "ShadowMonster.h"
 #include "KnightOfDeath.h"
 #include "Gremlin.h"
+#include "State.h"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ Game& Game::operator=(const Game& rhs)
 /* launch the wave, generat*/
 void Game::createWave(int numberOfEnemies)
 {
-    KnightOfDeath* knightofd = new KnightOfDeath();
+    /*KnightOfDeath* knightofd = new KnightOfDeath();
     Orc* orc = new Orc();
     Ogre* ogre = new Ogre();
     ShadowMonster* shadowM = new ShadowMonster();
@@ -100,7 +101,7 @@ void Game::createWave(int numberOfEnemies)
     delete ogre;
     delete orc;
     delete shadowM;
-    delete gremlin;
+    delete gremlin;*/
 }
 /* is launch after all enemies are dead */
 bool Game::endWave()
