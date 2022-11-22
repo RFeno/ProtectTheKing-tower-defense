@@ -676,6 +676,7 @@ void vGameBoard::buyTower(TypeOfTower type)
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
+            vtower->getSprite()->setScale(0.20f,0.20f);
 
             listOfvTower.push_back(vtower);
 
@@ -780,44 +781,44 @@ Vector2f* vGameBoard::getPositionOfEarth()
     {
         case 0:
             {
-                x=100;
-                y=370;
+                x=100-110;
+                y=370-75;
                 break;
             }
         case 1:
             {
-                x=40;
-                y=600;
+                x=40-120;
+                y=600-75;
                 break;
             }
         case 2:
             {
-                x=350;
-                y=370;
+                x=350-110;
+                y=370-75;
                 break;
             }
         case 3:
             {
-                x=300;
-                y=600;
+                x=300-120;
+                y=600-75;
                 break;
             }
         case 4:
             {
-                x=650;
-                y=370;
+                x=650-110;
+                y=370-75;
                 break;
             }
         case 5:
             {
-                x=990;
-                y=370;
+                x=990-110;
+                y=370-75;
                 break;
             }
         case 6:
             {
-                x=970;
-                y=600;
+                x=970-110;
+                y=600-75;
                 break;
             }
     }
@@ -1015,7 +1016,7 @@ bool vGameBoard::verifyImage()
 
 bool vGameBoard::verifyImageTower()
 {
-    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth1.png"))
+    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
