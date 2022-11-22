@@ -1,5 +1,8 @@
 #include "Gremlin.h"
 #include "Enemies.h"
+#include <string.h>
+
+using namespace std;
 
 Gremlin::Gremlin(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
@@ -26,4 +29,9 @@ Gremlin& Gremlin::operator=(const Gremlin& rhs)
 Gremlin* Gremlin::clone()const
 {
     return new Gremlin(*this);
+}
+
+string Gremlin::getInformations()const
+{
+    return "[Gremlin       x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
 }

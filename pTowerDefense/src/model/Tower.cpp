@@ -41,6 +41,15 @@ Tower::Tower(const Tower& other)
     return *this;
 }*/
 
+bool Tower::isInRange(int xOfEnemy)
+{
+    if(xTower - xOfEnemy <= range)
+    {
+        return true;
+    }
+    return false;
+}
+
 /* the tower attack the enemies cible */
 void Tower::attackEnemy(Enemies& target)const
 {

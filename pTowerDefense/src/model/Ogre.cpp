@@ -1,4 +1,7 @@
 #include "Ogre.h"
+#include <string>
+
+using namespace std;
 
 Ogre::Ogre(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
@@ -27,3 +30,9 @@ Ogre* Ogre::clone()const
 {
     return new Ogre(*this);
 }
+
+string Ogre::getInformations()const
+{
+    return "[Ogre          x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
+}
+

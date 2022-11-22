@@ -45,13 +45,18 @@ class Game
             numberOfEnemies = number;
         }
 
+        int getNumeroOfWave()
+        {
+            return numeroOfWave;
+        }
+
     protected:
 
     private:
         Player *player;
         Map *mapOfGame;
         int numberOfEnemies;
-        int numberOfWave;
+        int numeroOfWave;
         const int WALK_SPEED = 2;
 
 

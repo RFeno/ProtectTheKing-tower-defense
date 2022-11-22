@@ -3,6 +3,10 @@
 TowerEarth::TowerEarth(int damage,int level,int price):Tower(damage,level,price)
 {
     this->type=earth;
+    this->range=20;
+
+    //to delete
+    this->xTower=10;
 }
 
 TowerEarth::~TowerEarth()

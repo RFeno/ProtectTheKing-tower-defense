@@ -72,7 +72,7 @@ class Enemies
             return state;
         }
 
-        std::string getInformations()const;
+        virtual std::string getInformations()const =0 ;
 
 
     protected:

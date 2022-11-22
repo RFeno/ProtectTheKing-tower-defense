@@ -1,4 +1,7 @@
 #include "ShadowMonster.h"
+#include <string.h>
+
+using namespace std;
 
 ShadowMonster::ShadowMonster(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
@@ -26,3 +29,9 @@ ShadowMonster* ShadowMonster::clone()const
 {
     return new ShadowMonster(*this);
 }
+
+string ShadowMonster::getInformations()const
+{
+    return "[ShadowMonster x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
+}
+

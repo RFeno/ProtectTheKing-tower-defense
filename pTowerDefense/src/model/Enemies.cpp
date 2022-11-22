@@ -59,7 +59,8 @@ void Enemies::receiveDamage(int damage)
 
     if(this->health<=0)
     {
-       changeState(new StateDie);
+        health=0;
+        changeState(new StateDie);
     }
 }
 
@@ -92,17 +93,21 @@ void Enemies::setHealth(int health)
     if(health<0)
     {
         health=0;
+        die();
     }
 }
 
 void Enemies::die()
 {
-    changeState(new StateDie);
+    if(!dynamic_cast<StateDie*>(state))
+    {
+        changeState(new StateDie);
+    }
 }
 
 /* return the enemy informations / attributes */
-string Enemies::getInformations()const
+/*string Enemies::getInformations()const
 {
-    return "[Enemies => health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
-}
+    return "[Enemies x:"+ to_string(x) +" health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
+}*/
 

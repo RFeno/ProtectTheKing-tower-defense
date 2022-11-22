@@ -47,10 +47,10 @@ Map& Map::operator=(const Map& rhs)
 
 string Map::strEnemies()const
 {
-    string result ="list of enemies[\n";
+    string result ="list of enemies\n[\n";
     for(Enemies *en: listOfEnemies)
     {
-        result+= en->getInformations() +"\n";
+        result+= en->getInformations()+"\n";
     }
     return result+="]";
 }

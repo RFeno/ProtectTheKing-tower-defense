@@ -1,4 +1,7 @@
 #include "Orc.h"
+#include <string>
+
+using namespace std;
 
 Orc::Orc(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
@@ -26,4 +29,9 @@ Orc& Orc::operator=(const Orc& rhs)
 Orc* Orc::clone()const
 {
     return new Orc(*this);
+}
+
+string Orc::getInformations()const
+{
+    return "[Orc           x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
 }

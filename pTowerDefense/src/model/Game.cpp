@@ -17,7 +17,7 @@ Game::Game()
     this->mapOfGame = new Map();
 
     //after each wave this number will be incremented
-    numberOfWave = 0;
+    numeroOfWave = 0;
 
     numberOfEnemies = 0;
 
@@ -43,7 +43,7 @@ Game& Game::operator=(const Game& rhs)
 /* launch the wave, generate enemies*/
 void Game::createWave()
 {
-    numberOfWave++;
+    numeroOfWave++;
     numberOfEnemies += rand()%5 +1;
 
     for(int i = 1; i<= numberOfEnemies;i++)
@@ -87,12 +87,11 @@ void Game::createWave()
 
 void Game::play()
 {
-    if(mapOfGame->getEnemies().size()==0)
+    if(IsEndOfWave())
     {
         createWave();
-        cout << "create wave number " << numberOfWave << endl;
+        cout << "create wave number " << numeroOfWave << endl;
     }
-
 
     //delete enemies dead
     for(Enemies *enemy: mapOfGame->getEnemies())
@@ -100,12 +99,24 @@ void Game::play()
         if(dynamic_cast<StateDie*>(enemy->getState()))
         {
             mapOfGame->removeEnemy(*enemy);
+            cout << "delete enemy " << endl;
         }
     }
 
+    //move enemies
     if(mapOfGame->getEnemies().size() > 0)
     {
         ennemiesWalk();
+        cout << "walk of enemies" << endl;
+
+    }
+
+    //tower attack
+
+    if(mapOfGame->getTowers().size() > 0)
+    {
+        towerAttack();
+        cout << "attack of tower" << endl;
     }
 }
 
@@ -124,6 +135,21 @@ void Game::ennemiesAttack()
         enemy->attackKing(mapOfGame->getKing());
     }
 }
+/** attack the enemies who is nearby */
+void Game::towerAttack()
+{
+    for(Tower* tower:mapOfGame->getTowers())
+    {
+        for(Enemies* enemy:mapOfGame->getEnemies())
+        {
+            if(tower->isInRange(enemy->getX()))
+            {
+                tower->attackEnemy(*enemy);
+            }
+        }
+    }
+}
+
 
 /* detect if is the end of wave */
 bool Game::IsEndOfWave()

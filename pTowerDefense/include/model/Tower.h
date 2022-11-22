@@ -22,6 +22,7 @@ class Tower
 
         //methods
         bool improveLevel();
+        bool isInRange(int xOfEnemy);
         void attackEnemy(Enemies &cible)const;
         std::string toString()const;
         //all child must to implement
@@ -65,6 +66,16 @@ class Tower
             this->type=type;
         }
 
+        int getX()
+        {
+            return xTower;
+        }
+
+        int getRange()
+        {
+            return range;
+        }
+
         TypeOfTower getType()
         {
             return type;
@@ -75,6 +86,10 @@ class Tower
         int damage;
         int level;
         int price;
+        int range;
+        int xTower;
+        int yTower;
+
         TypeOfTower type;
 
     private:

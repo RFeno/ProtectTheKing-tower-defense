@@ -1,5 +1,6 @@
 #include "KnightOfDeath.h"
-
+#include <string>
+using namespace std;
 KnightOfDeath::KnightOfDeath(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
@@ -25,4 +26,9 @@ KnightOfDeath& KnightOfDeath::operator=(const KnightOfDeath& rhs)
 KnightOfDeath* KnightOfDeath::clone()const
 {
     return new KnightOfDeath(*this);
+}
+
+string KnightOfDeath::getInformations()const
+{
+    return "[KnightOfDeath x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
 }

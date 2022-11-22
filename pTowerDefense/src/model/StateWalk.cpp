@@ -3,28 +3,6 @@
 
 using namespace std;
 
-/*StateWalk::StateWalk()
-{
-    //ctor
-}
-
-StateWalk::~StateWalk()
-{
-    //dtor
-}
-
-StateWalk::StateWalk(const StateWalk& other)
-{
-    //copy ctor
-}
-
-StateWalk& StateWalk::operator=(const StateWalk& rhs)
-{
-    if (this == &rhs) return *this; // handle self assignment
-    //assignment operator
-    return *this;
-}*/
-
 void StateWalk::walk()
 {
     this->enemy->setX(enemy->getX()+enemy->WALK_SPEED);
