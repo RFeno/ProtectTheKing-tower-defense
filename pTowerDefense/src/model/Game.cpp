@@ -87,10 +87,11 @@ void Game::createWave()
 
 void Game::play()
 {
+    cout << "GAME PLAY" << endl;
     if(IsEndOfWave())
     {
         createWave();
-        cout << "create wave number " << numeroOfWave << endl;
+        cout << "CREATE WABE NUMBER ==> " << numeroOfWave << endl;
     }
 
     //delete enemies dead

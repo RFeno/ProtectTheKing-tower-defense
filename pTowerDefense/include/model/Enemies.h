@@ -84,7 +84,7 @@ class Enemies
         int damage;
 
         //do you need to put the first position
-        int x;
+        int x = 0;
         int y;
         int *id;
         State *state;

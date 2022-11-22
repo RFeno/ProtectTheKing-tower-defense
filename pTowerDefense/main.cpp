@@ -25,11 +25,11 @@ int main()
     Game game;
     game.getMap()->addTower(new TowerEarth());
 
-    while(game.getNumeroOfWave() < 2)
+    while(game.getNumeroOfWave() < 4)
     {
-        cout << game.getMap()->strEnemies() << endl;
-        game.play();
-        cout << game.getMap()->strEnemies() << endl;
+        cout << game.getMap()->strEnemies()  +"\n" << endl;
+        game.play()  ;
+        cout << game.getMap()->strEnemies() +"\n" << endl;
     }
 
 
