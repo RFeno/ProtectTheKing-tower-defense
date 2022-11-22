@@ -15,21 +15,15 @@ Enemies::Enemies(int health, int attackSpeed, int marketValue, int scoreValue, i
 {
     //ctor
     this->id = new int(++compteur);
-    /*if(state!=nullptr)
-    {
-        changeState(state);
-    }*/
 }
-
 
 Enemies::~Enemies()
 {
     //dtor
     delete id;
-    if(state!=nullptr)
-    {
+
         delete state;
-    }
+
 }
 
 Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage)
@@ -62,7 +56,7 @@ void Enemies::receiveDamage(int damage)
 
     if(this->health<=0)
     {
-        //die();
+       changeState(new StateDie);
     }
 }
 

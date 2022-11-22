@@ -35,6 +35,11 @@ vGameBoard::~vGameBoard()
     {
         delete acide;
     }
+
+    for(vTower *vTower: listOfvTower)
+    {
+        delete vTower;
+    }
 }
 
 vGameBoard::vGameBoard(const vGameBoard& other)
@@ -88,7 +93,7 @@ void vGameBoard::launchGame()
 
 void vGameBoard::launchWave(int numberOfEnnemies)
 {
-    game.createWave(numberOfEnnemies);
+    game.createWave();
 
     //bind enemy model and sprite
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
@@ -386,79 +391,79 @@ void vGameBoard::enemyAnimation()
     adaptAnimationSprite();
 
     //for the deplacement
-        for(int i=0;i< (int)listOfvEnnemies.size();i++)
+    for(int i=0;i< (int)listOfvEnnemies.size();i++)
+    {
+        if(listOfvEnnemies[i]->isSpawn())
         {
-            if(listOfvEnnemies[i]->isSpawn())
+            if(listOfvEnnemies[i]->isWalking())
             {
-                if(listOfvEnnemies[i]->isWalking())
-                {
-                    listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
-                }
+                listOfvEnnemies[i]->getSprite()->move(WALK_SPEED,0);
             }
-
-            // if one ennemy reach the king , he attacks him
-            if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200 && !listOfvEnnemies[i]->isDead())
-            {
-                listOfvEnnemies[i]->setWalk(false);
-                listOfvEnnemies[i]->setAttack(true);
-            }
-
-            /*if(listOfvEnnemies[i]->isAttacking())
-            {
-                for(size_t i=0;i<listOfvEnnemies.size();i++)
-                {
-                    if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
-                    {
-                        if(x_Ogre == 9)
-                        {
-                            cout<< "test2" << endl;
-                            listOfvEnnemies[i]->setAttack(false);
-                            listOfvEnnemies[i]->setDead(true);
-                        }
-                    }
-
-                    if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
-                    {
-                        if(x_Orc == 9)
-                        {
-                            cout<< "test2" << endl;
-                            listOfvEnnemies[i]->setAttack(false);
-                            listOfvEnnemies[i]->setDead(true);
-                        }
-                    }
-
-                    if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
-                    {
-                        if(x_shadowMonster == 9)
-                        {
-                            cout<< "test2" << endl;
-                            listOfvEnnemies[i]->setAttack(false);
-                            listOfvEnnemies[i]->setDead(true);
-                        }
-                    }
-
-                    if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
-                    {
-                        if(x_knight == 9)
-                        {
-                            cout<< "test2" << endl;
-                            listOfvEnnemies[i]->setAttack(false);
-                            listOfvEnnemies[i]->setDead(true);
-                        }
-                    }
-
-                    if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
-                    {
-                       if(x_gremlin == 9)
-                        {
-                            cout<< "test2" << endl;
-                            listOfvEnnemies[i]->setAttack(false);
-                            listOfvEnnemies[i]->setDead(true);
-                        }
-                    }
-                }
-            }*/
         }
+
+        // if one ennemy reach the king , he attacks him
+        if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200 && !listOfvEnnemies[i]->isDead())
+        {
+            listOfvEnnemies[i]->setWalk(false);
+            listOfvEnnemies[i]->setAttack(true);
+        }
+
+        /*if(listOfvEnnemies[i]->isAttacking())
+        {
+            for(size_t i=0;i<listOfvEnnemies.size();i++)
+            {
+                if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
+                {
+                    if(x_Ogre == 9)
+                    {
+                        cout<< "test2" << endl;
+                        listOfvEnnemies[i]->setAttack(false);
+                        listOfvEnnemies[i]->setDead(true);
+                    }
+                }
+
+                if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
+                {
+                    if(x_Orc == 9)
+                    {
+                        cout<< "test2" << endl;
+                        listOfvEnnemies[i]->setAttack(false);
+                        listOfvEnnemies[i]->setDead(true);
+                    }
+                }
+
+                if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
+                {
+                    if(x_shadowMonster == 9)
+                    {
+                        cout<< "test2" << endl;
+                        listOfvEnnemies[i]->setAttack(false);
+                        listOfvEnnemies[i]->setDead(true);
+                    }
+                }
+
+                if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
+                {
+                    if(x_knight == 9)
+                    {
+                        cout<< "test2" << endl;
+                        listOfvEnnemies[i]->setAttack(false);
+                        listOfvEnnemies[i]->setDead(true);
+                    }
+                }
+
+                if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
+                {
+                   if(x_gremlin == 9)
+                    {
+                        cout<< "test2" << endl;
+                        listOfvEnnemies[i]->setAttack(false);
+                        listOfvEnnemies[i]->setDead(true);
+                    }
+                }
+            }
+        }*/
+    }
 }
 
 void vGameBoard::animationEnemyWalk2(Sprite *enemy)

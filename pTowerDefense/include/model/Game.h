@@ -12,12 +12,13 @@ class Game
 
         //mehtods
         void play();
-        bool gameOver();
-        void createWave(int numberOfEnemies);
+        bool isGameOver();
+        void createWave();
         void startWave();
+        void animeEnemies();
         void ennemiesWalk();
         void TowerAttack();
-        bool endWave();
+        bool IsEndOfWave();
 
         virtual ~Game();
         Game(const Game& other);
@@ -47,10 +48,10 @@ class Game
 
     private:
         Player *player;
-        King *king;
         Map *mapOfGame;
         int numberOfEnemies;
         int numberOfWave;
+        const int WALK_SPEED = 2;
 
 
 };

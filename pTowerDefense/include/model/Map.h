@@ -1,7 +1,10 @@
 #ifndef MAP_H
 #define MAP_H
+
 #include "Tower.h"
 #include "Enemies.h"
+#include "King.h"
+
 #include <list>
 #include <vector>
 
@@ -39,6 +42,7 @@ class Map
     private:
         std::vector<Tower*> listOfTower;
         std::vector<Enemies*> listOfEnemies;
+        King *king;
 
 };
 

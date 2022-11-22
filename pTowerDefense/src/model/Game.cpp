@@ -13,19 +13,17 @@ using namespace std;
 Game::Game()
 {
     this->player = new Player();
-    this->king = new King();
     this->mapOfGame = new Map();
 
     //after each wave this number will be incremented
     numberOfWave =1;
-    //the first wave will be countains this number of enemies
-    numberOfEnemies = 5;
+    numberOfEnemies = 1;
+
 }
 //dtor
 Game::~Game()
 {
     delete player;
-    delete king;
     delete mapOfGame;
 }
 
@@ -40,11 +38,10 @@ Game& Game::operator=(const Game& rhs)
     //assignment operator
     return *this;
 }
-/* launch the wave, generat*/
-void Game::createWave(int numberOfEnemies)
+/* launch the wave, generate enemies*/
+void Game::createWave()
 {
-
-
+    numberOfEnemies += rand()%5 +1;
     for(int i = 1; i<= numberOfEnemies;i++)
     {
         int typeOfEnemy = rand()%5 +1;
@@ -82,16 +79,35 @@ void Game::createWave(int numberOfEnemies)
                 cout << "error the create enemies for wave " << endl;
         }
     }
+}
 
+void Game::play()
+{
+
+    createWave();
 
 }
-/* is launch after all enemies are dead */
-bool Game::endWave()
+
+void Game::ennemiesWalk()
 {
+    for(Enemies* enemy:mapOfGame->getEnemies())
+    {
+        enemy->setX(enemy->getX()+WALK_SPEED);
+    }
+}
+
+/* detect if is the end of wave */
+bool Game::IsEndOfWave()
+{
+    if(mapOfGame->getEnemies().size()==0)
+    {
+        return true;
+    }
     return false;
 }
+
 /*cuts the game when the player has lost (when the king is dead) */
-bool Game::gameOver()
+bool Game::isGameOver()
 {
     return false;
 }

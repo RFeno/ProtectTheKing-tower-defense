@@ -44,6 +44,16 @@ class Enemies
             return health;
         }
 
+        int getX()const
+        {
+            return x;
+        }
+
+        int getY()const
+        {
+            return y;
+        }
+
         void setX(int x)
         {
             this->x = x;
@@ -65,8 +75,9 @@ class Enemies
         int marketValue;
         int scoreValue;
         int damage;
-        int x = 0;
-        int y = 0;
+        //need to put the first position
+        int x;
+        int y;
         int *id;
         State *state;
 

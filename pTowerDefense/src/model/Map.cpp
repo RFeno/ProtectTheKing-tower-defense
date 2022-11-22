@@ -13,27 +13,24 @@ using namespace std;
 Map::Map()
 {
     //ctor
+    this->king = new King();
 }
 
 Map::~Map()
 {
     //dtor
-    //double delete ? because delete in game and here ?
-    if(listOfEnemies.size() < 0)
+    for(Enemies* enemy: listOfEnemies)
     {
-         for(Enemies* enemy: listOfEnemies)
-       {
-            delete enemy;
-       }
+        delete enemy;
     }
 
-    if(listOfTower.size() > 0)
+    for(Tower* tower: listOfTower)
     {
-        for(Tower* tower: listOfTower)
-        {
-            delete tower;
-        }
-   }
+        delete tower;
+    }
+
+    delete king;
+
 }
 
 Map::Map(const Map& other)
@@ -91,6 +88,40 @@ void Map::addEnemy(typeOfEnemies type)
             break;
         }
     }
+}
+
+int Map::searchEnemy(const Enemies& enemy)
+{
+    int result = -1;
+
+    for(size_t i=0;i<listOfEnemies.size();i++)
+    {
+        if(listOfEnemies[i]==&enemy)
+        {
+            result=i;
+            break;
+        }
+    }
+    return result;
+}
+
+bool Map::removeEnemy(Enemies& enemy)
+{
+    int index = searchEnemy(enemy);
+
+    if(index!=1)
+    {
+        Enemies *tmp = *(listOfEnemies.begin() + index);
+        listOfEnemies.erase(listOfEnemies.begin()+index);
+        delete tmp;
+
+        return true;
+    }
+    else
+    {
+        cout << "this enemy is not in the list/map" << endl;
+    }
+    return false;
 }
 
 void Map::addTower(Tower* tower)

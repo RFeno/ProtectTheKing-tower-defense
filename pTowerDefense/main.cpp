@@ -21,27 +21,16 @@ int main()
 //    RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king");
 //    vMainMenu mainMenu;
 //    mainMenu.launchMenu(window);
-//
 //    vGameBoard gameBoard(window);
 //    gameBoard.launchGame();
 
     //test methods of modèle
-//
     Game game;
-
-    game.createWave(5);
+    game.launch();
 
 
 
     cout << game.getMap()->strEnemies() << endl;
-
-
-
-
-
-
-
-
 
 
     exit(0);

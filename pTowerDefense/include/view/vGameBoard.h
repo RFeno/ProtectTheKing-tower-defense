@@ -77,11 +77,12 @@ class vGameBoard
         const int SHADOWMONSTER_HEIGHT = 302;
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
+        const int WALK_SPEED =2;
 
 
         const int NUMBER_ACIDE_SPELL = 13;
 
-        const int WALK_SPEED = 2;
+
 
         int idSpawn = 0;
         int spawnTime = 3;
