@@ -10,7 +10,7 @@ class StateWalk: public State
         StateWalk(const StateWalk& other);
         StateWalk& operator=(const StateWalk& other);*/
 
-        void walk(int x) override;
+        void walk() override;
         void die() override;
         void attackKing(King &king)override;
 

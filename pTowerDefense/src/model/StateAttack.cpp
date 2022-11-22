@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void StateAttack::walk(int x)
+void StateAttack::walk()
 {
      cout << "impossible a enemy canno't walk and attack at the same time";
 }

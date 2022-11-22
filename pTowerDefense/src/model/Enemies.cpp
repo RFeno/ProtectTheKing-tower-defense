@@ -4,17 +4,20 @@
 #include "King.h"
 #include "State.h"
 #include "StateDie.h"
+#include "StateWalk.h"
 
 class State;
 class StateDie;
 
 using namespace std;
 
-Enemies::Enemies(int health, int attackSpeed, int marketValue, int scoreValue, int damage, State *state)
-: health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage),state(state)
+Enemies::Enemies(int health, int attackSpeed, int marketValue, int scoreValue, int damage)
+: health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage)
 {
     //ctor
     this->id = new int(++compteur);
+    this->state=nullptr;
+    changeState(new StateWalk);
 }
 
 Enemies::~Enemies()
@@ -72,9 +75,9 @@ void Enemies::changeState(State *state)
     this->state->setEnemy(this);
 }
 
-void Enemies::walk(int x)
+void Enemies::walk()
 {
-    this->state->walk(x);
+    this->state->walk();
 }
 
 void Enemies::attackKing(King &king)
@@ -96,7 +99,6 @@ void Enemies::die()
 {
     changeState(new StateDie);
 }
-
 
 /* return the enemy informations / attributes */
 string Enemies::getInformations()const

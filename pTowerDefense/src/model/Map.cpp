@@ -90,7 +90,7 @@ void Map::addEnemy(typeOfEnemies type)
     }
 }
 
-int Map::searchEnemy(const Enemies& enemy)
+int Map::searchEnemy(Enemies& enemy)
 {
     int result = -1;
 

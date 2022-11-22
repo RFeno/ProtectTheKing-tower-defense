@@ -1,7 +1,7 @@
 #include "Gremlin.h"
 #include "Enemies.h"
 
-Gremlin::Gremlin(int health, int attackSpeed, int marketValue, int scoreValue, int damage, State *state):Enemies(health,attackSpeed,marketValue,scoreValue,damage, state)
+Gremlin::Gremlin(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
 }

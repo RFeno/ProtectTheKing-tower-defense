@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-void StateDie::walk(int x)
+void StateDie::walk()
 {
      cout << "impossible the enemy is die, he canno't walk";
 }

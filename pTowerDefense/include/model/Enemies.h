@@ -2,6 +2,11 @@
 #define ENEMIES_H
 #include <string>
 
+#include "State.h"
+#include "King.h"
+
+class State;
+
 enum typeOfEnemies : int
 {
     gremlinValue = 20,
@@ -11,29 +16,27 @@ enum typeOfEnemies : int
     shadowMonsterValue = 40,
 };
 
-class State;
-class King;
+
 
 class Enemies
 {
     public:
 
         static inline int compteur = 0;
+        const int WALK_SPEED = 2;
 
         //canonic form
-        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1, State *state=nullptr);
+        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
         virtual ~Enemies();
         Enemies(const Enemies& other);
         Enemies& operator=(const Enemies& other);
 
         //methods
         void attackKing(King &king);
-        void walk(int x);
+        void walk();
         void receiveDamage(int damage);
         void changeState(State *state);
         void die();
-
-        //virtual Enemies* clone()const =0;
 
         //getters and setters
         void setHealth(int health);
@@ -64,26 +67,29 @@ class Enemies
             this->y = y;
         }
 
+        State* getState()const
+        {
+            return state;
+        }
+
         std::string getInformations()const;
 
 
-
-        //to make it available in subclasses
     protected:
+        //to make it available in subclasses
         int health;
         double attackSpeed;
         int marketValue;
         int scoreValue;
         int damage;
-        //need to put the first position
+
+        //do you need to put the first position
         int x;
         int y;
         int *id;
         State *state;
 
-
     private:
-
 
 };
 

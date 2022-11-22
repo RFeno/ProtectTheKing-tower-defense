@@ -8,7 +8,7 @@ class StateAttack: public State
         StateAttack();
         virtual ~StateAttack();
 
-        void walk(int x) override;
+        void walk() override;
         void die() override;
         void attackKing(King &king)override;
 

@@ -4,6 +4,8 @@
 #include "Enemies.h"
 #include "King.h"
 
+class Enemies;
+
 class State
 {
     public:
@@ -17,10 +19,9 @@ class State
             this->enemy=enemy;
         }
 
-        virtual void walk(int x) = 0;
+        virtual void walk() = 0;
         virtual void die() = 0;
         virtual void attackKing(King &king) = 0;
-        //virtual void update() = 0;
 
 
     protected:

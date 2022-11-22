@@ -2,12 +2,7 @@
 #include "iostream"
 #include "vMainMenu.h"
 #include "vGameBoard.h"
-
-#include "State.h"
 #include "Enemies.h"
-#include "Ogre.h"
-#include "Orc.h"
-
 #include <unistd.h>
 
 using namespace std;
@@ -25,12 +20,22 @@ int main()
 //    gameBoard.launchGame();
 
     //test methods of modèle
+
     Game game;
-    game.launch();
+    game.play();
+
+    //cout << game.getMap()->strEnemies() << endl;
+
+    //game.getMap()->removeEnemy(*game.getMap()->getEnemies()[2]);
+
+    //cout << game.getMap()->strEnemies() << endl;
 
 
 
-    cout << game.getMap()->strEnemies() << endl;
+
+
+
+
 
 
     exit(0);

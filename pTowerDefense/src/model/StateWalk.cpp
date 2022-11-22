@@ -25,9 +25,9 @@ StateWalk& StateWalk::operator=(const StateWalk& rhs)
     return *this;
 }*/
 
-void StateWalk::walk(int x)
+void StateWalk::walk()
 {
-    this->enemy->setX(x);
+    this->enemy->setX(enemy->getX()+enemy->WALK_SPEED);
 }
 
 void StateWalk::attackKing(King &king)

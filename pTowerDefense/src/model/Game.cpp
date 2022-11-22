@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "State.h"
+#include "StateDie.h"
 
 using namespace std;
 
@@ -16,8 +17,9 @@ Game::Game()
     this->mapOfGame = new Map();
 
     //after each wave this number will be incremented
-    numberOfWave =1;
-    numberOfEnemies = 1;
+    numberOfWave = 0;
+
+    numberOfEnemies = 0;
 
 }
 //dtor
@@ -41,7 +43,9 @@ Game& Game::operator=(const Game& rhs)
 /* launch the wave, generate enemies*/
 void Game::createWave()
 {
+    numberOfWave++;
     numberOfEnemies += rand()%5 +1;
+
     for(int i = 1; i<= numberOfEnemies;i++)
     {
         int typeOfEnemy = rand()%5 +1;
@@ -83,16 +87,41 @@ void Game::createWave()
 
 void Game::play()
 {
+    if(mapOfGame->getEnemies().size()==0)
+    {
+        createWave();
+        cout << "create wave number " << numberOfWave << endl;
+    }
 
-    createWave();
 
+    //delete enemies dead
+    for(Enemies *enemy: mapOfGame->getEnemies())
+    {
+        if(dynamic_cast<StateDie*>(enemy->getState()))
+        {
+            mapOfGame->removeEnemy(*enemy);
+        }
+    }
+
+    if(mapOfGame->getEnemies().size() > 0)
+    {
+        ennemiesWalk();
+    }
 }
 
 void Game::ennemiesWalk()
 {
+    for(Enemies* enemy : mapOfGame->getEnemies())
+    {
+        enemy->walk();
+    }
+}
+
+void Game::ennemiesAttack()
+{
     for(Enemies* enemy:mapOfGame->getEnemies())
     {
-        enemy->setX(enemy->getX()+WALK_SPEED);
+        enemy->attackKing(mapOfGame->getKing());
     }
 }
 

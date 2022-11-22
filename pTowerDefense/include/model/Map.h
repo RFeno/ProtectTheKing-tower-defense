@@ -23,7 +23,7 @@ class Map
         void addEnemy(typeOfEnemies type);
         void addTower(Tower* tower);
         bool removeEnemy(Enemies &enemy);
-        int searchEnemy(const Enemies &enemy);
+        int searchEnemy(Enemies &enemy);
 
         //getters and setters
         //pointeurs ou référence
@@ -35,6 +35,11 @@ class Map
         std::vector<Enemies*> getEnemies()const
         {
             return listOfEnemies;
+        }
+
+        King &getKing()
+        {
+            return *king;
         }
 
     protected:

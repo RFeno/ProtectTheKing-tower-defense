@@ -17,7 +17,8 @@ class Game
         void startWave();
         void animeEnemies();
         void ennemiesWalk();
-        void TowerAttack();
+        void towerAttack();
+        void ennemiesAttack();
         bool IsEndOfWave();
 
         virtual ~Game();
