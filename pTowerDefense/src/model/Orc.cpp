@@ -8,6 +8,7 @@ Orc::Orc(int health, int attackSpeed, int marketValue, int scoreValue, int damag
 Orc::~Orc()
 {
     //dtor
+
 }
 
 Orc::Orc(const Orc& other):Enemies(other)

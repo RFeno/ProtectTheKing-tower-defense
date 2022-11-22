@@ -4,11 +4,7 @@
 #include "Map.h"
 #include <string>
 #include <iostream>
-#include "Ogre.h"
-#include "Orc.h"
-#include "ShadowMonster.h"
-#include "KnightOfDeath.h"
-#include "Gremlin.h"
+
 #include "State.h"
 
 using namespace std;
@@ -47,48 +43,38 @@ Game& Game::operator=(const Game& rhs)
 /* launch the wave, generat*/
 void Game::createWave(int numberOfEnemies)
 {
-    /*KnightOfDeath* knightofd = new KnightOfDeath();
-    Orc* orc = new Orc();
-    Ogre* ogre = new Ogre();
-    ShadowMonster* shadowM = new ShadowMonster();
-    Gremlin *gremlin = new Gremlin();
+
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
         int typeOfEnemy = rand()%5 +1;
 
         //creation of ennemies randomly
-        //the clone is created in the method addEnemy
-
         switch(typeOfEnemy)
         {
             case 1:
                 {
-                    //mapOfGame->getEnemies().push_back(knightofd.clone());
-                    mapOfGame->addEnemy(knightofd);
+                    mapOfGame->addEnemy(knightOfDeathValue);
                     break;
                 }
             case 2:
                 {
-                    mapOfGame->addEnemy(ogre);
-                    //mapOfGame->getEnemies().push_back(ogre.clone());
+                    mapOfGame->addEnemy(ogreValue);
                     break;
                 }
             case 3:
                 {
-                    mapOfGame->addEnemy(orc);
-                    //mapOfGame->getEnemies().push_back(orc.clone());
+                    mapOfGame->addEnemy(orcValue);
                     break;
                 }
             case 4:
                 {
-                    mapOfGame->addEnemy(shadowM);
-                    //mapOfGame->getEnemies().push_back(shadowM.clone());
+                    mapOfGame->addEnemy(shadowMonsterValue);
                     break;
                 }
             case 5:
                 {
-                     mapOfGame->addEnemy(gremlin);
+                     mapOfGame->addEnemy(gremlinValue);
                     break;
                 }
 
@@ -97,11 +83,7 @@ void Game::createWave(int numberOfEnemies)
         }
     }
 
-    delete knightofd;
-    delete ogre;
-    delete orc;
-    delete shadowM;
-    delete gremlin;*/
+
 }
 /* is launch after all enemies are dead */
 bool Game::endWave()

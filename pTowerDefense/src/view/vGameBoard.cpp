@@ -94,7 +94,7 @@ void vGameBoard::launchWave(int numberOfEnnemies)
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
     {
         //clone enemies because AI
-        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]->clone(),new Sprite(),true,false,false,false,false);
+        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i],new Sprite(),true,false,false,false,false);
         listOfvEnnemies.push_back(venemy);
     }
 

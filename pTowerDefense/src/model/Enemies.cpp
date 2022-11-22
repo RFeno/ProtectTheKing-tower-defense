@@ -26,7 +26,10 @@ Enemies::~Enemies()
 {
     //dtor
     delete id;
-    delete state;
+    if(state!=nullptr)
+    {
+        delete state;
+    }
 }
 
 Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage)

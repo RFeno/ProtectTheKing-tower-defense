@@ -2,6 +2,14 @@
 #define ENEMIES_H
 #include <string>
 
+enum typeOfEnemies : int
+{
+    gremlinValue = 20,
+    knightOfDeathValue = 100,
+    ogreValue = 80,
+    orcValue =60,
+    shadowMonsterValue = 40,
+};
 
 class State;
 class King;
@@ -9,11 +17,11 @@ class King;
 class Enemies
 {
     public:
+
         static inline int compteur = 0;
 
         //canonic form
         Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1, State *state=nullptr);
-
         virtual ~Enemies();
         Enemies(const Enemies& other);
         Enemies& operator=(const Enemies& other);
@@ -25,7 +33,7 @@ class Enemies
         void changeState(State *state);
         void die();
 
-        virtual Enemies* clone()const =0;
+        //virtual Enemies* clone()const =0;
 
         //getters and setters
         void setHealth(int health);

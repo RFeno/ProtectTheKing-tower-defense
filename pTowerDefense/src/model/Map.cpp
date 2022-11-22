@@ -1,8 +1,11 @@
 #include "Map.h"
 #include <string>
 #include <iostream>
-
-
+#include "Ogre.h"
+#include "Orc.h"
+#include "ShadowMonster.h"
+#include "KnightOfDeath.h"
+#include "Gremlin.h"
 #include <Tower.h>
 #include <Enemies.h>
 using namespace std;
@@ -16,15 +19,20 @@ Map::~Map()
 {
     //dtor
     //double delete ? because delete in game and here ?
+    if(listOfEnemies.size() < 0)
+    {
+         for(Enemies* enemy: listOfEnemies)
+       {
+            delete enemy;
+       }
+    }
 
-   for(Enemies* enemy: listOfEnemies)
-   {
-        delete enemy;
-   }
-
-   for(Tower* tower: listOfTower)
-   {
-       delete tower;
+    if(listOfTower.size() > 0)
+    {
+        for(Tower* tower: listOfTower)
+        {
+            delete tower;
+        }
    }
 }
 
@@ -50,12 +58,42 @@ string Map::strEnemies()const
     return result+="]";
 }
 
-void Map::addEnemy(const Enemies* enemy)
+void Map::addEnemy(typeOfEnemies type)
 {
-    listOfEnemies.push_back(enemy->clone());
+    switch(type)
+    {
+        case gremlinValue:
+        {
+             listOfEnemies.push_back(new Gremlin());
+             break;
+        }
+
+        case knightOfDeathValue:
+        {
+            listOfEnemies.push_back(new KnightOfDeath());
+            break;
+        }
+
+        case ogreValue:
+        {
+            listOfEnemies.push_back(new Ogre());
+            break;
+        }
+
+        case orcValue:
+        {
+            listOfEnemies.push_back(new Orc());
+            break;
+        }
+        case shadowMonsterValue:
+        {
+            listOfEnemies.push_back(new ShadowMonster());
+            break;
+        }
+    }
 }
 
-void Map::addTower(const Tower* tower)
+void Map::addTower(Tower* tower)
 {
-    listOfTower.push_back(tower->clone());
+    listOfTower.push_back(tower);
 }

@@ -58,6 +58,10 @@
 		<Unit filename="include/model/Player.h" />
 		<Unit filename="include/model/ShadowMonster.h" />
 		<Unit filename="include/model/Spell.h" />
+		<Unit filename="include/model/State.h" />
+		<Unit filename="include/model/StateAttack.h" />
+		<Unit filename="include/model/StateDie.h" />
+		<Unit filename="include/model/StateWalk.h" />
 		<Unit filename="include/model/Tower.h" />
 		<Unit filename="include/model/TowerEarth.h" />
 		<Unit filename="include/model/TowerIce.h" />
@@ -66,7 +70,6 @@
 		<Unit filename="include/view/vEnnemy.h" />
 		<Unit filename="include/view/vGameBoard.h" />
 		<Unit filename="include/view/vMainMenu.h" />
-		<Unit filename="include/view/vState.h" />
 		<Unit filename="include/view/vTower.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/model/AcidCloudSpell.cpp" />
@@ -84,6 +87,10 @@
 		<Unit filename="src/model/Player.cpp" />
 		<Unit filename="src/model/ShadowMonster.cpp" />
 		<Unit filename="src/model/Spell.cpp" />
+		<Unit filename="src/model/State.cpp" />
+		<Unit filename="src/model/StateAttack.cpp" />
+		<Unit filename="src/model/StateDie.cpp" />
+		<Unit filename="src/model/StateWalk.cpp" />
 		<Unit filename="src/model/Tower.cpp" />
 		<Unit filename="src/model/TowerEarth.cpp" />
 		<Unit filename="src/model/TowerIce.cpp" />
