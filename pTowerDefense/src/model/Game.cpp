@@ -99,8 +99,15 @@ void Game::play()
     {
         if(dynamic_cast<StateDie*>(enemy->getState()))
         {
-            mapOfGame->removeEnemy(*enemy);
-            cout << "delete enemy " << endl;
+            cout << "delete enemy " << to_string(enemy->getId());
+            if(mapOfGame->removeEnemy(*enemy))
+            {
+                cout << " with success" << endl;
+            }
+            else
+            {
+                cout << " with fail" << endl;
+            }
         }
     }
 

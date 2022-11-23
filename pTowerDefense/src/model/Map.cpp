@@ -109,7 +109,7 @@ bool Map::removeEnemy(Enemies& enemy)
 {
     int index = searchEnemy(enemy);
 
-    if(index!=1)
+    if(index!=-1)
     {
         Enemies *tmp = *(listOfEnemies.begin() + index);
         listOfEnemies.erase(listOfEnemies.begin()+index);

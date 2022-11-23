@@ -32,6 +32,6 @@ ShadowMonster* ShadowMonster::clone()const
 
 string ShadowMonster::getInformations()const
 {
-    return "[ShadowMonster x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
+    return "[id: "+ to_string(*id)+ "   ShadowMonster x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) + " ]";
 }
 

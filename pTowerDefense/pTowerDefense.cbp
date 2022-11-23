@@ -99,7 +99,6 @@
 		<Unit filename="src/view/vEnnemy.cpp" />
 		<Unit filename="src/view/vGameBoard.cpp" />
 		<Unit filename="src/view/vMainMenu.cpp" />
-		<Unit filename="src/view/vState.cpp" />
 		<Unit filename="src/view/vTower.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

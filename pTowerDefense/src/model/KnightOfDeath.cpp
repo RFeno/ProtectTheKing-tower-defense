@@ -30,5 +30,5 @@ KnightOfDeath* KnightOfDeath::clone()const
 
 string KnightOfDeath::getInformations()const
 {
-    return "[KnightOfDeath x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
+    return "[id: "+ to_string(*id)+ "   KnightOfDeath x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "    score value:" + to_string(scoreValue) + "]";
 }

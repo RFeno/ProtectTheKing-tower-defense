@@ -33,5 +33,5 @@ Orc* Orc::clone()const
 
 string Orc::getInformations()const
 {
-    return "[Orc           x:"+ to_string(x) +"    health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
+    return "[id: "+ to_string(*id)+"   Orc           x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) + " ]";
 }

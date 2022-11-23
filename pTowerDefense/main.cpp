@@ -22,15 +22,15 @@ int main()
 
     //test methods of modèle
 
-//    Game game;
-//    game.getMap()->addTower(new TowerEarth());
-//
-//    while(game.getNumeroOfWave() < 4)
-//    {
-//        cout << game.getMap()->strEnemies()  +"\n" << endl;
-//        game.play()  ;
-//        cout << game.getMap()->strEnemies() +"\n" << endl;
-//    }
+    Game game;
+    game.getMap()->addTower(new TowerEarth());
+
+    while(game.getNumeroOfWave() < 4)
+    {
+        cout << game.getMap()->strEnemies()  +"\n" << endl;
+        game.play()  ;
+        cout << game.getMap()->strEnemies() +"\n" << endl;
+    }
 
 
 

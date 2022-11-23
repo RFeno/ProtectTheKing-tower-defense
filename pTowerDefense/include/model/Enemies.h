@@ -25,6 +25,7 @@ class Enemies
         static inline int compteur = 0;
         const int WALK_SPEED = 2;
 
+
         //canonic form
         Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
         virtual ~Enemies();
@@ -57,10 +58,12 @@ class Enemies
             return y;
         }
 
-        void setX(int x)
+        int getId()const
         {
-            this->x = x;
+            return *id;
         }
+
+        void setX(int x);
 
         void setY(int y)
         {
@@ -76,6 +79,10 @@ class Enemies
 
 
     protected:
+
+
+        const int KING_POSITION_X = 1200;
+
         //to make it available in subclasses
         int health;
         double attackSpeed;

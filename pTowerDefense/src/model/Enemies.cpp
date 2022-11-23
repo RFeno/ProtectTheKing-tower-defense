@@ -5,6 +5,7 @@
 #include "State.h"
 #include "StateDie.h"
 #include "StateWalk.h"
+#include "StateAttack.h"
 
 class State;
 class StateDie;
@@ -95,6 +96,18 @@ void Enemies::setHealth(int health)
         health=0;
         die();
     }
+}
+
+void Enemies::setX(int x)
+{
+    this->x = x;
+
+    if(x >= KING_POSITION_X)
+    {
+        this->x=KING_POSITION_X;
+        changeState(new StateAttack);
+    }
+
 }
 
 void Enemies::die()
