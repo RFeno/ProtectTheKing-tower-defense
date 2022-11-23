@@ -40,6 +40,21 @@ vGameBoard::~vGameBoard()
     {
         delete vTower;
     }
+
+    for(Sprite *crystal: crystalSprites)
+    {
+        delete crystal;
+    }
+
+    for(Sprite *sign: signSprites)
+    {
+        delete sign;
+    }
+
+    for(Sprite *sword: swordSprites)
+    {
+        delete sword;
+    }
 }
 
 vGameBoard::vGameBoard(const vGameBoard& other)
@@ -296,6 +311,70 @@ void vGameBoard::loadSprite()
     sandTowerSprite.setPosition(Vector2f(1206,5));
     ironTowerSprite.setPosition(Vector2f(1306,5));
 
+    //informations of tower
+    twentySprite.setTexture(twentyTexture);
+    fourtySprite.setTexture(fourtyTexture);
+    sixtySprite.setTexture(sixtyTexture);
+    eightySprite.setTexture(eightyTexture);
+    oneHundredSprite.setTexture(oneHundredTexture);
+    oneHundredFiftySprite.setTexture(oneHundredFiftyTexture);
+    twoHundredFiftySprite.setTexture(twoHundredFiftyTexture);
+    fourHundredSprite.setTexture(fourHundredTexture);
+
+    int x = 1010;
+    for(int i = 0; i < 4; i++)
+    {
+        swordSprites.push_back(new Sprite());
+        swordSprites[i]->setTexture(swordTexture);
+        swordSprites[i]->setPosition(Vector2f(x, 89));
+        swordSprites[i]->setScale(0.1f,0.1f);
+        x+=100;
+    }
+
+    x = 1020;
+    for(int i = 0; i < 4; i++)
+    {
+        crystalSprites.push_back(new Sprite());
+        crystalSprites[i]->setTexture(crystalTexture);
+        crystalSprites[i]->setPosition(Vector2f(x, 159));
+        crystalSprites[i]->setScale(0.20f,0.20f);
+        x+=100;
+    }
+
+    x = 1010;
+    for(int i = 0; i < 4; i++)
+    {
+        signSprites.push_back(new Sprite());
+        signSprites[i]->setTexture(signTexture);
+        signSprites[i]->setPosition(Vector2f(x, 89));
+        signSprites[i]->setScale(0.3f,0.3f);
+        x+=100;
+    }
+
+    twentySprite.setScale(0.30f,0.30f);
+    twentySprite.setPosition(Vector2f(1045,100));
+
+    fourtySprite.setScale(0.30f,0.30f);
+    fourtySprite.setPosition(Vector2f(1145,100));
+
+    sixtySprite.setScale(0.30f,0.30f);
+    sixtySprite.setPosition(Vector2f(1245,100));
+
+    eightySprite.setScale(0.30f,0.30f);
+    eightySprite.setPosition(Vector2f(1345,100));
+
+    oneHundredSprite.setScale(0.30f,0.30f);
+    oneHundredSprite.setPosition(Vector2f(1045,158));
+
+    oneHundredFiftySprite.setScale(0.30f,0.30f);
+    oneHundredFiftySprite.setPosition(Vector2f(1145,158));
+
+    twoHundredFiftySprite.setScale(0.30f,0.30f);
+    twoHundredFiftySprite.setPosition(Vector2f(1245,158));
+
+    fourHundredSprite.setScale(0.30f,0.30f);
+    fourHundredSprite.setPosition(Vector2f(1345,158));
+
     //spells buttons
     acideCloudSprite.setTexture(acideCloudTexture);
     fireSprite.setTexture(fireTexture);
@@ -327,6 +406,29 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(iceTowerSprite);
     windowFromMain->draw(sandTowerSprite);
     windowFromMain->draw(earthTowerSprite);
+    //tower informations
+    for(int i=0; i < 4 ; i++)
+    {
+        windowFromMain->draw(*signSprites[i]);
+    }
+    windowFromMain->draw(twentySprite);
+    windowFromMain->draw(fourtySprite);
+    windowFromMain->draw(sixtySprite);
+    windowFromMain->draw(eightySprite);
+    windowFromMain->draw(oneHundredSprite);
+    windowFromMain->draw(oneHundredFiftySprite);
+    windowFromMain->draw(twoHundredFiftySprite);
+    windowFromMain->draw(fourHundredSprite);
+
+    for(int i=0; i < 4 ; i++)
+    {
+        windowFromMain->draw(*swordSprites[i]);
+    }
+
+    for(int i=0; i < 4 ; i++)
+    {
+        windowFromMain->draw(*crystalSprites[i]);
+    }
 
     /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
@@ -355,7 +457,6 @@ bool vGameBoard::drawEntities()
     //towers
     for(int i = 0; i < (int)listOfvTower.size(); i++)
     {
-        listOfvTower[i]->getSprite()->setPosition(*(listOfvTower[i]->getPosition()));
         windowFromMain->draw(*(listOfvTower[i]->getSprite()));
     }
 
@@ -682,6 +783,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
             vtower->getSprite()->setScale(0.20f,0.20f);
+            vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);
 
@@ -699,6 +801,7 @@ void vGameBoard::buyTower(TypeOfTower type)
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(iceTowerTexture1));
+            vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);
 
@@ -716,6 +819,7 @@ void vGameBoard::buyTower(TypeOfTower type)
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(ironTowerTexture1));
+            vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);
 
@@ -732,6 +836,7 @@ void vGameBoard::buyTower(TypeOfTower type)
 
             //back = last element
             vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(sandTowerTexture1));
+            vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);
 
@@ -1010,7 +1115,7 @@ bool vGameBoard::verifyImage()
     }
 
 
-    if(verifyImageMonsters() && verifyImageTower() && verifyImageMapEntities())
+    if(verifyImageMonsters() && verifyImageTower() && verifyImageMapEntities() && verifyImageInformations())
     {
         return true;
     }
@@ -1193,4 +1298,74 @@ bool vGameBoard::verifyImageMapEntities()
     return true;
 }
 
+bool vGameBoard::verifyImageInformations()
+{
+    if (!twentyTexture.loadFromFile("res/images/gameBoard/20.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!fourtyTexture.loadFromFile("res/images/gameBoard/40.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!sixtyTexture.loadFromFile("res/images/gameBoard/60.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!eightyTexture.loadFromFile("res/images/gameBoard/80.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!oneHundredTexture.loadFromFile("res/images/gameBoard/100.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!oneHundredFiftyTexture.loadFromFile("res/images/gameBoard/150.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!twoHundredFiftyTexture.loadFromFile("res/images/gameBoard/250.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!fourHundredTexture.loadFromFile("res/images/gameBoard/400.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!crystalTexture.loadFromFile("res/images/gameBoard/coinCrystal.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!swordTexture.loadFromFile("res/images/gameBoard/sword.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!signTexture.loadFromFile("res/images/gameBoard/window_1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    return true;
+}
 

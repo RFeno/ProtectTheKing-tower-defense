@@ -30,6 +30,7 @@ class vGameBoard
         bool verifyImageTower();
         bool verifyImageMonsters();
         bool verifyImageMapEntities();
+        bool verifyImageInformations();
 
         bool drawEntities();
         void InputHandler(Event event, RenderWindow *window);
@@ -185,6 +186,31 @@ class vGameBoard
         Sprite sandTowerSprite;
         Sprite iceTowerSprite;
         Sprite ironTowerSprite;
+
+        //informations textures
+        Texture twentyTexture;
+        Texture fourtyTexture;
+        Texture sixtyTexture;
+        Texture eightyTexture;
+        Texture oneHundredTexture;
+        Texture oneHundredFiftyTexture;
+        Texture twoHundredFiftyTexture;
+        Texture fourHundredTexture;
+        Texture crystalTexture;
+        Texture swordTexture;
+        Texture signTexture;
+        //informations sprite
+        Sprite twentySprite;
+        Sprite fourtySprite;
+        Sprite sixtySprite;
+        Sprite eightySprite;
+        Sprite oneHundredSprite;
+        Sprite oneHundredFiftySprite;
+        Sprite twoHundredFiftySprite;
+        Sprite fourHundredSprite;
+        std::vector<Sprite*> swordSprites;
+        std::vector<Sprite*> crystalSprites;
+        std::vector<Sprite*> signSprites;
 
 };
 
