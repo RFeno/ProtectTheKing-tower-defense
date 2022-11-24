@@ -150,8 +150,6 @@ void vGameBoard::launchWave(int numberOfEnnemies)
         listOfAcideCloudSpell.push_back(new Sprite());
     }
 
-
-
     cout << game.getMap()->getEnemies().size() << endl;
     cout << game.getMap()->strEnemies() << endl;
 
@@ -394,11 +392,13 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(iceTowerSprite);
     windowFromMain->draw(sandTowerSprite);
     windowFromMain->draw(earthTowerSprite);
+
     //tower informations
     for(int i=0; i < 4 ; i++)
     {
         windowFromMain->draw(*signSprites[i]);
     }
+
     windowFromMain->draw(twentySprite);
     windowFromMain->draw(fourtySprite);
     windowFromMain->draw(sixtySprite);
@@ -423,7 +423,7 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
     }
 
-
+    /**A DEPLACER */
     // enemies spawn one per one
     if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
     {
@@ -477,7 +477,7 @@ void vGameBoard::enemyAnimation()
     //method adapts which texture we need to display
     adaptAnimationTexture();
 
-    //method adapts which parts of sprite sheet we need to display
+    //method adapts which parts of Texture (sprite sheet) we need to display
     adaptAnimationSprite();
 
     //for the deplacement
@@ -497,62 +497,6 @@ void vGameBoard::enemyAnimation()
             listOfvEnnemies[i]->setWalk(false);
             listOfvEnnemies[i]->setAttack(true);
         }
-
-        /*if(listOfvEnnemies[i]->isAttacking())
-        {
-            for(size_t i=0;i<listOfvEnnemies.size();i++)
-            {
-                if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
-                {
-                    if(x_Ogre == 9)
-                    {
-                        cout<< "test2" << endl;
-                        listOfvEnnemies[i]->setAttack(false);
-                        listOfvEnnemies[i]->setDead(true);
-                    }
-                }
-
-                if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
-                {
-                    if(x_Orc == 9)
-                    {
-                        cout<< "test2" << endl;
-                        listOfvEnnemies[i]->setAttack(false);
-                        listOfvEnnemies[i]->setDead(true);
-                    }
-                }
-
-                if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
-                {
-                    if(x_shadowMonster == 9)
-                    {
-                        cout<< "test2" << endl;
-                        listOfvEnnemies[i]->setAttack(false);
-                        listOfvEnnemies[i]->setDead(true);
-                    }
-                }
-
-                if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
-                {
-                    if(x_knight == 9)
-                    {
-                        cout<< "test2" << endl;
-                        listOfvEnnemies[i]->setAttack(false);
-                        listOfvEnnemies[i]->setDead(true);
-                    }
-                }
-
-                if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
-                {
-                   if(x_gremlin == 9)
-                    {
-                        cout<< "test2" << endl;
-                        listOfvEnnemies[i]->setAttack(false);
-                        listOfvEnnemies[i]->setDead(true);
-                    }
-                }
-            }
-        }*/
     }
 }
 
@@ -667,94 +611,12 @@ void vGameBoard::adaptPartOfTexture()
         animClock.restart();
     }
 }
-
+/*call the method updateTexture who in terms of the state of ennemy set the good texture to sprite */
 void vGameBoard::adaptAnimationTexture()
 {
     for(int i=0;i < (int)listOfvEnnemies.size();i++)
     {
-        /*if(listOfvEnnemies[i]->isAttacking())
-        {
-            if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTexture(ogreAttackTexture);
-            }
-
-             if(dynamic_cast<Orc*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTexture(orcAttackTexture);
-            }
-
-            if(dynamic_cast<ShadowMonster*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(shadowMonsterAttackTexture);
-            }
-
-            if(dynamic_cast<KnightOfDeath*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(knightOfDeathAttackTexture);
-            }
-
-             if(dynamic_cast<Gremlin*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(gremlinAttackTextureWalk);
-            }
-        }*/
-
-        /*if(listOfvEnnemies[i]->isWalking())
-        {
-            if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTexture(ogreTexture);
-            }
-
-             if(dynamic_cast<Orc*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTexture(orcTexture);
-            }
-
-            if(dynamic_cast<ShadowMonster*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(shadowMonsterTexture);
-            }
-
-            if(dynamic_cast<KnightOfDeath*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(knightOfDeathTexture);
-            }
-
-             if(dynamic_cast<Gremlin*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(gremlinTexture);
-            }
-        }*/
-
-        /*if(listOfvEnnemies[i]->isDead())
-        {
-            if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTexture(ogreDeadTexture);
-            }
-
-             if(dynamic_cast<Orc*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTexture(orcDeadTexture);
-            }
-
-            if(dynamic_cast<ShadowMonster*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(shadowMonsterDeadTexture);
-            }
-
-            if(dynamic_cast<KnightOfDeath*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(knightOfDeathDeadTexture);
-            }
-
-             if(dynamic_cast<Gremlin*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                 listOfvEnnemies[i]->getSprite()->setTexture(gremlinDeadTexture);
-            }
-        }*/
+        listOfvEnnemies[i]->updateTexture();
     }
 }
 

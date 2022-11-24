@@ -7,6 +7,9 @@
 #include "KnightOfDeath.h"
 #include "Gremlin.h"
 
+#include "StateAttack.h"
+#include "StateWalk.h"
+
 #include <string>
 #include <iostream>
 
@@ -90,88 +93,65 @@ void vEnnemy::chargeInformations()
     }
 }
 
-/*void vEnnemy::loadImages()
+/*update the texture of enemy in terms of his state and his type of enemy */
+void vEnnemy::updateTexture()
 {
-    if(!ogreTextureWalk->loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
+    if(dynamic_cast<Ogre*>(enemy))
     {
-        cout << "ERROR chargement texture" << endl;
+        if(dynamic_cast<StateWalk*>(enemy->getState()))
+        {
+            enemySprite->setTexture(*ogreTextureWalk);
+        }
+        else
+        {
+            enemySprite->setTexture(*ogreTextureWalk);
+        }
     }
-
-    if(!orcTextureWalk->loadFromFile("res/images/sprites/2/spritesheet_WALK.png"))
+    else if(dynamic_cast<Orc*>(enemy))
     {
-        cout << "ERROR chargement texture" << endl;
-
+        if(dynamic_cast<StateWalk*>(enemy->getState()))
+        {
+            enemySprite->setTexture(*orcTextureWalk);
+        }
+        else
+        {
+            enemySprite->setTexture(*orcAttackTexture);
+        }
     }
-
-    if (!gremlinTextureWalk->loadFromFile("res/images/sprites/3/spritesheet_WALK.png"))
+    else if(dynamic_cast<ShadowMonster*>(enemy))
     {
-        cout << "ERROR chargement texture" << endl;
-
+        if(dynamic_cast<StateWalk*>(enemy->getState()))
+        {
+            enemySprite->setTexture(*shadowMonsterTextureWalk);
+        }
+        else
+        {
+            enemySprite->setTexture(*shadowMonsterAttackTexture);
+        }
     }
-
-    if (!shadowMonsterTextureWalk->loadFromFile("res/images/sprites/5/spritesheet_WALK.png"))
+    else if(dynamic_cast<KnightOfDeath*>(enemy))
     {
-        cout << "ERROR chargement texture" << endl;
-
+        if(dynamic_cast<StateWalk*>(enemy->getState()))
+        {
+            enemySprite->setTexture(*knightOfDeathTextureWalk);
+        }
+        else
+        {
+            enemySprite->setTexture(*knightOfDeathAttackTexture);
+        }
     }
-
-    if (!knightOfDeathTextureWalk->loadFromFile("res/images/sprites/9/spritesheet_WALK.png"))
+    else //if(dynamic_cast<Gremlin*>(enemy))
     {
-        cout << "ERROR chargement texture" << endl;
-
+        if(dynamic_cast<StateWalk*>(enemy->getState()))
+        {
+            enemySprite->setTexture(*gremlinTextureWalk);
+        }
+        else
+        {
+            enemySprite->setTexture(*gremlinAttackTexture);
+        }
     }
+}
 
-    if (!ogreAttackTexture->loadFromFile("res/images/sprites/1/1_enemies_1_ATTACK_spritesheet.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-
-    if (!orcAttackTexture->loadFromFile("res/images/sprites/2/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!gremlinAttackTexture->loadFromFile("res/images/sprites/3/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!shadowMonsterAttackTexture->loadFromFile("res/images/sprites/5/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!knightOfDeathAttackTexture->loadFromFile("res/images/sprites/9/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!ogreDeadTexture->loadFromFile("res/images/sprites/1/1_enemies_1_DIE_spritesheet.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!orcDeadTexture->loadFromFile("res/images/sprites/2/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!gremlinDeadTexture->loadFromFile("res/images/sprites/3/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!shadowMonsterDeadTexture->loadFromFile("res/images/sprites/5/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-    }
-
-    if (!knightOfDeathDeadTexture->loadFromFile("res/images/sprites/9/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-
-    }
-}*/
 
 

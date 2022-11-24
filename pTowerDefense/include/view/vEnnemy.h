@@ -16,6 +16,9 @@ class vEnnemy
 
         //static bool chargesEnemiesTextures();
         void chargeInformations();
+        void updateTexture();
+        void launchDead();
+        void animation();
 
         //getters and setters
         Enemies* getEnemy()
@@ -72,12 +75,10 @@ class vEnnemy
             this->attack=attack;
         }
 
-
         void setWalk(bool walk)
         {
             this->walk=walk;
         }
-
 
         void setDead(bool dead)
         {
@@ -128,14 +129,10 @@ class vEnnemy
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
-
         //sprites
         sf::Sprite *enemySprite;
         sf::Sprite *healthBarGreenSprite;
         sf::Sprite *healthBarRedSprite;
-
-        //DP
-        //vState *state;
 
 
         bool walk;
