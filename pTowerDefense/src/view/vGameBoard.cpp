@@ -118,6 +118,27 @@ void vGameBoard::launchWave(int numberOfEnnemies)
         //clone enemies because AI
         vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i],new Sprite(),true,false,false,false,false);
 
+        venemy->gremlinAttackTexture =&gremlinAttackTexture;
+        venemy->gremlinDeadTexture = &gremlinDeadTexture;
+        venemy->gremlinTextureWalk = &gremlinTextureWalk;
+
+        venemy->ogreAttackTexture = &ogreAttackTexture;
+        venemy->ogreDeadTexture = &ogreDeadTexture;
+        venemy->ogreTextureWalk = &ogreTextureWalk;
+
+        venemy->orcAttackTexture = &orcAttackTexture;
+        venemy->orcDeadTexture = &orcDeadTexture;
+        venemy->orcTextureWalk = &orcTextureWalk;
+
+        venemy->knightOfDeathAttackTexture = &knightOfDeathAttackTexture;
+        venemy->knightOfDeathDeadTexture = &knightOfDeathDeadTexture;
+        venemy->knightOfDeathTextureWalk = &knightOfDeathTextureWalk;
+
+        venemy->shadowMonsterAttackTexture = &shadowMonsterAttackTexture;
+        venemy->shadowMonsterDeadTexture = &shadowMonsterDeadTexture;
+        venemy->shadowMonsterTextureWalk = &shadowMonsterTextureWalk;
+
+        venemy->chargeInformations();
 
 
         listOfvEnnemies.push_back(venemy);
@@ -1336,6 +1357,131 @@ bool vGameBoard::verifyImageInformations()
          cout << "ERROR chargement texture" << endl;
          return false;
     }
+
+    return true;
+}
+
+bool vGameBoard::chargesEnemiesTextures()
+{
+    /*if(!ogreTextureWalk->loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::ogreTextureWalk = ogreTextureWalk;
+
+    if(!orcTextureWalk->loadFromFile("res/images/sprites/2/spritesheet_WALK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::orcTextureWalk = orcTextureWalk;
+
+    if (!gremlinTextureWalk->loadFromFile("res/images/sprites/3/spritesheet_WALK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::gremlinTextureWalk = gremlinTextureWalk;
+
+    if (!shadowMonsterTextureWalk->loadFromFile("res/images/sprites/5/spritesheet_WALK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::shadowMonsterTextureWalk = shadowMonsterTextureWalk;
+
+    if (!knightOfDeathTextureWalk->loadFromFile("res/images/sprites/9/spritesheet_WALK.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    vEnnemy::knightOfDeathTextureWalk = knightOfDeathTextureWalk;
+
+    if (!ogreAttackTexture->loadFromFile("res/images/sprites/1/1_enemies_1_ATTACK_spritesheet.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::ogreAttackTexture = ogreAttackTexture;
+
+    if (!orcAttackTexture->loadFromFile("res/images/sprites/2/spritesheet_ATTACK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::orcAttackTexture = orcAttackTexture;
+
+    if (!gremlinAttackTexture->loadFromFile("res/images/sprites/3/spritesheet_ATTACK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::gremlinAttackTexture = gremlinAttackTexture;
+
+    if (!shadowMonsterAttackTexture->loadFromFile("res/images/sprites/5/spritesheet_ATTACK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::shadowMonsterAttackTexture = shadowMonsterAttackTexture;
+
+    if (!knightOfDeathAttackTexture->loadFromFile("res/images/sprites/9/spritesheet_ATTACK.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::knightOfDeathAttackTexture = shadowMonsterAttackTexture;
+
+    if (!ogreDeadTexture->loadFromFile("res/images/sprites/1/1_enemies_1_DIE_spritesheet.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::ogreDeadTexture = ogreDeadTexture;
+
+    if (!orcDeadTexture->loadFromFile("res/images/sprites/2/spritesheet_DIE.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::orcDeadTexture = orcDeadTexture;
+
+    if (!gremlinDeadTexture->loadFromFile("res/images/sprites/3/spritesheet_DIE.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::gremlinDeadTexture = gremlinDeadTexture;
+
+    if (!shadowMonsterDeadTexture->loadFromFile("res/images/sprites/5/spritesheet_DIE.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::shadowMonsterDeadTexture = shadowMonsterDeadTexture;
+
+    if (!knightOfDeathDeadTexture->loadFromFile("res/images/sprites/9/spritesheet_DIE.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    vEnnemy::knightOfDeathDeadTexture = shadowMonsterDeadTexture;*/
 
     return true;
 }

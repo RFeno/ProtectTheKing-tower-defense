@@ -3,6 +3,7 @@
 #include "vMainMenu.h"
 #include "vGameBoard.h"
 #include "Enemies.h"
+#include "vEnnemy.h"
 #include "TowerEarth.h"
 #include <unistd.h>
 
@@ -12,9 +13,13 @@ using namespace sf;
 int main()
 {
     srand(time(0));
+
+
     const int WIN_WIDTH = 1400;
     const int WIN_HEIGHT = 800;
     RenderWindow window(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king");
+
+
 //    vMainMenu mainMenu;
 //    mainMenu.launchMenu(window);
     vGameBoard gameBoard(window);
@@ -22,15 +27,16 @@ int main()
 
     //test methods of modèle
 
-    Game game;
-    game.getMap()->addTower(new TowerEarth());
-
-    while(game.getNumeroOfWave() < 4)
-    {
-        cout << game.getMap()->strEnemies()  +"\n" << endl;
-        game.play()  ;
-        cout << game.getMap()->strEnemies() +"\n" << endl;
-    }
+//    Game game;
+//
+//    game.getMap()->addTower(new TowerEarth());
+//
+//    while(game.getNumeroOfWave() < 4)
+//    {
+//        cout << game.getMap()->strEnemies()  +"\n" << endl;
+//        game.play()  ;
+//        cout << game.getMap()->strEnemies() +"\n" << endl;
+//    }
 
 
 

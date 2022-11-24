@@ -23,7 +23,10 @@ class vGameBoard
 
         void loadSprite();
 
+        void updateGame();
+
         void loadFont();
+
 
         //laod images
         bool verifyImage();
@@ -31,7 +34,9 @@ class vGameBoard
         bool verifyImageMonsters();
         bool verifyImageMapEntities();
         bool verifyImageInformations();
+        bool chargesEnemiesTextures();
 
+        //events
         bool drawEntities();
         void InputHandler(Event event, RenderWindow *window);
         bool isSpriteClicked (Sprite &spr);
@@ -68,6 +73,7 @@ class vGameBoard
     protected:
 
     private:
+
         const int OGRE_WIDTH = 377 ;
         const int OGRE_HEIGHT = 404;
         const int ORC_WIDTH = 339;
@@ -78,7 +84,6 @@ class vGameBoard
         const int SHADOWMONSTER_HEIGHT = 302;
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
-        const int WALK_SPEED =2;
 
 
         const int NUMBER_ACIDE_SPELL = 13;
@@ -121,24 +126,26 @@ class vGameBoard
         Game game;
         RenderWindow *windowFromMain;
 
-        //enemies
-        Texture gremlinTexture;
-        Texture knightOfDeathTexture;
-        Texture shadowMonsterTexture;
-        Texture ogreTexture;
-        Texture orcTexture;
+        //walk
+        Texture gremlinTextureWalk;
+        Texture knightOfDeathTextureWalk;
+        Texture shadowMonsterTextureWalk ;
+        Texture ogreTextureWalk;
+        Texture orcTextureWalk;
 
+        //attack
         Texture gremlinAttackTexture;
-        Texture knightOfDeathAttackTexture;
+        Texture knightOfDeathAttackTexture ;
         Texture shadowMonsterAttackTexture;
-        Texture ogreAttackTexture;
-        Texture orcAttackTexture;
+        Texture ogreAttackTexture ;
+        Texture orcAttackTexture ;
 
-        Texture gremlinDeadTexture;
-        Texture knightOfDeathDeadTexture;
+        //dead
+        Texture gremlinDeadTexture ;
+        Texture knightOfDeathDeadTexture ;
         Texture shadowMonsterDeadTexture;
         Texture ogreDeadTexture;
-        Texture orcDeadTexture;
+        Texture orcDeadTexture ;
 
         //map and entitites sprites
         Sprite mapSprite;
@@ -199,6 +206,8 @@ class vGameBoard
         Texture crystalTexture;
         Texture swordTexture;
         Texture signTexture;
+
+
         //informations sprite
         Sprite twentySprite;
         Sprite fourtySprite;
