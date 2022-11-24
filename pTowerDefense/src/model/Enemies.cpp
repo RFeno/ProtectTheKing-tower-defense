@@ -1,11 +1,10 @@
 #include "Enemies.h"
-
 #include <string>
-#include "King.h"
 #include "State.h"
 #include "StateDie.h"
 #include "StateWalk.h"
 #include "StateAttack.h"
+#include "King.h"
 
 class State;
 class StateDie;
@@ -25,8 +24,7 @@ Enemies::~Enemies()
 {
     //dtor
     delete id;
-
-        delete state;
+    delete state;
 
 }
 
@@ -72,21 +70,21 @@ void Enemies::changeState(State *state)
     {
         delete this->state;
     }
-
     this->state = state;
     this->state->setEnemy(this);
 }
-
+/* active walk of enemy, change his position x */
 void Enemies::walk()
 {
     this->state->walk();
 }
-
+/*the enemies attack the king*/
 void Enemies::attackKing(King &king)
 {
     this->state->attackKing(king);
 }
 
+/*change the health of enemy */
 void Enemies::setHealth(int health)
 {
     this->health=health;
@@ -98,18 +96,19 @@ void Enemies::setHealth(int health)
     }
 }
 
+/*changes de positions of enemy */
 void Enemies::setX(int x)
 {
     this->x = x;
 
-    if(x >= KING_POSITION_X)
+    if(x >= King::xKing)
     {
-        this->x=KING_POSITION_X;
+        this->x = King::xKing;
         changeState(new StateAttack);
     }
 
 }
-
+/*change the state of enemies to dead*/
 void Enemies::die()
 {
     if(!dynamic_cast<StateDie*>(state))
@@ -117,10 +116,4 @@ void Enemies::die()
         changeState(new StateDie);
     }
 }
-
-/* return the enemy informations / attributes */
-/*string Enemies::getInformations()const
-{
-    return "[Enemies x:"+ to_string(x) +" health:" + to_string(health) + " attackSpeed:" + to_string(attackSpeed) + " market value:" + to_string(marketValue) + " score value:" + to_string(scoreValue) + "]";
-}*/
 

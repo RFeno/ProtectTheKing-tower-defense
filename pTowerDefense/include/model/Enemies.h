@@ -25,7 +25,6 @@ class Enemies
         static inline int compteur = 0;
         const int WALK_SPEED = 2;
 
-
         //canonic form
         Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
         virtual ~Enemies();
@@ -41,7 +40,7 @@ class Enemies
 
         //getters and setters
         void setHealth(int health);
-
+        void setX(int x);
 
         int getHealth()const
         {
@@ -63,8 +62,6 @@ class Enemies
             return *id;
         }
 
-        void setX(int x);
-
         void setY(int y)
         {
             this->y = y;
@@ -75,13 +72,10 @@ class Enemies
             return state;
         }
 
-        virtual std::string getInformations()const =0 ;
+        virtual std::string getInformations()const = 0 ;
 
 
     protected:
-
-
-        const int KING_POSITION_X = 1200;
 
         //to make it available in subclasses
         int health;
@@ -90,7 +84,6 @@ class Enemies
         int scoreValue;
         int damage;
 
-        //do you need to put the first position
         int x = 0;
         int y;
         int *id;

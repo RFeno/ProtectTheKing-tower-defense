@@ -10,6 +10,8 @@ class King
         King(const King& other);
         King& operator=(const King& other);
 
+        const static int xKing = 1200;
+
         int getHealth()
         {
             return health;
@@ -24,6 +26,7 @@ class King
 
     private:
         int health;
+
 };
 
 #endif // KING_H
