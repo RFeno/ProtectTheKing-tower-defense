@@ -418,12 +418,6 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*crystalSprites[i]);
     }
 
-    // Acid spell
-    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
-    {
-        windowFromMain->draw(*listOfAcideCloudSpell[i]);
-    }
-
     /**A DEPLACER */
     // enemies spawn one per one
     if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
@@ -443,10 +437,32 @@ bool vGameBoard::drawEntities()
         }
     }
 
-    //towers
+    /** towers 1 to 4 */
     for(int i = 0; i < (int)listOfvTower.size(); i++)
     {
-        windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+        if(i < 4)
+        {
+          windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+        }
+    }
+
+    /**
+        Place here elemnets between the towers
+    */
+
+    // Acid spell
+    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        windowFromMain->draw(*listOfAcideCloudSpell[i]);
+    }
+
+    /** towers 5 to 7 */
+    for(int i = 0; i < (int)listOfvTower.size(); i++)
+    {
+        if(i >= 4)
+        {
+          windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+        }
     }
 
     return true;
