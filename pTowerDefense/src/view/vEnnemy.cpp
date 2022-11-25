@@ -16,7 +16,7 @@
 using namespace sf;
 using namespace std;
 
-vEnnemy::vEnnemy(Enemies *enemy, Sprite *enemySprite, bool walk, bool animated, bool spawn, bool attack, bool dead): enemy(enemy), enemySprite(enemySprite), walk(walk), animated(animated), spawn(spawn), attack(attack), dead(dead)
+vEnnemy::vEnnemy(Enemies *enemy, Sprite *enemySprite, bool animated, bool spawn, bool dead): enemy(enemy), enemySprite(enemySprite), animated(animated), spawn(spawn), dead(dead)
 {
     //ctor
 }
@@ -30,7 +30,7 @@ vEnnemy::~vEnnemy()
     delete healthBarRedSprite;
 }
 
-vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite), walk(other.walk), animated(other.animated), spawn(other.spawn), attack(other.attack), dead(other.dead)
+vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite), animated(other.animated), spawn(other.spawn), dead(other.dead)
 {
     //copy ctor
 }
@@ -98,13 +98,14 @@ void vEnnemy::updateTexture()
 {
     if(dynamic_cast<Ogre*>(enemy))
     {
+
         if(dynamic_cast<StateWalk*>(enemy->getState()))
         {
             enemySprite->setTexture(*ogreTextureWalk);
         }
         else
         {
-            enemySprite->setTexture(*ogreTextureWalk);
+            enemySprite->setTexture(*ogreAttackTexture);
         }
     }
     else if(dynamic_cast<Orc*>(enemy))

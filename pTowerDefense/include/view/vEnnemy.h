@@ -9,7 +9,7 @@ class vEnnemy
 {
     public:
 
-        vEnnemy(Enemies *enemy, sf::Sprite *enemySprite, bool walk, bool animated, bool spawn, bool attack, bool dead);
+        vEnnemy(Enemies *enemy, sf::Sprite *enemySprite, bool animated, bool spawn, bool dead);
         virtual ~vEnnemy();
         vEnnemy(const vEnnemy& other);
         vEnnemy& operator=(const vEnnemy& other);
@@ -17,6 +17,7 @@ class vEnnemy
         //static bool chargesEnemiesTextures();
         void chargeInformations();
         void updateTexture();
+        void updateTexturePart();
         void launchDead();
         void animation();
 
@@ -31,10 +32,6 @@ class vEnnemy
             return spawn;
         }
 
-        bool isWalking()const
-        {
-            return walk;
-        }
         bool isDead()const
         {
             return dead;
@@ -50,11 +47,6 @@ class vEnnemy
             return enemySprite;
         }
 
-        bool isAttacking()
-        {
-            return attack;
-        }
-
         void setSprite(sf::Sprite *enemySprite)
         {
             this->enemySprite=enemySprite;
@@ -68,16 +60,6 @@ class vEnnemy
         void setSpawn(bool spawn)
         {
             this->spawn=spawn;
-        }
-
-        void setAttack(bool attack)
-        {
-            this->attack=attack;
-        }
-
-        void setWalk(bool walk)
-        {
-            this->walk=walk;
         }
 
         void setDead(bool dead)
@@ -135,10 +117,8 @@ class vEnnemy
         sf::Sprite *healthBarRedSprite;
 
 
-        bool walk;
         bool animated;
         bool spawn;
-        bool attack;
         bool dead;
 
 

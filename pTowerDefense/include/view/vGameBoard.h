@@ -43,12 +43,14 @@ class vGameBoard
 
         //methods
         void launchGame();
-        void launchWave(int numberOfEnemies);
+        void updateVennemyForView();
         void enemyAnimation();
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
         void buyTower(TypeOfTower type);
+        bool removeVEnemy(vEnnemy& enemy);
+        int searchVEnemy(vEnnemy& enemy);
 
         /*these methods are used to calculate the positions of the towers*/
         sf::Vector2f* getPositionOfNewTower(TypeOfTower type);

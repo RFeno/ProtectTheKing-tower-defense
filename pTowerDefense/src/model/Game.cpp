@@ -44,7 +44,7 @@ Game& Game::operator=(const Game& rhs)
 void Game::createWave()
 {
     numeroOfWave++;
-    numberOfEnemies += rand()%5 +1;
+    numberOfEnemies += rand()%1 +5;
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
@@ -87,11 +87,13 @@ void Game::createWave()
 
 void Game::play()
 {
-    cout << "GAME PLAY" << endl;
+
+    cout << mapOfGame->strEnemies() << endl;
+
     if(IsEndOfWave())
     {
         createWave();
-        cout << "CREATE WABE NUMBER ==> " << numeroOfWave << endl;
+        cout << "CREATE WAVE NUMBER ==> " << numeroOfWave << endl;
     }
 
     //delete enemies dead
@@ -100,6 +102,7 @@ void Game::play()
         if(dynamic_cast<StateDie*>(enemy->getState()))
         {
             cout << "delete enemy " << to_string(enemy->getId());
+
             if(mapOfGame->removeEnemy(*enemy))
             {
                 cout << " with success" << endl;
@@ -116,7 +119,6 @@ void Game::play()
     {
         ennemiesWalk();
         cout << "walk of enemies" << endl;
-
     }
 
     //tower attack
@@ -127,15 +129,19 @@ void Game::play()
         cout << "attack of tower" << endl;
     }
 }
-
+/**
+* move the enemies
+*/
 void Game::ennemiesWalk()
 {
     for(Enemies* enemy : mapOfGame->getEnemies())
     {
+        //call the state
         enemy->walk();
     }
 }
 
+/* the enemies attack the king */
 void Game::ennemiesAttack()
 {
     for(Enemies* enemy:mapOfGame->getEnemies())
@@ -143,6 +149,7 @@ void Game::ennemiesAttack()
         enemy->attackKing(mapOfGame->getKing());
     }
 }
+
 /** attack the enemies who is nearby */
 void Game::towerAttack()
 {

@@ -103,20 +103,25 @@ void vGameBoard::launchView()
         cout << "error" <<endl;
 }
 
-void vGameBoard::launchGame()
+void vGameBoard::updateVennemyForView()
 {
-    launchWave(game.getNumberOfEnemies());
-}
-
-void vGameBoard::launchWave(int numberOfEnnemies)
-{
-    game.createWave();
-
     //bind enemy model and sprite
+
+    /** VEILLER A SUPP LES VENNEMIES MORTS */
+    for(int i=0; i<(int)listOfvEnnemies.size(); i++)
+    {
+        if(listOfvEnnemies[i]->getEnemy() ==nullptr)
+        {
+            cout << " suppression " << endl;
+            removeVEnemy(*listOfvEnnemies[i]);
+        }
+    }
+
+
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
     {
         //clone enemies because AI
-        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i],new Sprite(),true,false,false,false,false);
+        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i],new Sprite(),true,false,false);
 
         venemy->gremlinAttackTexture =&gremlinAttackTexture;
         venemy->gremlinDeadTexture = &gremlinDeadTexture;
@@ -145,15 +150,47 @@ void vGameBoard::launchWave(int numberOfEnnemies)
     }
 
 
-    for(int i=0; i < NUMBER_ACIDE_SPELL; i++)
-    {
-        listOfAcideCloudSpell.push_back(new Sprite());
-    }
+//    for(int i=0; i < NUMBER_ACIDE_SPELL; i++)
+//    {
+//        listOfAcideCloudSpell.push_back(new Sprite());
+//    }
 
     cout << game.getMap()->getEnemies().size() << endl;
     cout << game.getMap()->strEnemies() << endl;
+}
 
-    launchView();
+int vGameBoard::searchVEnemy(vEnnemy& enemy)
+{
+    int result = -1;
+
+    for(size_t i=0;i<listOfvEnnemies.size();i++)
+    {
+        if(listOfvEnnemies[i]==&enemy)
+        {
+            result=i;
+            break;
+        }
+    }
+    return result;
+}
+
+bool vGameBoard::removeVEnemy(vEnnemy& enemy)
+{
+    int index = searchVEnemy(enemy);
+
+    if(index!=-1)
+    {
+        vEnnemy *tmp = *(listOfvEnnemies.begin() + index);
+        listOfvEnnemies.erase(listOfvEnnemies.begin()+index);
+        delete tmp;
+
+        return true;
+    }
+    else
+    {
+        cout << "this enemy is not in the list of vEnnmy" << endl;
+    }
+    return false;
 }
 
 /*to manage the events */
@@ -413,10 +450,10 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*swordSprites[i]);
     }
 
-    for(int i=0; i < 4 ; i++)
+    /*for(int i=0; i < 4 ; i++)
     {
         windowFromMain->draw(*crystalSprites[i]);
-    }
+    }*/
 
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
@@ -477,32 +514,27 @@ void vGameBoard::enemyAnimation()
     //method adapts which texture we need to display
     adaptAnimationTexture();
 
+
     //method adapts which parts of Texture (sprite sheet) we need to display
     adaptAnimationSprite();
 
     //for the deplacement
+    /** à mettre dans un clock, peut etre dans vEnnmy */
     for(int i=0;i< (int)listOfvEnnemies.size();i++)
     {
-        if(listOfvEnnemies[i]->isSpawn())
-        {
-            if(listOfvEnnemies[i]->isWalking())
-            {
-                listOfvEnnemies[i]->getSprite()->move(listOfvEnnemies[i]->getEnemy()->WALK_SPEED,0);
-            }
-        }
-
-        // if one ennemy reach the king , he attacks him
-        if(listOfvEnnemies[i]->getSprite()->getPosition().x > 1200 && !listOfvEnnemies[i]->isDead())
-        {
-            listOfvEnnemies[i]->setWalk(false);
-            listOfvEnnemies[i]->setAttack(true);
-        }
+//        if(listOfvEnnemies[i]->isSpawn())
+//        {
+            listOfvEnnemies[i]->getSprite()->setPosition(listOfvEnnemies[i]->getEnemy()->getX(),listOfvEnnemies[i]->getEnemy()->getY());
+        //}
     }
 }
 
 void vGameBoard::updateGame()
 {
+    game.play();
+    updateVennemyForView();
     enemyAnimation();
+
 }
 
 /*methods adapte which parts of sprite sheet we need to display*/
@@ -510,9 +542,9 @@ void vGameBoard::adaptAnimationSprite()
 {
     adaptPartOfTexture();
 
-    for(size_t i=0;i<listOfvEnnemies.size();i++)
+    /*for(size_t i=0;i<listOfvEnnemies.size();i++)
     {
-        if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
+        if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
         }
@@ -536,17 +568,18 @@ void vGameBoard::adaptAnimationSprite()
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
         }
-    }
+    }*/
 
     for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
     {
         listOfAcideCloudSpell[i]->setTextureRect(IntRect(x_acide*909,0,909,2938));
     }
+
 }
 
 void vGameBoard::adaptPartOfTexture()
 {
-    if(animClock.getElapsedTime().asSeconds() > 0.08f)
+    /*if(animClock.getElapsedTime().asSeconds() > 0.08f)
     {
         if(x_Ogre*OGRE_WIDTH >= (int)ogreTextureWalk.getSize().x - OGRE_WIDTH)
         {
@@ -609,9 +642,11 @@ void vGameBoard::adaptPartOfTexture()
             x_acide++;
         }
         animClock.restart();
-    }
+    }*/
 }
-/*call the method updateTexture who in terms of the state of ennemy set the good texture to sprite */
+/**
+*call the method updateTexture who in terms of the state of ennemy set the good texture to sprite
+*/
 void vGameBoard::adaptAnimationTexture()
 {
     for(int i=0;i < (int)listOfvEnnemies.size();i++)
@@ -622,7 +657,6 @@ void vGameBoard::adaptAnimationTexture()
 
 void vGameBoard::buyTower(TypeOfTower type)
 {
-
     switch(type)
     {
         case earth:
@@ -696,8 +730,6 @@ void vGameBoard::buyTower(TypeOfTower type)
             break;
         }
     }
-
-    cout << game.getMap()->getTowers().size() << endl;
 }
 
 /**
@@ -1007,7 +1039,6 @@ bool vGameBoard::verifyImageTower()
 
 bool vGameBoard::verifyImageMonsters()
 {
-
     if (!ogreTextureWalk.loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
     {
         cout << "ERROR chargement texture" << endl;
@@ -1223,128 +1254,4 @@ bool vGameBoard::verifyImageInformations()
     return true;
 }
 
-bool vGameBoard::chargesEnemiesTextures()
-{
-    /*if(!ogreTextureWalk->loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::ogreTextureWalk = ogreTextureWalk;
-
-    if(!orcTextureWalk->loadFromFile("res/images/sprites/2/spritesheet_WALK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::orcTextureWalk = orcTextureWalk;
-
-    if (!gremlinTextureWalk->loadFromFile("res/images/sprites/3/spritesheet_WALK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::gremlinTextureWalk = gremlinTextureWalk;
-
-    if (!shadowMonsterTextureWalk->loadFromFile("res/images/sprites/5/spritesheet_WALK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::shadowMonsterTextureWalk = shadowMonsterTextureWalk;
-
-    if (!knightOfDeathTextureWalk->loadFromFile("res/images/sprites/9/spritesheet_WALK.png"))
-    {
-         cout << "ERROR chargement texture" << endl;
-         return false;
-    }
-
-    vEnnemy::knightOfDeathTextureWalk = knightOfDeathTextureWalk;
-
-    if (!ogreAttackTexture->loadFromFile("res/images/sprites/1/1_enemies_1_ATTACK_spritesheet.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::ogreAttackTexture = ogreAttackTexture;
-
-    if (!orcAttackTexture->loadFromFile("res/images/sprites/2/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::orcAttackTexture = orcAttackTexture;
-
-    if (!gremlinAttackTexture->loadFromFile("res/images/sprites/3/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::gremlinAttackTexture = gremlinAttackTexture;
-
-    if (!shadowMonsterAttackTexture->loadFromFile("res/images/sprites/5/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::shadowMonsterAttackTexture = shadowMonsterAttackTexture;
-
-    if (!knightOfDeathAttackTexture->loadFromFile("res/images/sprites/9/spritesheet_ATTACK.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::knightOfDeathAttackTexture = shadowMonsterAttackTexture;
-
-    if (!ogreDeadTexture->loadFromFile("res/images/sprites/1/1_enemies_1_DIE_spritesheet.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::ogreDeadTexture = ogreDeadTexture;
-
-    if (!orcDeadTexture->loadFromFile("res/images/sprites/2/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::orcDeadTexture = orcDeadTexture;
-
-    if (!gremlinDeadTexture->loadFromFile("res/images/sprites/3/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::gremlinDeadTexture = gremlinDeadTexture;
-
-    if (!shadowMonsterDeadTexture->loadFromFile("res/images/sprites/5/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::shadowMonsterDeadTexture = shadowMonsterDeadTexture;
-
-    if (!knightOfDeathDeadTexture->loadFromFile("res/images/sprites/9/spritesheet_DIE.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    vEnnemy::knightOfDeathDeadTexture = shadowMonsterDeadTexture;*/
-
-    return true;
-}
 
