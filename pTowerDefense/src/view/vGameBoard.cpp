@@ -418,6 +418,7 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*crystalSprites[i]);
     }
 
+    // Acid spell
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
@@ -749,32 +750,32 @@ Vector2f* vGameBoard::getPositionOfEarth()
             }
         case 1:
             {
-                x=40-120;
-                y=600-75;
-                break;
-            }
-        case 2:
-            {
                 x=350-110;
                 y=370-75;
                 break;
             }
-        case 3:
-            {
-                x=300-120;
-                y=600-75;
-                break;
-            }
-        case 4:
+        case 2:
             {
                 x=650-110;
                 y=370-75;
                 break;
             }
-        case 5:
+        case 3:
             {
                 x=990-110;
                 y=370-75;
+                break;
+            }
+        case 4:
+            {
+                x=40-120;
+                y=600-75;
+                break;
+            }
+        case 5:
+            {
+                x=300-120;
+                y=600-75;
                 break;
             }
         case 6:
@@ -806,32 +807,32 @@ Vector2f* vGameBoard::getPositionOfIce()
             }
         case 1:
             {
-                x=40;
-                y=630;
-                break;
-            }
-        case 2:
-            {
                 x=350;
                 y=395;
                 break;
             }
-        case 3:
-            {
-                x=300;
-                y=630;
-                break;
-            }
-        case 4:
+        case 2:
             {
                 x=650;
                 y=385;
                 break;
             }
-        case 5:
+        case 3:
             {
                 x=990;
                 y=390;
+                break;
+            }
+        case 4:
+            {
+                x=40;
+                y=630;
+                break;
+            }
+        case 5:
+            {
+                x=300;
+                y=630;
                 break;
             }
         case 6:
@@ -862,32 +863,32 @@ Vector2f* vGameBoard::getPositionOfIron()
             }
         case 1:
             {
-                x=38;
-                y=575;
-                break;
-            }
-        case 2:
-            {
                 x=355;
                 y=330;
                 break;
             }
-        case 3:
-            {
-                x=297;
-                y=575;
-                break;
-            }
-        case 4:
+        case 2:
             {
                 x=655;
                 y=330;
                 break;
             }
-        case 5:
+        case 3:
             {
                 x=990;
                 y=330;
+                break;
+            }
+        case 4:
+            {
+                x=38;
+                y=575;
+                break;
+            }
+        case 5:
+            {
+                x=297;
+                y=575;
                 break;
             }
         case 6:
@@ -918,32 +919,32 @@ Vector2f* vGameBoard::getPositionOfSand()
             }
         case 1:
             {
-                x=40;
-                y=575;
-                break;
-            }
-        case 2:
-            {
                 x=350;
                 y=340;
                 break;
             }
-        case 3:
-            {
-                x=300;
-                y=575;
-                break;
-            }
-        case 4:
+        case 2:
             {
                 x=650;
                 y=340;
                 break;
             }
-        case 5:
+        case 3:
             {
                 x=990;
                 y=340;
+                break;
+            }
+        case 4:
+            {
+                x=40;
+                y=575;
+                break;
+            }
+        case 5:
+            {
+                x=300;
+                y=575;
                 break;
             }
         case 6:
