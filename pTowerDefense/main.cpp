@@ -23,7 +23,7 @@ int main()
 //    vMainMenu mainMenu;
 //    mainMenu.launchMenu(window);
     vGameBoard gameBoard(window);
-    gameBoard.launchGame();
+    gameBoard.launchView();
 
     //test methods of modèle
 

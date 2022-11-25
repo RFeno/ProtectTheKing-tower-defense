@@ -10,14 +10,17 @@ class vTower
         sf::Vector2f* position;
         sf::Sprite *towerSprite;
         Tower *tower;
-        sf::Texture* towerTexture;
 
     public:
 
-        vTower(sf::Vector2f* position, sf::Sprite* sprite, Tower* tower, sf::Texture* towerTexture);
+        vTower(sf::Vector2f* position, sf::Sprite* sprite, Tower* tower);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
+
+        void chargeInformations();
+
+        sf::Texture *towerTexture = nullptr;
 
         sf::Sprite* getSprite()
         {

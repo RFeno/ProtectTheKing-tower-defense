@@ -684,7 +684,9 @@ void vGameBoard::buyTower(TypeOfTower type)
             Vector2f* position = getPositionOfNewTower(earth);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(earthTowerTexture1));
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vtower->towerTexture = &earthTowerTexture1;
+            vtower->chargeInformations();
             vtower->getSprite()->setScale(0.20f,0.20f);
             vtower->getSprite()->setPosition(position->x, position->y);
 
@@ -703,7 +705,9 @@ void vGameBoard::buyTower(TypeOfTower type)
             Vector2f* position = getPositionOfNewTower(ice);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(iceTowerTexture1));
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vtower->towerTexture = &iceTowerTexture1;
+            vtower->chargeInformations();
             vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);
@@ -721,7 +725,9 @@ void vGameBoard::buyTower(TypeOfTower type)
             Vector2f* position = getPositionOfNewTower(iron);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(ironTowerTexture1));
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vtower->towerTexture = &ironTowerTexture1;
+            vtower->chargeInformations();
             vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);
@@ -738,7 +744,9 @@ void vGameBoard::buyTower(TypeOfTower type)
             Vector2f* position = getPositionOfNewTower(sand);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back(), new Texture(sandTowerTexture1));
+            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vtower->towerTexture = &sandTowerTexture1;
+            vtower->chargeInformations();
             vtower->getSprite()->setPosition(position->x, position->y);
 
             listOfvTower.push_back(vtower);

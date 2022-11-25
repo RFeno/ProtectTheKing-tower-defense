@@ -1,13 +1,16 @@
 #include "vTower.h"
+#include "TowerEarth.h"
+#include "TowerSand.h"
+#include "TowerIce.h"
+#include "TowerIron.h"
 
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 
-vTower::vTower(Vector2f* position, Sprite* sprite , Tower* tower, Texture* towerTexture): position(position), towerSprite(sprite), tower(tower), towerTexture(towerTexture)
+vTower::vTower(Vector2f* position, Sprite* sprite , Tower* tower): position(position), towerSprite(sprite), tower(tower)
 {
     //ctor
-    sprite->setTexture(*towerTexture);
 }
 
 vTower::~vTower()
@@ -30,4 +33,33 @@ vTower& vTower::operator=(const vTower& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
+}
+
+void vTower::chargeInformations()
+{
+    if(dynamic_cast<TowerEarth*>(tower))
+    {
+        towerSprite->setTexture(*towerTexture);
+    }
+    else
+    {
+        if(dynamic_cast<TowerSand*>(tower))
+        {
+            towerSprite->setTexture(*towerTexture);
+        }
+        else
+        {
+            if(dynamic_cast<TowerIce*>(tower))
+            {
+                towerSprite->setTexture(*towerTexture);
+            }
+            else
+            {
+                if(dynamic_cast<TowerIron*>(tower))
+                {
+                    towerSprite->setTexture(*towerTexture);
+                }
+            }
+        }
+    }
 }
