@@ -9,7 +9,7 @@ class vEnnemy
 {
     public:
 
-        vEnnemy(Enemies *enemy, sf::Sprite *enemySprite, bool animated, bool spawn, bool dead);
+        vEnnemy(Enemies *enemy);
         virtual ~vEnnemy();
         vEnnemy(const vEnnemy& other);
         vEnnemy& operator=(const vEnnemy& other);
@@ -17,7 +17,9 @@ class vEnnemy
         //static bool chargesEnemiesTextures();
         void chargeInformations();
         void updateTexture();
-        void updateTexturePart();
+        void updatePartOfTexture();
+        void animationClock();
+
         void launchDead();
         void animation();
 
@@ -111,15 +113,32 @@ class vEnnemy
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
+        int x_Ogre = 0;
+        int y_Ogre = 0;
+
+        int x_Orc = 0;
+        int y_Orc = 0;
+
+        int x_gremlin = 0;
+        int y_gremlin = 0;
+
+        int x_shadowMonster = 0;
+        int y_shadowMonster = 0;
+
+        int x_knight = 0;
+        int y_knight = 0;
+
+        sf::Clock animClock;
+
         //sprites
         sf::Sprite *enemySprite;
         sf::Sprite *healthBarGreenSprite;
         sf::Sprite *healthBarRedSprite;
 
 
-        bool animated;
-        bool spawn;
-        bool dead;
+        bool animated = false;
+        bool spawn = false;
+        bool dead = false;
 
 
 

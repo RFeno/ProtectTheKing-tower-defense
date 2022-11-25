@@ -17,7 +17,6 @@ class KnightOfDeath : public Enemies
     protected:
 
     private:
-        const int y = 493;
 };
 
 #endif // KNIGHTOFDEATH_H

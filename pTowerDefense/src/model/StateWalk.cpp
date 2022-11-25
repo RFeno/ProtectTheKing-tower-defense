@@ -5,7 +5,10 @@ using namespace std;
 
 void StateWalk::walk()
 {
-    this->enemy->setX(enemy->getX()+enemy->WALK_SPEED);
+    if(this->enemy->isSpawn())
+    {
+        this->enemy->setX(enemy->getX()+enemy->WALK_SPEED);
+    }
 }
 
 void StateWalk::attackKing(King &king)

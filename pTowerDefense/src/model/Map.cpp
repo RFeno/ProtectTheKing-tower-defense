@@ -111,9 +111,9 @@ bool Map::removeEnemy(Enemies& enemy)
 
     if(index!=-1)
     {
-        Enemies *tmp = *(listOfEnemies.begin() + index);
+        //Enemies *tmp = *(listOfEnemies.begin() + index);
         listOfEnemies.erase(listOfEnemies.begin()+index);
-        delete tmp;
+        //delete tmp;
 
         return true;
     }

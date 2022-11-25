@@ -44,7 +44,7 @@ Game& Game::operator=(const Game& rhs)
 void Game::createWave()
 {
     numeroOfWave++;
-    numberOfEnemies += rand()%1 +5;
+    numberOfEnemies += rand()%5 + 1;
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
@@ -150,7 +150,9 @@ void Game::ennemiesAttack()
     }
 }
 
-/** attack the enemies who is nearby */
+/**
+attack the enemies who is nearby
+*/
 void Game::towerAttack()
 {
     for(Tower* tower:mapOfGame->getTowers())
@@ -165,8 +167,9 @@ void Game::towerAttack()
     }
 }
 
-
-/* detect if is the end of wave */
+/**
+ detect if is the end of wave
+*/
 bool Game::IsEndOfWave()
 {
     if(mapOfGame->getEnemies().size()==0)
@@ -176,9 +179,15 @@ bool Game::IsEndOfWave()
     return false;
 }
 
-/*cuts the game when the player has lost (when the king is dead) */
+/**
+*cuts the game when the player has lost (when the king is dead)
+*/
 bool Game::isGameOver()
 {
+    if(mapOfGame->getKing().getHealth()<=0)
+    {
+        return true;
+    }
     return false;
 }
 

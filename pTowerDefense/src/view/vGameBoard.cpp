@@ -15,12 +15,16 @@
 #include "TowerIron.h"
 #include "TowerSand.h"
 
+#include "StateDie.h"
+
 using namespace sf;
 using namespace std;
 
 vGameBoard::vGameBoard(RenderWindow& window)
 {
     this->windowFromMain = &window;
+    //to delete
+    game.getMap()->addTower(new TowerEarth());
 }
 
 vGameBoard::~vGameBoard()
@@ -108,20 +112,20 @@ void vGameBoard::updateVennemyForView()
     //bind enemy model and sprite
 
     /** VEILLER A SUPP LES VENNEMIES MORTS */
-    for(int i=0; i<(int)listOfvEnnemies.size(); i++)
+    /*for(int i=0; i<(int)listOfvEnnemies.size(); i++)
     {
-        if(listOfvEnnemies[i]->getEnemy() ==nullptr)
+        if(dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
         {
             cout << " suppression " << endl;
             removeVEnemy(*listOfvEnnemies[i]);
         }
-    }
+    }*/
 
 
     for(int i=0; i< (int)game.getMap()->getEnemies().size(); i++)
     {
         //clone enemies because AI
-        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i],new Sprite(),true,false,false);
+        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]);
 
         venemy->gremlinAttackTexture =&gremlinAttackTexture;
         venemy->gremlinDeadTexture = &gremlinDeadTexture;
@@ -460,7 +464,9 @@ bool vGameBoard::drawEntities()
     if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
     {
         //window.draw(*enemiesSprite[idSpawn]);
+
         listOfvEnnemies[idSpawn]->setSpawn(true);
+        listOfvEnnemies[idSpawn]->getEnemy()->setSpawn(true);
         idSpawn++;
         spawnClock.restart();
     }
@@ -468,7 +474,7 @@ bool vGameBoard::drawEntities()
     //ennemies
     for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
-        if(listOfvEnnemies[i]->isSpawn() && !listOfvEnnemies[i]->isDead())
+        if(listOfvEnnemies[i]->isSpawn())
         {
             windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
         }
@@ -668,7 +674,15 @@ void vGameBoard::adaptAnimationTexture()
 {
     for(int i=0;i < (int)listOfvEnnemies.size();i++)
     {
-        listOfvEnnemies[i]->updateTexture();
+
+        if(listOfvEnnemies[i]->getEnemy()!=nullptr)
+        {
+            listOfvEnnemies[i]->updateTexture();
+        }
+        else
+        {
+            removeVEnemy(*listOfvEnnemies[i]);
+        }
     }
 }
 

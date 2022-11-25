@@ -62,6 +62,16 @@ class Enemies
             return *id;
         }
 
+        bool isSpawn()const
+        {
+            return spawn;
+        }
+
+        void setSpawn(bool spawn)
+        {
+            this->spawn=spawn;
+        }
+
         void setY(int y)
         {
             this->y = y;
@@ -83,6 +93,7 @@ class Enemies
         int marketValue;
         int scoreValue;
         int damage;
+        bool spawn = false;
 
         int x = -40;
         int y;

@@ -6,6 +6,7 @@ using namespace std;
 ShadowMonster::ShadowMonster(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
+    y=535;
 }
 
 ShadowMonster::~ShadowMonster()

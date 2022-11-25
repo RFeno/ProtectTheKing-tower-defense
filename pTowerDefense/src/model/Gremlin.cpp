@@ -7,6 +7,7 @@ using namespace std;
 Gremlin::Gremlin(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
+    y=555;
 }
 
 Gremlin::~Gremlin()

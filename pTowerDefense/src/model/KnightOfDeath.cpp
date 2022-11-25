@@ -4,6 +4,7 @@ using namespace std;
 KnightOfDeath::KnightOfDeath(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
 {
     //ctor
+    y=493;
 }
 
 KnightOfDeath::~KnightOfDeath()
