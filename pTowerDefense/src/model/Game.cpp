@@ -88,7 +88,7 @@ void Game::createWave()
 void Game::play()
 {
 
-    cout << mapOfGame->strEnemies() << endl;
+    //cout << mapOfGame->strEnemies() << endl;
 
     if(IsEndOfWave())
     {
@@ -155,16 +155,16 @@ attack the enemies who is nearby
 */
 void Game::towerAttack()
 {
-    for(Tower* tower:mapOfGame->getTowers())
-    {
-        for(Enemies* enemy:mapOfGame->getEnemies())
-        {
-            if(tower->isInRange(enemy->getX()))
-            {
-                tower->attackEnemy(*enemy);
-            }
-        }
-    }
+//    for(Tower* tower:mapOfGame->getTowers())
+//    {
+//        for(Enemies* enemy:mapOfGame->getEnemies())
+//        {
+//            if(tower->isInRange(enemy->getX()))
+//            {
+//                tower->attackEnemy(*enemy);
+//            }
+//        }
+//    }
 }
 
 /**

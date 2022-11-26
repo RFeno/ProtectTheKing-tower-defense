@@ -53,11 +53,11 @@ class vGameBoard
         int searchVEnemy(vEnnemy& enemy);
 
         /*these methods are used to calculate the positions of the towers*/
-        sf::Vector2f* getPositionOfNewTower(TypeOfTower type);
-        sf::Vector2f* getPositionOfEarth();
-        sf::Vector2f* getPositionOfIron();
-        sf::Vector2f* getPositionOfIce();
-        sf::Vector2f* getPositionOfSand();
+        sf::Vector2i* getPositionOfNewTower(TypeOfTower type);
+        sf::Vector2i* getPositionOfEarth();
+        sf::Vector2i* getPositionOfIron();
+        sf::Vector2i* getPositionOfIce();
+        sf::Vector2i* getPositionOfSand();
 
 
         bool setTower(int x, int y, int type);
@@ -158,24 +158,28 @@ class vGameBoard
         Texture earthTowerTexture1;
         Texture earthTowerTexture2;
         Texture earthTowerTexture3;
+        Texture earthAttack;
 
         Texture sandTowerTexture;
 
         Texture sandTowerTexture1;
         Texture sandTowerTexture2;
         Texture sandTowerTexture3;
+        Texture sandAttack;
 
         Texture iceTowerTexture;
 
         Texture iceTowerTexture1;
         Texture iceTowerTexture2;
         Texture iceTowerTexture3;
+        Texture iceAttack;
 
         Texture ironTowerTexture;
 
         Texture ironTowerTexture1;
         Texture ironTowerTexture2;
         Texture ironTowerTexture3;
+        Texture ironAttack;
 
         //Tower sprites
         Sprite earthTowerSprite;

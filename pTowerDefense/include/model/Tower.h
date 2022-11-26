@@ -71,6 +71,11 @@ class Tower
             return xTower;
         }
 
+        void setX(int x)
+        {
+            this->xTower = x;
+        }
+
         int getRange()
         {
             return range;

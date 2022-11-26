@@ -24,7 +24,7 @@ vGameBoard::vGameBoard(RenderWindow& window)
 {
     this->windowFromMain = &window;
     //to delete
-    game.getMap()->addTower(new TowerEarth());
+    //game.getMap()->addTower(new TowerEarth());
 }
 
 vGameBoard::~vGameBoard()
@@ -158,6 +158,14 @@ void vGameBoard::updateVennemyForView()
 //    {
 //        listOfAcideCloudSpell.push_back(new Sprite());
 //    }
+
+    Vector2i* position = getPositionOfNewTower(earth);
+    cout << "position x :"<< position->x << endl;
+
+    if(game.getMap()->getTowers().size() > 0)
+    {
+        cout << "x de 1er tour : "<< game.getMap()->getTowers()[0]->getX() << endl;
+    }
 
     cout << game.getMap()->getEnemies().size() << endl;
     cout << game.getMap()->strEnemies() << endl;
@@ -508,6 +516,20 @@ bool vGameBoard::drawEntities()
         }
     }
 
+    // attack animations of towers
+    for(int i = 0; i < (int)listOfvTower.size(); i++)
+    {
+        if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
+        {
+            windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
+            if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
+            {
+                listOfvTower[i]->getAttackClock()->restart();
+            }
+        }
+        cout<< "clock attaque : "<< listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() << endl;
+    }
+
     return true;
 }
 
@@ -692,17 +714,21 @@ void vGameBoard::buyTower(TypeOfTower type)
     {
         case earth:
         {
+            Vector2i* position = getPositionOfNewTower(earth);
+
             TowerEarth* tower = new TowerEarth;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower(earth);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vTower *vtower = new vTower(position, game.getMap()->getTowers().back());
             vtower->towerTexture = &earthTowerTexture1;
+            vtower->attackTexture = &earthAttack;
             vtower->chargeInformations();
-            vtower->getSprite()->setScale(0.20f,0.20f);
-            vtower->getSprite()->setPosition(position->x, position->y);
+
+
+            /** Ca ne marche pas je comprend pas pourquoi */
+            //vtower->getTower()->setX(position->x);
 
             listOfvTower.push_back(vtower);
 
@@ -716,10 +742,10 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerIce* tower = new TowerIce;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower(ice);
+            Vector2i* position = getPositionOfNewTower(ice);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vTower *vtower = new vTower(position, game.getMap()->getTowers().back());
             vtower->towerTexture = &iceTowerTexture1;
             vtower->chargeInformations();
             vtower->getSprite()->setPosition(position->x, position->y);
@@ -736,10 +762,10 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerIron* tower = new TowerIron;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower(iron);
+            Vector2i* position = getPositionOfNewTower(iron);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vTower *vtower = new vTower(position, game.getMap()->getTowers().back());
             vtower->towerTexture = &ironTowerTexture1;
             vtower->chargeInformations();
             vtower->getSprite()->setPosition(position->x, position->y);
@@ -755,10 +781,10 @@ void vGameBoard::buyTower(TypeOfTower type)
             TowerSand* tower = new TowerSand;
             game.getMap()->addTower(tower);
 
-            Vector2f* position = getPositionOfNewTower(sand);
+            Vector2i* position = getPositionOfNewTower(sand);
 
             //back = last element
-            vTower *vtower = new vTower(position,new Sprite(),game.getMap()->getTowers().back());
+            vTower *vtower = new vTower(position, game.getMap()->getTowers().back());
             vtower->towerTexture = &sandTowerTexture1;
             vtower->chargeInformations();
             vtower->getSprite()->setPosition(position->x, position->y);
@@ -775,7 +801,7 @@ void vGameBoard::buyTower(TypeOfTower type)
 *depending on the type of tower the player wants to buy
 *this method will call the correct method which will return an x and y position
 */
-Vector2f* vGameBoard::getPositionOfNewTower(TypeOfTower type)
+Vector2i* vGameBoard::getPositionOfNewTower(TypeOfTower type)
 {
     switch(type)
     {
@@ -805,38 +831,38 @@ Vector2f* vGameBoard::getPositionOfNewTower(TypeOfTower type)
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-Vector2f* vGameBoard::getPositionOfEarth()
+Vector2i* vGameBoard::getPositionOfEarth()
 {
     int x;
     int y;
 
     switch((int)listOfvTower.size())
     {
-        case 0:
+        case 3:
             {
                 x=100-110;
                 y=370-75;
                 break;
             }
-        case 1:
+        case 2:
             {
                 x=350-110;
                 y=370-75;
                 break;
             }
-        case 2:
+        case 1:
             {
                 x=650-110;
                 y=370-75;
                 break;
             }
-        case 3:
+        case 0:
             {
                 x=990-110;
                 y=370-75;
                 break;
             }
-        case 4:
+        case 6:
             {
                 x=40-120;
                 y=600-75;
@@ -848,7 +874,7 @@ Vector2f* vGameBoard::getPositionOfEarth()
                 y=600-75;
                 break;
             }
-        case 6:
+        case 4:
             {
                 x=970-110;
                 y=600-75;
@@ -856,44 +882,44 @@ Vector2f* vGameBoard::getPositionOfEarth()
             }
     }
     //dont forget to delete
-    return new Vector2f(x,y);
+    return new Vector2i(x,y);
 }
 
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-Vector2f* vGameBoard::getPositionOfIce()
+Vector2i* vGameBoard::getPositionOfIce()
 {
     int x;
     int y;
 
     switch((int)listOfvTower.size())
     {
-        case 0:
+        case 3:
             {
                 x=100;
                 y=385;
                 break;
             }
-        case 1:
+        case 2:
             {
                 x=350;
                 y=395;
                 break;
             }
-        case 2:
+        case 1:
             {
                 x=650;
                 y=385;
                 break;
             }
-        case 3:
+        case 0:
             {
                 x=990;
                 y=390;
                 break;
             }
-        case 4:
+        case 6:
             {
                 x=40;
                 y=630;
@@ -905,51 +931,51 @@ Vector2f* vGameBoard::getPositionOfIce()
                 y=630;
                 break;
             }
-        case 6:
+        case 4:
             {
                 x=970;
                 y=625;
                 break;
             }
     }
-    return new Vector2f(x,y);
+    return new Vector2i(x,y);
 }
 
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-Vector2f* vGameBoard::getPositionOfIron()
+Vector2i* vGameBoard::getPositionOfIron()
 {
     int x;
     int y;
 
     switch((int)listOfvTower.size())
     {
-        case 0:
+        case 3:
             {
                 x=100;
                 y=330;
                 break;
             }
-        case 1:
+        case 2:
             {
                 x=355;
                 y=330;
                 break;
             }
-        case 2:
+        case 1:
             {
                 x=655;
                 y=330;
                 break;
             }
-        case 3:
+        case 0:
             {
                 x=990;
                 y=330;
                 break;
             }
-        case 4:
+        case 6:
             {
                 x=38;
                 y=575;
@@ -961,51 +987,51 @@ Vector2f* vGameBoard::getPositionOfIron()
                 y=575;
                 break;
             }
-        case 6:
+        case 4:
             {
                 x=970;
                 y=575;
                 break;
             }
     }
-    return new Vector2f(x,y);
+    return new Vector2i(x,y);
 }
 
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-Vector2f* vGameBoard::getPositionOfSand()
+Vector2i* vGameBoard::getPositionOfSand()
 {
     int x;
     int y;
 
     switch((int)listOfvTower.size())
     {
-        case 0:
+        case 3:
             {
                 x=100;
                 y=340;
                 break;
             }
-        case 1:
+        case 2:
             {
                 x=350;
                 y=340;
                 break;
             }
-        case 2:
+        case 1:
             {
                 x=650;
                 y=340;
                 break;
             }
-        case 3:
+        case 0:
             {
                 x=990;
                 y=340;
                 break;
             }
-        case 4:
+        case 6:
             {
                 x=40;
                 y=575;
@@ -1017,14 +1043,14 @@ Vector2f* vGameBoard::getPositionOfSand()
                 y=575;
                 break;
             }
-        case 6:
+        case 4:
             {
                 x=970;
                 y=575;
                 break;
             }
     }
-    return new Vector2f(x,y);
+    return new Vector2i(x,y);
 }
 
 /* to verify if all images is accessible and charge in the texture */
@@ -1069,6 +1095,12 @@ bool vGameBoard::verifyImageTower()
     }
 
     if (!ironTowerTexture1.loadFromFile("res/images/towers/iron1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!earthAttack.loadFromFile("res/images/towers/earthEffect.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
