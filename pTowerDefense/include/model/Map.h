@@ -21,7 +21,7 @@ class Map
         //methods
         std::string strEnemies()const;
         void addEnemy(typeOfEnemies type);
-        void addTower(Tower* tower);
+        void addTower(int x, int y, TypeOfTower type);
         bool removeEnemy(Enemies &enemy);
         int searchEnemy(Enemies &enemy);
 

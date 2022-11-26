@@ -14,19 +14,18 @@ enum TypeOfTower : int
 class Tower
 {
     public:
-        Tower(int damage=20,int level=1,int price=100);
+        Tower(int xTower=0, int yTower=0, int damage=20,int level=1,int price=100);
 
         virtual ~Tower();
 
         Tower(const Tower& other);
+        Tower& operator=(const Tower& rhs);
 
         //methods
         bool improveLevel();
         bool isInRange(int xOfEnemy);
         void attackEnemy(Enemies &cible)const;
         std::string toString()const;
-        //all child must to implement
-        virtual Tower* clone()const =0;
 
         //getters and setters
         void setDamage(int damage)
@@ -88,13 +87,12 @@ class Tower
 
 
     protected:
+        int xTower;
+        int yTower;
         int damage;
         int level;
         int price;
         int range;
-        int xTower;
-        int yTower;
-
         TypeOfTower type;
 
     private:

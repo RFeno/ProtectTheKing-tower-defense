@@ -53,11 +53,11 @@ class vGameBoard
         int searchVEnemy(vEnnemy& enemy);
 
         /*these methods are used to calculate the positions of the towers*/
-        sf::Vector2i* getPositionOfNewTower(TypeOfTower type);
-        sf::Vector2i* getPositionOfEarth();
-        sf::Vector2i* getPositionOfIron();
-        sf::Vector2i* getPositionOfIce();
-        sf::Vector2i* getPositionOfSand();
+        void getPositionOfNewTower(TypeOfTower type, int &x, int &y);
+        void getPositionOfEarth(int &x, int &y);
+        void getPositionOfIron(int &x, int &y);
+        void getPositionOfIce(int &x, int &y);
+        void getPositionOfSand(int &x, int &y);
 
 
         bool setTower(int x, int y, int type);

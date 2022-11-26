@@ -7,11 +7,10 @@
 class TowerSand : public Tower
 {
     public:
-        TowerSand(int damage=20,int level=1,int price=sand);
+        TowerSand(int xTower=0, int yTower=0,int damage=20,int level=1,int price=sand);
         virtual ~TowerSand();
         TowerSand(const TowerSand& other);
         TowerSand& operator=(const TowerSand& other);
-        TowerSand* clone()const;
 
     protected:
 

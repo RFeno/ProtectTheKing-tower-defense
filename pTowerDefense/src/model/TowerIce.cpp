@@ -1,6 +1,6 @@
 #include "TowerIce.h"
 
-TowerIce::TowerIce(int damage,int level,int price):Tower(damage,level,price)
+TowerIce::TowerIce(int x, int y,int damage,int level,int price):Tower(damage,level,price)
 {
     this->type=ice;
 }
@@ -22,7 +22,3 @@ TowerIce& TowerIce::operator=(const TowerIce& rhs)
     return *this;
 }
 
-TowerIce* TowerIce::clone()const
-{
-    return new TowerIce(*this);
-}

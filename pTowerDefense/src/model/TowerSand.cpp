@@ -1,6 +1,6 @@
 #include "TowerSand.h"
 
-TowerSand::TowerSand(int damage,int level,int price):Tower(damage,level,price)
+TowerSand::TowerSand(int x, int y,int damage,int level,int price):Tower(damage,level,price)
 {
     this->type=sand;
 }
@@ -22,7 +22,3 @@ TowerSand& TowerSand::operator=(const TowerSand& rhs)
     return *this;
 }
 
-TowerSand* TowerSand::clone()const
-{
-    return new TowerSand(*this);
-}

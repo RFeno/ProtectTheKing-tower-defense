@@ -1,6 +1,6 @@
 #include "TowerEarth.h"
 
-TowerEarth::TowerEarth(int damage,int level,int price):Tower(damage,level,price)
+TowerEarth::TowerEarth(int x, int y, int damage,int level,int price):Tower(x,y,damage,level,price)
 {
     this->type=earth;
     this->range=20;
@@ -24,12 +24,6 @@ TowerEarth& TowerEarth::operator=(const TowerEarth& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
-}
-
-// don't forget to delete in the called
-TowerEarth* TowerEarth::clone()const
-{
-    return new TowerEarth(*this);
 }
 
 

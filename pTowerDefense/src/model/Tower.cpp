@@ -2,9 +2,10 @@
 #include <Enemies.h>
 #include <stdexcept>
 #include <iostream>
+
 using namespace std;
 
-Tower::Tower(int damage, int level, int price): damage(damage), level(level), price(price)
+Tower::Tower(int xTower, int yTower, int damage, int level, int price): xTower(xTower), yTower(yTower), damage(damage), level(level), price(price)
 {
     //ctor
     if(level<=0)
@@ -12,12 +13,12 @@ Tower::Tower(int damage, int level, int price): damage(damage), level(level), pr
         throw runtime_error("The level of tower cannot be below one");
     }
 
-    if(level<=0)
+    if(price<=0)
     {
         throw runtime_error("The price of tower cannot be below or egal to 0");
     }
 
-    if(level<=0)
+    if(damage<=0)
     {
         throw runtime_error("The damage of tower cannot be below or egal to 0");
     }
@@ -34,12 +35,12 @@ Tower::Tower(const Tower& other)
     //copy ctor
 }
 
-/*Tower& Tower::operator=(const Tower& rhs)
+Tower& Tower::operator=(const Tower& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
-}*/
+}
 
 bool Tower::isInRange(int xOfEnemy)
 {
