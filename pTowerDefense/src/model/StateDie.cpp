@@ -4,7 +4,7 @@
 using namespace std;
 void StateDie::walk()
 {
-     cout << "impossible the enemy is die, he canno't walk" << endl;
+    //cout << "impossible the enemy is die, he canno't walk" << endl;
 }
 
 void StateDie::attackKing(King &king)
@@ -15,6 +15,6 @@ void StateDie::attackKing(King &king)
 
 void StateDie::die()
 {
-    cout << "impossible the enemy is already die";
+    //cout << "impossible the enemy is already die";
 }
 

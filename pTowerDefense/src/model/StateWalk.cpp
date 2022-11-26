@@ -1,5 +1,6 @@
 #include "StateWalk.h"
 #include <iostream>
+#include "StateDie.h"
 
 using namespace std;
 
@@ -13,10 +14,10 @@ void StateWalk::walk()
 
 void StateWalk::attackKing(King &king)
 {
-    cout << "impossible a enemy canno't walk and attack at the same time";
+    //cout << "impossible a enemy canno't walk and attack at the same time";
 }
 
 void StateWalk::die()
 {
-    //TODO
+    this->enemy->changeState(new StateDie);
 }

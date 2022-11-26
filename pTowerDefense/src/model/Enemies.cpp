@@ -111,9 +111,6 @@ void Enemies::setX(int x)
 /*change the state of enemies to dead*/
 void Enemies::die()
 {
-    if(!dynamic_cast<StateDie*>(state))
-    {
-        changeState(new StateDie);
-    }
+    this->state->die();
 }
 
