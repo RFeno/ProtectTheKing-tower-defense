@@ -8,7 +8,7 @@
 
 using namespace sf;
 
-vTower::vTower(Vector2i* position, Tower* tower): position(position), tower(tower)
+vTower::vTower(int x,int y, Tower* tower): x(x), y(y), tower(tower)
 {
     //ctor
     this->towerSprite = new Sprite();
@@ -22,7 +22,6 @@ vTower::~vTower()
     delete tower;
     delete towerSprite;
     delete attackSprite;
-    delete position;
     delete towerTexture;
     delete attackTexture;
     delete animAttackClock;
@@ -45,11 +44,10 @@ void vTower::chargeInformations()
     if(dynamic_cast<TowerEarth*>(tower))
     {
         towerSprite->setTexture(*towerTexture);
-        towerSprite->setScale(0.20f,0.20f);
-        towerSprite->setPosition(position->x, position->y);
         attackSprite->setTexture(*attackTexture);
-        attackSprite->setPosition(position->x + 175, position->y - 10);
         attackSprite->setScale(0.5f,0.5f);
+        attackSprite->setPosition(x + 175, y - 10);
+        towerSprite->setScale(0.20f,0.20f);
     }
     else
     {
@@ -72,6 +70,8 @@ void vTower::chargeInformations()
             }
         }
     }
+    towerSprite->setPosition(x, y);
+
 }
 
 //void vTower::animAttack()

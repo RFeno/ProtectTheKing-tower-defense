@@ -7,16 +7,17 @@
 class vTower
 {
     private:
-        sf::Vector2i* position;
+        int x;
+        int y;
         sf::Sprite* towerSprite;
         sf::Sprite* attackSprite;
         Tower *tower;
-
         sf::Clock* animAttackClock;
+
 
     public:
 
-        vTower(sf::Vector2i* position, Tower* tower);
+        vTower(int x,int y, Tower* tower);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
@@ -30,11 +31,6 @@ class vTower
         sf::Sprite* getSprite()
         {
             return towerSprite;
-        }
-
-        sf::Vector2i* getPosition()
-        {
-            return position;
         }
 
         Tower* getTower()
@@ -51,6 +47,27 @@ class vTower
         {
             return attackSprite;
         }
+
+        int getX()
+        {
+            return x;
+        }
+
+        int getY()
+        {
+            return y;
+        }
+
+        void setX(int x)
+        {
+            this->x=x;
+        }
+
+        void setY(int y)
+        {
+            this->y=y;
+        }
+
 
     protected:
 };

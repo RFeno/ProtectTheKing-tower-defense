@@ -1,13 +1,23 @@
-#include "Map.h"
 #include <string>
 #include <iostream>
+
+#include "Map.h"
+
+/**ENEMIES */
+#include "Enemies.h"
 #include "Ogre.h"
 #include "Orc.h"
 #include "ShadowMonster.h"
 #include "KnightOfDeath.h"
 #include "Gremlin.h"
-#include <Tower.h>
-#include <Enemies.h>
+
+/** TOWERS */
+#include "Tower.h"
+#include "TowerEarth.h"
+#include "TowerIce.h"
+#include "TowerIron.h"
+#include "TowerSand.h"
+
 using namespace std;
 
 Map::Map()
@@ -124,7 +134,32 @@ bool Map::removeEnemy(Enemies& enemy)
     return false;
 }
 
-void Map::addTower(Tower* tower)
+void Map::addTower(int x, int y, TypeOfTower type)
 {
-    listOfTower.push_back(tower);
+    switch(type)
+    {
+        case earth:
+        {
+             listOfTower.push_back(new TowerEarth(x,y));
+             break;
+        }
+
+        case ice:
+        {
+            listOfTower.push_back(new TowerIce(x,y));
+            break;
+        }
+
+        case sand:
+        {
+            listOfTower.push_back(new TowerSand(x,y));
+            break;
+        }
+
+        case iron:
+        {
+            listOfTower.push_back(new TowerIron(x,y));
+            break;
+        }
+    }
 }

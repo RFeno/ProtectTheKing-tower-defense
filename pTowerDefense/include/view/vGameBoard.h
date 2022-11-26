@@ -59,14 +59,6 @@ class vGameBoard
         void getPositionOfIce(int &x, int &y);
         void getPositionOfSand(int &x, int &y);
 
-
-        bool setTower(int x, int y, int type);
-        //bool setTower(int y, int x, Tower* t);
-
-
-        void activeFireSpell();
-        void activeLightningSpeel();
-        void activeCloudSpell();
         void adaptAnimationSprite();
         void adaptAnimationTexture();
         void adaptPartOfTexture();

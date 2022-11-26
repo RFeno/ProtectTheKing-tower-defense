@@ -82,7 +82,6 @@ void Game::createWave()
 void Game::play()
 {
 
-
     //delete enemies dead
     for(Enemies *enemy: mapOfGame->getEnemies())
     {
