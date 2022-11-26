@@ -14,9 +14,13 @@ class Gremlin : public Enemies
         Gremlin* clone()const;
         std::string getInformations()const;
 
+
+
     protected:
 
     private:
+
+
 };
 
 #endif // GREMLIN_H

@@ -20,28 +20,10 @@ class vEnnemy
         void updatePartOfTexture();
         void animationClock();
 
-        void launchDead();
-        void animation();
-
         //getters and setters
         Enemies* getEnemy()
         {
             return enemy;
-        }
-
-        bool isSpawn()const
-        {
-            return spawn;
-        }
-
-        bool isDead()const
-        {
-            return dead;
-        }
-
-        bool getAnimated()const
-        {
-            return animated;
         }
 
         sf::Sprite *getSprite()
@@ -57,16 +39,6 @@ class vEnnemy
         void setEnemy(Enemies* enemy)
         {
             this->enemy=enemy;
-        }
-
-        void setSpawn(bool spawn)
-        {
-            this->spawn=spawn;
-        }
-
-        void setDead(bool dead)
-        {
-            this->dead=dead;
         }
 
         //texture of health
@@ -113,32 +85,10 @@ class vEnnemy
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
-        int x_Ogre = 0;
-        int y_Ogre = 0;
-
-        int x_Orc = 0;
-        int y_Orc = 0;
-
-        int x_gremlin = 0;
-        int y_gremlin = 0;
-
-        int x_shadowMonster = 0;
-        int y_shadowMonster = 0;
-
-        int x_knight = 0;
-        int y_knight = 0;
-
-        sf::Clock animClock;
-
         //sprites
         sf::Sprite *enemySprite;
         sf::Sprite *healthBarGreenSprite;
         sf::Sprite *healthBarRedSprite;
-
-
-        bool animated = false;
-        bool spawn = false;
-        bool dead = false;
 
 
 

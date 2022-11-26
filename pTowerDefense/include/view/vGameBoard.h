@@ -87,10 +87,7 @@ class vGameBoard
         const int KNIGHTOFDEATH_WIDTH = 445;
         const int KNIGHTOFDEATH_HEIGHT = 469;
 
-
         const int NUMBER_ACIDE_SPELL = 13;
-
-
 
         int idSpawn = 0;
         int spawnTime = 3;
@@ -104,56 +101,72 @@ class vGameBoard
 
 
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
+        int x_Ogre = 0;
+        int y_Ogre = 0;
+
+        int x_Orc = 0;
+        int y_Orc = 0;
+
+        int x_gremlin = 0;
+        int y_gremlin = 0;
+
+        int x_shadowMonster = 0;
+        int y_shadowMonster = 0;
+
+        int x_knight = 0;
+        int y_knight = 0;
+
 
 
         int x_acide = 0;
 
-        Clock animClock;
-        Clock spawnClock;
-        Clock attackClock;
+        sf::Clock animClock;
+        sf::Clock spawnClock;
+        sf::Clock attackClock;
+        sf::Clock gameSpeedClook;
 
         Game game;
         RenderWindow *windowFromMain;
 
         //walk
-        Texture gremlinTextureWalk;
-        Texture knightOfDeathTextureWalk;
-        Texture shadowMonsterTextureWalk ;
-        Texture ogreTextureWalk;
-        Texture orcTextureWalk;
+        sf::Texture gremlinTextureWalk;
+        sf::Texture knightOfDeathTextureWalk;
+        sf::Texture shadowMonsterTextureWalk ;
+        sf::Texture ogreTextureWalk;
+        sf::Texture orcTextureWalk;
 
         //attack
-        Texture gremlinAttackTexture;
-        Texture knightOfDeathAttackTexture ;
-        Texture shadowMonsterAttackTexture;
-        Texture ogreAttackTexture ;
-        Texture orcAttackTexture ;
+        sf::Texture gremlinAttackTexture;
+        sf::Texture knightOfDeathAttackTexture ;
+        sf::Texture shadowMonsterAttackTexture;
+        sf::Texture ogreAttackTexture ;
+        sf::Texture orcAttackTexture ;
 
         //dead
-        Texture gremlinDeadTexture ;
-        Texture knightOfDeathDeadTexture ;
-        Texture shadowMonsterDeadTexture;
-        Texture ogreDeadTexture;
-        Texture orcDeadTexture ;
+        sf::Texture gremlinDeadTexture ;
+        sf::Texture knightOfDeathDeadTexture ;
+        sf::Texture shadowMonsterDeadTexture;
+        sf::Texture ogreDeadTexture;
+        sf::Texture orcDeadTexture ;
 
         //map and entitites sprites
-        Sprite mapSprite;
-        Sprite pauseSprite;
-        Sprite acideCloudSprite;
-        Sprite lightningSprite;
-        Sprite fireSprite;
+        sf::Sprite mapSprite;
+        sf::Sprite pauseSprite;
+        sf::Sprite acideCloudSprite;
+        sf::Sprite lightningSprite;
+        sf::Sprite fireSprite;
         //map and entitites textures
-        Texture mapTexture;
-        Texture pauseTexture;
-        Texture acideCloudTexture;
-        Texture lightningTexture;
-        Texture fireTexture;
+        sf::Texture mapTexture;
+        sf::Texture pauseTexture;
+        sf::Texture acideCloudTexture;
+        sf::Texture lightningTexture;
+        sf::Texture fireTexture;
 
-        Texture acideCloudEffectTexture;
+        sf::Texture acideCloudEffectTexture;
 
         //Towers textures
         /* without number = icon button*/
-        Texture earthTowerTexture;
+        sf::Texture earthTowerTexture;
 
         Texture earthTowerTexture1;
         Texture earthTowerTexture2;
@@ -210,6 +223,7 @@ class vGameBoard
         Sprite oneHundredFiftySprite;
         Sprite twoHundredFiftySprite;
         Sprite fourHundredSprite;
+
         std::vector<Sprite*> swordSprites;
         std::vector<Sprite*> crystalSprites;
         std::vector<Sprite*> signSprites;

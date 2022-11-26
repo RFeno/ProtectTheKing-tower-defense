@@ -40,11 +40,6 @@ class Game
             return numberOfEnemies;
         }
 
-        void setNumberOfEnemies(int number)
-        {
-            numberOfEnemies = number;
-        }
-
         int getNumeroOfWave()
         {
             return numeroOfWave;
@@ -55,9 +50,8 @@ class Game
     private:
         Player *player;
         Map *mapOfGame;
-        int numberOfEnemies;
-        int numeroOfWave;
-        const int WALK_SPEED = 2;
+        const int numberOfEnemies =10;
+        int numeroOfWave =0;
 
 
 };
