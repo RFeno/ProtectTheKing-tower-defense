@@ -1,6 +1,8 @@
 #ifndef KING_H
 #define KING_H
 
+#include <string>
+
 class King
 {
     public:
@@ -11,6 +13,7 @@ class King
         King& operator=(const King& other);
 
         const static int xKing = 1200;
+        const static int kingHeathMax = 1000;
 
         int getHealth()
         {
@@ -19,6 +22,8 @@ class King
 
         void setHealth(int health);
         void receiveDamage(int damage);
+
+        std::string getInformations()const;
 
 
 

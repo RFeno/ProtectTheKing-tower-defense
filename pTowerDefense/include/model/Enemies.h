@@ -23,7 +23,7 @@ class Enemies
     public:
 
         static inline int compteur = 0;
-        const int WALK_SPEED = 1;
+        const int WALK_SPEED = 10;
 
         //canonic form
         Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
@@ -60,6 +60,11 @@ class Enemies
         int getId()const
         {
             return *id;
+        }
+
+        int getDamage()const
+        {
+            return damage;
         }
 
         bool isSpawn()const

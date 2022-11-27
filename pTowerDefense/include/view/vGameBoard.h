@@ -62,6 +62,7 @@ class vGameBoard
         void adaptAnimationSprite();
         void adaptAnimationTexture();
         void adaptPartOfTexture();
+        void updateKingHealth();
 
 
     protected:
@@ -109,7 +110,6 @@ class vGameBoard
         int y_knight = 0;
 
 
-
         int x_acide = 0;
 
         sf::Clock animClock;
@@ -119,6 +119,12 @@ class vGameBoard
 
         Game game;
         RenderWindow *windowFromMain;
+
+        //King
+        sf::Texture kingHealthGreenTexture;
+        sf::Texture kingHealthRedTexture;
+        sf::Sprite kingHealthGreenSprite;
+        sf::Sprite kingHealthRedSprite;
 
         //walk
         sf::Texture gremlinTextureWalk;
@@ -161,29 +167,25 @@ class vGameBoard
         sf::Texture earthTowerTexture;
 
         Texture earthTowerTexture1;
-        Texture earthTowerTexture2;
-        Texture earthTowerTexture3;
+
         Texture earthAttack;
 
         Texture sandTowerTexture;
 
         Texture sandTowerTexture1;
-        Texture sandTowerTexture2;
-        Texture sandTowerTexture3;
+
         Texture sandAttack;
 
         Texture iceTowerTexture;
 
         Texture iceTowerTexture1;
-        Texture iceTowerTexture2;
-        Texture iceTowerTexture3;
+
         Texture iceAttack;
 
         Texture ironTowerTexture;
 
         Texture ironTowerTexture1;
-        Texture ironTowerTexture2;
-        Texture ironTowerTexture3;
+
         Texture ironAttack;
 
         //Tower sprites
