@@ -57,6 +57,9 @@ vGameBoard::vGameBoard(RenderWindow& window)
 
         listOfvEnnemies.push_back(venemy);
     }
+    //init king health bar
+    //this->KingHpBar.setSize(709,80);
+
 }
 
 vGameBoard::~vGameBoard()
@@ -605,6 +608,7 @@ void vGameBoard::updateGame()
             {
                 if(tower->isInRange(enemy->getX()))
                 {
+                    tower->attackEnemy(*enemy);
                     /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
                 }
             }
@@ -630,28 +634,11 @@ void vGameBoard::updateGame()
 
 void vGameBoard::updateKingHealth()
 {
-    int kingHealthMax = King::kingHeathMax;
-    int kingHealthReel = game.getMap()->getKing().getHealth();
-    double total =  kingHealthGreenTexture.getSize().y; //709
-
-    cout << "king health green x:" << to_string(total) << endl;
-    //calculer la partie à afficher de greenTexture
-
-    double calcul = (kingHealthMax - kingHealthReel );
-
-    cout << "calcul " << to_string(calcul) << endl;
-
-    int toDisplay = total-calcul;
-
-
-    cout << " resultat: " << to_string( toDisplay) << endl;
-
-    kingHealthGreenSprite.setTextureRect(IntRect(709*x_Ogre,80*x_Ogre,709,80));
-
-    //sf::IntRect r1(0, 0, 1240, 345);
-
-
-    //setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
+    double kingHealthMax = King::kingHeathMax;
+    double kingHealthReel = game.getMap()->getKing().getHealth();
+    double remainingHealth = (kingHealthReel  / kingHealthMax );
+    //0.20 is the widht per default for the health bar
+    kingHealthGreenSprite.setScale(Vector2f(0.20*remainingHealth,0.20));
 }
 
 /*methods adapte which parts of sprite sheet we need to display*/

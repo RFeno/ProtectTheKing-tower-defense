@@ -65,6 +65,7 @@ class vGameBoard
         void updateKingHealth();
 
 
+
     protected:
 
     private:
@@ -125,6 +126,8 @@ class vGameBoard
         sf::Texture kingHealthRedTexture;
         sf::Sprite kingHealthGreenSprite;
         sf::Sprite kingHealthRedSprite;
+        sf::RectangleShape KingHpBar;
+        sf::RectangleShape KingHpBarBack;
 
         //walk
         sf::Texture gremlinTextureWalk;

@@ -14,7 +14,7 @@ void StateWalk::walk()
 
 void StateWalk::attackKing(King &king)
 {
-    //cout << "impossible a enemy canno't walk and attack at the same time";
+    //cout << "impossible a enemy canno't walk and attack at the same time" << endl;
 }
 
 void StateWalk::die()
