@@ -581,17 +581,21 @@ void vGameBoard::enemyAnimation()
 void vGameBoard::updateGame()
 {
     //cout << game.getMap()->strEnemies() << endl;
-    cout << game.getMap()->getKing().getInformations() << endl;
-    game.play();
-
+    //cout << game.getMap()->getKing().getInformations() << endl;
 
     if(game.IsEndOfWave())
     {
+        //delete all enemies who are dead
+        game.getMap()->deleteAllEnemies();
+
+        //create a new wave with 10 enemies
         game.createWave();
+        //display enemies (result)
+
         game.getMap()->strEnemies();
         cout << "CREATE WAVE NUMBER ==> " << game.getNumeroOfWave() << endl;
         updateVennemyForView();
-        //reset enemies who is spawn
+        //reset number of enemies who are spawn
         idSpawn=0;
 
     }
@@ -1103,7 +1107,7 @@ bool vGameBoard::verifyImage()
 bool vGameBoard::verifyImageTower()
 {
 
-    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
+    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth1.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
