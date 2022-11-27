@@ -41,33 +41,37 @@ vTower& vTower::operator=(const vTower& rhs)
 
 void vTower::chargeInformations()
 {
-    /** gros pourquoi tu setScale si c'est une tour de terre
-    j'ai mis le set postions en bas vu que c'est le même pour toutes les tours*/
+    towerSprite->setTexture(*towerTexture);
+    towerSprite->setScale(0.9f,0.9f);
     if(dynamic_cast<TowerEarth*>(tower))
     {
-        towerSprite->setTexture(*towerTexture);
         attackSprite->setTexture(*attackTexture);
         attackSprite->setScale(0.5f,0.5f);
-        attackSprite->setPosition(x + 175, y - 10);
-        towerSprite->setScale(0.20f,0.20f);
+        attackSprite->setPosition(x+48, y-60);
     }
     else
     {
         if(dynamic_cast<TowerSand*>(tower))
         {
-            towerSprite->setTexture(*towerTexture);
+            attackSprite->setTexture(*attackTexture);
+            attackSprite->setScale(0.5f,0.5f);
+            attackSprite->setPosition(x + 50, y - 50);
         }
         else
         {
             if(dynamic_cast<TowerIce*>(tower))
             {
-                towerSprite->setTexture(*towerTexture);
+                attackSprite->setTexture(*attackTexture);
+                attackSprite->setScale(0.5f,0.5f);
+                attackSprite->setPosition(x + 60, y - 70);
             }
             else
             {
                 if(dynamic_cast<TowerIron*>(tower))
                 {
-                    towerSprite->setTexture(*towerTexture);
+                    attackSprite->setTexture(*attackTexture);
+                    attackSprite->setScale(0.5f,0.5f);
+                    attackSprite->setPosition(x+55, y-35);
                 }
             }
         }
@@ -75,14 +79,3 @@ void vTower::chargeInformations()
     towerSprite->setPosition(x, y);
 
 }
-
-//void vTower::animAttack()
-//{
-//    if(animAttackClock.getElapsedTime().asSeconds() > 1)
-//    {
-//        if(animAttackClock.getElapsedTime().asSeconds() < 0.3f)
-//        {
-//
-//        }
-//    }
-//}

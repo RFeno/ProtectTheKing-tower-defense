@@ -799,6 +799,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             //back = last element
             vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back());
             vtower->towerTexture = &iceTowerTexture1;
+            vtower->attackTexture = &iceAttack;
             vtower->chargeInformations();
 
 
@@ -811,11 +812,12 @@ void vGameBoard::buyTower(TypeOfTower type)
         case iron:
         {
             getPositionOfNewTower(iron,x,y);
-            game.getMap()->addTower(x,y,ice);
+            game.getMap()->addTower(x,y,iron);
 
             //back = last element
             vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back());
             vtower->towerTexture = &ironTowerTexture1;
+            vtower->attackTexture = &ironAttack;
             vtower->chargeInformations();
 
             listOfvTower.push_back(vtower);
@@ -831,6 +833,7 @@ void vGameBoard::buyTower(TypeOfTower type)
             //back = last element
             vTower *vtower = new vTower(x,y, game.getMap()->getTowers().back());
             vtower->towerTexture = &sandTowerTexture1;
+            vtower->attackTexture = &sandAttack;
             vtower->chargeInformations();
 
             listOfvTower.push_back(vtower);
@@ -880,43 +883,43 @@ void vGameBoard::getPositionOfEarth(int &x, int &y)
     {
         case 3:
             {
-                x=100-110;
+                x=100;
                 y=370-75;
                 break;
             }
         case 2:
             {
-                x=350-110;
+                x=350;
                 y=370-75;
                 break;
             }
         case 1:
             {
-                x=650-110;
+                x=650;
                 y=370-75;
                 break;
             }
         case 0:
             {
-                x=990-110;
+                x=990;
                 y=370-75;
                 break;
             }
         case 6:
             {
-                x=40-120;
+                x=40;
                 y=600-75;
                 break;
             }
         case 5:
             {
-                x=300-120;
+                x=300;
                 y=600-75;
                 break;
             }
         case 4:
             {
-                x=970-110;
+                x=975;
                 y=600-75;
                 break;
             }
@@ -933,44 +936,44 @@ void vGameBoard::getPositionOfIce(int &x, int &y)
     {
         case 3:
             {
-                x=100;
-                y=385;
+                x=100 +5;
+                y=385 -80;
                 break;
             }
         case 2:
             {
-                x=350;
-                y=395;
+                x=350 +5;
+                y=385 -80;
                 break;
             }
         case 1:
             {
-                x=650;
-                y=385;
+                x=650 +5;
+                y=385 -80;
                 break;
             }
         case 0:
             {
-                x=990;
-                y=390;
+                x=990 +5;
+                y=385 -80;
                 break;
             }
         case 6:
             {
                 x=40;
-                y=630;
+                y=630 -80;
                 break;
             }
         case 5:
             {
                 x=300;
-                y=630;
+                y=630 -80;
                 break;
             }
         case 4:
             {
-                x=970;
-                y=625;
+                x=975;
+                y=625 -80;
                 break;
             }
     }
@@ -985,44 +988,44 @@ void vGameBoard::getPositionOfIron(int &x, int &y)
     {
         case 3:
         {
-            x=100;
-            y=330;
+            x=100 +10;
+            y=330 -28;
             break;
         }
         case 2:
         {
-            x=355;
-            y=330;
+            x=360 +10;
+            y=330 -28;
             break;
         }
         case 1:
         {
-            x=655;
-            y=330;
+            x=660 +10;
+            y=330 -28;
             break;
         }
         case 0:
         {
-            x=990;
-            y=330;
+            x=990 +7;
+            y=330 -28;
             break;
         }
         case 6:
         {
-            x=38;
-            y=575;
+            x=38 ;
+            y=575 -30;
             break;
         }
         case 5:
         {
-            x=297;
-            y=575;
+            x=297 ;
+            y=575 -30;
             break;
         }
         case 4:
         {
-            x=970;
-            y=575;
+            x=980 +5;
+            y=575 -30;
             break;
         }
     }
@@ -1038,43 +1041,43 @@ void vGameBoard::getPositionOfSand(int &x, int &y)
         case 3:
             {
                 x=100;
-                y=340;
+                y=340 -35;
                 break;
             }
         case 2:
             {
-                x=350;
-                y=340;
+                x=360;
+                y=340 -35;
                 break;
             }
         case 1:
             {
-                x=650;
-                y=340;
+                x=660;
+                y=340 -35;
                 break;
             }
         case 0:
             {
                 x=990;
-                y=340;
+                y=340 -35;
                 break;
             }
         case 6:
             {
                 x=40;
-                y=575;
+                y=575 -35;
                 break;
             }
         case 5:
             {
                 x=300;
-                y=575;
+                y=575 -35;
                 break;
             }
         case 4:
             {
-                x=970;
-                y=575;
+                x=975;
+                y=575 -35;
                 break;
             }
     }
@@ -1109,25 +1112,43 @@ bool vGameBoard::verifyImageTower()
          return false;
     }
 
-    if (!iceTowerTexture1.loadFromFile("res/images/towers/ice1.png"))
+    if (!iceTowerTexture1.loadFromFile("res/images/towers/ice.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!sandTowerTexture1.loadFromFile("res/images/towers/sand1.png"))
+    if (!sandTowerTexture1.loadFromFile("res/images/towers/sand.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!ironTowerTexture1.loadFromFile("res/images/towers/iron1.png"))
+    if (!ironTowerTexture1.loadFromFile("res/images/towers/iron.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
     if (!earthAttack.loadFromFile("res/images/towers/earthEffect.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!sandAttack.loadFromFile("res/images/towers/sandEffect.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!iceAttack.loadFromFile("res/images/towers/iceEffect.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!ironAttack.loadFromFile("res/images/towers/ironEffect.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
