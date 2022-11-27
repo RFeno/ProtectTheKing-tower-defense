@@ -143,7 +143,6 @@ void vGameBoard::updateVennemyForView()
 {
     //bind enemy model and sprite
 
-
     for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
     {
         listOfvEnnemies[i]->setEnemy(game.getMap()->getEnemies()[i]);
@@ -155,10 +154,6 @@ void vGameBoard::updateVennemyForView()
 //    {
 //        listOfAcideCloudSpell.push_back(new Sprite());
 //    }
-
-//    Vector2i* position = getPositionOfNewTower(earth);
-//
-//    cout << "position x :"<< position->x << endl;
 
     if(game.getMap()->getTowers().size() > 0)
     {
@@ -323,10 +318,18 @@ void vGameBoard::loadSprite()
         listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
     }
 
-
+    //map
     mapSprite.setTexture(mapTexture);
-
     mapSprite.setScale(0.73f,0.75f);
+
+    //king
+    kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
+    kingHealthRedSprite.setTexture(kingHealthRedTexture);
+    kingHealthGreenSprite.setScale(0.20f,0.20f);
+    kingHealthRedSprite.setScale(0.20,0.20f);
+    kingHealthGreenSprite.setPosition(1240,345);
+    kingHealthRedSprite.setPosition(1240,345);
+
 
     //towers buttons
     earthTowerSprite.setTexture(earthTowerTexture);
@@ -429,6 +432,11 @@ bool vGameBoard::drawEntities()
     //map
     windowFromMain->draw(mapSprite);
 
+    //king health
+
+    windowFromMain->draw(kingHealthRedSprite);
+    windowFromMain->draw(kingHealthGreenSprite);
+
     //spell buttons
     windowFromMain->draw(lightningSprite);
     windowFromMain->draw(fireSprite);
@@ -466,6 +474,7 @@ bool vGameBoard::drawEntities()
     }
 
     /**A DEPLACER */
+
     // enemies spawn one per one
 
     if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
@@ -569,6 +578,7 @@ void vGameBoard::enemyAnimation()
 void vGameBoard::updateGame()
 {
     //cout << game.getMap()->strEnemies() << endl;
+    cout << game.getMap()->getKing().getInformations() << endl;
     game.play();
 
 
@@ -586,7 +596,31 @@ void vGameBoard::updateGame()
     if(gameSpeedClook.getElapsedTime().asSeconds() > 0.013f)
     {
         game.ennemiesWalk();
+
+        //attaque des tours
         //game.towerAttack();
+        for(Tower *tower: game.getMap()->getTowers())
+        {
+            for(Enemies *enemy: game.getMap()->getEnemies())
+            {
+                if(tower->isInRange(enemy->getX()))
+                {
+                    /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
+                }
+            }
+        }
+
+        //king attack
+        for(Enemies *enemy: game.getMap()->getEnemies())
+        {
+            enemy->attackKing(game.getMap()->getKing());
+
+            //update King Health
+            updateKingHealth();
+        }
+
+
+
         enemyAnimation();
 
         gameSpeedClook.restart();
@@ -594,11 +628,36 @@ void vGameBoard::updateGame()
 
 }
 
+void vGameBoard::updateKingHealth()
+{
+    int kingHealthMax = King::kingHeathMax;
+    int kingHealthReel = game.getMap()->getKing().getHealth();
+    double total =  kingHealthGreenTexture.getSize().y; //709
+
+    cout << "king health green x:" << to_string(total) << endl;
+    //calculer la partie à afficher de greenTexture
+
+    double calcul = (kingHealthMax - kingHealthReel );
+
+    cout << "calcul " << to_string(calcul) << endl;
+
+    int toDisplay = total-calcul;
+
+
+    cout << " resultat: " << to_string( toDisplay) << endl;
+
+    kingHealthGreenSprite.setTextureRect(IntRect(709*x_Ogre,80*x_Ogre,709,80));
+
+    //sf::IntRect r1(0, 0, 1240, 345);
+
+
+    //setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
+}
+
 /*methods adapte which parts of sprite sheet we need to display*/
 void vGameBoard::adaptAnimationSprite()
 {
     adaptPartOfTexture();
-
 
     /*for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
     {
@@ -823,7 +882,7 @@ void vGameBoard::getPositionOfNewTower(TypeOfTower type, int &x, int &y)
             getPositionOfSand(x,y);
             break;
     }
-    cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
+    //cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
 }
 /*
 this method defines a position in x and y to display the tower in the right place on the map
@@ -1185,53 +1244,68 @@ bool vGameBoard::verifyImageMonsters()
 
 bool vGameBoard::verifyImageMapEntities()
 {
-    if (!lightningTexture.loadFromFile("res/images/gameBoard/lightning.png"))
+    if(!lightningTexture.loadFromFile("res/images/gameBoard/lightning.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!fireTexture.loadFromFile("res/images/gameBoard/fire.png"))
+    if(!fireTexture.loadFromFile("res/images/gameBoard/fire.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!acideCloudTexture.loadFromFile("res/images/gameBoard/cloud.png"))
+    if(!acideCloudTexture.loadFromFile("res/images/gameBoard/cloud.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!earthTowerTexture.loadFromFile("res/images/gameBoard/earthTowerButton.png"))
+    if(!earthTowerTexture.loadFromFile("res/images/gameBoard/earthTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!iceTowerTexture.loadFromFile("res/images/gameBoard/iceTowerButton.png"))
+    if(!iceTowerTexture.loadFromFile("res/images/gameBoard/iceTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!ironTowerTexture.loadFromFile("res/images/gameBoard/ironTowerButton.png"))
+    if(!ironTowerTexture.loadFromFile("res/images/gameBoard/ironTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!sandTowerTexture.loadFromFile("res/images/gameBoard/sandTowerButton.png"))
+    if(!sandTowerTexture.loadFromFile("res/images/gameBoard/sandTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if (!acideCloudEffectTexture.loadFromFile("res/images/sprites/spells/acideCloud.png"))
+    if(!acideCloudEffectTexture.loadFromFile("res/images/sprites/spells/acideCloud.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
+
+    if(!kingHealthGreenTexture.loadFromFile("res/images/gameBoard/health_bar-green.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if(!kingHealthRedTexture.loadFromFile("res/images/gameBoard/health_bar-red.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+
+
     return true;
 }
 

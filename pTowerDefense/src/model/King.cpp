@@ -1,4 +1,7 @@
 #include "King.h"
+#include <string>
+
+using namespace std;
 
 King::King(int health): health(health)
 {
@@ -35,4 +38,9 @@ void King::setHealth(int health)
 void King::receiveDamage(int damage)
 {
     setHealth(health-damage);
+}
+
+string King::getInformations()const
+{
+    return "[King health:" + to_string(health) +"]";
 }

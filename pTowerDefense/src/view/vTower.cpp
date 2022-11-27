@@ -41,6 +41,8 @@ vTower& vTower::operator=(const vTower& rhs)
 
 void vTower::chargeInformations()
 {
+    /** gros pourquoi tu setScale si c'est une tour de terre
+    j'ai mis le set postions en bas vu que c'est le même pour toutes les tours*/
     if(dynamic_cast<TowerEarth*>(tower))
     {
         towerSprite->setTexture(*towerTexture);
