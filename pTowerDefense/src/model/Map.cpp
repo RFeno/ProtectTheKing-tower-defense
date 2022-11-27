@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "Map.h"
+#include "StateDie.h"
 
 /**ENEMIES */
 #include "Enemies.h"
@@ -121,9 +122,9 @@ bool Map::removeEnemy(Enemies& enemy)
 
     if(index!=-1)
     {
-        //Enemies *tmp = *(listOfEnemies.begin() + index);
+        Enemies *tmp = *(listOfEnemies.begin() + index);
         listOfEnemies.erase(listOfEnemies.begin()+index);
-        //delete tmp;
+        delete tmp;
 
         return true;
     }
@@ -162,4 +163,14 @@ void Map::addTower(int x, int y, TypeOfTower type)
             break;
         }
     }
+}
+
+/* delete all enemies  */
+void Map::deleteAllEnemies()
+{
+    for(Enemies *enemy: listOfEnemies)
+    {
+        delete enemy;
+    }
+    listOfEnemies.clear();
 }

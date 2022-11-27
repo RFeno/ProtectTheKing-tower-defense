@@ -10,7 +10,7 @@ void StateDie::walk()
 void StateDie::attackKing(King &king)
 {
     //TODO
-    cout << "impossible the enemy is die, he canno't attack" << "ENNEMY => " << enemy->getInformations() << endl;
+    //cout << "impossible the enemy is die, he canno't attack" << "ENNEMY => " << enemy->getInformations() << endl;
 }
 
 void StateDie::die()

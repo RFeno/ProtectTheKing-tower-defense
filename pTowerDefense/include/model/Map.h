@@ -24,6 +24,7 @@ class Map
         void addTower(int x, int y, TypeOfTower type);
         bool removeEnemy(Enemies &enemy);
         int searchEnemy(Enemies &enemy);
+        void deleteAllEnemies();
 
         //getters and setters
         //pointeurs ou référence

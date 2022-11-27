@@ -11,11 +11,8 @@ class Game
         Game();
 
         //mehtods
-        void play();
         bool isGameOver();
         void createWave();
-        void startWave();
-        void animeEnemies();
         void ennemiesWalk();
         void towerAttack();
         void ennemiesAttack();

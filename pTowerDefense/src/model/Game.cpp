@@ -79,43 +79,6 @@ void Game::createWave()
     }
 }
 
-void Game::play()
-{
-
-    //delete enemies dead
-    for(Enemies *enemy: mapOfGame->getEnemies())
-    {
-        if(dynamic_cast<StateDie*>(enemy->getState()))
-        {
-            cout << "delete enemy " << to_string(enemy->getId());
-
-            if(mapOfGame->removeEnemy(*enemy))
-            {
-                cout << " with success" << endl;
-            }
-            else
-            {
-                cout << " with fail" << endl;
-            }
-        }
-    }
-
-    /*
-    //move enemies
-    if(mapOfGame->getEnemies().size() > 0)
-    {
-        ennemiesWalk();
-        cout << "walk of enemies" << endl;
-    }
-
-    //tower attack
-
-    if(mapOfGame->getTowers().size() > 0)
-    {
-        towerAttack();
-        cout << "attack of tower" << endl;
-    }*/
-}
 /**
 * move the enemies
 */
@@ -159,11 +122,14 @@ void Game::towerAttack()
 */
 bool Game::IsEndOfWave()
 {
-    if(mapOfGame->getEnemies().size()==0)
+    for(Enemies *enemy:mapOfGame->getEnemies())
     {
-        return true;
+        if(!dynamic_cast<StateDie*>(enemy->getState()))
+        {
+            return false;
+        }
     }
-    return false;
+    return true;
 }
 
 /**
