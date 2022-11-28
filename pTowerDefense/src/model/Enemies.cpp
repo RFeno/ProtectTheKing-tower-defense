@@ -114,3 +114,10 @@ void Enemies::die()
     this->state->die();
 }
 
+/*this method is called at the end of each wave and buffs the enemy to make it harder to kill*/
+void Enemies::improveStatistics(int numeroOfWave)
+{
+    this->setHealth(health*numeroOfWave*0.25);
+    healthMax=health;
+}
+

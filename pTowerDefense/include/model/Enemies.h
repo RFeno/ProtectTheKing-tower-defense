@@ -37,6 +37,7 @@ class Enemies
         void receiveDamage(int damage);
         void changeState(State *state);
         void die();
+        void improveStatistics(int numeroOfWave);
 
         //getters and setters
         void setHealth(int health);
@@ -67,6 +68,11 @@ class Enemies
             return damage;
         }
 
+        int getHealthMax()
+        {
+            return healthMax;
+        }
+
         bool isSpawn()const
         {
             return spawn;
@@ -92,8 +98,14 @@ class Enemies
 
     protected:
 
-        //to make it available in subclasses
+        /**to make it available in subclasses*/
+
+
         int health;
+
+        //only change when the enemy is improved
+        int healthMax;
+
         double attackSpeed;
         int marketValue;
         int scoreValue;
