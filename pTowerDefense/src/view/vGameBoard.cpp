@@ -24,15 +24,12 @@ vGameBoard::vGameBoard(RenderWindow& window)
 {
     this->windowFromMain = &window;
 
-    //to delete
-    //game.getMap()->addTower(new TowerEarth());
-
-    game.createWave();
-
     for(int i=0; i< game.getNumberOfEnemies(); i++)
     {
-        vEnnemy *venemy = new vEnnemy(game.getMap()->getEnemies()[i]);
+        //create vEnemy with nullptr enemy
+        vEnnemy *venemy = new vEnnemy();
 
+        //set all textures of enemies
         venemy->gremlinAttackTexture =&gremlinAttackTexture;
         venemy->gremlinDeadTexture = &gremlinDeadTexture;
         venemy->gremlinTextureWalk = &gremlinTextureWalk;
@@ -53,13 +50,12 @@ vGameBoard::vGameBoard(RenderWindow& window)
         venemy->shadowMonsterDeadTexture = &shadowMonsterDeadTexture;
         venemy->shadowMonsterTextureWalk = &shadowMonsterTextureWalk;
 
-        venemy->chargeInformations();
+        //health bar textures
+        venemy->healthBarGreenTexture = &kingHealthGreenTexture;
+        venemy->healthBarRedTexture = &kingHealthRedTexture;
 
         listOfvEnnemies.push_back(venemy);
     }
-    //init king health bar
-    //this->KingHpBar.setSize(709,80);
-
 }
 
 vGameBoard::~vGameBoard()
@@ -145,7 +141,6 @@ void vGameBoard::launchView()
 void vGameBoard::updateVennemyForView()
 {
     //bind enemy model and sprite
-
     for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
     {
         listOfvEnnemies[i]->setEnemy(game.getMap()->getEnemies()[i]);
@@ -158,13 +153,6 @@ void vGameBoard::updateVennemyForView()
 //        listOfAcideCloudSpell.push_back(new Sprite());
 //    }
 
-    if(game.getMap()->getTowers().size() > 0)
-    {
-        cout << "x de 1er tour : "<< game.getMap()->getTowers()[0]->getX() << endl;
-    }
-
-    /*cout << game.getMap()->getEnemies().size() << endl;
-    cout << game.getMap()->strEnemies() << endl;*/
 }
 
 int vGameBoard::searchVEnemy(vEnnemy& enemy)
@@ -335,10 +323,10 @@ void vGameBoard::loadSprite()
 
 
     //towers buttons
-    earthTowerSprite.setTexture(earthTowerTexture);
-    iceTowerSprite.setTexture(iceTowerTexture);
-    sandTowerSprite.setTexture(sandTowerTexture);
-    ironTowerSprite.setTexture(ironTowerTexture);
+    earthTowerSprite.setTexture(earthTowerTextureButton);
+    iceTowerSprite.setTexture(iceTowerTextureButton);
+    sandTowerSprite.setTexture(sandTowerTextureButton);
+    ironTowerSprite.setTexture(ironTowerTextureButton);
 
     earthTowerSprite.setScale(0.50f,0.50f);
     iceTowerSprite.setScale(0.50f,0.50f);
@@ -487,12 +475,15 @@ bool vGameBoard::drawEntities()
         spawnClock.restart();
     }
 
-    //ennemies
+    /**ennemies*/
     for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
+        //draw enemies who are not dead
         if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
         {
             windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
         }
     }
 
@@ -561,7 +552,7 @@ bool vGameBoard::isSpriteClicked (Sprite &spr)
 		return false;
 	}
 }
-
+/* animate enemy at the screen */
 void vGameBoard::enemyAnimation()
 {
     //method adapts which texture we need to display
@@ -569,19 +560,15 @@ void vGameBoard::enemyAnimation()
 
     //method adapts which parts of Texture (sprite sheet) we need to display
     adaptAnimationSprite();
-
-    //for the deplacement
-    /** à mettre dans un clock, peut etre dans vEnnmy */
-    for(int i=0;i< (int)listOfvEnnemies.size();i++)
-    {
-        listOfvEnnemies[i]->getSprite()->setPosition(listOfvEnnemies[i]->getEnemy()->getX(),listOfvEnnemies[i]->getEnemy()->getY());
-    }
 }
 
+/* play once, update model of game */
 void vGameBoard::updateGame()
 {
-    //cout << game.getMap()->strEnemies() << endl;
-    //cout << game.getMap()->getKing().getInformations() << endl;
+//    cout << game.getMap()->strEnemies() << endl;
+//    cout << game.getMap()->getKing().getInformations() << endl;
+
+    cout << game.getMap()->strTowers() <<endl;
 
     if(game.IsEndOfWave())
     {
@@ -590,7 +577,9 @@ void vGameBoard::updateGame()
 
         //create a new wave with 10 enemies
         game.createWave();
-        //display enemies (result)
+
+        //improve statistics of all enemies
+        game.getMap()->improveAllEnemies(game.getNumeroOfWave());
 
         game.getMap()->strEnemies();
         cout << "CREATE WAVE NUMBER ==> " << game.getNumeroOfWave() << endl;
@@ -610,24 +599,29 @@ void vGameBoard::updateGame()
         {
             for(Enemies *enemy: game.getMap()->getEnemies())
             {
+                updateHealthBarAllEnemies();
                 if(tower->isInRange(enemy->getX()))
                 {
                     tower->attackEnemy(*enemy);
                     /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
                 }
+
             }
         }
 
         //king attack
-        for(Enemies *enemy: game.getMap()->getEnemies())
+        /** GERER ICI LE TEMPS ENTRE 2 ATTACK DES ENNEMIS SUR LE ROI */
+        if(attackClock.getElapsedTime().asSeconds() > 2.0f)
         {
-            enemy->attackKing(game.getMap()->getKing());
+            for(Enemies *enemy: game.getMap()->getEnemies())
+            {
+                enemy->attackKing(game.getMap()->getKing());
 
-            //update King Health
-            updateKingHealth();
+                //update King Health
+                updateKingHealth();
+            }
+            attackClock.restart();
         }
-
-
 
         enemyAnimation();
 
@@ -643,6 +637,18 @@ void vGameBoard::updateKingHealth()
     double remainingHealth = (kingHealthReel  / kingHealthMax );
     //0.20 is the widht per default for the health bar
     kingHealthGreenSprite.setScale(Vector2f(0.20*remainingHealth,0.20));
+}
+
+/* update health bar of all enemies who are not dead */
+void vGameBoard::updateHealthBarAllEnemies()
+{
+    for(vEnnemy *venemy:listOfvEnnemies)
+    {
+        if(!dynamic_cast<StateDie*>(venemy->getEnemy()->getState()))
+        {
+            venemy->updateHealth();
+        }
+    }
 }
 
 /*methods adapte which parts of sprite sheet we need to display*/
@@ -754,13 +760,12 @@ void vGameBoard::adaptPartOfTexture()
 */
 void vGameBoard::adaptAnimationTexture()
 {
-    //change the texture of only spawn enemies to save resources
+    //change the texture of only spawn enemies and not dead to save resources
     for(int i=0;i < (int)listOfvEnnemies.size();i++)
     {
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn())
+        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
         {
             listOfvEnnemies[i]->updateTexture();
-            //cout << "update texture" << endl;
         }
     }
 
@@ -1110,7 +1115,7 @@ bool vGameBoard::verifyImage()
 bool vGameBoard::verifyImageTower()
 {
 
-    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth1.png"))
+    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
@@ -1274,25 +1279,25 @@ bool vGameBoard::verifyImageMapEntities()
          return false;
     }
 
-    if(!earthTowerTexture.loadFromFile("res/images/gameBoard/earthTowerButton.png"))
+    if(!earthTowerTextureButton.loadFromFile("res/images/gameBoard/earthTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if(!iceTowerTexture.loadFromFile("res/images/gameBoard/iceTowerButton.png"))
+    if(!iceTowerTextureButton.loadFromFile("res/images/gameBoard/iceTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if(!ironTowerTexture.loadFromFile("res/images/gameBoard/ironTowerButton.png"))
+    if(!ironTowerTextureButton.loadFromFile("res/images/gameBoard/ironTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
     }
 
-    if(!sandTowerTexture.loadFromFile("res/images/gameBoard/sandTowerButton.png"))
+    if(!sandTowerTextureButton.loadFromFile("res/images/gameBoard/sandTowerButton.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
