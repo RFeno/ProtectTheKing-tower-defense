@@ -19,12 +19,11 @@ class vGameBoard
         vGameBoard(const vGameBoard& other);
         vGameBoard& operator=(const vGameBoard& other);
 
+        //
         void launchView();
-
         void loadSprite();
-
+        bool drawEntities();
         void updateGame();
-
         void loadFont();
 
 
@@ -34,16 +33,16 @@ class vGameBoard
         bool verifyImageMonsters();
         bool verifyImageMapEntities();
         bool verifyImageInformations();
-        bool chargesEnemiesTextures();
+
 
         //events
-        bool drawEntities();
         void InputHandler(Event event, RenderWindow *window);
         bool isSpriteClicked (Sprite &spr);
 
         //methods
         void launchGame();
         void updateVennemyForView();
+        void updateHealthBarAllEnemies();
         void enemyAnimation();
         void animationEnemyWalk2(Sprite *enemy);
         void enemiesSpawn();
@@ -70,7 +69,7 @@ class vGameBoard
 
     private:
 
-        const int OGRE_WIDTH = 377 ;
+        const int OGRE_WIDTH = 377;
         const int OGRE_HEIGHT = 404;
         const int ORC_WIDTH = 339;
         const int ORC_HEIGHT = 353 ;
@@ -86,7 +85,7 @@ class vGameBoard
         int idSpawn = 0;
         int spawnTime = 3;
 
-        //std::vector<Sprite*> enemiesSprite;
+
         std::vector<vEnnemy*> listOfvEnnemies;
         std::vector<vTower*> listOfvTower;
         std::vector<Sprite*> listOfAcideCloudSpell;
@@ -109,7 +108,6 @@ class vGameBoard
 
         int x_knight = 0;
         int y_knight = 0;
-
 
         int x_acide = 0;
 
@@ -156,6 +154,7 @@ class vGameBoard
         sf::Sprite acideCloudSprite;
         sf::Sprite lightningSprite;
         sf::Sprite fireSprite;
+
         //map and entitites textures
         sf::Texture mapTexture;
         sf::Texture pauseTexture;
@@ -167,25 +166,25 @@ class vGameBoard
 
         //Towers textures
         /* without number = icon button*/
-        sf::Texture earthTowerTexture;
+        sf::Texture earthTowerTextureButton;
 
         Texture earthTowerTexture1;
 
         Texture earthAttack;
 
-        Texture sandTowerTexture;
+        Texture sandTowerTextureButton;
 
         Texture sandTowerTexture1;
 
         Texture sandAttack;
 
-        Texture iceTowerTexture;
+        Texture iceTowerTextureButton;
 
         Texture iceTowerTexture1;
 
         Texture iceAttack;
 
-        Texture ironTowerTexture;
+        Texture ironTowerTextureButton;
 
         Texture ironTowerTexture1;
 

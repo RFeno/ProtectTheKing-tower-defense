@@ -9,16 +9,16 @@ class vEnnemy
 {
     public:
 
-        vEnnemy(Enemies *enemy);
+        vEnnemy(Enemies *enemy=nullptr);
         virtual ~vEnnemy();
         vEnnemy(const vEnnemy& other);
         vEnnemy& operator=(const vEnnemy& other);
 
-        //static bool chargesEnemiesTextures();
         void chargeInformations();
         void updateTexture();
         void updatePartOfTexture();
         void animationClock();
+        void updateHealth();
 
         //getters and setters
         Enemies* getEnemy()
@@ -41,9 +41,7 @@ class vEnnemy
             this->enemy=enemy;
         }
 
-        //texture of health
-        sf::Texture *healthBarGreenTexture = nullptr;
-        sf::Texture *healthBarRedTexture = nullptr;
+
 
         //all textures of walk
         sf::Texture *ogreTextureWalk = nullptr;
@@ -67,6 +65,12 @@ class vEnnemy
         sf::Texture *gremlinAttackTexture = nullptr;
         sf::Texture *orcAttackTexture = nullptr ;
 
+        //texture of health
+        sf::Texture *healthBarGreenTexture = nullptr;
+        sf::Texture *healthBarRedTexture = nullptr;
+
+        sf::Sprite healthBarRedSprite;
+        sf::Sprite healthBarGreenSprite;
 
     protected:
 
@@ -87,8 +91,13 @@ class vEnnemy
 
         //sprites
         sf::Sprite *enemySprite;
-        sf::Sprite *healthBarGreenSprite;
-        sf::Sprite *healthBarRedSprite;
+
+
+
+
+
+
+
 
 
 

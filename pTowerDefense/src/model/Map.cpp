@@ -59,9 +59,19 @@ Map& Map::operator=(const Map& rhs)
 string Map::strEnemies()const
 {
     string result ="list of enemies\n[\n";
-    for(Enemies *en: listOfEnemies)
+    for(Enemies *enemy: listOfEnemies)
     {
-        result+= en->getInformations()+"\n";
+        result+= enemy->getInformations()+"\n";
+    }
+    return result+="]";
+}
+
+string Map::strTowers()const
+{
+    string result ="list of towers\n[\n";
+    for(Tower *tower: listOfTower)
+    {
+        result+= tower->toString()+"\n";
     }
     return result+="]";
 }
@@ -173,4 +183,13 @@ void Map::deleteAllEnemies()
         delete enemy;
     }
     listOfEnemies.clear();
+}
+
+/*improve statistics of all enemies */
+void Map::improveAllEnemies(int numeroOfWave)
+{
+    for(Enemies *enemy: listOfEnemies)
+    {
+        enemy->improveStatistics(numeroOfWave);
+    }
 }
