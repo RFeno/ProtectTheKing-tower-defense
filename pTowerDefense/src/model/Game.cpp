@@ -105,7 +105,7 @@ attack the enemies who is nearby
 */
 void Game::towerAttack()
 {
-    for(Tower* tower:mapOfGame->getTowers())
+    /*for(Tower* tower:mapOfGame->getTowers())
     {
         for(Enemies* enemy:mapOfGame->getEnemies())
         {
@@ -114,7 +114,7 @@ void Game::towerAttack()
                 tower->attackEnemy(*enemy);
             }
         }
-    }
+    }*/
 }
 
 /**

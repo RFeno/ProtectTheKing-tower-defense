@@ -24,7 +24,7 @@ class Tower
 
         //methods
         bool improveLevel();
-        bool isInRange(int xOfEnemy);
+        bool isInRange(int xOfEnemy,int xOfTower);
         void attackEnemy(Enemies &cible)const;
         std::string toString()const;
 

@@ -5,7 +5,9 @@
 #include "TowerIron.h"
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
+using namespace std;
 using namespace sf;
 
 vTower::vTower(int x,int y, Tower* tower): x(x), y(y), tower(tower)
@@ -77,5 +79,9 @@ void vTower::chargeInformations()
         }
     }
     towerSprite->setPosition(x, y);
+}
 
+int vTower::calculateMiddlePosition()
+{
+    return towerTexture->getSize().x / 2 ;
 }

@@ -24,6 +24,7 @@ class vTower
 
         void chargeInformations();
         void animAttack();
+        int calculateMiddlePosition();
 
         sf::Texture *towerTexture = nullptr;
         sf::Texture *attackTexture = nullptr;

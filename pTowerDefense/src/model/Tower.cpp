@@ -42,9 +42,10 @@ Tower& Tower::operator=(const Tower& rhs)
     return *this;
 }
 
-bool Tower::isInRange(int xOfEnemy)
+/*return if the enemy is in range of the tower*/
+bool Tower::isInRange(int xOfEnemy, int middleOfTower)
 {
-    int calcul = xTower - xOfEnemy ;
+    int calcul = (xTower + middleOfTower) - xOfEnemy ;
 
     if(abs(calcul) <= range  )
     {
@@ -72,5 +73,5 @@ bool Tower::improveLevel()
 /* show the state of the tower */
 string Tower::toString()const
 {
-    return "[Tower: damage=> " + to_string(damage) + " level=>" + to_string(level) + " price=>"+ to_string(price) + " range:"+ to_string(range) +"]";
+    return "[Tower: damage=> " + to_string(damage) + " level=>" + to_string(level) + " price=>"+ to_string(price) + " range:"+ to_string(range) + " x:" + to_string(xTower)+ "]";
 }

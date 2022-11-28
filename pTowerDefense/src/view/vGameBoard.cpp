@@ -294,12 +294,6 @@ void vGameBoard::loadSprite()
     // Donc si tu veux prendre le deuxième sprite -> + 377 au premier argument et ansi de suite
 
 
-    //in function of the type of enemy set positions and +
-    for(size_t i=0;i<listOfvEnnemies.size();i++)
-    {
-       //
-    }
-
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
@@ -333,9 +327,9 @@ void vGameBoard::loadSprite()
     sandTowerSprite.setScale(0.50f,0.50f);
     ironTowerSprite.setScale(0.50f,0.50f);
 
-    earthTowerSprite.setPosition(Vector2f(1006,5));
+    earthTowerSprite.setPosition(Vector2f(1206,5));
     iceTowerSprite.setPosition(Vector2f(1106,5));
-    sandTowerSprite.setPosition(Vector2f(1206,5));
+    sandTowerSprite.setPosition(Vector2f(1006,5));
     ironTowerSprite.setPosition(Vector2f(1306,5));
 
     //informations of tower
@@ -568,7 +562,7 @@ void vGameBoard::updateGame()
 //    cout << game.getMap()->strEnemies() << endl;
 //    cout << game.getMap()->getKing().getInformations() << endl;
 
-    cout << game.getMap()->strTowers() <<endl;
+//    cout << game.getMap()->strTowers() <<endl;
 
     if(game.IsEndOfWave())
     {
@@ -595,14 +589,14 @@ void vGameBoard::updateGame()
 
         //attaque des tours
         //game.towerAttack();
-        for(Tower *tower: game.getMap()->getTowers())
+        for(vTower *vtower: listOfvTower)
         {
             for(Enemies *enemy: game.getMap()->getEnemies())
             {
                 updateHealthBarAllEnemies();
-                if(tower->isInRange(enemy->getX()))
+                if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
                 {
-                    tower->attackEnemy(*enemy);
+                    vtower->getTower()->attackEnemy(*enemy);
                     /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
                 }
 
@@ -611,7 +605,7 @@ void vGameBoard::updateGame()
 
         //king attack
         /** GERER ICI LE TEMPS ENTRE 2 ATTACK DES ENNEMIS SUR LE ROI */
-        if(attackClock.getElapsedTime().asSeconds() > 2.0f)
+        if(attackClock.getElapsedTime().asSeconds() > 0.5f)
         {
             for(Enemies *enemy: game.getMap()->getEnemies())
             {
