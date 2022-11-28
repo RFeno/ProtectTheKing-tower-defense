@@ -7,7 +7,7 @@
 class TowerEarth : public Tower
 {
     public:
-        TowerEarth(int xTower=0, int yTower=0, int damage=60,int level=1,int price=earth);
+        TowerEarth(int xTower=0, int yTower=0, int damage=40,int level=1,int price=earth,int range=25);
         virtual ~TowerEarth();
         TowerEarth(const TowerEarth& other);
         TowerEarth& operator=(const TowerEarth& other);

@@ -1,6 +1,6 @@
 #include "TowerIce.h"
 
-TowerIce::TowerIce(int x, int y,int damage,int level,int price):Tower(damage,level,price)
+TowerIce::TowerIce(int x, int y,int damage,int level,int price,int range):Tower(x,y,damage,level,price,range)
 {
     this->type=ice;
 }

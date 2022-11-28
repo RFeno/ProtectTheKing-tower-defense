@@ -10,11 +10,12 @@ enum TypeOfTower : int
     earth = 250,
     iron = 400
 };
-/* classe abstraite */
+
+
 class Tower
 {
     public:
-        Tower(int xTower=0, int yTower=0, int damage=20,int level=1,int price=100);
+        Tower(int xTower=0, int yTower=0, int damage=20,int level=1,int price=100, int range=20);
 
         virtual ~Tower();
 

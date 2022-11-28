@@ -7,7 +7,7 @@
 class TowerIce : public Tower
 {
     public:
-        TowerIce(int xTower=0, int yTower=0,int damage=40,int level=1,int price=ice);
+        TowerIce(int xTower=0, int yTower=0,int damage=60,int level=1,int price=ice,int range=30);
         virtual ~TowerIce();
         TowerIce(const TowerIce& other);
         TowerIce& operator=(const TowerIce& other);

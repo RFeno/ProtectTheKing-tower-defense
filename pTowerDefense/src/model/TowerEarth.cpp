@@ -1,12 +1,8 @@
 #include "TowerEarth.h"
 
-TowerEarth::TowerEarth(int x, int y, int damage,int level,int price):Tower(x,y,damage,level,price)
+TowerEarth::TowerEarth(int x, int y, int damage,int level,int price,int range):Tower(x,y,damage,level,price,range)
 {
     this->type=earth;
-    this->range=20;
-
-    //to delete
-    this->xTower=300;
 }
 
 TowerEarth::~TowerEarth()

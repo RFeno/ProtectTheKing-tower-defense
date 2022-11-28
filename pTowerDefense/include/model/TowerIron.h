@@ -7,7 +7,7 @@
 class TowerIron : public Tower
 {
     public:
-        TowerIron(int xTower=0, int yTower=0, int damage=80,int level=1,int price=iron);
+        TowerIron(int xTower=0, int yTower=0, int damage=80,int level=1,int price=iron, int range =35);
         TowerIron(const TowerIron& other);
         TowerIron& operator=(const TowerIron& rhs);
         virtual ~TowerIron();

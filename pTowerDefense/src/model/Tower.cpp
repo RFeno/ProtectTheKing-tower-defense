@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Tower::Tower(int xTower, int yTower, int damage, int level, int price): xTower(xTower), yTower(yTower), damage(damage), level(level), price(price)
+Tower::Tower(int xTower, int yTower, int damage, int level, int price,int range): xTower(xTower), yTower(yTower), damage(damage), level(level), price(price), range(range)
 {
     //ctor
     if(level<=0)
@@ -44,7 +44,9 @@ Tower& Tower::operator=(const Tower& rhs)
 
 bool Tower::isInRange(int xOfEnemy)
 {
-    if(xTower - xOfEnemy <= range)
+    int calcul = xTower - xOfEnemy ;
+
+    if(abs(calcul) <= range  )
     {
         return true;
     }
@@ -70,5 +72,5 @@ bool Tower::improveLevel()
 /* show the state of the tower */
 string Tower::toString()const
 {
-    return "[Tower: damage=> " + to_string(damage) + " level=>" + to_string(level) + " price=>"+ to_string(price) + "]";
+    return "[Tower: damage=> " + to_string(damage) + " level=>" + to_string(level) + " price=>"+ to_string(price) + " range:"+ to_string(range) +"]";
 }

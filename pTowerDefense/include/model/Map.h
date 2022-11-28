@@ -20,11 +20,13 @@ class Map
 
         //methods
         std::string strEnemies()const;
+        std::string strTowers()const;
         void addEnemy(typeOfEnemies type);
         void addTower(int x, int y, TypeOfTower type);
         bool removeEnemy(Enemies &enemy);
         int searchEnemy(Enemies &enemy);
         void deleteAllEnemies();
+        void improveAllEnemies(int numeroOfWave);
 
         //getters and setters
         //pointeurs ou référence
