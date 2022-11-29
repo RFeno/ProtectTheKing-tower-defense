@@ -7,11 +7,10 @@
 class Ogre : public Enemies
 {
     public:
-        Ogre(int health=800, int attackSpeed=1, int marketValue=800, int scoreValue=800, int damage=1);
+        Ogre(int health=800, float attackSpeed=1, int marketValue=800, int scoreValue=800, int damage=1,float walkingSpeed=0.9);
         virtual ~Ogre();
         Ogre(const Ogre& other);
         Ogre& operator=(const Ogre& other);
-        Ogre* clone()const;
         std::string getInformations()const;
 
     protected:

@@ -23,10 +23,9 @@ class Enemies
     public:
 
         static inline int compteur = 0;
-        const int WALK_SPEED = 1;
 
         //canonic form
-        Enemies(int health=100, int attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1);
+        Enemies(int health=100, float attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1,float walkingSpeed=1.0);
         virtual ~Enemies();
         Enemies(const Enemies& other);
         Enemies& operator=(const Enemies& other);
@@ -41,19 +40,19 @@ class Enemies
 
         //getters and setters
         void setHealth(int health);
-        void setX(int x);
+        void setX(float x);
 
         int getHealth()const
         {
             return health;
         }
 
-        int getX()const
+        float getX()const
         {
             return x;
         }
 
-        int getY()const
+        float getY()const
         {
             return y;
         }
@@ -73,17 +72,24 @@ class Enemies
             return healthMax;
         }
 
+        float getWalkingSpeed()
+        {
+            return walkingSpeed;
+        }
+
         bool isSpawn()const
         {
             return spawn;
         }
+
+        void setWalkingSpeed(float speed);
 
         void setSpawn(bool spawn)
         {
             this->spawn=spawn;
         }
 
-        void setY(int y)
+        void setY(float y)
         {
             this->y = y;
         }
@@ -98,24 +104,34 @@ class Enemies
 
     protected:
 
-        /**to make it available in subclasses*/
-
-
+        //real health
         int health;
+
+        float attackSpeed;
 
         //only change when the enemy is improved
         int healthMax;
 
-        double attackSpeed;
+        //the money the player earns when this enemy is killed
         int marketValue;
+
+        //the score the player gains when this enemy is killed
         int scoreValue;
+
+        //damage at each attack
         int damage;
+
+        //if the enemy is visible on the screen (given that they start walking at -40)
         bool spawn = false;
 
-        int x = -40;
-        int y;
+        float walkingSpeed;
+
+
+        //enemies start at -40 to arrive naturally on the screen
+        float x = -40;
+        float y;
         int *id;
-        State *state;
+        State *state = nullptr;
 
     private:
 

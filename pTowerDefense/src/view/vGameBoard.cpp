@@ -670,7 +670,7 @@ void vGameBoard::updateGame()
 
 void vGameBoard::updateKingHealth()
 {
-    double kingHealthMax = King::kingHeathMax;
+    double kingHealthMax = game.getMap()->getKing().getKingHealthMax();
     double kingHealthReel = game.getMap()->getKing().getHealth();
     double remainingHealth = (kingHealthReel  / kingHealthMax );
     //0.20 is the widht per default for the health bar

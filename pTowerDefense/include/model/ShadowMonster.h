@@ -7,11 +7,10 @@
 class ShadowMonster : public Enemies
 {
     public:
-        ShadowMonster(int health=400, int attackSpeed=1, int marketValue=400, int scoreValue=400, int damage=1);
+        ShadowMonster(int health=400, float attackSpeed=0.9, int marketValue=400, int scoreValue=400, int damage=1,float walkingSpeed=1.15);
         virtual ~ShadowMonster();
         ShadowMonster(const ShadowMonster& other);
         ShadowMonster& operator=(const ShadowMonster& other);
-        ShadowMonster* clone()const;
         std::string getInformations()const;
 
     protected:

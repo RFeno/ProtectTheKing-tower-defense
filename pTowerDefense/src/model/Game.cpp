@@ -22,7 +22,7 @@ Game::~Game()
     delete player;
     delete mapOfGame;
 }
-
+/** DEMANDER AU PROF SI BESOIN DE TOUTES LES CLASSES CANONIQUES OU PAS*/
 Game::Game(const Game& other)
 {
     //copy ctor
@@ -38,7 +38,6 @@ Game& Game::operator=(const Game& rhs)
 void Game::createWave()
 {
     numeroOfWave++;
-    //numberOfEnemies = rand()%9 + 1;
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
@@ -48,33 +47,30 @@ void Game::createWave()
         switch(typeOfEnemy)
         {
             case 1:
-                {
-                    mapOfGame->addEnemy(knightOfDeathValue);
-                    break;
-                }
+            {
+                mapOfGame->addEnemy(knightOfDeathValue);
+                break;
+            }
             case 2:
-                {
-                    mapOfGame->addEnemy(ogreValue);
-                    break;
-                }
+            {
+                mapOfGame->addEnemy(ogreValue);
+                break;
+            }
             case 3:
-                {
-                    mapOfGame->addEnemy(orcValue);
-                    break;
-                }
+            {
+                mapOfGame->addEnemy(orcValue);
+                break;
+            }
             case 4:
-                {
-                    mapOfGame->addEnemy(shadowMonsterValue);
-                    break;
-                }
+            {
+                mapOfGame->addEnemy(shadowMonsterValue);
+                break;
+            }
             case 5:
-                {
-                     mapOfGame->addEnemy(gremlinValue);
-                    break;
-                }
-
-            default:
-                cout << "error the create enemies for wave " << endl;
+            {
+                 mapOfGame->addEnemy(gremlinValue);
+                break;
+            }
         }
     }
 }
@@ -101,20 +97,20 @@ void Game::ennemiesAttack()
 }
 
 /**
-attack the enemies who is nearby
+attack the enemies who is nearby (inused)
 */
 void Game::towerAttack()
 {
-    /*for(Tower* tower:mapOfGame->getTowers())
+    for(Tower* tower:mapOfGame->getTowers())
     {
         for(Enemies* enemy:mapOfGame->getEnemies())
         {
-            if(tower->isInRange(enemy->getX()))
+            if(tower->isInRange(enemy->getX(),0))
             {
                 tower->attackEnemy(*enemy);
             }
         }
-    }*/
+    }
 }
 
 /**

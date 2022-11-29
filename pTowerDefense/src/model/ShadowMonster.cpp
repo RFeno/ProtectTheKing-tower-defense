@@ -3,7 +3,7 @@
 
 using namespace std;
 
-ShadowMonster::ShadowMonster(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
+ShadowMonster::ShadowMonster(int health, float attackSpeed, int marketValue, int scoreValue, int damage,float walkingSpeed):Enemies(health,attackSpeed,marketValue,scoreValue,damage,walkingSpeed)
 {
     //ctor
     y=535;
@@ -22,17 +22,16 @@ ShadowMonster::ShadowMonster(const ShadowMonster& other):Enemies(other)
 ShadowMonster& ShadowMonster::operator=(const ShadowMonster& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Enemies::operator=(rhs);
+
     //assignment operator
     return *this;
 }
 
-ShadowMonster* ShadowMonster::clone()const
-{
-    return new ShadowMonster(*this);
-}
 
 string ShadowMonster::getInformations()const
 {
-    return "[id: "+ to_string(*id)+ "   ShadowMonster x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) + " ]";
+    return "[id: "+ to_string(*id)+ "      |ShadowMonster x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) +" walking speed:"+to_string(walkingSpeed) + " ]";
 }
 

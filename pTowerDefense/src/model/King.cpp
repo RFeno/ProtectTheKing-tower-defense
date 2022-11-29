@@ -3,9 +3,10 @@
 
 using namespace std;
 
-King::King(int health): health(health)
+King::King(int health): health(health),kingHealthMax(health)
 {
     //ctor
+    //this->kingHealthMax=health;
 }
 
 King::~King()

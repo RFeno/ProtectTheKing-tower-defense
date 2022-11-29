@@ -1,22 +1,24 @@
 #include "Enemies.h"
-#include <string>
+#include "King.h"
+
+/** States */
 #include "State.h"
 #include "StateDie.h"
 #include "StateWalk.h"
 #include "StateAttack.h"
-#include "King.h"
+
+#include <string>
 
 class State;
 class StateDie;
 
 using namespace std;
 
-Enemies::Enemies(int health, int attackSpeed, int marketValue, int scoreValue, int damage)
-: health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage)
+Enemies::Enemies(int health, float attackSpeed, int marketValue, int scoreValue, int damage,float walkingSpeed)
+: health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage), walkingSpeed(walkingSpeed)
 {
     //ctor
     this->id = new int(++compteur);
-    this->state=nullptr;
     changeState(new StateWalk);
 }
 
@@ -28,7 +30,7 @@ Enemies::~Enemies()
 
 }
 
-Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage)
+Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage),walkingSpeed(other.walkingSpeed)
 {
    //copy ctor
     this->id = new int(*other.id);
@@ -43,15 +45,13 @@ Enemies& Enemies::operator=(const Enemies& rhs)
     this->health=rhs.health;
     this->marketValue=rhs.marketValue;
     this->scoreValue=rhs.scoreValue;
+    this->walkingSpeed=rhs.walkingSpeed;
 
     //assignment operator
     return *this;
 }
 
-/*
-* this method decrease the health of the enemy
-* if the health is lower of egal to 0 the enemy die
-*/
+/*this method decrease the health of the enemy if the health is lower of egal to 0 the enemy die*/
 void Enemies::receiveDamage(int damage)
 {
     setHealth(getHealth()-damage);
@@ -70,14 +70,18 @@ void Enemies::changeState(State *state)
     {
         delete this->state;
     }
+
     this->state = state;
+
     this->state->setEnemy(this);
 }
+
 /* active walk of enemy, change his position x */
 void Enemies::walk()
 {
     this->state->walk();
 }
+
 /*the enemies attack the king*/
 void Enemies::attackKing(King &king)
 {
@@ -97,7 +101,7 @@ void Enemies::setHealth(int health)
 }
 
 /*changes de positions of enemy */
-void Enemies::setX(int x)
+void Enemies::setX(float x)
 {
     this->x = x;
 
@@ -106,8 +110,8 @@ void Enemies::setX(int x)
         this->x = King::xKing;
         changeState(new StateAttack);
     }
-
 }
+
 /*change the state of enemies to dead*/
 void Enemies::die()
 {
@@ -121,3 +125,11 @@ void Enemies::improveStatistics(int numeroOfWave)
     healthMax=health;
 }
 
+/*changes the walking speed of enemy */
+void Enemies::setWalkingSpeed(float speed)
+{
+    if(speed>0)
+    {
+        walkingSpeed = speed;
+    }
+}

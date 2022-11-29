@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Ogre::Ogre(int health, int attackSpeed, int marketValue, int scoreValue, int damage):Enemies(health,attackSpeed,marketValue,scoreValue,damage)
+Ogre::Ogre(int health, float attackSpeed, int marketValue, int scoreValue, int damage,float walkingSpeed):Enemies(health,attackSpeed,marketValue,scoreValue,damage,walkingSpeed)
 {
     //ctor
     y=517;
@@ -23,17 +23,16 @@ Ogre::Ogre(const Ogre& other):Enemies(other)
 Ogre& Ogre::operator=(const Ogre& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Enemies::operator=(rhs);
+
     //assignment operator
     return *this;
 }
 
-Ogre* Ogre::clone()const
-{
-    return new Ogre(*this);
-}
 
 string Ogre::getInformations()const
 {
-    return "[id: "+ to_string(*id)+"   Ogre          x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) + " ]";
+    return "[id: "+ to_string(*id)+"      |Ogre          x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) + " walking speed:"+to_string(walkingSpeed) + " ]";
 }
 

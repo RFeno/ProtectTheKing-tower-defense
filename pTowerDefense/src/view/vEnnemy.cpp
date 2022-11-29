@@ -28,10 +28,7 @@ vEnnemy::vEnnemy(Enemies *enemy): enemy(enemy)
 vEnnemy::~vEnnemy()
 {
     //dtor
-
     delete enemySprite;
-    /*delete healthBarGreenSprite;
-    delete healthBarRedSprite;*/
 }
 
 vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite)
@@ -164,7 +161,7 @@ void vEnnemy::updateTexture()
             enemySprite->setTexture(*knightOfDeathAttackTexture);
         }
     }
-    else //if(dynamic_cast<Gremlin*>(enemy))
+    else
     {
         healthBarRedSprite.setPosition(enemy->getX()-4,enemy->getY()-10);
         healthBarGreenSprite.setPosition(enemy->getX()-4,enemy->getY()-10);

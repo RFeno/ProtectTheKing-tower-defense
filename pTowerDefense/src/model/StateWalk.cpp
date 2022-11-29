@@ -8,7 +8,7 @@ void StateWalk::walk()
 {
     if(this->enemy->isSpawn())
     {
-        this->enemy->setX(enemy->getX()+enemy->WALK_SPEED);
+        this->enemy->setX(enemy->getX()+enemy->getWalkingSpeed());
     }
 }
 

@@ -7,19 +7,17 @@
 #include "vEnnemy.h"
 #include "vTower.h"
 
-using namespace sf;
 
 class vGameBoard
 {
     public:
 
         //canonic
-        vGameBoard(RenderWindow& window);
+        vGameBoard(sf::RenderWindow &window);
         virtual ~vGameBoard();
         vGameBoard(const vGameBoard& other);
         vGameBoard& operator=(const vGameBoard& other);
 
-        //
         void launchView();
         void loadSprite();
         bool drawEntities();
@@ -34,17 +32,16 @@ class vGameBoard
         bool verifyImageMapEntities();
         bool verifyImageInformations();
 
-
         //events
-        void InputHandler(Event event, RenderWindow *window);
-        bool isSpriteClicked (Sprite &spr);
+        void InputHandler(sf::Event event,sf::RenderWindow *window);
+        bool isSpriteClicked (sf::Sprite &spr);
 
         //methods
         void launchGame();
         void updateVennemyForView();
         void updateHealthBarAllEnemies();
         void enemyAnimation();
-        void animationEnemyWalk2(Sprite *enemy);
+        void animationEnemyWalk2(sf::Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
         void buyTower(TypeOfTower type);
@@ -90,9 +87,9 @@ class vGameBoard
 
         std::vector<vEnnemy*> listOfvEnnemies;
         std::vector<vTower*> listOfvTower;
-        std::vector<Sprite*> listOfAcideCloudSpell;
-        std::vector<Sprite*> listOfFireSpell;
-        std::vector<Sprite*> listOfLigntningSpell;
+        std::vector<sf::Sprite*> listOfAcideCloudSpell;
+        std::vector<sf::Sprite*> listOfFireSpell;
+        std::vector<sf::Sprite*> listOfLigntningSpell;
 
 
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
@@ -119,7 +116,7 @@ class vGameBoard
         sf::Clock gameSpeedClook;
 
         Game game;
-        RenderWindow *windowFromMain;
+        sf::RenderWindow *windowFromMain;
 
         //King
         sf::Texture kingHealthGreenTexture;
@@ -170,61 +167,61 @@ class vGameBoard
         /* without number = icon button*/
         sf::Texture earthTowerTextureButton;
 
-        Texture earthTowerTexture1;
+        sf::Texture earthTowerTexture1;
 
-        Texture earthAttack;
+        sf::Texture earthAttack;
 
-        Texture sandTowerTextureButton;
+        sf::Texture sandTowerTextureButton;
 
-        Texture sandTowerTexture1;
+        sf::Texture sandTowerTexture1;
 
-        Texture sandAttack;
+        sf::Texture sandAttack;
 
-        Texture iceTowerTextureButton;
+        sf::Texture iceTowerTextureButton;
 
-        Texture iceTowerTexture1;
+        sf::Texture iceTowerTexture1;
 
-        Texture iceAttack;
+        sf::Texture iceAttack;
 
-        Texture ironTowerTextureButton;
+        sf::Texture ironTowerTextureButton;
 
-        Texture ironTowerTexture1;
+        sf::Texture ironTowerTexture1;
 
-        Texture ironAttack;
+        sf::Texture ironAttack;
 
         //Tower sprites
-        Sprite earthTowerSprite;
-        Sprite sandTowerSprite;
-        Sprite iceTowerSprite;
-        Sprite ironTowerSprite;
+        sf::Sprite earthTowerSprite;
+        sf::Sprite sandTowerSprite;
+        sf::Sprite iceTowerSprite;
+        sf::Sprite ironTowerSprite;
 
         //informations textures
-        Texture twentyTexture;
-        Texture fourtyTexture;
-        Texture sixtyTexture;
-        Texture eightyTexture;
-        Texture oneHundredTexture;
-        Texture oneHundredFiftyTexture;
-        Texture twoHundredFiftyTexture;
-        Texture fourHundredTexture;
-        Texture crystalTexture;
-        Texture swordTexture;
-        Texture signTexture;
+        sf::Texture twentyTexture;
+        sf::Texture fourtyTexture;
+        sf::Texture sixtyTexture;
+        sf::Texture eightyTexture;
+        sf::Texture oneHundredTexture;
+        sf::Texture oneHundredFiftyTexture;
+        sf::Texture twoHundredFiftyTexture;
+        sf::Texture fourHundredTexture;
+        sf::Texture crystalTexture;
+        sf::Texture swordTexture;
+        sf::Texture signTexture;
 
 
         //informations sprite
-        Sprite twentySprite;
-        Sprite fourtySprite;
-        Sprite sixtySprite;
-        Sprite eightySprite;
-        Sprite oneHundredSprite;
-        Sprite oneHundredFiftySprite;
-        Sprite twoHundredFiftySprite;
-        Sprite fourHundredSprite;
+        sf::Sprite twentySprite;
+        sf::Sprite fourtySprite;
+        sf::Sprite sixtySprite;
+        sf::Sprite eightySprite;
+        sf::Sprite oneHundredSprite;
+        sf::Sprite oneHundredFiftySprite;
+        sf::Sprite twoHundredFiftySprite;
+        sf::Sprite fourHundredSprite;
 
-        std::vector<Sprite*> swordSprites;
-        std::vector<Sprite*> crystalSprites;
-        std::vector<Sprite*> signSprites;
+        std::vector<sf::Sprite*> swordSprites;
+        std::vector<sf::Sprite*> crystalSprites;
+        std::vector<sf::Sprite*> signSprites;
 
 };
 

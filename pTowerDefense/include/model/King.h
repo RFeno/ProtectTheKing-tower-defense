@@ -13,11 +13,16 @@ class King
         King& operator=(const King& other);
 
         const static int xKing = 1200;
-        const static int kingHeathMax = 1000;
+
 
         int getHealth()
         {
             return health;
+        }
+
+        int getKingHealthMax()
+        {
+            return kingHealthMax;
         }
 
         void setHealth(int health);
@@ -31,6 +36,7 @@ class King
 
     private:
         int health;
+        int kingHealthMax;
 
 };
 

@@ -7,11 +7,10 @@
 class KnightOfDeath : public Enemies
 {
     public:
-        KnightOfDeath(int health=1000, int attackSpeed=1, int marketValue=1000, int scoreValue=1000, int damage=2);
+        KnightOfDeath(int health=1000, float attackSpeed=1, int marketValue=1000, int scoreValue=1000, int damage=2,float walkingSpeed=0.75);
         virtual ~KnightOfDeath();
         KnightOfDeath(const KnightOfDeath& other);
         KnightOfDeath& operator=(const KnightOfDeath& other);
-        KnightOfDeath* clone()const;
         std::string getInformations()const;
 
     protected:
