@@ -48,6 +48,8 @@ class vGameBoard
         void enemiesSpawn();
         void displayEnd();
         void buyTower(TypeOfTower type);
+        bool removeVTower(vTower& tower);
+        int searchVTower(vTower& tower);
         bool removeVEnemy(vEnnemy& enemy);
         int searchVEnemy(vEnnemy& enemy);
 

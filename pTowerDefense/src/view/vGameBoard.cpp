@@ -189,6 +189,42 @@ int vGameBoard::searchVEnemy(vEnnemy& enemy)
     return false;
 }*/
 
+int vGameBoard::searchVTower(vTower& tower)
+{
+    int result = -1;
+
+    for(size_t i=0;i<listOfvTower.size();i++)
+    {
+        if(listOfvTower[i]==&tower)
+        {
+            result=i;
+            break;
+        }
+    }
+    return result;
+}
+
+bool vGameBoard::removeVTower(vTower& tower)
+{
+
+    int index = searchVTower(tower);
+
+    if(index!=-1)
+    {
+        vTower *tmp = *(listOfvTower.begin() + index);
+        listOfvTower.erase(listOfvTower.begin() + index);
+        delete tmp;
+        cout << "test" <<  endl;
+
+        return true;
+    }
+    else
+    {
+        cout << "this tower is not in the list of vTower" << endl;
+    }
+    return false;
+}
+
 /*to manage the events */
 void vGameBoard::InputHandler(Event event, RenderWindow *window)
 {
@@ -238,6 +274,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     if(game.getPlayer()->getCoins() - sand >= 0 )
                     {
                         buyTower(sand);
+                        cout << "model tower : " << game.getMap()->getTowers().size() << endl;
+                        cout << "view tower : " << listOfvTower.size() << endl;
                     }
                 }
             }
@@ -275,6 +313,12 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         if (event.mouseButton.button == Mouse::Right)
         {
               cout << "right click"<< endl;
+
+//            removeVTower(*(listOfvTower[1]));
+//            game.getMap()->removeTower(*(game.getMap()->getTowers()[1]));
+//
+//            cout << "model tower : " << game.getMap()->getTowers().size() << endl;
+//            cout << "view tower : " << listOfvTower.size() << endl;
 
              if(isSpriteClicked(acideCloudSprite) == 1)
             {

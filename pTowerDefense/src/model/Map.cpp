@@ -175,6 +175,40 @@ void Map::addTower(int x, int y, TypeOfTower type)
     }
 }
 
+int Map::searchTower(Tower &tower)
+{
+    int result = -1;
+
+    for(size_t i=0;i<listOfTower.size();i++)
+    {
+        if(listOfTower[i]==&tower)
+        {
+            result=i;
+            break;
+        }
+    }
+    return result;
+}
+
+bool Map::removeTower(Tower &tower)
+{
+    int index = searchTower(tower);
+
+    if(index!=-1)
+    {
+        Tower *tmp = *(listOfTower.begin() + index);
+        listOfTower.erase(listOfTower.begin()+index);
+        delete tmp;
+
+        return true;
+    }
+    else
+    {
+        cout << "this tower is not in the list/map" << endl;
+    }
+    return false;
+}
+
 /* delete all enemies  */
 void Map::deleteAllEnemies()
 {

@@ -21,11 +21,8 @@ vTower::vTower(int x,int y, Tower* tower): x(x), y(y), tower(tower)
 vTower::~vTower()
 {
     //dtor
-    delete tower;
     delete towerSprite;
     delete attackSprite;
-    delete towerTexture;
-    delete attackTexture;
     delete animAttackClock;
 }
 
