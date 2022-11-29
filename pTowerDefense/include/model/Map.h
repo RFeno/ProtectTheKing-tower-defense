@@ -25,6 +25,8 @@ class Map
         void addTower(int x, int y, TypeOfTower type);
         bool removeEnemy(Enemies &enemy);
         int searchEnemy(Enemies &enemy);
+        bool removeTower(Tower &tower);
+        int searchTower(Tower &tower);
         void deleteAllEnemies();
         void improveAllEnemies(int numeroOfWave);
 

@@ -13,11 +13,12 @@ class vTower
         sf::Sprite* attackSprite;
         Tower *tower;
         sf::Clock* animAttackClock;
+        int position;
 
 
     public:
 
-        vTower(int x,int y, Tower* tower);
+        vTower(int x,int y, Tower* tower, int position);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
@@ -69,6 +70,15 @@ class vTower
             this->y=y;
         }
 
+        int getPosition()
+        {
+            return position;
+        }
+
+        void setPosition(int position)
+        {
+            this->position=position;
+        }
 
     protected:
 };

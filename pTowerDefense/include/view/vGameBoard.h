@@ -44,18 +44,18 @@ class vGameBoard
         void animationEnemyWalk2(sf::Sprite *enemy);
         void enemiesSpawn();
         void displayEnd();
-        void buyTower(TypeOfTower type);
-        bool removeVTower(vTower& tower);
-        int searchVTower(vTower& tower);
+        void buyTower(TypeOfTower type, int position);
+        bool removeVTower(int position);
+        int searchVTower(int position);
         bool removeVEnemy(vEnnemy& enemy);
         int searchVEnemy(vEnnemy& enemy);
 
         /*these methods are used to calculate the positions of the towers*/
-        void getPositionOfNewTower(TypeOfTower type, int &x, int &y);
-        void getPositionOfEarth(int &x, int &y);
-        void getPositionOfIron(int &x, int &y);
-        void getPositionOfIce(int &x, int &y);
-        void getPositionOfSand(int &x, int &y);
+        void getPositionOfNewTower(TypeOfTower type, int &x, int &y, int position);
+        void getPositionOfEarth(int &x, int &y, int position);
+        void getPositionOfIron(int &x, int &y, int position);
+        void getPositionOfIce(int &x, int &y, int position);
+        void getPositionOfSand(int &x, int &y, int position);
 
         void adaptAnimationSprite();
         void adaptAnimationTexture();
