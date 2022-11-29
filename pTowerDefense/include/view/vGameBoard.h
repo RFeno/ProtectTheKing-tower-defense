@@ -25,7 +25,7 @@ class vGameBoard
         void loadFont();
 
 
-        //laod images
+        //load images
         bool verifyImage();
         bool verifyImageTower();
         bool verifyImageMonsters();
@@ -109,6 +109,9 @@ class vGameBoard
         int y_knight = 0;
 
         int x_acide = 0;
+
+        bool isChoosingNumberForPositionTower;
+        TypeOfTower typeTowerChoosed;
 
         sf::Clock animClock;
         sf::Clock spawnClock;
@@ -196,6 +199,13 @@ class vGameBoard
         sf::Sprite ironTowerSprite;
 
         //informations textures
+        sf::Texture oneTexture;
+        sf::Texture twoTexture;
+        sf::Texture threeTexture;
+        sf::Texture fourTexture;
+        sf::Texture fiveTexture;
+        sf::Texture sixTexture;
+        sf::Texture sevenTexture;
         sf::Texture twentyTexture;
         sf::Texture fourtyTexture;
         sf::Texture sixtyTexture;
@@ -210,6 +220,13 @@ class vGameBoard
 
 
         //informations sprite
+        sf::Sprite oneSprite;
+        sf::Sprite twoSprite;
+        sf::Sprite threeSprite;
+        sf::Sprite fourSprite;
+        sf::Sprite fiveSprite;
+        sf::Sprite sixSprite;
+        sf::Sprite sevenSprite;
         sf::Sprite twentySprite;
         sf::Sprite fourtySprite;
         sf::Sprite sixtySprite;

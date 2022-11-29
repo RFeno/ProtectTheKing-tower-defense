@@ -189,6 +189,7 @@ int vGameBoard::searchVEnemy(vEnnemy& enemy)
     return false;
 }*/
 
+/* remove a vtower of gameboard*/
 int vGameBoard::searchVTower(int position)
 {
     int result = -1;
@@ -204,6 +205,7 @@ int vGameBoard::searchVTower(int position)
     return result;
 }
 
+/* remove a vtower of gameboard*/
 bool vGameBoard::removeVTower(int position)
 {
 
@@ -249,9 +251,9 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     if(game.getPlayer()->getCoins() - earth >= 0 )
                     {
                         //dont forget to remove coins in player wallet
-                        int position;
-                        cin >> position;
-                        buyTower(earth, position);
+
+                        isChoosingNumberForPositionTower = true;
+                        typeTowerChoosed = TypeOfTower::earth;
                     }
                     else
                     {
@@ -274,14 +276,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     if(game.getPlayer()->getCoins() - sand >= 0 )
                     {
-                        int position;
-                        cin >> position;
-                        buyTower(sand, position);
+                        isChoosingNumberForPositionTower = true;
+                        typeTowerChoosed = TypeOfTower::sand;
                     }
                 }
             }
 
-            // buy earth tower
+            // buy ice tower
             if(isSpriteClicked(iceTowerSprite))
             {
                 cout << "button buy iceTower click" << endl;
@@ -290,9 +291,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     if(game.getPlayer()->getCoins() - ice >= 0 )
                     {
-                        int position;
-                        cin >> position;
-                        buyTower(ice, position);
+                        isChoosingNumberForPositionTower = true;
+                        typeTowerChoosed = TypeOfTower::ice;
 
                     }
                 }
@@ -307,9 +307,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     if(game.getPlayer()->getCoins() - iron >= 0 )
                     {
-                        int position;
-                        cin >> position;
-                        buyTower(iron, position);
+                        isChoosingNumberForPositionTower = true;
+                        typeTowerChoosed = TypeOfTower::iron;
                     }
                 }
             }
@@ -320,17 +319,17 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         {
             cout << "right click"<< endl;
 
-            int position;
-            cin >> position;
-
-            int index = searchVTower(position);
-
-            removeVTower(position);
-
-            game.getMap()->removeTower(*(game.getMap()->getTowers()[index]));
-
-            cout << "model tower : " << game.getMap()->getTowers().size() << endl;
-            cout << "view tower : " << listOfvTower.size() << endl;
+//            int position;
+//            cin >> position;
+//
+//            int index = searchVTower(position);
+//
+//            removeVTower(position);
+//
+//            game.getMap()->removeTower(*(game.getMap()->getTowers()[index]));
+//
+//            cout << "model tower : " << game.getMap()->getTowers().size() << endl;
+//            cout << "view tower : " << listOfvTower.size() << endl;
 
              if(isSpriteClicked(acideCloudSprite) == 1)
             {
@@ -339,6 +338,55 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         }
     }
 
+
+        if(isChoosingNumberForPositionTower)
+        {
+            if (event.mouseButton.button == Mouse::Left)
+            {
+                if(isSpriteClicked(oneSprite))
+                {
+                    int position = 1;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+                if(isSpriteClicked(twoSprite))
+                {
+                    int position = 2;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+                if(isSpriteClicked(threeSprite))
+                {
+                    int position = 3;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+                if(isSpriteClicked(fourSprite))
+                {
+                    int position = 4;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+                if(isSpriteClicked(fiveSprite))
+                {
+                    int position = 5;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+                if(isSpriteClicked(sixSprite))
+                {
+                    int position = 6;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+                if(isSpriteClicked(sevenSprite))
+                {
+                    int position = 7;
+                    isChoosingNumberForPositionTower = false;
+                    buyTower(typeTowerChoosed, position);
+                }
+            }
+        }
 }
 
 /* to load the sprites, adding texture to sprite */
@@ -464,6 +512,40 @@ void vGameBoard::loadSprite()
     acideCloudSprite.setPosition(Vector2f(10, 5));
     fireSprite.setPosition(Vector2f(110, 5));
     lightningSprite.setPosition(Vector2f(210, 5));
+
+     // choose number
+    signSprites.push_back(new Sprite());
+    signSprites.back()->setTexture(signTexture);
+    signSprites.back()->setPosition(Vector2f(500, 150));
+    signSprites.back()->setScale(1.5f,0.5f);
+
+    oneSprite.setTexture(oneTexture);
+    oneSprite.setPosition(530, 250);
+    oneSprite.setScale(Vector2f(0.5f,0.5f));
+
+    twoSprite.setTexture(twoTexture);
+    twoSprite.setPosition(580, 250);
+    twoSprite.setScale(Vector2f(0.5f,0.5f));
+
+    threeSprite.setTexture(threeTexture);
+    threeSprite.setPosition(630, 250);
+    threeSprite.setScale(Vector2f(0.5f,0.5f));
+
+    fourSprite.setTexture(fourTexture);
+    fourSprite.setPosition(680, 250);
+    fourSprite.setScale(Vector2f(0.5f,0.5f));
+
+    fiveSprite.setTexture(fiveTexture);
+    fiveSprite.setPosition(730, 250);
+    fiveSprite.setScale(Vector2f(0.5f,0.5f));
+
+    sixSprite.setTexture(sixTexture);
+    sixSprite.setPosition(780, 250);
+    sixSprite.setScale(Vector2f(0.5f,0.5f));
+
+    sevenSprite.setTexture(sevenTexture);
+    sevenSprite.setPosition(830, 250);
+    sevenSprite.setScale(Vector2f(0.5f,0.5f));
 }
 
 
@@ -525,18 +607,6 @@ bool vGameBoard::drawEntities()
         spawnClock.restart();
     }
 
-    /**ennemies*/
-    for(int i=0;i<(int)listOfvEnnemies.size();i++)
-    {
-        //draw enemies who are not dead
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
-        {
-            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
-        }
-    }
-
     /** towers 1 to 4 */
     for(int i = 0; i < (int)listOfvTower.size(); i++)
     {
@@ -556,13 +626,22 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
     }*/
 
-    /** towers 5 to 7 */
-    for(int i = 0; i < (int)listOfvTower.size(); i++)
+    /**ennemies*/
+    for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
-        if(i >= 4)
+        //draw enemies who are not dead
+        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
         {
-          windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
         }
+    }
+
+    /** towers 5 to 7 */
+    for(int i = 4; i < (int)listOfvTower.size(); i++)
+    {
+          windowFromMain->draw(*(listOfvTower[i]->getSprite()));
     }
 
     // attack animations of towers
@@ -576,7 +655,19 @@ bool vGameBoard::drawEntities()
                 listOfvTower[i]->getAttackClock()->restart();
             }
         }
-        //cout<< "clock attaque : "<< listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() << endl;
+    }
+
+    // When the player must choose the emplacement of tower
+    if(isChoosingNumberForPositionTower)
+    {
+        windowFromMain->draw(*signSprites.back());
+        windowFromMain->draw(oneSprite);
+        windowFromMain->draw(twoSprite);
+        windowFromMain->draw(threeSprite);
+        windowFromMain->draw(fourSprite);
+        windowFromMain->draw(fiveSprite);
+        windowFromMain->draw(sixSprite);
+        windowFromMain->draw(sevenSprite);
     }
 
     return true;
@@ -1429,6 +1520,48 @@ bool vGameBoard::verifyImageMapEntities()
 
 bool vGameBoard::verifyImageInformations()
 {
+    if (!oneTexture.loadFromFile("res/images/gameBoard/num_1.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!twoTexture.loadFromFile("res/images/gameBoard/num_2.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!threeTexture.loadFromFile("res/images/gameBoard/num_3.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!fourTexture.loadFromFile("res/images/gameBoard/num_4.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!fiveTexture.loadFromFile("res/images/gameBoard/num_5.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!sixTexture.loadFromFile("res/images/gameBoard/num_6.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!sevenTexture.loadFromFile("res/images/gameBoard/num_7.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
     if (!twentyTexture.loadFromFile("res/images/gameBoard/20.png"))
     {
          cout << "ERROR chargement texture" << endl;
