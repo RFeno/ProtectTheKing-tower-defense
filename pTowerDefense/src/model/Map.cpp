@@ -227,8 +227,9 @@ void Map::improveAllEnemies(int numeroOfWave)
         enemy->improveStatistics(numeroOfWave);
     }
 }
-/* return the first enemy not dead and who is the who is the closest to the king and too in range of tower, that is to say the farthest on the map else
-return -1*/
+/*return the first enemy not dead and who is the who is the closest to the king and too in range of tower,
+* that is to say the farthest on the map else return -1
+*take in parameter the tower which wants to attack as well as the middle of the size of the image of the tower*/
 int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
 {
     for(int i=0;i<(int)listOfEnemies.size();i++)

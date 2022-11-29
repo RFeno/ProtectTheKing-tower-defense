@@ -6,7 +6,7 @@ using namespace std;
 Ogre::Ogre(int health, int marketValue, int scoreValue, int damage,float walkingSpeed):Enemies(health,marketValue,scoreValue,damage,walkingSpeed)
 {
     //ctor
-    y=517;
+    y=522;
 }
 
 Ogre::~Ogre()

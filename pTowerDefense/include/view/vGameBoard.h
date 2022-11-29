@@ -83,6 +83,7 @@ class vGameBoard
 
         int idSpawn = 0;
         int spawnTime = 3;
+        bool gamePaused=false;
 
 
         std::vector<vEnnemy*> listOfvEnnemies;
@@ -120,6 +121,20 @@ class vGameBoard
 
         Game game;
         sf::RenderWindow *windowFromMain;
+
+        //entities gameSpeed textures
+        sf::Texture pauseButtonTexture;
+        sf::Texture increaseSpeedButtonTexture;
+        sf::Texture decreaseSpeedButtonTexture;
+        sf::Texture infoBulbleMessageTexture;
+        sf::Texture playGameButtonTexture;
+
+        //entities gameSpeed sprites
+        sf::Sprite pauseButtonSprite;
+        sf::Sprite increaseSpeedButtonSprite;
+        sf::Sprite decreaseSpeedButtonSprite;
+        sf::Sprite infoBulbleMessageSprite;
+        sf::Sprite playGameButtonSprite;
 
         //King
         sf::Texture kingHealthGreenTexture;
@@ -167,30 +182,20 @@ class vGameBoard
         sf::Texture acideCloudEffectTexture;
 
         //Towers textures
-        /* without number = icon button*/
-        sf::Texture earthTowerTextureButton;
-
-        sf::Texture earthTowerTexture1;
-
         sf::Texture earthAttack;
-
-        sf::Texture sandTowerTextureButton;
-
-        sf::Texture sandTowerTexture1;
-
         sf::Texture sandAttack;
-
-        sf::Texture iceTowerTextureButton;
-
-        sf::Texture iceTowerTexture1;
-
         sf::Texture iceAttack;
+        sf::Texture ironAttack;
 
+        sf::Texture earthTowerTextureButton;
+        sf::Texture sandTowerTextureButton;
+        sf::Texture iceTowerTextureButton;
         sf::Texture ironTowerTextureButton;
 
+        sf::Texture sandTowerTexture1;
+        sf::Texture iceTowerTexture1;
         sf::Texture ironTowerTexture1;
-
-        sf::Texture ironAttack;
+        sf::Texture earthTowerTexture1;
 
         //Tower sprites
         sf::Sprite earthTowerSprite;

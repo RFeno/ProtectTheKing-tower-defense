@@ -6,7 +6,8 @@ using namespace std;
 Orc::Orc(int health, int marketValue, int scoreValue, int damage, float walkingSpeed):Enemies(health,marketValue,scoreValue,damage,walkingSpeed)
 {
     //ctor
-    y=535;
+
+    y=525;
 }
 
 Orc::~Orc()
