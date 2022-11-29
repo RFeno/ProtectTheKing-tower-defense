@@ -29,6 +29,7 @@ class Map
         int searchTower(Tower &tower);
         void deleteAllEnemies();
         void improveAllEnemies(int numeroOfWave);
+        int getFirstEnemyNotDead(Tower &tower,int middleOfTower);
 
         //getters and setters
         //pointeurs ou référence

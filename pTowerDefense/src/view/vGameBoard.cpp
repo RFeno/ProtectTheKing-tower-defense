@@ -652,10 +652,12 @@ void vGameBoard::updateGame()
                 updateHealthBarAllEnemies();
                 if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
                 {
-                    vtower->getTower()->attackEnemy(*enemy);
-                    /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
+                    if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
+                    {
+                        /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
+                        vtower->getTower()->attackEnemy(*enemy);
+                    }
                 }
-
             }
         }
 

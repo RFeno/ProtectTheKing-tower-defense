@@ -227,3 +227,38 @@ void Map::improveAllEnemies(int numeroOfWave)
         enemy->improveStatistics(numeroOfWave);
     }
 }
+/* return the first enemy not dead and who is the who is the closest to the king and too in range of tower, that is to say the farthest on the map else
+return -1*/
+int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
+{
+    for(int i=0;i<(int)listOfEnemies.size();i++)
+    {
+        if(!dynamic_cast<StateDie*>(listOfEnemies[i]->getState()))
+        {
+            int xOfenemy = listOfEnemies[i]->getX();
+
+            if(tower.isInRange(xOfenemy,middleOfTower))
+            {
+                bool isTheFarthest = true;
+
+                for(int j=0;j<(int)listOfEnemies.size();j++)
+                {
+                    int xOfSecondEnemy = listOfEnemies[j]->getX();
+
+                    if(xOfenemy < xOfSecondEnemy && tower.isInRange(xOfSecondEnemy,middleOfTower) && !dynamic_cast<StateDie*>(listOfEnemies[j]->getState()))
+                    {
+                        isTheFarthest=false;
+                        break;
+                    }
+                }
+
+                if(isTheFarthest)
+                {
+                    return i;
+                }
+            }
+        }
+    }
+
+    return -1;
+}
