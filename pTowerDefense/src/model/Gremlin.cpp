@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Gremlin::Gremlin(int health, float attackSpeed, int marketValue, int scoreValue, int damage,float walkingSpeed):Enemies(health,attackSpeed,marketValue,scoreValue,damage,walkingSpeed)
+Gremlin::Gremlin(int health, int marketValue, int scoreValue, int damage,float walkingSpeed):Enemies(health,marketValue,scoreValue,damage,walkingSpeed)
 {
     //ctor
     y=555;
@@ -33,5 +33,5 @@ Gremlin& Gremlin::operator=(const Gremlin& rhs)
 /* return the state(informations of enemy */
 string Gremlin::getInformations()const
 {
-    return "[id: "+ to_string(*id)+ "      |Gremlin       x:"+ to_string(x) +"    health:" + to_string(health) + "    attackSpeed:" + to_string(attackSpeed) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) +" walking speed:"+to_string(walkingSpeed) + " ]";
+    return "[id: "+ to_string(*id)+ "      |Gremlin       x:"+ to_string(x) +"    health:" + to_string(health) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) +"  walking speed:"+to_string(walkingSpeed) + " ]";
 }

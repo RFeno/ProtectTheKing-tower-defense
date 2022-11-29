@@ -14,8 +14,8 @@ class StateDie;
 
 using namespace std;
 
-Enemies::Enemies(int health, float attackSpeed, int marketValue, int scoreValue, int damage,float walkingSpeed)
-: health(health),attackSpeed(attackSpeed),marketValue(marketValue),scoreValue(scoreValue),damage(damage), walkingSpeed(walkingSpeed)
+Enemies::Enemies(int health, int marketValue, int scoreValue, int damage,float walkingSpeed)
+: health(health),marketValue(marketValue),scoreValue(scoreValue),damage(damage), walkingSpeed(walkingSpeed)
 {
     //ctor
     this->id = new int(++compteur);
@@ -30,7 +30,7 @@ Enemies::~Enemies()
 
 }
 
-Enemies::Enemies(const Enemies& other): health(other.health),attackSpeed(other.attackSpeed),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage),walkingSpeed(other.walkingSpeed)
+Enemies::Enemies(const Enemies& other): health(other.health),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage),walkingSpeed(other.walkingSpeed)
 {
    //copy ctor
     this->id = new int(*other.id);
@@ -40,7 +40,6 @@ Enemies& Enemies::operator=(const Enemies& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
 
-    this->attackSpeed=rhs.attackSpeed;
     this->damage=rhs.damage;
     this->health=rhs.health;
     this->marketValue=rhs.marketValue;

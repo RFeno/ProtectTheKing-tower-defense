@@ -25,7 +25,7 @@ class Enemies
         static inline int compteur = 0;
 
         //canonic form
-        Enemies(int health=100, float attackSpeed=1, int marketValue=100, int scoreValue=100, int damage=1,float walkingSpeed=1.0);
+        Enemies(int health=100, int marketValue=100, int scoreValue=100, int damage=1,float walkingSpeed=1.0);
         virtual ~Enemies();
         Enemies(const Enemies& other);
         Enemies& operator=(const Enemies& other);
@@ -106,8 +106,6 @@ class Enemies
 
         //real health
         int health;
-
-        float attackSpeed;
 
         //only change when the enemy is improved
         int healthMax;
