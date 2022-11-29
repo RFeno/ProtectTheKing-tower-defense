@@ -125,7 +125,10 @@ void vGameBoard::launchView()
                 InputHandler(event, windowFromMain);
             }
 
-            updateGame();
+            if(!gamePaused)
+            {
+                updateGame();
+            }
 
             windowFromMain->clear();
 
@@ -312,6 +315,18 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     }
                 }
             }
+
+            if(isSpriteClicked(pauseButtonSprite))
+            {
+                if(gamePaused)
+                {
+                    gamePaused=false;
+                }
+                else if(!gamePaused)
+                {
+                    gamePaused=true;
+                }
+            }
         }
 
 
@@ -392,12 +407,6 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 /* to load the sprites, adding texture to sprite */
 void vGameBoard::loadSprite()
 {
-    // un sprite = 377 , 404
-    // Les 2 premiers argument = position d'origine
-    // Les 2 d'après, taille d'un sprite
-    // Donc si tu veux prendre le deuxième sprite -> + 377 au premier argument et ansi de suite
-
-
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
@@ -418,7 +427,6 @@ void vGameBoard::loadSprite()
     kingHealthRedSprite.setScale(0.20,0.20f);
     kingHealthGreenSprite.setPosition(1240,345);
     kingHealthRedSprite.setPosition(1240,345);
-
 
     //towers buttons
     earthTowerSprite.setTexture(earthTowerTextureButton);
@@ -513,11 +521,30 @@ void vGameBoard::loadSprite()
     fireSprite.setPosition(Vector2f(110, 5));
     lightningSprite.setPosition(Vector2f(210, 5));
 
-     // choose number
+    // choose number
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(signTexture);
     signSprites.back()->setPosition(Vector2f(500, 150));
     signSprites.back()->setScale(1.5f,0.5f);
+
+    //gameSpeed
+    infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
+    pauseButtonSprite.setTexture(pauseButtonTexture);
+    increaseSpeedButtonSprite.setTexture(increaseSpeedButtonTexture);
+    decreaseSpeedButtonSprite.setTexture(decreaseSpeedButtonTexture);
+    playGameButtonSprite.setTexture(playGameButtonTexture);
+
+    infoBulbleMessageSprite.setPosition(1233, 215);
+    pauseButtonSprite.setPosition(660, 700);
+    increaseSpeedButtonSprite.setPosition(760, 700);
+    decreaseSpeedButtonSprite.setPosition(560, 700);
+    playGameButtonSprite.setPosition(665, 702);
+
+    infoBulbleMessageSprite.setScale(Vector2f(0.25f,0.25f));
+    pauseButtonSprite.setScale(Vector2f(0.5f,0.5f));
+    increaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
+    decreaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
+    playGameButtonSprite.setScale(Vector2f(0.24f,0.24f));
 
     oneSprite.setTexture(oneTexture);
     oneSprite.setPosition(530, 250);
@@ -556,7 +583,6 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(mapSprite);
 
     //king health
-
     windowFromMain->draw(kingHealthRedSprite);
     windowFromMain->draw(kingHealthGreenSprite);
 
@@ -570,6 +596,23 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(iceTowerSprite);
     windowFromMain->draw(sandTowerSprite);
     windowFromMain->draw(earthTowerSprite);
+
+    windowFromMain->draw(infoBulbleMessageSprite);
+
+    if(!gamePaused)
+    {
+        windowFromMain->draw(pauseButtonSprite);
+    }
+
+    windowFromMain->draw(increaseSpeedButtonSprite);
+    windowFromMain->draw(decreaseSpeedButtonSprite);
+
+    if(gamePaused)
+    {
+        windowFromMain->draw(playGameButtonSprite);
+    }
+
+
 
     //tower informations
     for(int i=0; i < 4 ; i++)
@@ -607,6 +650,20 @@ bool vGameBoard::drawEntities()
         spawnClock.restart();
     }
 
+    /**ennemies*/
+    for(int i=0;i<(int)listOfvEnnemies.size();i++)
+    {
+        //draw enemies who are not dead
+        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        {
+            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
+        }
+    }
+
+
+
     /** towers 1 to 4 */
     for(int i = 0; i < (int)listOfvTower.size(); i++)
     {
@@ -626,23 +683,19 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
     }*/
 
-    /**ennemies*/
-    for(int i=0;i<(int)listOfvEnnemies.size();i++)
-    {
-        //draw enemies who are not dead
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
-        {
-            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
-        }
-    }
+
+
+
+
+
 
     /** towers 5 to 7 */
     for(int i = 4; i < (int)listOfvTower.size(); i++)
     {
-          windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+        windowFromMain->draw(*(listOfvTower[i]->getSprite()));
     }
+
+
 
     // attack animations of towers
     for(int i = 0; i < (int)listOfvTower.size(); i++)
@@ -1503,17 +1556,45 @@ bool vGameBoard::verifyImageMapEntities()
 
     if(!kingHealthGreenTexture.loadFromFile("res/images/gameBoard/health_bar-green.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cout << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!kingHealthRedTexture.loadFromFile("res/images/gameBoard/health_bar-red.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cout << "ERROR chargement texture" << endl;
+        return false;
     }
 
+    if(!pauseButtonTexture.loadFromFile("res/images/gameBoard/button_pause.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
 
+    if(!increaseSpeedButtonTexture.loadFromFile("res/images/gameBoard/button_quick.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!decreaseSpeedButtonTexture.loadFromFile("res/images/gameBoard/button_slow.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!infoBulbleMessageTexture.loadFromFile("res/images/gameBoard/message.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!playGameButtonTexture.loadFromFile("res/images/gameBoard/button_play.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
 
     return true;
 }
