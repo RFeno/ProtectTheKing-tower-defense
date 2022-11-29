@@ -10,7 +10,7 @@
 using namespace std;
 using namespace sf;
 
-vTower::vTower(int x,int y, Tower* tower): x(x), y(y), tower(tower)
+vTower::vTower(int x,int y, Tower* tower,int position): x(x), y(y), tower(tower), position(position)
 {
     //ctor
     this->towerSprite = new Sprite();

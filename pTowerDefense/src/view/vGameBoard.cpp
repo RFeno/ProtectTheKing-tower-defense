@@ -189,13 +189,13 @@ int vGameBoard::searchVEnemy(vEnnemy& enemy)
     return false;
 }*/
 
-int vGameBoard::searchVTower(vTower& tower)
+int vGameBoard::searchVTower(int position)
 {
     int result = -1;
 
     for(size_t i=0;i<listOfvTower.size();i++)
     {
-        if(listOfvTower[i]==&tower)
+        if(listOfvTower[i]->getPosition() == position)
         {
             result=i;
             break;
@@ -204,17 +204,16 @@ int vGameBoard::searchVTower(vTower& tower)
     return result;
 }
 
-bool vGameBoard::removeVTower(vTower& tower)
+bool vGameBoard::removeVTower(int position)
 {
 
-    int index = searchVTower(tower);
+    int index = searchVTower(position);
 
     if(index!=-1)
     {
         vTower *tmp = *(listOfvTower.begin() + index);
         listOfvTower.erase(listOfvTower.begin() + index);
         delete tmp;
-        cout << "test" <<  endl;
 
         return true;
     }
@@ -250,7 +249,9 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     if(game.getPlayer()->getCoins() - earth >= 0 )
                     {
                         //dont forget to remove coins in player wallet
-                        buyTower(earth);
+                        int position;
+                        cin >> position;
+                        buyTower(earth, position);
                     }
                     else
                     {
@@ -273,9 +274,9 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     if(game.getPlayer()->getCoins() - sand >= 0 )
                     {
-                        buyTower(sand);
-                        cout << "model tower : " << game.getMap()->getTowers().size() << endl;
-                        cout << "view tower : " << listOfvTower.size() << endl;
+                        int position;
+                        cin >> position;
+                        buyTower(sand, position);
                     }
                 }
             }
@@ -289,7 +290,10 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     if(game.getPlayer()->getCoins() - ice >= 0 )
                     {
-                        buyTower(ice);
+                        int position;
+                        cin >> position;
+                        buyTower(ice, position);
+
                     }
                 }
             }
@@ -303,7 +307,9 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     if(game.getPlayer()->getCoins() - iron >= 0 )
                     {
-                        buyTower(iron);
+                        int position;
+                        cin >> position;
+                        buyTower(iron, position);
                     }
                 }
             }
@@ -312,13 +318,19 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
         if (event.mouseButton.button == Mouse::Right)
         {
-              cout << "right click"<< endl;
+            cout << "right click"<< endl;
 
-//            removeVTower(*(listOfvTower[1]));
-//            game.getMap()->removeTower(*(game.getMap()->getTowers()[1]));
-//
-//            cout << "model tower : " << game.getMap()->getTowers().size() << endl;
-//            cout << "view tower : " << listOfvTower.size() << endl;
+            int position;
+            cin >> position;
+
+            int index = searchVTower(position);
+
+            removeVTower(position);
+
+            game.getMap()->removeTower(*(game.getMap()->getTowers()[index]));
+
+            cout << "model tower : " << game.getMap()->getTowers().size() << endl;
+            cout << "view tower : " << listOfvTower.size() << endl;
 
              if(isSpriteClicked(acideCloudSprite) == 1)
             {
@@ -809,7 +821,7 @@ void vGameBoard::adaptAnimationTexture()
 
 }
 
-void vGameBoard::buyTower(TypeOfTower type)
+void vGameBoard::buyTower(TypeOfTower type, int position)
 {
     int x,y;
 
@@ -817,40 +829,62 @@ void vGameBoard::buyTower(TypeOfTower type)
     {
         case earth:
         {
-            //calcul postion
-            getPositionOfNewTower(earth, x, y);
+            bool positionAlreadyUsed = false;
+            for(vTower* vtower : listOfvTower)
+            {
+                if(vtower->getPosition() == position)
+                {
+                    positionAlreadyUsed = true;
+                    cout << "A tower is already at this position." <<endl;
+                    break;
+                }
+            }
 
-            game.getMap()->addTower(x, y ,earth);
+            if(!positionAlreadyUsed)
+            {
+                getPositionOfNewTower(earth, x, y, position);
 
-            //back = last element
-            vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back());
-            vtower->towerTexture = &earthTowerTexture1;
-            vtower->attackTexture = &earthAttack;
-            vtower->chargeInformations();
+                game.getMap()->addTower(x, y ,earth);
 
+                vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back(), position);
+                vtower->towerTexture = &earthTowerTexture1;
+                vtower->attackTexture = &earthAttack;
+                vtower->chargeInformations();
 
-            /** Ca ne marche pas je comprend pas pourquoi */
-            //vtower->getTower()->setX(position->x);
-
-            listOfvTower.push_back(vtower);
+                listOfvTower.push_back(vtower);
+            }
 
             break;
         }
 
         case ice:
         {
-            getPositionOfNewTower(ice ,x, y);
+            bool positionAlreadyUsed = false;
+            for(vTower* vtower : listOfvTower)
+            {
+                if(vtower->getPosition() == position)
+                {
+                    positionAlreadyUsed = true;
+                    cout << "A tower is already at this position." <<endl;
+                    break;
+                }
+            }
 
-            game.getMap()->addTower(x,y,ice);
+            if(!positionAlreadyUsed)
+            {
+                getPositionOfNewTower(ice ,x, y, position);
 
-            //back = last element
-            vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back());
-            vtower->towerTexture = &iceTowerTexture1;
-            vtower->attackTexture = &iceAttack;
-            vtower->chargeInformations();
+                game.getMap()->addTower(x,y,ice);
+
+                //back = last element
+                vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back(), position);
+                vtower->towerTexture = &iceTowerTexture1;
+                vtower->attackTexture = &iceAttack;
+                vtower->chargeInformations();
 
 
-            listOfvTower.push_back(vtower);
+                listOfvTower.push_back(vtower);
+            }
 
             break;
         }
@@ -858,33 +892,60 @@ void vGameBoard::buyTower(TypeOfTower type)
 
         case iron:
         {
-            getPositionOfNewTower(iron,x,y);
-            game.getMap()->addTower(x,y,iron);
+            bool positionAlreadyUsed = false;
+            for(vTower* vtower : listOfvTower)
+            {
+                if(vtower->getPosition() == position)
+                {
+                    positionAlreadyUsed = true;
+                    cout << "A tower is already at this position." <<endl;
+                    break;
+                }
+            }
 
-            //back = last element
-            vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back());
-            vtower->towerTexture = &ironTowerTexture1;
-            vtower->attackTexture = &ironAttack;
-            vtower->chargeInformations();
+            if(!positionAlreadyUsed)
+            {
+                getPositionOfNewTower(iron,x,y, position);
+                game.getMap()->addTower(x,y,iron);
 
-            listOfvTower.push_back(vtower);
+                //back = last element
+                vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back(), position);
+                vtower->towerTexture = &ironTowerTexture1;
+                vtower->attackTexture = &ironAttack;
+                vtower->chargeInformations();
+
+                listOfvTower.push_back(vtower);
+            }
 
             break;
         }
 
         case sand:
         {
-            getPositionOfNewTower(sand, x, y);
-            game.getMap()->addTower(x,y,sand);
+            bool positionAlreadyUsed = false;
+            for(vTower* vtower : listOfvTower)
+            {
+                if(vtower->getPosition() == position)
+                {
+                    positionAlreadyUsed = true;
+                    cout << "A tower is already at this position." <<endl;
+                    break;
+                }
+            }
 
-            //back = last element
-            vTower *vtower = new vTower(x,y, game.getMap()->getTowers().back());
-            vtower->towerTexture = &sandTowerTexture1;
-            vtower->attackTexture = &sandAttack;
-            vtower->chargeInformations();
+            if(!positionAlreadyUsed)
+            {
+                getPositionOfNewTower(sand, x, y, position);
+                game.getMap()->addTower(x,y,sand);
 
-            listOfvTower.push_back(vtower);
+                //back = last element
+                vTower *vtower = new vTower(x,y, game.getMap()->getTowers().back(), position);
+                vtower->towerTexture = &sandTowerTexture1;
+                vtower->attackTexture = &sandAttack;
+                vtower->chargeInformations();
 
+                listOfvTower.push_back(vtower);
+            }
 
             break;
         }
@@ -895,28 +956,28 @@ void vGameBoard::buyTower(TypeOfTower type)
 *depending on the type of tower the player wants to buy
 *this method will call the correct method which will return an x and y position
 */
-void vGameBoard::getPositionOfNewTower(TypeOfTower type, int &x, int &y)
+void vGameBoard::getPositionOfNewTower(TypeOfTower type, int &x, int &y, int position)
 {
     switch(type)
     {
         case earth:
 
-            getPositionOfEarth(x,y);
+            getPositionOfEarth(x,y,position);
             break;
 
         case iron:
 
-            getPositionOfIron(x,y);
+            getPositionOfIron(x,y,position);
             break;
 
         case ice:
 
-            getPositionOfIce(x,y);
+            getPositionOfIce(x,y,position);
             break;
 
         case sand:
 
-            getPositionOfSand(x,y);
+            getPositionOfSand(x,y,position);
             break;
     }
     //cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
@@ -924,9 +985,9 @@ void vGameBoard::getPositionOfNewTower(TypeOfTower type, int &x, int &y)
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void vGameBoard::getPositionOfEarth(int &x, int &y)
+void vGameBoard::getPositionOfEarth(int &x, int &y, int position)
 {
-    switch((int)listOfvTower.size())
+    switch(position-1)
     {
         case 3:
             {
@@ -977,9 +1038,9 @@ void vGameBoard::getPositionOfEarth(int &x, int &y)
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void vGameBoard::getPositionOfIce(int &x, int &y)
+void vGameBoard::getPositionOfIce(int &x, int &y, int position)
 {
-    switch((int)listOfvTower.size())
+    switch(position-1)
     {
         case 3:
             {
@@ -1029,9 +1090,9 @@ void vGameBoard::getPositionOfIce(int &x, int &y)
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void vGameBoard::getPositionOfIron(int &x, int &y)
+void vGameBoard::getPositionOfIron(int &x, int &y, int position)
 {
-    switch((int)listOfvTower.size())
+    switch(position-1)
     {
         case 3:
         {
@@ -1081,9 +1142,9 @@ void vGameBoard::getPositionOfIron(int &x, int &y)
 /*
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void vGameBoard::getPositionOfSand(int &x, int &y)
+void vGameBoard::getPositionOfSand(int &x, int &y, int position)
 {
-    switch((int)listOfvTower.size())
+    switch(position-1)
     {
         case 3:
             {
