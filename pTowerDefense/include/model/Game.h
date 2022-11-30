@@ -17,6 +17,8 @@ class Game
         void towerAttack();
         void ennemiesAttack();
         bool IsEndOfWave();
+        void increaseGameSpeed();
+        void decreaseGameSpeed();
 
         virtual ~Game();
         Game(const Game& other);
@@ -42,6 +44,11 @@ class Game
             return numeroOfWave;
         }
 
+        int getGameSpeed()
+        {
+            return gameSpeed;
+        }
+
     protected:
 
     private:
@@ -49,6 +56,7 @@ class Game
         Map *mapOfGame;
         const int numberOfEnemies =10;
         int numeroOfWave =0;
+        int gameSpeed = 1;
 
 
 };

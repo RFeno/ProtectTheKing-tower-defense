@@ -126,7 +126,7 @@ class Enemies
 
 
         //enemies start at -40 to arrive naturally on the screen
-        float x = -40;
+        float x = -50;
         float y;
         int *id;
         State *state = nullptr;

@@ -139,4 +139,21 @@ bool Game::isGameOver()
     return false;
 }
 
+/**Increase the speed of game*/
+void Game::increaseGameSpeed()
+{
+    if(gameSpeed<3)
+    {
+        gameSpeed++;
+    }
+}
+
+/**Decrease the speed of game */
+void Game::decreaseGameSpeed()
+{
+    if(gameSpeed>1)
+    {
+        gameSpeed--;
+    }
+}
 

@@ -24,6 +24,9 @@ vGameBoard::vGameBoard(RenderWindow& window)
 {
     this->windowFromMain = &window;
 
+    isChoosingNumberForPositionTower=false;
+    isSellingTower = false;
+
     for(int i=0; i< game.getNumberOfEnemies(); i++)
     {
         //create vEnemy with nullptr enemy
@@ -345,6 +348,16 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     gamePaused=true;
                 }
             }
+
+            if(isSpriteClicked(decreaseSpeedButtonSprite))
+            {
+                game.decreaseGameSpeed();
+            }
+
+            if(isSpriteClicked(increaseSpeedButtonSprite))
+            {
+                game.increaseGameSpeed();
+            }
         }
 
 
@@ -468,7 +481,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     }
 }
 
-/* to load the sprites, adding texture to sprite */
+/** to load the sprites, adding texture to sprite */
 void vGameBoard::loadSprite()
 {
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
@@ -480,11 +493,11 @@ void vGameBoard::loadSprite()
         listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
     }
 
-    //map
+    ///map
     mapSprite.setTexture(mapTexture);
     mapSprite.setScale(0.73f,0.75f);
 
-    //king
+    ///king
     kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
     kingHealthRedSprite.setTexture(kingHealthRedTexture);
     kingHealthGreenSprite.setScale(0.20f,0.20f);
@@ -492,7 +505,7 @@ void vGameBoard::loadSprite()
     kingHealthGreenSprite.setPosition(1240,345);
     kingHealthRedSprite.setPosition(1240,345);
 
-    //towers buttons
+    ///towers buttons
     earthTowerSprite.setTexture(earthTowerTextureButton);
     iceTowerSprite.setTexture(iceTowerTextureButton);
     sandTowerSprite.setTexture(sandTowerTextureButton);
@@ -508,7 +521,7 @@ void vGameBoard::loadSprite()
     sandTowerSprite.setPosition(Vector2f(1006,5));
     ironTowerSprite.setPosition(Vector2f(1306,5));
 
-    //informations of tower
+    ///informations of tower
     twentySprite.setTexture(twentyTexture);
     fourtySprite.setTexture(fourtyTexture);
     sixtySprite.setTexture(sixtyTexture);
@@ -590,7 +603,7 @@ void vGameBoard::loadSprite()
     closeButtonSprite.setScale(Vector2f(0.5f, 0.5f));
     closeButtonSprite.setPosition(880, 137);
 
-    //spells buttons
+    ///spells buttons
     acideCloudSprite.setTexture(acideCloudTexture);
     fireSprite.setTexture(fireTexture);
     lightningSprite.setTexture(lightningTexture);
@@ -603,7 +616,7 @@ void vGameBoard::loadSprite()
     fireSprite.setPosition(Vector2f(110, 5));
     lightningSprite.setPosition(Vector2f(210, 5));
 
-    // choose number
+    ///choose number
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(signTexture);
     signSprites.back()->setPosition(Vector2f(500, 150));
@@ -617,7 +630,7 @@ void vGameBoard::loadSprite()
     chooseNumberText.setScale(1.1f,1.1f);
     chooseNumberText.setPosition(Vector2f(540,162));
 
-    //gameSpeed
+    ///gameSpeed
     infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
     pauseButtonSprite.setTexture(pauseButtonTexture);
     increaseSpeedButtonSprite.setTexture(increaseSpeedButtonTexture);
@@ -729,9 +742,9 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*crystalSprites[i]);
     }
 
-    /**A DEPLACER */
+    ///A DEPLACER
 
-    // enemies spawn one per one
+    ///enemies spawn one per one
 
     if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
     {
@@ -740,7 +753,7 @@ bool vGameBoard::drawEntities()
         spawnClock.restart();
     }
 
-    /**ennemies*/
+    ///ennemies
     for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
         //draw enemies who are not dead
@@ -763,20 +776,14 @@ bool vGameBoard::drawEntities()
         }
     }
 
-    /**
-        Place here elemnets between the towers
-    */
+    //Place here elemnets between the towers
 
-    // Acid spell
+
+    ///Acid spell
     /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
     }*/
-
-
-
-
-
 
 
     /** towers 5 to 7 */
@@ -785,14 +792,13 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(*(listOfvTower[i]->getSprite()));
     }
 
-
-
     // attack animations of towers
     for(int i = 0; i < (int)listOfvTower.size(); i++)
     {
         if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
         {
             windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
+
             if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
             {
                 listOfvTower[i]->getAttackClock()->restart();
@@ -860,6 +866,8 @@ void vGameBoard::updateGame()
 
 //    cout << game.getMap()->strTowers() <<endl;
 
+    cout << game.getGameSpeed() << endl;
+
     if(game.IsEndOfWave())
     {
         //delete all enemies who are dead
@@ -879,31 +887,45 @@ void vGameBoard::updateGame()
 
     }
 
-    if(gameSpeedClook.getElapsedTime().asSeconds() > 0.013f)
+    if(gameSpeedClook.getElapsedTime().asSeconds() > (0.013f / game.getGameSpeed()))
     {
-        game.ennemiesWalk();
+        for(int i=0;i<game.getGameSpeed();i++)
+        {
+            game.ennemiesWalk();
+        }
+
+
+        /*for(vEnnemy *vEnemy :listOfvEnnemies[i])
+        {
+            vEnemy->getEnemy()->walk();
+        }*/
 
         //attaque des tours
         //game.towerAttack();
-        for(vTower *vtower: listOfvTower)
+        if(attackTowerClock.getElapsedTime().asSeconds() > (0.06 / game.getGameSpeed()))
         {
-            for(Enemies *enemy: game.getMap()->getEnemies())
+            for(vTower *vtower: listOfvTower)
             {
-                updateHealthBarAllEnemies();
-                if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
+                for(Enemies *enemy: game.getMap()->getEnemies())
                 {
-                    if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
+                    updateHealthBarAllEnemies();
+                    if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
                     {
-                        /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
-                        vtower->getTower()->attackEnemy(*enemy);
+                        //allow to attack only the first enemy in range and farthest
+                        if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
+                        {
+                            /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
+                            vtower->getTower()->attackEnemy(*enemy);
+                        }
                     }
                 }
             }
+            attackTowerClock.restart();
         }
 
         //king attack
         /** GERER ICI LE TEMPS ENTRE 2 ATTACK DES ENNEMIS SUR LE ROI */
-        if(attackClock.getElapsedTime().asSeconds() > 0.5f)
+        if(attackClock.getElapsedTime().asSeconds() > (0.5f / game.getGameSpeed()))
         {
             for(Enemies *enemy: game.getMap()->getEnemies())
             {
@@ -957,7 +979,7 @@ void vGameBoard::adaptAnimationSprite()
 
 void vGameBoard::adaptPartOfTexture()
 {
-    if(animClock.getElapsedTime().asSeconds() > 0.08f)
+    if(animClock.getElapsedTime().asSeconds() > 0.08f / game.getGameSpeed())
     {
         for(int i = 0; i<(int)listOfvEnnemies.size();i++)
         {
@@ -993,7 +1015,6 @@ void vGameBoard::adaptPartOfTexture()
             x_Ogre++;
         }
 
-
         if(x_shadowMonster*SHADOWMONSTER_WIDTH >= (int)shadowMonsterTextureWalk.getSize().x - SHADOWMONSTER_WIDTH)
         {
             x_shadowMonster = 0;
@@ -1002,7 +1023,6 @@ void vGameBoard::adaptPartOfTexture()
         {
             x_shadowMonster++;
         }
-
 
 
         if(x_Orc*ORC_WIDTH >= (int)orcTextureWalk.getSize().x - ORC_WIDTH)
@@ -1015,7 +1035,6 @@ void vGameBoard::adaptPartOfTexture()
         }
 
 
-
         if(x_gremlin*GREMLIN_WIDTH >= (int)gremlinTextureWalk.getSize().x - GREMLIN_WIDTH)
         {
             x_gremlin = 0;
@@ -1024,7 +1043,6 @@ void vGameBoard::adaptPartOfTexture()
         {
             x_gremlin++;
         }
-
 
 
         if(x_knight*KNIGHTOFDEATH_WIDTH >= (int)knightOfDeathTextureWalk.getSize().x - KNIGHTOFDEATH_WIDTH)
@@ -1047,20 +1065,20 @@ void vGameBoard::adaptPartOfTexture()
         animClock.restart();
     }
 }
+
 /**
 *call the method updateTexture who in terms of the state of ennemy set the good texture to sprite
 */
 void vGameBoard::adaptAnimationTexture()
 {
-    //change the texture of only spawn enemies and not dead to save resources
+    //adapt the texture of only dead enemies to save resources
     for(int i=0;i < (int)listOfvEnnemies.size();i++)
     {
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        if(!dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
         {
             listOfvEnnemies[i]->updateTexture();
         }
     }
-
 }
 
 void vGameBoard::buyTower(TypeOfTower type, int position)
@@ -1439,8 +1457,8 @@ bool vGameBoard::verifyImage()
     //verify load images
     if (!mapTexture.loadFromFile("res/images/gameBoard/map.png"))
     {
-         cout << "ERROR to charge texture" << endl;
-         return false;
+        cerr << "ERROR to charge texture" << endl;
+        return false;
     }
 
 
@@ -1455,53 +1473,52 @@ bool vGameBoard::verifyImage()
 
 bool vGameBoard::verifyImageTower()
 {
-
     if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!iceTowerTexture1.loadFromFile("res/images/towers/ice.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!sandTowerTexture1.loadFromFile("res/images/towers/sand.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!ironTowerTexture1.loadFromFile("res/images/towers/iron.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!earthAttack.loadFromFile("res/images/towers/earthEffect.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!sandAttack.loadFromFile("res/images/towers/sandEffect.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!iceAttack.loadFromFile("res/images/towers/iceEffect.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!ironAttack.loadFromFile("res/images/towers/ironEffect.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
     return true;
 }
@@ -1510,92 +1527,92 @@ bool vGameBoard::verifyImageMonsters()
 {
     if (!ogreTextureWalk.loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
     if (!orcTextureWalk.loadFromFile("res/images/sprites/2/spritesheet_WALK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!gremlinTextureWalk.loadFromFile("res/images/sprites/3/spritesheet_WALK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!shadowMonsterTextureWalk.loadFromFile("res/images/sprites/5/spritesheet_WALK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!knightOfDeathTextureWalk.loadFromFile("res/images/sprites/9/spritesheet_WALK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!ogreAttackTexture.loadFromFile("res/images/sprites/1/1_enemies_1_ATTACK_spritesheet.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!orcAttackTexture.loadFromFile("res/images/sprites/2/spritesheet_ATTACK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!gremlinAttackTexture.loadFromFile("res/images/sprites/3/spritesheet_ATTACK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!shadowMonsterAttackTexture.loadFromFile("res/images/sprites/5/spritesheet_ATTACK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!knightOfDeathAttackTexture.loadFromFile("res/images/sprites/9/spritesheet_ATTACK.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!ogreDeadTexture.loadFromFile("res/images/sprites/1/1_enemies_1_DIE_spritesheet.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!orcDeadTexture.loadFromFile("res/images/sprites/2/spritesheet_DIE.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!gremlinDeadTexture.loadFromFile("res/images/sprites/3/spritesheet_DIE.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!shadowMonsterDeadTexture.loadFromFile("res/images/sprites/5/spritesheet_DIE.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
     if (!knightOfDeathDeadTexture.loadFromFile("res/images/sprites/9/spritesheet_DIE.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
     return true;
 }
@@ -1604,85 +1621,85 @@ bool vGameBoard::verifyImageMapEntities()
 {
     if(!emptyButtonTexture.loadFromFile("res/images/gameBoard/button_empty.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!closeButtonTexture.loadFromFile("res/images/gameBoard/button_plus.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!lightningTexture.loadFromFile("res/images/gameBoard/lightning.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!fireTexture.loadFromFile("res/images/gameBoard/fire.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!acideCloudTexture.loadFromFile("res/images/gameBoard/cloud.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!earthTowerTextureButton.loadFromFile("res/images/gameBoard/earthTowerButton.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!iceTowerTextureButton.loadFromFile("res/images/gameBoard/iceTowerButton.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!ironTowerTextureButton.loadFromFile("res/images/gameBoard/ironTowerButton.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!sandTowerTextureButton.loadFromFile("res/images/gameBoard/sandTowerButton.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!acideCloudEffectTexture.loadFromFile("res/images/sprites/spells/acideCloud.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if(!kingHealthGreenTexture.loadFromFile("res/images/gameBoard/health_bar-green.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
     if(!kingHealthRedTexture.loadFromFile("res/images/gameBoard/health_bar-red.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
     if(!pauseButtonTexture.loadFromFile("res/images/gameBoard/button_pause.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
     if(!increaseSpeedButtonTexture.loadFromFile("res/images/gameBoard/button_quick.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
@@ -1694,13 +1711,13 @@ bool vGameBoard::verifyImageMapEntities()
 
     if(!infoBulbleMessageTexture.loadFromFile("res/images/gameBoard/message.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
     if(!playGameButtonTexture.loadFromFile("res/images/gameBoard/button_play.png"))
     {
-        cout << "ERROR chargement texture" << endl;
+        cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
@@ -1711,116 +1728,116 @@ bool vGameBoard::verifyImageInformations()
 {
     if (!oneTexture.loadFromFile("res/images/gameBoard/num_1.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!twoTexture.loadFromFile("res/images/gameBoard/num_2.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!threeTexture.loadFromFile("res/images/gameBoard/num_3.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!fourTexture.loadFromFile("res/images/gameBoard/num_4.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!fiveTexture.loadFromFile("res/images/gameBoard/num_5.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!sixTexture.loadFromFile("res/images/gameBoard/num_6.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!sevenTexture.loadFromFile("res/images/gameBoard/num_7.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!twentyTexture.loadFromFile("res/images/gameBoard/20.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!fourtyTexture.loadFromFile("res/images/gameBoard/40.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!sixtyTexture.loadFromFile("res/images/gameBoard/60.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!eightyTexture.loadFromFile("res/images/gameBoard/80.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!oneHundredTexture.loadFromFile("res/images/gameBoard/100.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!oneHundredFiftyTexture.loadFromFile("res/images/gameBoard/150.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!twoHundredFiftyTexture.loadFromFile("res/images/gameBoard/250.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!fourHundredTexture.loadFromFile("res/images/gameBoard/400.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!crystalTexture.loadFromFile("res/images/gameBoard/coinCrystal.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!swordTexture.loadFromFile("res/images/gameBoard/sword.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!signTexture.loadFromFile("res/images/gameBoard/window_1.png"))
     {
-         cout << "ERROR chargement texture" << endl;
-         return false;
+        cerr << "ERROR chargement texture" << endl;
+        return false;
     }
 
     if (!font.loadFromFile("res/fonts/plump.ttf"))
     {
-         cout << "ERROR chargement font" << endl;
-         return false;
+        cerr << "ERROR chargement font" << endl;
+        return false;
     }
 
     return true;

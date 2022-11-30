@@ -2,3 +2,6 @@
 ProjetReel/ProtectTheKing/
 pTowerDefense/vgcore.7397
 pTowerDefense/ValgrindOut.xml
+*.o
+*.o
+pTowerDefense/obj/Debug/src/view/vGameBoard.o
