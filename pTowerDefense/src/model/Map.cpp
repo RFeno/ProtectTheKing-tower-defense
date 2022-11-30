@@ -260,6 +260,5 @@ int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
             }
         }
     }
-
     return -1;
 }

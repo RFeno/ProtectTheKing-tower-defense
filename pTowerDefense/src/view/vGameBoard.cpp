@@ -717,7 +717,7 @@ void vGameBoard::drawEntities()
 
         ///A DEPLACER
         ///enemies spawn one per one
-        if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
+        if(spawnClock.getElapsedTime().asSeconds() > (spawnTime / game.getGameSpeed()) && idSpawn < (int)listOfvEnnemies.size())
         {
             listOfvEnnemies[idSpawn]->getEnemy()->setSpawn(true);
             idSpawn++;
@@ -1301,7 +1301,8 @@ void vGameBoard::getPositionOfNewTower(TypeOfTower type, int &x, int &y, int pos
     }
     //cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
 }
-/*
+
+/**
 this method defines a position in x and y to display the tower in the right place on the map
 */
 void vGameBoard::getPositionOfEarth(int &x, int &y, int position)
@@ -1309,52 +1310,52 @@ void vGameBoard::getPositionOfEarth(int &x, int &y, int position)
     switch(position-1)
     {
         case 3:
-            {
-                x=100;
-                y=370-75;
-                break;
-            }
+        {
+            x=100;
+            y=370-75;
+            break;
+        }
         case 2:
-            {
-                x=350;
-                y=370-75;
-                break;
-            }
+        {
+            x=350;
+            y=370-75;
+            break;
+        }
         case 1:
-            {
-                x=650;
-                y=370-75;
-                break;
-            }
+        {
+            x=650;
+            y=370-75;
+            break;
+        }
         case 0:
-            {
-                x=990;
-                y=370-75;
-                break;
-            }
+        {
+            x=990;
+            y=370-75;
+            break;
+        }
         case 6:
-            {
-                x=40;
-                y=600-75;
-                break;
-            }
+        {
+            x=40;
+            y=600-75;
+            break;
+        }
         case 5:
-            {
-                x=300;
-                y=600-75;
-                break;
-            }
+        {
+            x=300;
+            y=600-75;
+            break;
+        }
         case 4:
-            {
-                x=975;
-                y=600-75;
-                break;
-            }
+        {
+            x=975;
+            y=600-75;
+            break;
+        }
     }
-
 }
 
-/*
+
+/**
 this method defines a position in x and y to display the tower in the right place on the map
 */
 void vGameBoard::getPositionOfIce(int &x, int &y, int position)
@@ -1406,7 +1407,7 @@ void vGameBoard::getPositionOfIce(int &x, int &y, int position)
     }
 }
 
-/*
+/**
 this method defines a position in x and y to display the tower in the right place on the map
 */
 void vGameBoard::getPositionOfIron(int &x, int &y, int position)
@@ -1458,7 +1459,7 @@ void vGameBoard::getPositionOfIron(int &x, int &y, int position)
     }
 }
 
-/*
+/**
 this method defines a position in x and y to display the tower in the right place on the map
 */
 void vGameBoard::getPositionOfSand(int &x, int &y, int position)
@@ -1510,7 +1511,9 @@ void vGameBoard::getPositionOfSand(int &x, int &y, int position)
     }
 }
 
-/* to verify if all images is accessible and charge in the texture */
+/**
+to verify if all images is accessible and charge in the texture
+*/
 bool vGameBoard::verifyImage()
 {
     //verify load images

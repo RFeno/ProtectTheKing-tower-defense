@@ -33,7 +33,6 @@ class vGameBoard
 
         void drawGameSpeedView();
 
-
         void loadFont();
 
         ///IMAGES
@@ -170,7 +169,7 @@ class vGameBoard
         sf::Sprite gameSpeedTwoSprite;
         sf::Sprite gameSPeedThreeSprite;
 
-        ///King
+        ///King health
         sf::Texture kingHealthGreenTexture;
         sf::Texture kingHealthRedTexture;
         sf::Sprite kingHealthGreenSprite;
@@ -214,6 +213,11 @@ class vGameBoard
         sf::Texture fireTexture;
         sf::Texture emptyButtonTexture;
         sf::Texture closeButtonTexture;
+        sf::Texture headerFailedTexture;
+        sf::Texture tableEmptyTexture;
+        sf::Texture headerUpgradeTexture;
+        sf::Texture resetButtonTexture;
+
 
         ///Speel textures
         sf::Texture acideCloudEffectTexture;
@@ -261,7 +265,7 @@ class vGameBoard
         sf::Texture signTexture;
 
 
-        //informations sprite
+        ///informations sprite
         sf::Sprite oneSprite;
         sf::Sprite twoSprite;
         sf::Sprite threeSprite;
