@@ -224,7 +224,7 @@ bool vGameBoard::removeVTower(int position)
     }
     else
     {
-        cout << "this tower is not in the list of vTower" << endl;
+        cout << "There is no tower at this position." << endl;
     }
     return false;
 }
@@ -243,76 +243,86 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     {
         if (event.mouseButton.button == Mouse::Left)
         {
-            // buy earth tower
-            if(isSpriteClicked(earthTowerSprite))
+            if(!isChoosingNumberForPositionTower)
             {
-                cout << "button buy earthTower click" << endl;
-
-                if(game.getMap()->getTowers().size() <7)
+                // buy earth tower
+                if(isSpriteClicked(earthTowerSprite))
                 {
-                    //display error message
-                    if(game.getPlayer()->getCoins() - earth >= 0 )
-                    {
-                        //dont forget to remove coins in player wallet
+                    cout << "button buy earthTower click" << endl;
 
-                        isChoosingNumberForPositionTower = true;
-                        typeTowerChoosed = TypeOfTower::earth;
+                    if(game.getMap()->getTowers().size() <7)
+                    {
+                        //display error message
+                        if(game.getPlayer()->getCoins() - earth >= 0 )
+                        {
+                            //dont forget to remove coins in player wallet
+
+                            isChoosingNumberForPositionTower = true;
+                            typeTowerChoosed = TypeOfTower::earth;
+                        }
+                        else
+                        {
+                            //display not enough coins message
+                        }
                     }
                     else
                     {
-                        //display not enough coins message
+                        //display all tower places are occupied
                     }
-                }
-                else
-                {
-                    //display all tower places are occupied
+
                 }
 
-            }
-
-            // buy sand tower
-            if(isSpriteClicked(sandTowerSprite))
-            {
-                cout << "button buy sandTower click" << endl;
-
-                if(game.getMap()->getTowers().size() <7)
+                // buy sand tower
+                if(isSpriteClicked(sandTowerSprite))
                 {
-                    if(game.getPlayer()->getCoins() - sand >= 0 )
+                    cout << "button buy sandTower click" << endl;
+
+                    if(game.getMap()->getTowers().size() <7)
                     {
-                        isChoosingNumberForPositionTower = true;
-                        typeTowerChoosed = TypeOfTower::sand;
+                        if(game.getPlayer()->getCoins() - sand >= 0 )
+                        {
+                            isChoosingNumberForPositionTower = true;
+                            typeTowerChoosed = TypeOfTower::sand;
+                        }
                     }
                 }
-            }
 
-            // buy ice tower
-            if(isSpriteClicked(iceTowerSprite))
-            {
-                cout << "button buy iceTower click" << endl;
-
-                if(game.getMap()->getTowers().size() <7)
+                // buy ice tower
+                if(isSpriteClicked(iceTowerSprite))
                 {
-                    if(game.getPlayer()->getCoins() - ice >= 0 )
-                    {
-                        isChoosingNumberForPositionTower = true;
-                        typeTowerChoosed = TypeOfTower::ice;
+                    cout << "button buy iceTower click" << endl;
 
+                    if(game.getMap()->getTowers().size() <7)
+                    {
+                        if(game.getPlayer()->getCoins() - ice >= 0 )
+                        {
+                            isChoosingNumberForPositionTower = true;
+                            typeTowerChoosed = TypeOfTower::ice;
+
+                        }
                     }
                 }
-            }
 
-            // buy iron tower
-            if(isSpriteClicked(ironTowerSprite))
-            {
-                cout << "button buy ironTower click" << endl;
-
-                if(game.getMap()->getTowers().size() <7)
+                // buy iron tower
+                if(isSpriteClicked(ironTowerSprite))
                 {
-                    if(game.getPlayer()->getCoins() - iron >= 0 )
+                    cout << "button buy ironTower click" << endl;
+
+                    if(game.getMap()->getTowers().size() <7)
                     {
-                        isChoosingNumberForPositionTower = true;
-                        typeTowerChoosed = TypeOfTower::iron;
+                        if(game.getPlayer()->getCoins() - iron >= 0 )
+                        {
+                            isChoosingNumberForPositionTower = true;
+                            typeTowerChoosed = TypeOfTower::iron;
+                        }
                     }
+                }
+
+                // sell tower
+                if(isSpriteClicked(sellSprite))
+                {
+                    isChoosingNumberForPositionTower = true;
+                    isSellingTower = true;
                 }
             }
 
@@ -334,18 +344,6 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         {
             cout << "right click"<< endl;
 
-//            int position;
-//            cin >> position;
-//
-//            int index = searchVTower(position);
-//
-//            removeVTower(position);
-//
-//            game.getMap()->removeTower(*(game.getMap()->getTowers()[index]));
-//
-//            cout << "model tower : " << game.getMap()->getTowers().size() << endl;
-//            cout << "view tower : " << listOfvTower.size() << endl;
-
              if(isSpriteClicked(acideCloudSprite) == 1)
             {
 
@@ -354,54 +352,112 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     }
 
 
-        if(isChoosingNumberForPositionTower)
+    if(isChoosingNumberForPositionTower)
+    {
+        if (event.mouseButton.button == Mouse::Left)
         {
-            if (event.mouseButton.button == Mouse::Left)
+            int position = 0;
+            // for sell tower
+            if(isSellingTower)
             {
                 if(isSpriteClicked(oneSprite))
                 {
-                    int position = 1;
+                    position = 1;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+                if(isSpriteClicked(twoSprite))
+                {
+                    position = 2;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+                if(isSpriteClicked(threeSprite))
+                {
+                    position = 3;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+                if(isSpriteClicked(fourSprite))
+                {
+                    position = 4;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+                if(isSpriteClicked(fiveSprite))
+                {
+                    position = 5;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+                if(isSpriteClicked(sixSprite))
+                {
+                    position = 6;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+                if(isSpriteClicked(sevenSprite))
+                {
+                    position = 7;
+                    isChoosingNumberForPositionTower = false;
+                    removeVTower(position);
+                    isSellingTower = false;
+                }
+            }
+            // for buy a tower
+            else
+            {
+                if(isSpriteClicked(oneSprite))
+                {
+                    position = 1;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
                 if(isSpriteClicked(twoSprite))
                 {
-                    int position = 2;
+                    position = 2;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
                 if(isSpriteClicked(threeSprite))
                 {
-                    int position = 3;
+                    position = 3;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
                 if(isSpriteClicked(fourSprite))
                 {
-                    int position = 4;
+                    position = 4;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
                 if(isSpriteClicked(fiveSprite))
                 {
-                    int position = 5;
+                    position = 5;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
                 if(isSpriteClicked(sixSprite))
                 {
-                    int position = 6;
+                    position = 6;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
                 if(isSpriteClicked(sevenSprite))
                 {
-                    int position = 7;
+                    position = 7;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
             }
         }
+    }
 }
 
 /* to load the sprites, adding texture to sprite */
@@ -508,6 +564,19 @@ void vGameBoard::loadSprite()
     fourHundredSprite.setScale(0.30f,0.30f);
     fourHundredSprite.setPosition(Vector2f(1345,158));
 
+    sellSprite.setTexture(emptyButtonTexture);
+    sellSprite.setScale(0.50f,0.50f);
+    sellSprite.setPosition(Vector2f(880,10));
+
+    Color grey(200,200,200);
+    sellText.setFont(font);
+    sellText.setFillColor(grey);
+    sellText.setOutlineColor(Color::Black);
+    sellText.setOutlineThickness(1.2f);
+    sellText.setString("Sell");
+    sellText.setScale(1.1f,1.1f);
+    sellText.setPosition(Vector2f(905,24));
+
     //spells buttons
     acideCloudSprite.setTexture(acideCloudTexture);
     fireSprite.setTexture(fireTexture);
@@ -526,6 +595,14 @@ void vGameBoard::loadSprite()
     signSprites.back()->setTexture(signTexture);
     signSprites.back()->setPosition(Vector2f(500, 150));
     signSprites.back()->setScale(1.5f,0.5f);
+
+    chooseNumberText.setFont(font);
+    chooseNumberText.setFillColor(grey);
+    chooseNumberText.setOutlineColor(Color::Black);
+    chooseNumberText.setOutlineThickness(1.2f);
+    chooseNumberText.setString("Choose the tower\n   emplacement");
+    chooseNumberText.setScale(1.1f,1.1f);
+    chooseNumberText.setPosition(Vector2f(540,162));
 
     //gameSpeed
     infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
@@ -547,31 +624,31 @@ void vGameBoard::loadSprite()
     playGameButtonSprite.setScale(Vector2f(0.24f,0.24f));
 
     oneSprite.setTexture(oneTexture);
-    oneSprite.setPosition(530, 250);
+    oneSprite.setPosition(530, 255);
     oneSprite.setScale(Vector2f(0.5f,0.5f));
 
     twoSprite.setTexture(twoTexture);
-    twoSprite.setPosition(580, 250);
+    twoSprite.setPosition(580, 255);
     twoSprite.setScale(Vector2f(0.5f,0.5f));
 
     threeSprite.setTexture(threeTexture);
-    threeSprite.setPosition(630, 250);
+    threeSprite.setPosition(630, 255);
     threeSprite.setScale(Vector2f(0.5f,0.5f));
 
     fourSprite.setTexture(fourTexture);
-    fourSprite.setPosition(680, 250);
+    fourSprite.setPosition(680, 255);
     fourSprite.setScale(Vector2f(0.5f,0.5f));
 
     fiveSprite.setTexture(fiveTexture);
-    fiveSprite.setPosition(730, 250);
+    fiveSprite.setPosition(730, 255);
     fiveSprite.setScale(Vector2f(0.5f,0.5f));
 
     sixSprite.setTexture(sixTexture);
-    sixSprite.setPosition(780, 250);
+    sixSprite.setPosition(780, 255);
     sixSprite.setScale(Vector2f(0.5f,0.5f));
 
     sevenSprite.setTexture(sevenTexture);
-    sevenSprite.setPosition(830, 250);
+    sevenSprite.setPosition(830, 255);
     sevenSprite.setScale(Vector2f(0.5f,0.5f));
 }
 
@@ -721,7 +798,12 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(fiveSprite);
         windowFromMain->draw(sixSprite);
         windowFromMain->draw(sevenSprite);
+        windowFromMain->draw(chooseNumberText);
     }
+
+    // button to sell towers
+    windowFromMain->draw(sellSprite);
+    windowFromMain->draw(sellText);
 
     return true;
 }
@@ -1506,6 +1588,12 @@ bool vGameBoard::verifyImageMonsters()
 
 bool vGameBoard::verifyImageMapEntities()
 {
+    if(!emptyButtonTexture.loadFromFile("res/images/gameBoard/button_empty.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
     if(!lightningTexture.loadFromFile("res/images/gameBoard/lightning.png"))
     {
          cout << "ERROR chargement texture" << endl;
@@ -1706,6 +1794,12 @@ bool vGameBoard::verifyImageInformations()
     if (!signTexture.loadFromFile("res/images/gameBoard/window_1.png"))
     {
          cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if (!font.loadFromFile("res/fonts/plump.ttf"))
+    {
+         cout << "ERROR chargement font" << endl;
          return false;
     }
 

@@ -112,6 +112,7 @@ class vGameBoard
         int x_acide = 0;
 
         bool isChoosingNumberForPositionTower;
+        bool isSellingTower;
         TypeOfTower typeTowerChoosed;
 
         sf::Clock animClock;
@@ -121,6 +122,11 @@ class vGameBoard
 
         Game game;
         sf::RenderWindow *windowFromMain;
+
+        // texts
+        sf::Font font;
+        sf::Text sellText;
+        sf::Text chooseNumberText;
 
         //entities gameSpeed textures
         sf::Texture pauseButtonTexture;
@@ -171,6 +177,7 @@ class vGameBoard
         sf::Sprite acideCloudSprite;
         sf::Sprite lightningSprite;
         sf::Sprite fireSprite;
+        sf::Sprite sellSprite;
 
         //map and entitites textures
         sf::Texture mapTexture;
@@ -178,6 +185,7 @@ class vGameBoard
         sf::Texture acideCloudTexture;
         sf::Texture lightningTexture;
         sf::Texture fireTexture;
+        sf::Texture emptyButtonTexture;
 
         sf::Texture acideCloudEffectTexture;
 
