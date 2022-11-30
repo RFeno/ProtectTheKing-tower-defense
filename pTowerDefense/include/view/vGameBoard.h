@@ -178,7 +178,8 @@ class vGameBoard
         sf::Sprite acideCloudSprite;
         sf::Sprite lightningSprite;
         sf::Sprite fireSprite;
-        sf::Sprite sellSprite;
+        sf::Sprite sellButtonSprite;
+        sf::Sprite closeButtonSprite;
 
         //map and entitites textures
         sf::Texture mapTexture;
@@ -187,6 +188,7 @@ class vGameBoard
         sf::Texture lightningTexture;
         sf::Texture fireTexture;
         sf::Texture emptyButtonTexture;
+        sf::Texture closeButtonTexture;
 
         sf::Texture acideCloudEffectTexture;
 
