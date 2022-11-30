@@ -484,6 +484,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 /** to load the sprites, adding texture to sprite */
 void vGameBoard::loadSprite()
 {
+    loadGameSpeedEntities();
+
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
@@ -630,25 +632,6 @@ void vGameBoard::loadSprite()
     chooseNumberText.setScale(1.1f,1.1f);
     chooseNumberText.setPosition(Vector2f(540,162));
 
-    ///gameSpeed
-    infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
-    pauseButtonSprite.setTexture(pauseButtonTexture);
-    increaseSpeedButtonSprite.setTexture(increaseSpeedButtonTexture);
-    decreaseSpeedButtonSprite.setTexture(decreaseSpeedButtonTexture);
-    playGameButtonSprite.setTexture(playGameButtonTexture);
-
-    infoBulbleMessageSprite.setPosition(1233, 215);
-    pauseButtonSprite.setPosition(660, 700);
-    increaseSpeedButtonSprite.setPosition(760, 700);
-    decreaseSpeedButtonSprite.setPosition(560, 700);
-    playGameButtonSprite.setPosition(665, 702);
-
-    infoBulbleMessageSprite.setScale(Vector2f(0.25f,0.25f));
-    pauseButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    increaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    decreaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    playGameButtonSprite.setScale(Vector2f(0.24f,0.24f));
-
     oneSprite.setTexture(oneTexture);
     oneSprite.setPosition(530, 255);
     oneSprite.setScale(Vector2f(0.5f,0.5f));
@@ -677,24 +660,66 @@ void vGameBoard::loadSprite()
     sevenSprite.setPosition(830, 255);
     sevenSprite.setScale(Vector2f(0.5f,0.5f));
 }
-
-
-/* to draw the entitties in the window */
-bool vGameBoard::drawEntities()
+/** load and configure game speed entitites */
+void vGameBoard::loadGameSpeedEntities()
 {
-    //map
+    ///gameSpeed
+    infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
+    pauseButtonSprite.setTexture(pauseButtonTexture);
+    increaseSpeedButtonSprite.setTexture(increaseSpeedButtonTexture);
+    decreaseSpeedButtonSprite.setTexture(decreaseSpeedButtonTexture);
+    playGameButtonSprite.setTexture(playGameButtonTexture);
+    gameSpeedEmptyTableSprite.setTexture(emptyButtonTexture);
+    multiplierSprite.setTexture(multiplierTexture);
+    gameSpeedOneSprite.setTexture(oneTexture);
+    gameSpeedTwoSprite.setTexture(twoTexture);
+    gameSPeedThreeSprite.setTexture(threeTexture);
+
+    multiplierSprite.setRotation(80.0f);
+    infoBulbleMessageSprite.setPosition(1233, 215);
+    pauseButtonSprite.setPosition(660, 707);
+    increaseSpeedButtonSprite.setPosition(760, 707);
+    decreaseSpeedButtonSprite.setPosition(560, 707);
+    playGameButtonSprite.setPosition(665, 707);
+    gameSpeedEmptyTableSprite.setPosition(663,655);
+    multiplierSprite.setPosition(702,668);
+
+    gameSpeedOneSprite.setPosition(710,672);
+    gameSpeedTwoSprite.setPosition(710,672);
+    gameSPeedThreeSprite.setPosition(710,672);
+
+    infoBulbleMessageSprite.setScale(Vector2f(0.25f,0.25f));
+    pauseButtonSprite.setScale(Vector2f(0.5f,0.5f));
+    increaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
+    decreaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
+    playGameButtonSprite.setScale(Vector2f(0.24f,0.24f));
+    gameSpeedEmptyTableSprite.setScale(0.35f,0.35f);
+    multiplierSprite.setScale(0.25f,0.25f);
+
+    gameSpeedOneSprite.setScale(0.35f,0.35f);
+    gameSpeedTwoSprite.setScale(0.35f,0.35f);
+    gameSPeedThreeSprite.setScale(0.35f,0.35f);
+
+
+
+
+}
+/* to draw the entitties in the window */
+void vGameBoard::drawEntities()
+{
+    ///map
     windowFromMain->draw(mapSprite);
 
-    //king health
+    ///king health
     windowFromMain->draw(kingHealthRedSprite);
     windowFromMain->draw(kingHealthGreenSprite);
 
-    //spell buttons
+    ///spell buttons
     windowFromMain->draw(lightningSprite);
     windowFromMain->draw(fireSprite);
     windowFromMain->draw(acideCloudSprite);
 
-    //towers buttons
+    ///towers buttons
     windowFromMain->draw(ironTowerSprite);
     windowFromMain->draw(iceTowerSprite);
     windowFromMain->draw(sandTowerSprite);
@@ -702,22 +727,8 @@ bool vGameBoard::drawEntities()
 
     windowFromMain->draw(infoBulbleMessageSprite);
 
-    if(!gamePaused)
-    {
-        windowFromMain->draw(pauseButtonSprite);
-    }
 
-    windowFromMain->draw(increaseSpeedButtonSprite);
-    windowFromMain->draw(decreaseSpeedButtonSprite);
-
-    if(gamePaused)
-    {
-        windowFromMain->draw(playGameButtonSprite);
-    }
-
-
-
-    //tower informations
+    ///tower informations
     for(int i=0; i < 4 ; i++)
     {
         windowFromMain->draw(*signSprites[i]);
@@ -825,7 +836,7 @@ bool vGameBoard::drawEntities()
     windowFromMain->draw(sellButtonSprite);
     windowFromMain->draw(sellText);
 
-    return true;
+    drawGameSpeedView();
 }
 
 //fonction for actionEvent on Buttons Sprite
@@ -865,8 +876,6 @@ void vGameBoard::updateGame()
 //    cout << game.getMap()->getKing().getInformations() << endl;
 
 //    cout << game.getMap()->strTowers() <<endl;
-
-    cout << game.getGameSpeed() << endl;
 
     if(game.IsEndOfWave())
     {
@@ -961,6 +970,44 @@ void vGameBoard::updateHealthBarAllEnemies()
         if(!dynamic_cast<StateDie*>(venemy->getEnemy()->getState()))
         {
             venemy->updateHealth();
+        }
+    }
+}
+
+/**draw all entities for game speed */
+void vGameBoard::drawGameSpeedView()
+{
+    if(!gamePaused)
+    {
+        windowFromMain->draw(pauseButtonSprite);
+    }
+
+    windowFromMain->draw(increaseSpeedButtonSprite);
+    windowFromMain->draw(decreaseSpeedButtonSprite);
+    windowFromMain->draw(gameSpeedEmptyTableSprite);
+    windowFromMain->draw(multiplierSprite);
+
+    if(gamePaused)
+    {
+        windowFromMain->draw(playGameButtonSprite);
+    }
+
+    switch(game.getGameSpeed())
+    {
+        case 1:
+        {
+            windowFromMain->draw(gameSpeedOneSprite);
+            break;
+        }
+        case 2:
+        {
+            windowFromMain->draw(gameSpeedTwoSprite);
+            break;
+        }
+        case 3:
+        {
+            windowFromMain->draw(gameSPeedThreeSprite);
+            break;
         }
     }
 }
@@ -1716,6 +1763,18 @@ bool vGameBoard::verifyImageMapEntities()
     }
 
     if(!playGameButtonTexture.loadFromFile("res/images/gameBoard/button_play.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!playGameButtonTexture.loadFromFile("res/images/gameBoard/button_play.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!multiplierTexture.loadFromFile("res/images/gameBoard/button_close.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;

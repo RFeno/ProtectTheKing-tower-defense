@@ -12,44 +12,57 @@ class vGameBoard
 {
     public:
 
-        //canonic
+        ///canonic
         vGameBoard(sf::RenderWindow &window);
         virtual ~vGameBoard();
         vGameBoard(const vGameBoard& other);
         vGameBoard& operator=(const vGameBoard& other);
 
+        ///DISPLAY
         void launchView();
-        void loadSprite();
-        bool drawEntities();
-        void updateGame();
+
+        ///DRAW
+        void drawEntities();
+        void drawEnemiesEntities();
+        void drawMapEntities();
+        void drawTowersEntities();
+        void drawGameSpeedView();
+
         void loadFont();
 
+        ///IMAGES
+        void loadSprite();
+        void loadGameSpeedEntities();
 
-        //load images
         bool verifyImage();
         bool verifyImageTower();
         bool verifyImageMonsters();
         bool verifyImageMapEntities();
         bool verifyImageInformations();
 
-        //events
+        ///EVENTS
         void InputHandler(sf::Event event,sf::RenderWindow *window);
         bool isSpriteClicked (sf::Sprite &spr);
 
-        //methods
         void launchGame();
+
+        ///UPDATE
+        void updateGame();
         void updateVennemyForView();
         void updateHealthBarAllEnemies();
         void enemyAnimation();
-        void animationEnemyWalk2(sf::Sprite *enemy);
-        void enemiesSpawn();
         void displayEnd();
+
+
+        ///TOWERS
         void buyTower(TypeOfTower type, int position);
         bool removeVTower(int position);
         int searchVTower(int position);
         bool removeVEnemy(vEnnemy& enemy);
         int searchVEnemy(vEnnemy& enemy);
 
+
+        /**A DEPLACER DANS LE MODEL car traitements */
         /*these methods are used to calculate the positions of the towers*/
         void getPositionOfNewTower(TypeOfTower type, int &x, int &y, int position);
         void getPositionOfEarth(int &x, int &y, int position);
@@ -57,6 +70,7 @@ class vGameBoard
         void getPositionOfIce(int &x, int &y, int position);
         void getPositionOfSand(int &x, int &y, int position);
 
+        ///ADAPTE IMAGES
         void adaptAnimationSprite();
         void adaptAnimationTexture();
         void adaptPartOfTexture();
@@ -92,7 +106,6 @@ class vGameBoard
         std::vector<sf::Sprite*> listOfFireSpell;
         std::vector<sf::Sprite*> listOfLigntningSpell;
 
-
         //x and y serve to reset the animation of sprites in fonction of diffrents size of sprite
         int x_Ogre = 0;
         int y_Ogre = 0;
@@ -113,6 +126,7 @@ class vGameBoard
 
         bool isChoosingNumberForPositionTower;
         bool isSellingTower;
+
         TypeOfTower typeTowerChoosed;
 
         sf::Clock animClock;
@@ -129,50 +143,55 @@ class vGameBoard
         sf::Text sellText;
         sf::Text chooseNumberText;
 
-        //entities gameSpeed textures
+
+        ///entities gameSpeed textures
         sf::Texture pauseButtonTexture;
         sf::Texture increaseSpeedButtonTexture;
         sf::Texture decreaseSpeedButtonTexture;
         sf::Texture infoBulbleMessageTexture;
         sf::Texture playGameButtonTexture;
+        sf::Texture multiplierTexture;
 
-        //entities gameSpeed sprites
+        ///entities gameSpeed sprites
         sf::Sprite pauseButtonSprite;
         sf::Sprite increaseSpeedButtonSprite;
         sf::Sprite decreaseSpeedButtonSprite;
         sf::Sprite infoBulbleMessageSprite;
         sf::Sprite playGameButtonSprite;
+        sf::Sprite gameSpeedEmptyTableSprite;
+        sf::Sprite multiplierSprite;
+        sf::Sprite gameSpeedOneSprite;
+        sf::Sprite gameSpeedTwoSprite;
+        sf::Sprite gameSPeedThreeSprite;
 
-        //King
+        ///King
         sf::Texture kingHealthGreenTexture;
         sf::Texture kingHealthRedTexture;
         sf::Sprite kingHealthGreenSprite;
         sf::Sprite kingHealthRedSprite;
-        sf::RectangleShape KingHpBar;
-        sf::RectangleShape KingHpBarBack;
 
-        //walk
+        ///enemies walk
         sf::Texture gremlinTextureWalk;
         sf::Texture knightOfDeathTextureWalk;
         sf::Texture shadowMonsterTextureWalk ;
         sf::Texture ogreTextureWalk;
         sf::Texture orcTextureWalk;
 
-        //attack
+        ///enemies attack
         sf::Texture gremlinAttackTexture;
         sf::Texture knightOfDeathAttackTexture ;
         sf::Texture shadowMonsterAttackTexture;
         sf::Texture ogreAttackTexture ;
         sf::Texture orcAttackTexture ;
 
-        //dead
+        ///enemies dead
         sf::Texture gremlinDeadTexture ;
         sf::Texture knightOfDeathDeadTexture ;
         sf::Texture shadowMonsterDeadTexture;
         sf::Texture ogreDeadTexture;
         sf::Texture orcDeadTexture ;
 
-        //map and entitites sprites
+        ///map and entitites sprites
         sf::Sprite mapSprite;
         sf::Sprite pauseSprite;
         sf::Sprite acideCloudSprite;
@@ -181,7 +200,7 @@ class vGameBoard
         sf::Sprite sellButtonSprite;
         sf::Sprite closeButtonSprite;
 
-        //map and entitites textures
+        ///Map and entitites textures
         sf::Texture mapTexture;
         sf::Texture pauseTexture;
         sf::Texture acideCloudTexture;
@@ -190,9 +209,10 @@ class vGameBoard
         sf::Texture emptyButtonTexture;
         sf::Texture closeButtonTexture;
 
+        ///Speel textures
         sf::Texture acideCloudEffectTexture;
 
-        //Towers textures
+        ///Towers textures
         sf::Texture earthAttack;
         sf::Texture sandAttack;
         sf::Texture iceAttack;
@@ -208,13 +228,13 @@ class vGameBoard
         sf::Texture ironTowerTexture1;
         sf::Texture earthTowerTexture1;
 
-        //Tower sprites
+        ///Tower sprites
         sf::Sprite earthTowerSprite;
         sf::Sprite sandTowerSprite;
         sf::Sprite iceTowerSprite;
         sf::Sprite ironTowerSprite;
 
-        //informations textures
+        ///Informations tower textures
         sf::Texture oneTexture;
         sf::Texture twoTexture;
         sf::Texture threeTexture;
