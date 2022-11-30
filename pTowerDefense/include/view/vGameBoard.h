@@ -119,6 +119,7 @@ class vGameBoard
         sf::Clock spawnClock;
         sf::Clock attackClock;
         sf::Clock gameSpeedClook;
+        sf::Clock attackTowerClock;
 
         Game game;
         sf::RenderWindow *windowFromMain;

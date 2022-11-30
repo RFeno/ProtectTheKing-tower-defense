@@ -82,7 +82,6 @@ void Game::ennemiesWalk()
 {
     for(Enemies* enemy : mapOfGame->getEnemies())
     {
-        //call the state
         enemy->walk();
     }
 }

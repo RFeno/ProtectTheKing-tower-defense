@@ -43,6 +43,7 @@ vEnnemy& vEnnemy::operator=(const vEnnemy& rhs)
     return *this;
 }
 
+/*give texture to vEnemy and configure it */
 void vEnnemy::chargeInformations()
 {
     //health bar
@@ -52,6 +53,8 @@ void vEnnemy::chargeInformations()
     //enemies
     if(dynamic_cast<Ogre*>(enemy))
     {
+        healthBarRedSprite.setPosition(enemy->getX()+5,enemy->getY()-3);
+        healthBarGreenSprite.setPosition(enemy->getX()+5,enemy->getY()-3);
         enemySprite->setTexture(*ogreTextureWalk);
         enemySprite->setTextureRect(IntRect(0,0,OGRE_WIDTH,OGRE_HEIGHT));
         enemySprite->setPosition(Vector2f(-40, 510));
@@ -61,6 +64,8 @@ void vEnnemy::chargeInformations()
     {
         if(dynamic_cast<Orc*>(enemy))
         {
+            healthBarRedSprite.setPosition(enemy->getX()+2,enemy->getY()-5);
+            healthBarGreenSprite.setPosition(enemy->getX()+2,enemy->getY()-5);
             enemySprite->setTexture(*orcTextureWalk);
             enemySprite->setTextureRect(IntRect(0,0,ORC_WIDTH,ORC_HEIGHT));
             enemySprite->setPosition(Vector2f(-40, 520));
@@ -70,6 +75,8 @@ void vEnnemy::chargeInformations()
         {
             if(dynamic_cast<ShadowMonster*>(enemy))
             {
+                healthBarRedSprite.setPosition(enemy->getX()+5,enemy->getY()-5);
+                healthBarGreenSprite.setPosition(enemy->getX()+5,enemy->getY()-5);
                 enemySprite->setTexture(*shadowMonsterTextureWalk);
                 enemySprite->setTextureRect(IntRect(0,0,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
                 enemySprite->setPosition(Vector2f(-40, 527));
@@ -79,6 +86,8 @@ void vEnnemy::chargeInformations()
             {
                 if(dynamic_cast<KnightOfDeath*>(enemy))
                 {
+                    healthBarRedSprite.setPosition(enemy->getX()+5,enemy->getY()+12);
+                    healthBarGreenSprite.setPosition(enemy->getX()+5,enemy->getY()+12);
                     enemySprite->setTexture(*knightOfDeathTextureWalk);
                     enemySprite->setTextureRect(IntRect(0,0,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
                     enemySprite->setPosition(Vector2f(-40, 493));
@@ -86,13 +95,12 @@ void vEnnemy::chargeInformations()
                 }
                 else
                 {
-                    if(dynamic_cast<Gremlin*>(enemy))
-                    {
-                        enemySprite->setTexture(*gremlinTextureWalk);
-                        enemySprite->setTextureRect(IntRect(0,0,GREMLIN_WIDTH,GREMLIN_HEIGHT));
-                        enemySprite->setPosition(Vector2f(-40, 550));
-                        enemySprite->setScale(0.28f,0.28f);
-                    }
+                    healthBarRedSprite.setPosition(enemy->getX()-4,enemy->getY()-10);
+                    healthBarGreenSprite.setPosition(enemy->getX()-4,enemy->getY()-10);
+                    enemySprite->setTexture(*gremlinTextureWalk);
+                    enemySprite->setTextureRect(IntRect(0,0,GREMLIN_WIDTH,GREMLIN_HEIGHT));
+                    enemySprite->setPosition(Vector2f(-40, 550));
+                    enemySprite->setScale(0.28f,0.28f);
                 }
             }
         }
@@ -102,9 +110,8 @@ void vEnnemy::chargeInformations()
 /*update the texture of enemy in terms of his state and his type of enemy */
 void vEnnemy::updateTexture()
 {
-    //bind postion of sprite to model position
+    //bind position of sprite to model position
     enemySprite->setPosition(enemy->getX(),enemy->getY());
-
 
     if(dynamic_cast<Ogre*>(enemy))
     {

@@ -7,7 +7,7 @@
 class Orc : public Enemies
 {
     public:
-        Orc(int health=600, int marketValue=600, int scoreValue=600, int damage=1,float walkingSpeed=1.2);
+        Orc(int health=350, int marketValue=600, int scoreValue=600, int damage=1,float walkingSpeed=1.2);
         virtual ~Orc();
         Orc(const Orc& other);
         Orc& operator=(const Orc& other);

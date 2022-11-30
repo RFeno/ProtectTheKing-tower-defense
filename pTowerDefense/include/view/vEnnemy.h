@@ -41,8 +41,6 @@ class vEnnemy
             this->enemy=enemy;
         }
 
-
-
         //all textures of walk
         sf::Texture *ogreTextureWalk = nullptr;
 
@@ -91,16 +89,6 @@ class vEnnemy
 
         //sprites
         sf::Sprite *enemySprite;
-
-
-
-
-
-
-
-
-
-
 
 };
 

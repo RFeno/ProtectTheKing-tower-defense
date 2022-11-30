@@ -11,9 +11,7 @@ class Player
     public:
 
         //constructors
-        Player(std::string name="Anonymous",int coins = 400,int score = 0); //don't forget value default begins always by the right
-
-
+        Player(std::string name="Anonymous",int coins = 400,int score = 0);
         //methods
         void buyTower(TypeOfTower type);
         void buySpell();
@@ -58,8 +56,7 @@ class Player
             }
         }
 
-
-        //destructors
+        //destructor
         virtual ~Player();
 
     protected:
