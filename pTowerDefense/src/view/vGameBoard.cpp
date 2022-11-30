@@ -319,11 +319,19 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 }
 
                 // sell tower
-                if(isSpriteClicked(sellSprite))
+                if(isSpriteClicked(sellButtonSprite))
                 {
                     isChoosingNumberForPositionTower = true;
                     isSellingTower = true;
                 }
+            }
+
+            // close the sign to choose tower emplacement
+            if(isSpriteClicked(closeButtonSprite))
+            {
+                cout<<"test"<<endl;
+                isChoosingNumberForPositionTower = false;
+                isSellingTower = false;
             }
 
             if(isSpriteClicked(pauseButtonSprite))
@@ -564,9 +572,9 @@ void vGameBoard::loadSprite()
     fourHundredSprite.setScale(0.30f,0.30f);
     fourHundredSprite.setPosition(Vector2f(1345,158));
 
-    sellSprite.setTexture(emptyButtonTexture);
-    sellSprite.setScale(0.50f,0.50f);
-    sellSprite.setPosition(Vector2f(880,10));
+    sellButtonSprite.setTexture(emptyButtonTexture);
+    sellButtonSprite.setScale(0.50f,0.50f);
+    sellButtonSprite.setPosition(Vector2f(880,10));
 
     Color grey(200,200,200);
     sellText.setFont(font);
@@ -576,6 +584,11 @@ void vGameBoard::loadSprite()
     sellText.setString("Sell");
     sellText.setScale(1.1f,1.1f);
     sellText.setPosition(Vector2f(905,24));
+
+    closeButtonSprite.setTexture(closeButtonTexture);
+    closeButtonSprite.setRotation(45.f);
+    closeButtonSprite.setScale(Vector2f(0.5f, 0.5f));
+    closeButtonSprite.setPosition(880, 137);
 
     //spells buttons
     acideCloudSprite.setTexture(acideCloudTexture);
@@ -799,10 +812,11 @@ bool vGameBoard::drawEntities()
         windowFromMain->draw(sixSprite);
         windowFromMain->draw(sevenSprite);
         windowFromMain->draw(chooseNumberText);
+        windowFromMain->draw(closeButtonSprite);
     }
 
     // button to sell towers
-    windowFromMain->draw(sellSprite);
+    windowFromMain->draw(sellButtonSprite);
     windowFromMain->draw(sellText);
 
     return true;
@@ -1589,6 +1603,12 @@ bool vGameBoard::verifyImageMonsters()
 bool vGameBoard::verifyImageMapEntities()
 {
     if(!emptyButtonTexture.loadFromFile("res/images/gameBoard/button_empty.png"))
+    {
+         cout << "ERROR chargement texture" << endl;
+         return false;
+    }
+
+    if(!closeButtonTexture.loadFromFile("res/images/gameBoard/button_plus.png"))
     {
          cout << "ERROR chargement texture" << endl;
          return false;
