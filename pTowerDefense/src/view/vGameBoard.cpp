@@ -128,7 +128,7 @@ void vGameBoard::launchView()
                 InputHandler(event, windowFromMain);
             }
 
-            if(!gamePaused)
+            if(!gamePaused && !game.isGameOver())
             {
                 updateGame();
             }
@@ -249,7 +249,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             if(!isChoosingNumberForPositionTower)
             {
                 // buy earth tower
-                if(isSpriteClicked(earthTowerSprite))
+                if(isSpriteClicked(earthTowerButtonSprite))
                 {
                     cout << "button buy earthTower click" << endl;
 
@@ -276,7 +276,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 }
 
                 // buy sand tower
-                if(isSpriteClicked(sandTowerSprite))
+                if(isSpriteClicked(sandTowerButtonSprite))
                 {
                     cout << "button buy sandTower click" << endl;
 
@@ -291,7 +291,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 }
 
                 // buy ice tower
-                if(isSpriteClicked(iceTowerSprite))
+                if(isSpriteClicked(iceTowerButtonSprite))
                 {
                     cout << "button buy iceTower click" << endl;
 
@@ -307,7 +307,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 }
 
                 // buy iron tower
-                if(isSpriteClicked(ironTowerSprite))
+                if(isSpriteClicked(ironTowerButtonSprite))
                 {
                     cout << "button buy ironTower click" << endl;
 
@@ -484,6 +484,10 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 /** to load the sprites, adding texture to sprite */
 void vGameBoard::loadSprite()
 {
+    ///map
+    mapSprite.setTexture(mapTexture);
+    mapSprite.setScale(0.73f,0.75f);
+
     loadGameSpeedEntities();
 
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
@@ -495,9 +499,6 @@ void vGameBoard::loadSprite()
         listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
     }
 
-    ///map
-    mapSprite.setTexture(mapTexture);
-    mapSprite.setScale(0.73f,0.75f);
 
     ///king
     kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
@@ -508,20 +509,20 @@ void vGameBoard::loadSprite()
     kingHealthRedSprite.setPosition(1240,345);
 
     ///towers buttons
-    earthTowerSprite.setTexture(earthTowerTextureButton);
-    iceTowerSprite.setTexture(iceTowerTextureButton);
-    sandTowerSprite.setTexture(sandTowerTextureButton);
-    ironTowerSprite.setTexture(ironTowerTextureButton);
+    earthTowerButtonSprite.setTexture(earthTowerTextureButton);
+    iceTowerButtonSprite.setTexture(iceTowerTextureButton);
+    sandTowerButtonSprite.setTexture(sandTowerTextureButton);
+    ironTowerButtonSprite.setTexture(ironTowerTextureButton);
 
-    earthTowerSprite.setScale(0.50f,0.50f);
-    iceTowerSprite.setScale(0.50f,0.50f);
-    sandTowerSprite.setScale(0.50f,0.50f);
-    ironTowerSprite.setScale(0.50f,0.50f);
+    earthTowerButtonSprite.setScale(0.50f,0.50f);
+    iceTowerButtonSprite.setScale(0.50f,0.50f);
+    sandTowerButtonSprite.setScale(0.50f,0.50f);
+    ironTowerButtonSprite.setScale(0.50f,0.50f);
 
-    earthTowerSprite.setPosition(Vector2f(1206,5));
-    iceTowerSprite.setPosition(Vector2f(1106,5));
-    sandTowerSprite.setPosition(Vector2f(1006,5));
-    ironTowerSprite.setPosition(Vector2f(1306,5));
+    earthTowerButtonSprite.setPosition(Vector2f(1206,5));
+    iceTowerButtonSprite.setPosition(Vector2f(1106,5));
+    sandTowerButtonSprite.setPosition(Vector2f(1006,5));
+    ironTowerButtonSprite.setPosition(Vector2f(1306,5));
 
     ///informations of tower
     twentySprite.setTexture(twentyTexture);
@@ -700,119 +701,65 @@ void vGameBoard::loadGameSpeedEntities()
     gameSpeedTwoSprite.setScale(0.35f,0.35f);
     gameSPeedThreeSprite.setScale(0.35f,0.35f);
 
-
-
-
 }
-/* to draw the entitties in the window */
+
+/** to draw the entitties in the window */
 void vGameBoard::drawEntities()
 {
     ///map
     windowFromMain->draw(mapSprite);
 
-    ///king health
-    windowFromMain->draw(kingHealthRedSprite);
-    windowFromMain->draw(kingHealthGreenSprite);
-
-    ///spell buttons
-    windowFromMain->draw(lightningSprite);
-    windowFromMain->draw(fireSprite);
-    windowFromMain->draw(acideCloudSprite);
-
-    ///towers buttons
-    windowFromMain->draw(ironTowerSprite);
-    windowFromMain->draw(iceTowerSprite);
-    windowFromMain->draw(sandTowerSprite);
-    windowFromMain->draw(earthTowerSprite);
-
-    windowFromMain->draw(infoBulbleMessageSprite);
-
-
-    ///tower informations
-    for(int i=0; i < 4 ; i++)
+    if(!game.isGameOver())
     {
-        windowFromMain->draw(*signSprites[i]);
-    }
+        drawMapEntities();
+        drawMapButtons();
+        drawGameSpeedView();
 
-    windowFromMain->draw(twentySprite);
-    windowFromMain->draw(fourtySprite);
-    windowFromMain->draw(sixtySprite);
-    windowFromMain->draw(eightySprite);
-    windowFromMain->draw(oneHundredSprite);
-    windowFromMain->draw(oneHundredFiftySprite);
-    windowFromMain->draw(twoHundredFiftySprite);
-    windowFromMain->draw(fourHundredSprite);
-
-    for(int i=0; i < 4 ; i++)
-    {
-        windowFromMain->draw(*swordSprites[i]);
-    }
-
-    for(int i=0; i < 4 ; i++)
-    {
-        windowFromMain->draw(*crystalSprites[i]);
-    }
-
-    ///A DEPLACER
-
-    ///enemies spawn one per one
-
-    if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
-    {
-        listOfvEnnemies[idSpawn]->getEnemy()->setSpawn(true);
-        idSpawn++;
-        spawnClock.restart();
-    }
-
-    ///ennemies
-    for(int i=0;i<(int)listOfvEnnemies.size();i++)
-    {
-        //draw enemies who are not dead
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        ///A DEPLACER
+        ///enemies spawn one per one
+        if(spawnClock.getElapsedTime().asSeconds() > spawnTime && idSpawn < (int)listOfvEnnemies.size())
         {
-            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
+            listOfvEnnemies[idSpawn]->getEnemy()->setSpawn(true);
+            idSpawn++;
+            spawnClock.restart();
         }
-    }
 
-
-
-    /** towers 1 to 4 */
-    for(int i = 0; i < (int)listOfvTower.size(); i++)
-    {
-        if(i < 4)
+        ///towers 1 to 4
+        for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-          windowFromMain->draw(*(listOfvTower[i]->getSprite()));
-        }
-    }
-
-    //Place here elemnets between the towers
-
-
-    ///Acid spell
-    /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
-    {
-        windowFromMain->draw(*listOfAcideCloudSpell[i]);
-    }*/
-
-
-    /** towers 5 to 7 */
-    for(int i = 4; i < (int)listOfvTower.size(); i++)
-    {
-        windowFromMain->draw(*(listOfvTower[i]->getSprite()));
-    }
-
-    // attack animations of towers
-    for(int i = 0; i < (int)listOfvTower.size(); i++)
-    {
-        if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
-        {
-            windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
-
-            if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
+            if(i < 4)
             {
-                listOfvTower[i]->getAttackClock()->restart();
+              windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+            }
+        }
+
+        drawEnemies();
+
+        //Place here elemnets between the towers
+
+        ///Acid spell
+        /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+        {
+            windowFromMain->draw(*listOfAcideCloudSpell[i]);
+        }*/
+
+        ///towers 5 to 7
+        for(int i = 4; i < (int)listOfvTower.size(); i++)
+        {
+            windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+        }
+
+        /// attack animations of towers
+        for(int i = 0; i < (int)listOfvTower.size(); i++)
+        {
+            if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
+            {
+                windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
+
+                if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
+                {
+                    listOfvTower[i]->getAttackClock()->restart();
+                }
             }
         }
     }
@@ -836,7 +783,6 @@ void vGameBoard::drawEntities()
     windowFromMain->draw(sellButtonSprite);
     windowFromMain->draw(sellText);
 
-    drawGameSpeedView();
 }
 
 //fonction for actionEvent on Buttons Sprite
@@ -859,7 +805,7 @@ bool vGameBoard::isSpriteClicked (Sprite &spr)
 		return false;
 	}
 }
-/* animate enemy at the screen */
+/** animate enemy at the screen */
 void vGameBoard::enemyAnimation()
 {
     //method adapts which texture we need to display
@@ -869,7 +815,7 @@ void vGameBoard::enemyAnimation()
     adaptAnimationSprite();
 }
 
-/* play once, update model of game */
+/** play once, update model of game */
 void vGameBoard::updateGame()
 {
 //    cout << game.getMap()->strEnemies() << endl;
@@ -953,6 +899,7 @@ void vGameBoard::updateGame()
 
 }
 
+/** Update the health bar of king */
 void vGameBoard::updateKingHealth()
 {
     double kingHealthMax = game.getMap()->getKing().getKingHealthMax();
@@ -962,7 +909,7 @@ void vGameBoard::updateKingHealth()
     kingHealthGreenSprite.setScale(Vector2f(0.20*remainingHealth,0.20));
 }
 
-/* update health bar of all enemies who are not dead */
+/** update health bar of all enemies who are not dead **/
 void vGameBoard::updateHealthBarAllEnemies()
 {
     for(vEnnemy *venemy:listOfvEnnemies)
@@ -974,6 +921,71 @@ void vGameBoard::updateHealthBarAllEnemies()
     }
 }
 
+void vGameBoard::drawMapEntities()
+{
+    drawMapButtons();
+
+    ///king health and bubble message
+    windowFromMain->draw(kingHealthRedSprite);
+    windowFromMain->draw(kingHealthGreenSprite);
+    windowFromMain->draw(infoBulbleMessageSprite);
+
+    ///tower informations
+    for(int i=0; i < 4 ; i++)
+    {
+        windowFromMain->draw(*signSprites[i]);
+    }
+
+    for(int i=0; i < 4 ; i++)
+    {
+        windowFromMain->draw(*swordSprites[i]);
+    }
+
+    for(int i=0; i < 4 ; i++)
+    {
+        windowFromMain->draw(*crystalSprites[i]);
+    }
+
+    ///prices of towers
+    windowFromMain->draw(twentySprite);
+    windowFromMain->draw(fourtySprite);
+    windowFromMain->draw(sixtySprite);
+    windowFromMain->draw(eightySprite);
+    windowFromMain->draw(oneHundredSprite);
+    windowFromMain->draw(oneHundredFiftySprite);
+    windowFromMain->draw(twoHundredFiftySprite);
+    windowFromMain->draw(fourHundredSprite);
+}
+
+void vGameBoard::drawMapButtons()
+{
+    ///spell buttons
+    windowFromMain->draw(lightningSprite);
+    windowFromMain->draw(fireSprite);
+    windowFromMain->draw(acideCloudSprite);
+
+    ///towers buttons
+    windowFromMain->draw(ironTowerButtonSprite);
+    windowFromMain->draw(iceTowerButtonSprite);
+    windowFromMain->draw(sandTowerButtonSprite);
+    windowFromMain->draw(earthTowerButtonSprite);
+}
+
+/** draw enemies*/
+void vGameBoard::drawEnemies()
+{
+    for(int i=0;i<(int)listOfvEnnemies.size();i++)
+    {
+        //draw enemies who are not dead
+        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        {
+            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
+        }
+    }
+}
+
 /**draw all entities for game speed */
 void vGameBoard::drawGameSpeedView()
 {
@@ -981,16 +993,15 @@ void vGameBoard::drawGameSpeedView()
     {
         windowFromMain->draw(pauseButtonSprite);
     }
+    else
+    {
+        windowFromMain->draw(playGameButtonSprite);
+    }
 
     windowFromMain->draw(increaseSpeedButtonSprite);
     windowFromMain->draw(decreaseSpeedButtonSprite);
     windowFromMain->draw(gameSpeedEmptyTableSprite);
     windowFromMain->draw(multiplierSprite);
-
-    if(gamePaused)
-    {
-        windowFromMain->draw(playGameButtonSprite);
-    }
 
     switch(game.getGameSpeed())
     {
@@ -1012,7 +1023,7 @@ void vGameBoard::drawGameSpeedView()
     }
 }
 
-/*methods adapte which parts of sprite sheet we need to display*/
+/**adapt which parts of sprite sheet we need to display*/
 void vGameBoard::adaptAnimationSprite()
 {
     adaptPartOfTexture();
@@ -1024,6 +1035,7 @@ void vGameBoard::adaptAnimationSprite()
 
 }
 
+/** adapt which part of spreet sheet we need to display */
 void vGameBoard::adaptPartOfTexture()
 {
     if(animClock.getElapsedTime().asSeconds() > 0.08f / game.getGameSpeed())

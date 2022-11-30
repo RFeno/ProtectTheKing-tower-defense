@@ -21,12 +21,18 @@ class vGameBoard
         ///DISPLAY
         void launchView();
 
-        ///DRAW
+        /**DRAW*/
         void drawEntities();
-        void drawEnemiesEntities();
+
+        void drawEnemies();
+
         void drawMapEntities();
-        void drawTowersEntities();
+        void drawMapButtons();
+
+        void drawTowers();
+
         void drawGameSpeedView();
+
 
         void loadFont();
 
@@ -229,10 +235,10 @@ class vGameBoard
         sf::Texture earthTowerTexture1;
 
         ///Tower sprites
-        sf::Sprite earthTowerSprite;
-        sf::Sprite sandTowerSprite;
-        sf::Sprite iceTowerSprite;
-        sf::Sprite ironTowerSprite;
+        sf::Sprite earthTowerButtonSprite;
+        sf::Sprite sandTowerButtonSprite;
+        sf::Sprite iceTowerButtonSprite;
+        sf::Sprite ironTowerButtonSprite;
 
         ///Informations tower textures
         sf::Texture oneTexture;
