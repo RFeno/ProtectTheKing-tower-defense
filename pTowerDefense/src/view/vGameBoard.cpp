@@ -176,7 +176,7 @@ int vGameBoard::searchVEnemy(vEnnemy& enemy)
     return result;
 }
 
-/*bool vGameBoard::removeVEnemy(vEnnemy& enemy)
+/**bool vGameBoard::removeVEnemy(vEnnemy& enemy)
 {
     int index = searchVEnemy(enemy);
 
@@ -195,7 +195,7 @@ int vGameBoard::searchVEnemy(vEnnemy& enemy)
     return false;
 }*/
 
-/* remove a vtower of gameboard*/
+/** remove a vtower of gameboard*/
 int vGameBoard::searchVTower(int position)
 {
     int result = -1;
@@ -211,7 +211,7 @@ int vGameBoard::searchVTower(int position)
     return result;
 }
 
-/* remove a vtower of gameboard*/
+/**remove a vtower of gameboard*/
 bool vGameBoard::removeVTower(int position)
 {
 
@@ -232,7 +232,7 @@ bool vGameBoard::removeVTower(int position)
     return false;
 }
 
-/*to manage the events */
+/**to manage the events */
 void vGameBoard::InputHandler(Event event, RenderWindow *window)
 {
     // close the window
@@ -717,7 +717,7 @@ void vGameBoard::drawEntities()
 
         ///A DEPLACER
         ///enemies spawn one per one
-        if(spawnClock.getElapsedTime().asSeconds() > (spawnTime / game.getGameSpeed()) && idSpawn < (int)listOfvEnnemies.size())
+        if(spawnClock.getElapsedTime().asSeconds() > (spawnTime / game.getGameSpeed()) && idSpawn < (int)listOfvEnnemies.size() && !gamePaused)
         {
             listOfvEnnemies[idSpawn]->getEnemy()->setSpawn(true);
             idSpawn++;
@@ -785,7 +785,7 @@ void vGameBoard::drawEntities()
 
 }
 
-//fonction for actionEvent on Buttons Sprite
+/**Detect events when buttons are pressed*/
 bool vGameBoard::isSpriteClicked (Sprite &spr)
 {
     //take the position of the mouse
@@ -909,7 +909,7 @@ void vGameBoard::updateKingHealth()
     kingHealthGreenSprite.setScale(Vector2f(0.20*remainingHealth,0.20));
 }
 
-/** update health bar of all enemies who are not dead **/
+/**update health bar of all enemies who are not dead **/
 void vGameBoard::updateHealthBarAllEnemies()
 {
     for(vEnnemy *venemy:listOfvEnnemies)
@@ -1035,7 +1035,7 @@ void vGameBoard::adaptAnimationSprite()
 
 }
 
-/** adapt which part of spreet sheet we need to display */
+/**adapt which part of spreet sheet we need to display*/
 void vGameBoard::adaptPartOfTexture()
 {
     if(animClock.getElapsedTime().asSeconds() > 0.08f / game.getGameSpeed())
@@ -1125,9 +1125,7 @@ void vGameBoard::adaptPartOfTexture()
     }
 }
 
-/**
-*call the method updateTexture who in terms of the state of ennemy set the good texture to sprite
-*/
+/**call the method updateTexture who in terms of the state of ennemy set the good texture to sprite*/
 void vGameBoard::adaptAnimationTexture()
 {
     //adapt the texture of only dead enemies to save resources
@@ -1353,7 +1351,6 @@ void vGameBoard::getPositionOfEarth(int &x, int &y, int position)
         }
     }
 }
-
 
 /**
 this method defines a position in x and y to display the tower in the right place on the map
