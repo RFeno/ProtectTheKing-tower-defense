@@ -762,27 +762,26 @@ void vGameBoard::drawEntities()
                 }
             }
         }
+
+         // button to sell towers
+        windowFromMain->draw(sellButtonSprite);
+        windowFromMain->draw(sellText);
+
+        // When the player must choose the emplacement of tower
+        if(isChoosingNumberForPositionTower)
+        {
+            windowFromMain->draw(*signSprites.back());
+            windowFromMain->draw(oneSprite);
+            windowFromMain->draw(twoSprite);
+            windowFromMain->draw(threeSprite);
+            windowFromMain->draw(fourSprite);
+            windowFromMain->draw(fiveSprite);
+            windowFromMain->draw(sixSprite);
+            windowFromMain->draw(sevenSprite);
+            windowFromMain->draw(chooseNumberText);
+            windowFromMain->draw(closeButtonSprite);
+        }
     }
-
-    // When the player must choose the emplacement of tower
-    if(isChoosingNumberForPositionTower)
-    {
-        windowFromMain->draw(*signSprites.back());
-        windowFromMain->draw(oneSprite);
-        windowFromMain->draw(twoSprite);
-        windowFromMain->draw(threeSprite);
-        windowFromMain->draw(fourSprite);
-        windowFromMain->draw(fiveSprite);
-        windowFromMain->draw(sixSprite);
-        windowFromMain->draw(sevenSprite);
-        windowFromMain->draw(chooseNumberText);
-        windowFromMain->draw(closeButtonSprite);
-    }
-
-    // button to sell towers
-    windowFromMain->draw(sellButtonSprite);
-    windowFromMain->draw(sellText);
-
 }
 
 /**Detect events when buttons are pressed*/

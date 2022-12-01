@@ -213,10 +213,7 @@ class vGameBoard
         sf::Texture fireTexture;
         sf::Texture emptyButtonTexture;
         sf::Texture closeButtonTexture;
-        sf::Texture headerFailedTexture;
-        sf::Texture tableEmptyTexture;
         sf::Texture headerUpgradeTexture;
-        sf::Texture resetButtonTexture;
 
 
         ///Speel textures

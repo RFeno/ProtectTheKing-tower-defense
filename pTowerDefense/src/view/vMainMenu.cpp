@@ -25,9 +25,9 @@ void vMainMenu::launchMenu(RenderWindow& window)
     // limit the window to 60 images per second
     window.setFramerateLimit(60);
 
-    if(verifyImage())
-    {
-        loadSprite();
+    /*if(verifyImage())
+    {*/
+        //loadSprite();
          while (window.isOpen())
         {
             Event event;
@@ -38,26 +38,13 @@ void vMainMenu::launchMenu(RenderWindow& window)
             }
 
             window.clear();
-            drawEntities(window);
+            //drawEntities(window);
             window.display();
         }
-    }
-
-    else
-        cout << "error" <<endl;
-
+    //}
 
 }
-/* to load PLump font*/
-void vMainMenu::loadFont()
-{
-    Font font;
 
-    if(!font.loadFromFile("res/fonts/plump.tff"))
-    {
-        cout << "error to charge font " << endl;
-    }
-}
 /*to manage the events */
 void vMainMenu::InputHandler(Event event, RenderWindow &window)
 {
@@ -164,10 +151,10 @@ void vMainMenu::drawEntities(RenderWindow& window)
 {
     //display elemeents
     //window.draw(bgSprite);
-    window.draw(musiqueOnSprite);
+    /*window.draw(musiqueOnSprite);
     window.draw(settingsSprite);
     window.draw(logoSprite);
-    window.draw(playSprite);
+    window.draw(playSprite);*/
 }
 
 //fonction for actionEvent on Buttons Sprite

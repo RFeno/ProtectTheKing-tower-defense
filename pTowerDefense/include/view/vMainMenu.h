@@ -13,7 +13,6 @@ class vMainMenu
         //methods
         void launchMenu(RenderWindow& window);
         void loadSprite();
-        void loadFont();
         bool verifyImage();
         void drawEntities(RenderWindow& window);
         void InputHandler(Event event, RenderWindow &window);

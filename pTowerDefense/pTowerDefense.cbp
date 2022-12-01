@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="pTowerDefense" />
+		<Option title="pGroupeA05" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -80,8 +80,6 @@
 		<Unit filename="src/model/King.cpp" />
 		<Unit filename="src/model/KnightOfDeath.cpp" />
 		<Unit filename="src/model/Map.cpp" />
-		<Unit filename="src/model/Observable.cpp" />
-		<Unit filename="src/model/Observer.cpp" />
 		<Unit filename="src/model/Ogre.cpp" />
 		<Unit filename="src/model/Orc.cpp" />
 		<Unit filename="src/model/Player.cpp" />
