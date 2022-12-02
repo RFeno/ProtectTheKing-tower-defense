@@ -15,7 +15,7 @@ using namespace sf;
 int main()
 {
 
-    Gremlin grem;
+    /*Gremlin grem;
     grem.setX(200.5);
     grem.setHealth(5000);
     grem.setWalkingSpeed(500);
@@ -27,14 +27,14 @@ int main()
 
     salut=grem;
 
-    cout << salut.getInformations() << endl;
+    cout << salut.getInformations() << endl;*/
 
-//    srand(time(0));
-//
-//    RenderWindow window(VideoMode(1400, 800), "Protect the king");
-//
-//    vMainMenu mainMenu(window);
-//    mainMenu.launchMenu();
+    srand(time(0));
+
+    RenderWindow window(VideoMode(1400, 800), "Protect the king");
+
+    vMainMenu mainMenu(window);
+    mainMenu.launchMenu();
 
 //    vGameManager gameMan;
 //    gameMan.launchGame();

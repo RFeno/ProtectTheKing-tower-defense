@@ -59,6 +59,11 @@ vGameBoard::vGameBoard(RenderWindow &window)
 
         listOfvEnnemies.push_back(venemy);
     }
+
+    for(int i=0; i < NUMBER_ACIDE_SPELL; i++)
+    {
+        listOfAcideCloudSpell.push_back(new Sprite());
+    }
 }
 
 vGameBoard::~vGameBoard()
@@ -110,14 +115,15 @@ void vGameBoard::launchView()
 
         while (windowFromMain->isOpen())
         {
+            Event event;
+
+            while(windowFromMain->pollEvent(event))
+            {
+                InputHandler(event, windowFromMain);
+            }
+
             if(!gamePaused && !game.isGameOver())
             {
-                Event event;
-
-                while(windowFromMain->pollEvent(event))
-                {
-                    InputHandler(event, windowFromMain);
-                }
                 updateGame();
             }
 
@@ -138,13 +144,6 @@ void vGameBoard::updateVennemyForView()
         listOfvEnnemies[i]->setEnemy(game.getMap()->getEnemies()[i]);
         listOfvEnnemies[i]->chargeInformations();
     }
-
-
-//    for(int i=0; i < NUMBER_ACIDE_SPELL; i++)
-//    {
-//        listOfAcideCloudSpell.push_back(new Sprite());
-//    }
-
 }
 
 int vGameBoard::searchVEnemy(vEnnemy& enemy)
@@ -647,6 +646,7 @@ void vGameBoard::loadSprite()
     sevenSprite.setPosition(830, 255);
     sevenSprite.setScale(Vector2f(0.5f,0.5f));
 }
+
 /** load and configure game speed entitites */
 void vGameBoard::loadGameSpeedEntities()
 {
@@ -790,6 +790,7 @@ bool vGameBoard::isSpriteClicked (Sprite &spr)
 		return false;
 	}
 }
+
 /** animate enemy at the screen */
 void vGameBoard::enemyAnimation()
 {
@@ -803,7 +804,7 @@ void vGameBoard::enemyAnimation()
 /** play once, update model of game */
 void vGameBoard::updateGame()
 {
-    cout << game.getMap()->strEnemies() << endl;
+//    cout << game.getMap()->strEnemies() << endl;
 //    cout << game.getMap()->getKing().getInformations() << endl;
 
 //    cout << game.getMap()->strTowers() <<endl;
@@ -905,7 +906,7 @@ void vGameBoard::updateHealthBarAllEnemies()
         }
     }
 }
-
+/** draw map entities */
 void vGameBoard::drawMapEntities()
 {
     drawMapButtons();
@@ -942,6 +943,7 @@ void vGameBoard::drawMapEntities()
     windowFromMain->draw(fourHundredSprite);
 }
 
+/** draw map buttons */
 void vGameBoard::drawMapButtons()
 {
     ///spell buttons
@@ -1123,6 +1125,7 @@ void vGameBoard::adaptAnimationTexture()
     }
 }
 
+/** buy the tower*/
 void vGameBoard::buyTower(TypeOfTower type, int position)
 {
     int x,y;
@@ -1515,6 +1518,7 @@ bool vGameBoard::verifyImage()
 
 }
 
+/** verify if the image of towers are accessibles */
 bool vGameBoard::verifyImageTower()
 {
     if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
@@ -1567,6 +1571,7 @@ bool vGameBoard::verifyImageTower()
     return true;
 }
 
+/** verify if the image of monsters are accessibles */
 bool vGameBoard::verifyImageMonsters()
 {
     if (!ogreTextureWalk.loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
@@ -1661,6 +1666,7 @@ bool vGameBoard::verifyImageMonsters()
     return true;
 }
 
+/** verify if the image of map entities are accessibles */
 bool vGameBoard::verifyImageMapEntities()
 {
     if(!emptyButtonTexture.loadFromFile("res/images/gameBoard/button_empty.png"))
@@ -1780,6 +1786,7 @@ bool vGameBoard::verifyImageMapEntities()
     return true;
 }
 
+/** verify if the image of informations of towers are accessibles */
 bool vGameBoard::verifyImageInformations()
 {
     if (!oneTexture.loadFromFile("res/images/gameBoard/num_1.png"))
