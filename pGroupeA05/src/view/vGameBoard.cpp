@@ -229,6 +229,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     // detect mouse click
     if (event.type == Event::MouseButtonPressed)
     {
+        cout << "model : " << game.getMap()->getTowers().size() <<endl;
+        cout << "vue : " << listOfvTower.size() <<endl;
         if (event.mouseButton.button == Mouse::Left)
         {
             if(!isChoosingNumberForPositionTower)
@@ -370,6 +372,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 1;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
@@ -377,6 +386,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 2;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
@@ -384,6 +400,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 3;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
@@ -391,6 +414,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 4;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
@@ -398,6 +428,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 5;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
@@ -405,6 +442,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 6;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
@@ -412,6 +456,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     position = 7;
                     isChoosingNumberForPositionTower = false;
+                    for(vTower* vt : listOfvTower)
+                    {
+                        if(vt->getPosition() == position)
+                        {
+                            game.getMap()->removeTower(*vt->getTower());
+                        }
+                    }
                     removeVTower(position);
                     isSellingTower = false;
                 }
