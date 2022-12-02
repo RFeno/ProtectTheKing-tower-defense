@@ -33,3 +33,6 @@ pTowerDefense/obj/Debug/src/view/vSettings.o
 pTowerDefense/obj/Debug/src/view/vPlayerRegistration.o
 pTowerDefense/obj/Debug/src/view/vMainMenu.o
 pTowerDefense/obj/Debug/src/view/vMainManager.o
+pTowerDefense/obj/Debug/src/view/vEnnemy.o
+pTowerDefense/obj/Debug/src/view/vGame.o
+*.o

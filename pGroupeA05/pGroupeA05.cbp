@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="pGroupeA05" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/pGroupeA05" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="include/model" />
+					<Add directory="include/view" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/pGroupeA05" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+					<Add directory="include/model" />
+					<Add directory="include/view" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Linker>
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+		</Linker>
+		<Unit filename="include/model/AcidCloudSpell.h" />
+		<Unit filename="include/model/Enemies.h" />
+		<Unit filename="include/model/FireSpell.h" />
+		<Unit filename="include/model/Game.h" />
+		<Unit filename="include/model/Gremlin.h" />
+		<Unit filename="include/model/King.h" />
+		<Unit filename="include/model/KnightOfDeath.h" />
+		<Unit filename="include/model/Map.h" />
+		<Unit filename="include/model/Ogre.h" />
+		<Unit filename="include/model/Orc.h" />
+		<Unit filename="include/model/Player.h" />
+		<Unit filename="include/model/ShadowMonster.h" />
+		<Unit filename="include/model/Spell.h" />
+		<Unit filename="include/model/State.h" />
+		<Unit filename="include/model/StateAttack.h" />
+		<Unit filename="include/model/StateDie.h" />
+		<Unit filename="include/model/StateWalk.h" />
+		<Unit filename="include/model/Tower.h" />
+		<Unit filename="include/model/TowerEarth.h" />
+		<Unit filename="include/model/TowerIce.h" />
+		<Unit filename="include/model/TowerIron.h" />
+		<Unit filename="include/model/TowerSand.h" />
+		<Unit filename="include/view/vEnnemy.h" />
+		<Unit filename="include/view/vGame.h" />
+		<Unit filename="include/view/vGameBoard.h" />
+		<Unit filename="include/view/vGameManager.h" />
+		<Unit filename="include/view/vGameOver.h" />
+		<Unit filename="include/view/vMainMenu.h" />
+		<Unit filename="include/view/vTower.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/model/AcidCloudSpell.cpp" />
+		<Unit filename="src/model/Enemies.cpp" />
+		<Unit filename="src/model/FireSpell.cpp" />
+		<Unit filename="src/model/Game.cpp" />
+		<Unit filename="src/model/Gremlin.cpp" />
+		<Unit filename="src/model/King.cpp" />
+		<Unit filename="src/model/KnightOfDeath.cpp" />
+		<Unit filename="src/model/Map.cpp" />
+		<Unit filename="src/model/Ogre.cpp" />
+		<Unit filename="src/model/Orc.cpp" />
+		<Unit filename="src/model/Player.cpp" />
+		<Unit filename="src/model/ShadowMonster.cpp" />
+		<Unit filename="src/model/Spell.cpp" />
+		<Unit filename="src/model/State.cpp" />
+		<Unit filename="src/model/StateAttack.cpp" />
+		<Unit filename="src/model/StateDie.cpp" />
+		<Unit filename="src/model/StateWalk.cpp" />
+		<Unit filename="src/model/Tower.cpp" />
+		<Unit filename="src/model/TowerEarth.cpp" />
+		<Unit filename="src/model/TowerIce.cpp" />
+		<Unit filename="src/model/TowerIron.cpp" />
+		<Unit filename="src/model/TowerSand.cpp" />
+		<Unit filename="src/view/vEnnemy.cpp" />
+		<Unit filename="src/view/vGame.cpp" />
+		<Unit filename="src/view/vGameBoard.cpp" />
+		<Unit filename="src/view/vGameManager.cpp" />
+		<Unit filename="src/view/vGameOver.cpp" />
+		<Unit filename="src/view/vMainMenu.cpp" />
+		<Unit filename="src/view/vTower.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
