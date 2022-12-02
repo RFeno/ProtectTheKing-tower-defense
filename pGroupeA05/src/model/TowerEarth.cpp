@@ -10,7 +10,7 @@ TowerEarth::~TowerEarth()
     //dtor
 }
 
-TowerEarth::TowerEarth(const TowerEarth& other)
+TowerEarth::TowerEarth(const TowerEarth& other):Tower(other)
 {
     //copy ctor
 }
@@ -18,6 +18,9 @@ TowerEarth::TowerEarth(const TowerEarth& other)
 TowerEarth& TowerEarth::operator=(const TowerEarth& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Tower::operator=(rhs);
+
     //assignment operator
     return *this;
 }

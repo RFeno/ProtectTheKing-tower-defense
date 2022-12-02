@@ -11,7 +11,7 @@ TowerIron::~TowerIron()
     //dtor
 }
 
-TowerIron::TowerIron(const TowerIron& other)
+TowerIron::TowerIron(const TowerIron& other): Tower(other)
 {
     //copy ctor
 }
@@ -19,6 +19,9 @@ TowerIron::TowerIron(const TowerIron& other)
 TowerIron& TowerIron::operator=(const TowerIron& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Tower::operator=(rhs);
+
     //assignment operator
     return *this;
 }

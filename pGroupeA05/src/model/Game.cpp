@@ -1,12 +1,17 @@
+/** MODEL */
 #include "Game.h"
 #include "Player.h"
 #include "King.h"
 #include "Map.h"
+
+/** STATES */
+#include "State.h"
+#include "StateDie.h"
+
 #include <string>
 #include <iostream>
 
-#include "State.h"
-#include "StateDie.h"
+
 
 using namespace std;
 
@@ -22,8 +27,8 @@ Game::~Game()
     delete player;
     delete mapOfGame;
 }
-/** DEMANDER AU PROF SI BESOIN DE TOUTES LES CLASSES CANONIQUES OU PAS*/
-Game::Game(const Game& other)
+
+Game::Game(const Game& other): player(other.player), mapOfGame(other.mapOfGame)
 {
     //copy ctor
 }
@@ -31,6 +36,16 @@ Game::Game(const Game& other)
 Game& Game::operator=(const Game& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    if(player!=nullptr)
+    {
+        delete player;
+    }
+
+    if(mapOfGame!=nullptr)
+    {
+        delete mapOfGame;
+    }
 
     this->player=rhs.player;
     this->mapOfGame=rhs.mapOfGame;
@@ -73,7 +88,7 @@ void Game::createWave()
             }
             case 5:
             {
-                 mapOfGame->addEnemy(gremlinValue);
+                mapOfGame->addEnemy(gremlinValue);
                 break;
             }
         }
@@ -136,7 +151,7 @@ bool Game::isGameOver()
     return false;
 }
 
-/** Increase the speed of game */
+/** increase the speed of game */
 void Game::increaseGameSpeed()
 {
     if(gameSpeed<3)
@@ -145,7 +160,7 @@ void Game::increaseGameSpeed()
     }
 }
 
-/** Decrease the speed of game */
+/** decrease the speed of game */
 void Game::decreaseGameSpeed()
 {
     if(gameSpeed>1)

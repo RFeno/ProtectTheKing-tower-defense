@@ -24,8 +24,10 @@ class Tower
 
         //methods
         bool improveLevel();
+        void improveStatistics();
         bool isInRange(int xOfEnemy,int xOfTower);
         void attackEnemy(Enemies &cible)const;
+
         std::string toString()const;
 
         //getters and setters

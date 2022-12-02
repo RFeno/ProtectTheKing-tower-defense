@@ -10,7 +10,7 @@ TowerIce::~TowerIce()
     //dtor
 }
 
-TowerIce::TowerIce(const TowerIce& other)
+TowerIce::TowerIce(const TowerIce& other):Tower(other)
 {
     //copy ctor
 }
@@ -18,6 +18,9 @@ TowerIce::TowerIce(const TowerIce& other)
 TowerIce& TowerIce::operator=(const TowerIce& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Tower::operator=(rhs);
+
     //assignment operator
     return *this;
 }

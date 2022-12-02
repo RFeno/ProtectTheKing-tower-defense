@@ -14,7 +14,7 @@ King::~King()
     //dtor
 }
 
-King::King(const King& other)
+King::King(const King& other): health(other.health),kingHealthMax(other.health)
 {
     //copy ctor
 }
@@ -22,6 +22,10 @@ King::King(const King& other)
 King& King::operator=(const King& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    this->health=rhs.health;
+    this->kingHealthMax=rhs.kingHealthMax;
+
     //assignment operator
     return *this;
 }

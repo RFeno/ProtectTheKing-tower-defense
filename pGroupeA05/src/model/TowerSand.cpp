@@ -10,7 +10,7 @@ TowerSand::~TowerSand()
     //dtor
 }
 
-TowerSand::TowerSand(const TowerSand& other)
+TowerSand::TowerSand(const TowerSand& other):Tower(other)
 {
     //copy ctor
 }
@@ -18,6 +18,9 @@ TowerSand::TowerSand(const TowerSand& other)
 TowerSand& TowerSand::operator=(const TowerSand& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Tower::operator=(rhs);
+
     //assignment operator
     return *this;
 }
