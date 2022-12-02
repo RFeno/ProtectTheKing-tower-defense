@@ -28,3 +28,8 @@ pTowerDefense/obj/Debug/src/model/Gremlin.o
 pTowerDefense/obj/Debug/src/model/Game.o
 pTowerDefense/obj/Debug/src/model/FireSpell.o
 *.o
+pTowerDefense/obj/Debug/src/view/vTower.o
+pTowerDefense/obj/Debug/src/view/vSettings.o
+pTowerDefense/obj/Debug/src/view/vPlayerRegistration.o
+pTowerDefense/obj/Debug/src/view/vMainMenu.o
+pTowerDefense/obj/Debug/src/view/vMainManager.o
