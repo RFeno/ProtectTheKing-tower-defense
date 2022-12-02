@@ -11,8 +11,6 @@ class State
     public:
 
         virtual ~State();
-        /*State(const State& other);
-        State& operator=(const State& other);*/
 
         void setEnemy(Enemies *enemy)
         {

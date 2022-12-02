@@ -12,11 +12,10 @@ class vGameBoard
 {
     public:
 
-        ///canonic
         vGameBoard(sf::RenderWindow &window);
         virtual ~vGameBoard();
-        vGameBoard(const vGameBoard& other);
-        vGameBoard& operator=(const vGameBoard& other);
+        /*vGameBoard(const vGameBoard& other);
+        vGameBoard& operator=(const vGameBoard& other);*/
 
         ///DISPLAY
         void launchView();
@@ -175,21 +174,21 @@ class vGameBoard
         sf::Sprite kingHealthGreenSprite;
         sf::Sprite kingHealthRedSprite;
 
-        ///enemies walk
+        ///enemies walk textures
         sf::Texture gremlinTextureWalk;
         sf::Texture knightOfDeathTextureWalk;
         sf::Texture shadowMonsterTextureWalk ;
         sf::Texture ogreTextureWalk;
         sf::Texture orcTextureWalk;
 
-        ///enemies attack
+        ///enemies attack textures
         sf::Texture gremlinAttackTexture;
         sf::Texture knightOfDeathAttackTexture ;
         sf::Texture shadowMonsterAttackTexture;
         sf::Texture ogreAttackTexture ;
         sf::Texture orcAttackTexture ;
 
-        ///enemies dead
+        ///enemies dead textures
         sf::Texture gremlinDeadTexture ;
         sf::Texture knightOfDeathDeadTexture ;
         sf::Texture shadowMonsterDeadTexture;

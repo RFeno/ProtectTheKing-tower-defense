@@ -17,8 +17,6 @@ class vGameManager
 
     private:
         sf::RenderWindow *window;
-        const int WIN_WIDTH = 1400;
-        const int WIN_HEIGHT = 800;
 };
 
 #endif // VGAMEMANAGER_H

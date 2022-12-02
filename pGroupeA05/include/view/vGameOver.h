@@ -28,6 +28,7 @@ class vGameOver
 
 
     protected:
+        sf::RenderWindow *window;
 
     private:
 };

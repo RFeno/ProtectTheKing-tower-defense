@@ -31,10 +31,15 @@ Game::Game(const Game& other)
 Game& Game::operator=(const Game& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    this->player=rhs.player;
+    this->mapOfGame=rhs.mapOfGame;
+
     //assignment operator
     return *this;
 }
-/* launch the wave, generate enemies*/
+
+/** launch the wave, generate enemies*/
 void Game::createWave()
 {
     numeroOfWave++;
@@ -43,7 +48,7 @@ void Game::createWave()
     {
         int typeOfEnemy = rand()%5 +1;
 
-        //creation of ennemies randomly
+        ///creation of ennemies randomly
         switch(typeOfEnemy)
         {
             case 1:
@@ -75,9 +80,7 @@ void Game::createWave()
     }
 }
 
-/**
-* move the enemies
-*/
+/** move the enemies */
 void Game::ennemiesWalk()
 {
     for(Enemies* enemy : mapOfGame->getEnemies())
@@ -86,7 +89,7 @@ void Game::ennemiesWalk()
     }
 }
 
-/* the enemies attack the king */
+/** the enemies attack the king */
 void Game::ennemiesAttack()
 {
     for(Enemies* enemy:mapOfGame->getEnemies())
@@ -95,9 +98,7 @@ void Game::ennemiesAttack()
     }
 }
 
-/**
-attack the enemies who is nearby (inused)
-*/
+/** attack the enemies who is nearby (inused) */
 void Game::towerAttack()
 {
     for(Tower* tower:mapOfGame->getTowers())
@@ -112,9 +113,7 @@ void Game::towerAttack()
     }
 }
 
-/**
- detect if is the end of wave
-*/
+/** detect if is the end of wave */
 bool Game::IsEndOfWave()
 {
     for(Enemies *enemy:mapOfGame->getEnemies())
@@ -127,9 +126,7 @@ bool Game::IsEndOfWave()
     return true;
 }
 
-/**
-*cuts the game when the player has lost (when the king is dead)
-*/
+/** cuts the game when the player has lost (when the king is dead) */
 bool Game::isGameOver()
 {
     if(mapOfGame->getKing().getHealth()<=0)
@@ -139,7 +136,7 @@ bool Game::isGameOver()
     return false;
 }
 
-/**Increase the speed of game*/
+/** Increase the speed of game */
 void Game::increaseGameSpeed()
 {
     if(gameSpeed<3)
@@ -148,7 +145,7 @@ void Game::increaseGameSpeed()
     }
 }
 
-/**Decrease the speed of game */
+/** Decrease the speed of game */
 void Game::decreaseGameSpeed()
 {
     if(gameSpeed>1)

@@ -95,17 +95,6 @@ vGameBoard::~vGameBoard()
     }
 }
 
-vGameBoard::vGameBoard(const vGameBoard& other)
-{
-    //copy ctor
-}
-
-vGameBoard& vGameBoard::operator=(const vGameBoard& rhs)
-{
-    if (this == &rhs) return *this; // handle self assignment
-    //assignment operator
-    return *this;
-}
 
 void vGameBoard::launchView()
 {
@@ -121,15 +110,14 @@ void vGameBoard::launchView()
 
         while (windowFromMain->isOpen())
         {
-            Event event;
-
-            while (windowFromMain->pollEvent(event))
-            {
-                InputHandler(event, windowFromMain);
-            }
-
             if(!gamePaused && !game.isGameOver())
             {
+                Event event;
+
+                while(windowFromMain->pollEvent(event))
+                {
+                    InputHandler(event, windowFromMain);
+                }
                 updateGame();
             }
 
@@ -140,8 +128,6 @@ void vGameBoard::launchView()
             windowFromMain->display();
         }
     }
-    else
-        cout << "error" <<endl;
 }
 
 void vGameBoard::updateVennemyForView()
@@ -817,7 +803,7 @@ void vGameBoard::enemyAnimation()
 /** play once, update model of game */
 void vGameBoard::updateGame()
 {
-//    cout << game.getMap()->strEnemies() << endl;
+    cout << game.getMap()->strEnemies() << endl;
 //    cout << game.getMap()->getKing().getInformations() << endl;
 
 //    cout << game.getMap()->strTowers() <<endl;

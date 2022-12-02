@@ -6,7 +6,7 @@ using namespace std;
 King::King(int health): health(health),kingHealthMax(health)
 {
     //ctor
-    //this->kingHealthMax=health;
+    this->kingHealthMax=health;
 }
 
 King::~King()

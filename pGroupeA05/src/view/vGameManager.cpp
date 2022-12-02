@@ -9,13 +9,13 @@ using namespace sf;
 vGameManager::vGameManager()
 {
     //ctor
-    window = new RenderWindow(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king");
+    //window = new RenderWindow(VideoMode(WIN_WIDTH, WIN_HEIGHT), "Protect the king");
 }
 
 vGameManager::~vGameManager()
 {
     //dtor
-    delete window;
+    //delete window;
 }
 
 void vGameManager::launchGame()

@@ -41,6 +41,7 @@ class Enemies
         //getters and setters
         void setHealth(int health);
         void setX(float x);
+        void setWalkingSpeed(float speed);
 
         int getHealth()const
         {
@@ -82,8 +83,6 @@ class Enemies
             return spawn;
         }
 
-        void setWalkingSpeed(float speed);
-
         void setSpawn(bool spawn)
         {
             this->spawn=spawn;
@@ -124,12 +123,15 @@ class Enemies
 
         float walkingSpeed;
 
-
-        //enemies start at -40 to arrive naturally on the screen
+        //enemies start at -50 to arrive naturally on the screen
         float x = -50;
-        float y;
+        float y = 0;
+
         int *id;
+
         State *state = nullptr;
+
+        const float IMPROVE_LEVEL = 0.35;
 
     private:
 

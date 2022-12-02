@@ -1,5 +1,6 @@
 #include "Gremlin.h"
 #include "Enemies.h"
+
 #include <string.h>
 
 using namespace std;
@@ -7,6 +8,7 @@ using namespace std;
 Gremlin::Gremlin(int health, int marketValue, int scoreValue, int damage,float walkingSpeed):Enemies(health,marketValue,scoreValue,damage,walkingSpeed)
 {
     //ctor
+    //position of gremlins on the map
     y=555;
 }
 

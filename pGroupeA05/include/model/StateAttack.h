@@ -5,8 +5,6 @@
 class StateAttack: public State
 {
     public:
-        //--virtual ~StateAttack();
-
         void walk() override;
         void die() override;
         void attackKing(King &king)override;

@@ -5,11 +5,6 @@
 class StateWalk: public State
 {
     public:
-        /*StateWalk();
-        virtual ~StateWalk();
-        StateWalk(const StateWalk& other);
-        StateWalk& operator=(const StateWalk& other);*/
-
         void walk() override;
         void die() override;
         void attackKing(King &king)override;
