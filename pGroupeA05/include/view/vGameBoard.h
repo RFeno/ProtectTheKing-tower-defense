@@ -14,8 +14,6 @@ class vGameBoard
 
         vGameBoard(sf::RenderWindow &window);
         virtual ~vGameBoard();
-        /*vGameBoard(const vGameBoard& other);
-        vGameBoard& operator=(const vGameBoard& other);*/
 
         ///DISPLAY
         void launchView();
@@ -24,6 +22,7 @@ class vGameBoard
         void drawEntities();
 
         void drawEnemies();
+        void drawOneEnemy(vEnnemy *enemy);
 
         void drawMapEntities();
         void drawMapButtons();
@@ -66,10 +65,8 @@ class vGameBoard
         int searchVEnemy(vEnnemy& enemy);
 
 
-        /**A DEPLACER DANS LE MODEL car traitements */
 
-
-        ///ADAPTE IMAGES
+        ///ADAPT IMAGES
         void adaptAnimationSprite();
         void adaptAnimationTexture();
         void adaptPartOfTexture();
@@ -108,8 +105,8 @@ class vGameBoard
 
         int x_acide = 0;
 
-        bool isChoosingNumberForPositionTower;
-        bool isSellingTower;
+        bool isChoosingNumberForPositionTower = false;
+        bool isSellingTower = false;
 
         TypeOfTower typeTowerChoosed;
 
@@ -261,6 +258,11 @@ class vGameBoard
         std::vector<sf::Sprite*> fiveSprites;
         std::vector<sf::Sprite*> sixSprites;
         std::vector<sf::Sprite*> sevenSprites;
+
+        /**A déplacer */
+        sf::Texture tableEmptyTexture;
+        sf::Texture headerFailedTexture;
+        sf::Texture resetButtonTexture;
 
 };
 

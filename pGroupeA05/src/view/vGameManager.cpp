@@ -17,14 +17,3 @@ vGameManager::~vGameManager()
     //dtor
     //delete window;
 }
-
-void vGameManager::launchGame()
-{
-   /* vMainMenu mainMenu();
-    mainMenu.launchMenu(*window);*/
-}
-
-void vGameManager::launchGameBoard()
-{
-
-}

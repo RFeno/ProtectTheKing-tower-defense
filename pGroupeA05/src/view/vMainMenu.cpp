@@ -1,7 +1,7 @@
 #include "vMainMenu.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "vGame.h"
+
 #include "vGameBoard.h"
 using namespace sf;
 

@@ -181,40 +181,6 @@ void vGameBoard::updateVennemyForView()
     }
 }
 
-/*int vGameBoard::searchVEnemy(vEnnemy& enemy)
-{
-    int result = -1;
-
-    for(size_t i=0;i<listOfvEnnemies.size();i++)
-    {
-        if(listOfvEnnemies[i]==&enemy)
-        {
-            result=i;
-            break;
-        }
-    }
-    return result;
-}*/
-
-/**bool vGameBoard::removeVEnemy(vEnnemy& enemy)
-{
-    int index = searchVEnemy(enemy);
-
-    if(index!=-1)
-    {
-        vEnnemy *tmp = *(listOfvEnnemies.begin() + index);
-        listOfvEnnemies.erase(listOfvEnnemies.begin()+index);
-        delete tmp;
-
-        return true;
-    }
-    else
-    {
-        cout << "this enemy is not in the list of vEnnmy" << endl;
-    }
-    return false;
-}*/
-
 /** remove a vtower of gameboard*/
 int vGameBoard::searchVTower(int position)
 {
@@ -796,7 +762,7 @@ void vGameBoard::loadGameSpeedEntities()
     pauseButtonSprite.setPosition(660, 707);
     increaseSpeedButtonSprite.setPosition(760, 707);
     decreaseSpeedButtonSprite.setPosition(560, 707);
-    playGameButtonSprite.setPosition(665, 707);
+    playGameButtonSprite.setPosition(665, 712);
     gameSpeedEmptyTableSprite.setPosition(663,655);
     multiplierSprite.setPosition(702,668);
 
@@ -939,14 +905,14 @@ void vGameBoard::updateGame()
 //    cout << game.getMap()->getKing().getInformations() << endl;
 //    cout << game.getMap()->strTowers() <<endl;
 
+    ///reset wave is all enemies are dead
     if(game.IsEndOfWave())
     {
         //desactivate all animations for tower
-        /*for(vTower *vtower:listOfvTower)
+        for(vTower *vtower:listOfvTower)
         {
             vtower->setAttackAnimation(false);
-        }*/
-
+        }
         game.refreshEnemies();
         updateVennemyForView();
     }
@@ -960,7 +926,6 @@ void vGameBoard::updateGame()
 
         spawnClock.restart();
     }
-
 
 
     ///game speed
@@ -996,7 +961,6 @@ void vGameBoard::updateGame()
             attackTowerClock.restart();
         }
 
-        //king attack
         /** GERER ICI LE TEMPS ENTRE 2 ATTACK DES ENNEMIS SUR LE ROI */
         if(attackClock.getElapsedTime().asSeconds() > (0.5f / game.getGameSpeed()))
         {
@@ -1103,52 +1067,42 @@ void vGameBoard::drawEnemies()
                 switch(i)
                 {
                     case 0:
+                    {
+                        if(dynamic_cast<Orc*>(enemy->getEnemy()))
                         {
-                            if(dynamic_cast<Orc*>(enemy->getEnemy()))
-                            {
-                                windowFromMain->draw(*enemy->getSprite());
-                                windowFromMain->draw(enemy->healthBarRedSprite);
-                                windowFromMain->draw(enemy->healthBarGreenSprite);
-                            }
-                            break;
+                           drawOneEnemy(enemy);
                         }
+                        break;
+                    }
                     case 1:
+                    {
+                        if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
                         {
-                            if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
-                            {
-                                windowFromMain->draw(*enemy->getSprite());
-                                windowFromMain->draw(enemy->healthBarRedSprite);
-                                windowFromMain->draw(enemy->healthBarGreenSprite);
-                            }
-                            break;
+                            drawOneEnemy(enemy);
                         }
+                        break;
+                    }
                     case 2:
+                    {
+                        if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
                         {
-                            if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
-                            {
-                                windowFromMain->draw(*enemy->getSprite());
-                                windowFromMain->draw(enemy->healthBarRedSprite);
-                                windowFromMain->draw(enemy->healthBarGreenSprite);
-                            }
-                            break;
+                           drawOneEnemy(enemy);
                         }
+                        break;
+                    }
                     case 3:
+                    {
+                        if(dynamic_cast<Ogre*>(enemy->getEnemy()))
                         {
-                            if(dynamic_cast<Ogre*>(enemy->getEnemy()))
-                            {
-                                windowFromMain->draw(*enemy->getSprite());
-                                windowFromMain->draw(enemy->healthBarRedSprite);
-                                windowFromMain->draw(enemy->healthBarGreenSprite);
-                            }
-                            break;
+                           drawOneEnemy(enemy);
                         }
+                        break;
+                    }
                     case 4:
                     {
                         if(dynamic_cast<KnightOfDeath*>(enemy->getEnemy()))
                         {
-                            windowFromMain->draw(*enemy->getSprite());
-                            windowFromMain->draw(enemy->healthBarRedSprite);
-                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                            drawOneEnemy(enemy);
                         }
                         break;
                     }
@@ -1156,6 +1110,13 @@ void vGameBoard::drawEnemies()
             }
         }
     }
+}
+
+void vGameBoard::drawOneEnemy(vEnnemy *enemy)
+{
+    windowFromMain->draw(*enemy->getSprite());
+    windowFromMain->draw(enemy->healthBarRedSprite);
+    windowFromMain->draw(enemy->healthBarGreenSprite);
 }
 
 /**draw all entities for game speed */
@@ -1367,7 +1328,6 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
         cout << "A tower is already at this position. You canno't buy a another tower at the same postion" <<endl;
     }
 }
-
 
 /**
 to verify if all images is accessible and charge in the texture
