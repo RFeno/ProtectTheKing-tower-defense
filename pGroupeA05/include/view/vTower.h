@@ -11,9 +11,14 @@ class vTower
         int y;
         sf::Sprite* towerSprite;
         sf::Sprite* attackSprite;
+        sf::Sprite bulletSprite;
+
         Tower *tower;
         sf::Clock* animAttackClock;
+        sf::Clock bulletClock;
         int position;
+
+        bool attackAnimation = false;
 
 
     public:
@@ -58,6 +63,16 @@ class vTower
         int getY()
         {
             return y;
+        }
+
+        void setAttackAnimation(bool animation)
+        {
+            this->attackAnimation=animation;
+        }
+
+        bool isAttackAnimation()
+        {
+            return attackAnimation;
         }
 
         void setX(int x)

@@ -846,6 +846,7 @@ void vGameBoard::drawEntities()
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
+
         }
 
         // When the player must choose the emplacement of tower
@@ -888,18 +889,21 @@ void vGameBoard::drawEntities()
         /// attack animations of towers
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
+            if(listOfvTower[i]->isAttackAnimation())
             {
-                windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
+                /*if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
+                {*/
+                    windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
 
-                if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
-                {
-                    listOfvTower[i]->getAttackClock()->restart();
-                }
+                    /*if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
+                    {
+                        listOfvTower[i]->getAttackClock()->restart();
+                    }
+                }*/
             }
         }
 
-         // button to sell towers
+        // button to sell towers
         windowFromMain->draw(sellButtonSprite);
         windowFromMain->draw(sellText);
 
@@ -947,6 +951,14 @@ void vGameBoard::updateGame()
 
     if(game.IsEndOfWave())
     {
+
+        //desactivate all animations for tower
+        for(vTower *vtower:listOfvTower)
+        {
+            vtower->setAttackAnimation(false);
+        }
+
+
         //delete all enemies who are dead
         game.getMap()->deleteAllEnemies();
 
@@ -966,33 +978,32 @@ void vGameBoard::updateGame()
 
     if(gameSpeedClook.getElapsedTime().asSeconds() > (0.013f / game.getGameSpeed()))
     {
+        updateHealthBarAllEnemies();
+
         for(int i=0;i<game.getGameSpeed();i++)
         {
             game.ennemiesWalk();
         }
 
 
-        /*for(vEnnemy *vEnemy :listOfvEnnemies[i])
-        {
-            vEnemy->getEnemy()->walk();
-        }*/
-
-        //attaque des tours
-        //game.towerAttack();
         if(attackTowerClock.getElapsedTime().asSeconds() > (0.06 / game.getGameSpeed()))
         {
             for(vTower *vtower: listOfvTower)
             {
                 for(Enemies *enemy: game.getMap()->getEnemies())
                 {
-                    updateHealthBarAllEnemies();
                     if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
                     {
-                        //allow to attack only the first enemy in range and farthest
+                        ///allow to attack only the first enemy in range and farthest
                         if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
                         {
                             /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
                             vtower->getTower()->attackEnemy(*enemy);
+                            vtower->setAttackAnimation(true);
+                        }
+                        else
+                        {
+                            vtower->setAttackAnimation(false);
                         }
                     }
                 }
