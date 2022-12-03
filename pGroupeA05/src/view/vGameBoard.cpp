@@ -222,7 +222,7 @@ int vGameBoard::searchVTower(int position)
 
     for(size_t i=0;i<listOfvTower.size();i++)
     {
-        if(listOfvTower[i]->getPosition() == position)
+        if(listOfvTower[i]->getTower()->getPosition() == position)
         {
             result=i;
             break;
@@ -409,7 +409,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -423,7 +423,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -437,7 +437,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -451,7 +451,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -465,7 +465,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -479,7 +479,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -493,7 +493,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     isChoosingNumberForPositionTower = false;
                     for(vTower* vt : listOfvTower)
                     {
-                        if(vt->getPosition() == position)
+                        if(vt->getTower()->getPosition() == position)
                         {
                             game.getMap()->removeTower(*vt->getTower());
                         }
@@ -833,7 +833,7 @@ void vGameBoard::drawEntities()
         ///towers 1 to 4
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getPosition() < 4)
+            if(listOfvTower[i]->getTower()->getPosition() < 4)
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
@@ -871,7 +871,7 @@ void vGameBoard::drawEntities()
         ///towers 5 to 7
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getPosition() >= 5)
+            if(listOfvTower[i]->getTower()->getPosition() >= 5)
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
@@ -1093,19 +1093,8 @@ void vGameBoard::drawMapButtons()
 /** draw enemies*/
 void vGameBoard::drawEnemies()
 {
-    /*for(int i=0;i<(int)listOfvEnnemies.size();i++)
-    {
-        //draw enemies who are not dead
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
-        {
-            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
-        }
-    }*/
-
     //allows you to draw some enemies before others
-    for(int i=0;i<5;i++)
+    for(int i=0;i<Enemies::NUMBER_OF_ENEMY_TYPES;i++)
     {
         for(vEnnemy* enemy: listOfvEnnemies)
         {
@@ -1114,38 +1103,47 @@ void vGameBoard::drawEnemies()
                 switch(i)
                 {
                     case 0:
-                        if(dynamic_cast<Orc*>(enemy->getEnemy()))
                         {
-                            windowFromMain->draw(*enemy->getSprite());
-                            windowFromMain->draw(enemy->healthBarRedSprite);
-                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                            if(dynamic_cast<Orc*>(enemy->getEnemy()))
+                            {
+                                windowFromMain->draw(*enemy->getSprite());
+                                windowFromMain->draw(enemy->healthBarRedSprite);
+                                windowFromMain->draw(enemy->healthBarGreenSprite);
+                            }
+                            break;
                         }
-                        break;
                     case 1:
-                        if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
                         {
-                            windowFromMain->draw(*enemy->getSprite());
-                            windowFromMain->draw(enemy->healthBarRedSprite);
-                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                            if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
+                            {
+                                windowFromMain->draw(*enemy->getSprite());
+                                windowFromMain->draw(enemy->healthBarRedSprite);
+                                windowFromMain->draw(enemy->healthBarGreenSprite);
+                            }
+                            break;
                         }
-                        break;
                     case 2:
-                        if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
                         {
-                            windowFromMain->draw(*enemy->getSprite());
-                            windowFromMain->draw(enemy->healthBarRedSprite);
-                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                            if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
+                            {
+                                windowFromMain->draw(*enemy->getSprite());
+                                windowFromMain->draw(enemy->healthBarRedSprite);
+                                windowFromMain->draw(enemy->healthBarGreenSprite);
+                            }
+                            break;
                         }
-                        break;
                     case 3:
-                        if(dynamic_cast<Ogre*>(enemy->getEnemy()))
                         {
-                            windowFromMain->draw(*enemy->getSprite());
-                            windowFromMain->draw(enemy->healthBarRedSprite);
-                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                            if(dynamic_cast<Ogre*>(enemy->getEnemy()))
+                            {
+                                windowFromMain->draw(*enemy->getSprite());
+                                windowFromMain->draw(enemy->healthBarRedSprite);
+                                windowFromMain->draw(enemy->healthBarGreenSprite);
+                            }
+                            break;
                         }
-                        break;
                     case 4:
+                    {
                         if(dynamic_cast<KnightOfDeath*>(enemy->getEnemy()))
                         {
                             windowFromMain->draw(*enemy->getSprite());
@@ -1153,6 +1151,7 @@ void vGameBoard::drawEnemies()
                             windowFromMain->draw(enemy->healthBarGreenSprite);
                         }
                         break;
+                    }
                 }
             }
         }
@@ -1196,7 +1195,7 @@ void vGameBoard::drawGameSpeedView()
     }
 }
 
-/**adapt which parts of sprite sheet we need to display*/
+/**update the sprites */
 void vGameBoard::adaptAnimationSprite()
 {
     adaptPartOfTexture();
@@ -1208,7 +1207,7 @@ void vGameBoard::adaptAnimationSprite()
 
 }
 
-/**adapt which part of spreet sheet we need to display*/
+/**adapt which part of spreet sheet we need to display for animation */
 void vGameBoard::adaptPartOfTexture()
 {
     if(animClock.getElapsedTime().asSeconds() > 0.08f / game.getGameSpeed())
@@ -1294,11 +1293,12 @@ void vGameBoard::adaptPartOfTexture()
         {
             x_acide++;
         }
+
         animClock.restart();
     }
 }
 
-/**call the method updateTexture who in terms of the state of ennemy set the good texture to sprite*/
+/**call the method updateTexture who in terms of the state of ennemy set the good texture to sprite and adapt him */
 void vGameBoard::adaptAnimationTexture()
 {
     //adapt the texture of only dead enemies to save resources
@@ -1314,373 +1314,64 @@ void vGameBoard::adaptAnimationTexture()
 /** buy the tower*/
 void vGameBoard::buyTower(TypeOfTower type, int position)
 {
-    int x,y;
+    bool positionAlreadyUsed = game.getMap()->isTowerPositonAlreadyUsed(position);
 
-    switch(type)
+    if(!positionAlreadyUsed)
     {
-        case earth:
+        switch(type)
         {
-            bool positionAlreadyUsed = false;
-            for(vTower* vtower : listOfvTower)
+            case earth:
             {
-                if(vtower->getPosition() == position)
-                {
-                    positionAlreadyUsed = true;
-                    cout << "A tower is already at this position." <<endl;
-                    break;
-                }
-            }
-
-            if(!positionAlreadyUsed)
-            {
-                getPositionOfNewTower(earth, x, y, position);
-
-                game.getMap()->addTower(x, y ,earth);
-
-                vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back(), position);
+                game.getMap()->getPositionOfNewTower(earth,position);
+                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),earth,position);
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &earthTowerTexture1;
                 vtower->attackTexture = &earthAttack;
                 vtower->chargeInformations();
-
                 listOfvTower.push_back(vtower);
+                break;
             }
-
-            break;
-        }
-
-        case ice:
-        {
-            bool positionAlreadyUsed = false;
-            for(vTower* vtower : listOfvTower)
+            case ice:
             {
-                if(vtower->getPosition() == position)
-                {
-                    positionAlreadyUsed = true;
-                    cout << "A tower is already at this position." <<endl;
-                    break;
-                }
-            }
-
-            if(!positionAlreadyUsed)
-            {
-                getPositionOfNewTower(ice ,x, y, position);
-
-                game.getMap()->addTower(x,y,ice);
-
-                //back = last element
-                vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back(), position);
+                game.getMap()->getPositionOfNewTower(ice,position);
+                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),ice,position);
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &iceTowerTexture1;
                 vtower->attackTexture = &iceAttack;
                 vtower->chargeInformations();
-
-
                 listOfvTower.push_back(vtower);
+                break;
             }
-
-            break;
-        }
-
-
-        case iron:
-        {
-            bool positionAlreadyUsed = false;
-            for(vTower* vtower : listOfvTower)
+            case iron:
             {
-                if(vtower->getPosition() == position)
-                {
-                    positionAlreadyUsed = true;
-                    cout << "A tower is already at this position." <<endl;
-                    break;
-                }
-            }
-
-            if(!positionAlreadyUsed)
-            {
-                getPositionOfNewTower(iron,x,y, position);
-                game.getMap()->addTower(x,y,iron);
-
-                //back = last element
-                vTower *vtower = new vTower(x,y,game.getMap()->getTowers().back(), position);
+                game.getMap()->getPositionOfNewTower(iron,position);
+                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),iron,position);
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &ironTowerTexture1;
                 vtower->attackTexture = &ironAttack;
                 vtower->chargeInformations();
-
                 listOfvTower.push_back(vtower);
+                break;
             }
-
-            break;
-        }
-
-        case sand:
-        {
-            bool positionAlreadyUsed = false;
-            for(vTower* vtower : listOfvTower)
+            case sand:
             {
-                if(vtower->getPosition() == position)
-                {
-                    positionAlreadyUsed = true;
-                    cout << "A tower is already at this position." <<endl;
-                    break;
-                }
-            }
-
-            if(!positionAlreadyUsed)
-            {
-                getPositionOfNewTower(sand, x, y, position);
-                game.getMap()->addTower(x,y,sand);
-
-                //back = last element
-                vTower *vtower = new vTower(x,y, game.getMap()->getTowers().back(), position);
+                game.getMap()->getPositionOfNewTower(sand,position);
+                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),sand,position);
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &sandTowerTexture1;
                 vtower->attackTexture = &sandAttack;
                 vtower->chargeInformations();
-
                 listOfvTower.push_back(vtower);
+                break;
             }
-
-            break;
         }
     }
-}
-
-/**
-*depending on the type of tower the player wants to buy
-*this method will call the correct method which will return an x and y position
-*/
-void vGameBoard::getPositionOfNewTower(TypeOfTower type, int &x, int &y, int position)
-{
-    switch(type)
+    else
     {
-        case earth:
-
-            getPositionOfEarth(x,y,position);
-            break;
-
-        case iron:
-
-            getPositionOfIron(x,y,position);
-            break;
-
-        case ice:
-
-            getPositionOfIce(x,y,position);
-            break;
-
-        case sand:
-
-            getPositionOfSand(x,y,position);
-            break;
-    }
-    //cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
-}
-
-/**
-this method defines a position in x and y to display the tower in the right place on the map
-*/
-void vGameBoard::getPositionOfEarth(int &x, int &y, int position)
-{
-    switch(position-1)
-    {
-        case 3:
-        {
-            x=100;
-            y=370-75;
-            break;
-        }
-        case 2:
-        {
-            x=350;
-            y=370-75;
-            break;
-        }
-        case 1:
-        {
-            x=650;
-            y=370-75;
-            break;
-        }
-        case 0:
-        {
-            x=990;
-            y=370-75;
-            break;
-        }
-        case 6:
-        {
-            x=40;
-            y=600-75;
-            break;
-        }
-        case 5:
-        {
-            x=300;
-            y=600-75;
-            break;
-        }
-        case 4:
-        {
-            x=975;
-            y=600-75;
-            break;
-        }
+        cout << "A tower is already at this position. You canno't buy a another tower at the same postion" <<endl;
     }
 }
 
-/**
-this method defines a position in x and y to display the tower in the right place on the map
-*/
-void vGameBoard::getPositionOfIce(int &x, int &y, int position)
-{
-    switch(position-1)
-    {
-        case 3:
-            {
-                x=100 +5;
-                y=385 -80;
-                break;
-            }
-        case 2:
-            {
-                x=350 +5;
-                y=385 -80;
-                break;
-            }
-        case 1:
-            {
-                x=650 +5;
-                y=385 -80;
-                break;
-            }
-        case 0:
-            {
-                x=990 +5;
-                y=385 -80;
-                break;
-            }
-        case 6:
-            {
-                x=40;
-                y=630 -80;
-                break;
-            }
-        case 5:
-            {
-                x=300;
-                y=630 -80;
-                break;
-            }
-        case 4:
-            {
-                x=975;
-                y=625 -80;
-                break;
-            }
-    }
-}
-
-/**
-this method defines a position in x and y to display the tower in the right place on the map
-*/
-void vGameBoard::getPositionOfIron(int &x, int &y, int position)
-{
-    switch(position-1)
-    {
-        case 3:
-        {
-            x=100 +10;
-            y=330 -28;
-            break;
-        }
-        case 2:
-        {
-            x=360 +10;
-            y=330 -28;
-            break;
-        }
-        case 1:
-        {
-            x=660 +10;
-            y=330 -28;
-            break;
-        }
-        case 0:
-        {
-            x=990 +7;
-            y=330 -28;
-            break;
-        }
-        case 6:
-        {
-            x=38 ;
-            y=575 -30;
-            break;
-        }
-        case 5:
-        {
-            x=297 ;
-            y=575 -30;
-            break;
-        }
-        case 4:
-        {
-            x=980 +5;
-            y=575 -30;
-            break;
-        }
-    }
-}
-
-/**
-this method defines a position in x and y to display the tower in the right place on the map
-*/
-void vGameBoard::getPositionOfSand(int &x, int &y, int position)
-{
-    switch(position-1)
-    {
-        case 3:
-            {
-                x=100;
-                y=340 -35;
-                break;
-            }
-        case 2:
-            {
-                x=360;
-                y=340 -35;
-                break;
-            }
-        case 1:
-            {
-                x=660;
-                y=340 -35;
-                break;
-            }
-        case 0:
-            {
-                x=990;
-                y=340 -35;
-                break;
-            }
-        case 6:
-            {
-                x=40;
-                y=575 -35;
-                break;
-            }
-        case 5:
-            {
-                x=300;
-                y=575 -35;
-                break;
-            }
-        case 4:
-            {
-                x=975;
-                y=575 -35;
-                break;
-            }
-    }
-}
 
 /**
 to verify if all images is accessible and charge in the texture

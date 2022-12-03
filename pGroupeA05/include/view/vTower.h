@@ -16,14 +16,14 @@ class vTower
         Tower *tower;
         sf::Clock* animAttackClock;
         sf::Clock bulletClock;
-        int position;
+
 
         bool attackAnimation = false;
 
 
     public:
 
-        vTower(int x,int y, Tower* tower, int position);
+        vTower(int x,int y, Tower* tower);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
@@ -83,16 +83,6 @@ class vTower
         void setY(int y)
         {
             this->y=y;
-        }
-
-        int getPosition()
-        {
-            return position;
-        }
-
-        void setPosition(int position)
-        {
-            this->position=position;
         }
 
     protected:

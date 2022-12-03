@@ -67,12 +67,7 @@ class vGameBoard
 
 
         /**A DEPLACER DANS LE MODEL car traitements */
-        /*these methods are used to calculate the positions of the towers*/
-        void getPositionOfNewTower(TypeOfTower type, int &x, int &y, int position);
-        void getPositionOfEarth(int &x, int &y, int position);
-        void getPositionOfIron(int &x, int &y, int position);
-        void getPositionOfIce(int &x, int &y, int position);
-        void getPositionOfSand(int &x, int &y, int position);
+
 
         ///ADAPTE IMAGES
         void adaptAnimationSprite();

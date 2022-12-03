@@ -145,14 +145,17 @@ bool Map::removeEnemy(Enemies& enemy)
     return false;
 }
 
-void Map::addTower(int x, int y, TypeOfTower type)
+void Map::addTower(int x, int y, TypeOfTower type,int position)
 {
+    //change the value of yOfTheNextTower and xOfTheNextTower
+    //getPositionOfNewTower(type,int position);
+
     switch(type)
     {
         case earth:
         {
-             listOfTower.push_back(new TowerEarth(x,y));
-             break;
+            listOfTower.push_back(new TowerEarth(x,y));
+            break;
         }
 
         case ice:
@@ -204,7 +207,7 @@ bool Map::removeTower(Tower &tower)
     }
     else
     {
-        cout << "this tower is not in the list/map" << endl;
+        cout << "this tower is not in the list" << endl;
     }
     return false;
 }
@@ -227,9 +230,9 @@ void Map::improveAllEnemies(int numeroOfWave)
         enemy->improveStatistics(numeroOfWave);
     }
 }
-/*return the first enemy not dead and who is the who is the closest to the king and too in range of tower,
-* that is to say the farthest on the map else return -1
-*take in parameter the tower which wants to attack as well as the middle of the size of the image of the tower*/
+/**return the first enemy not dead and who is the who is the closest to the king and too in range of tower,
+that is to say the farthest on the map else return -1
+take in parameter the tower which wants to attack as well as the middle of the size of the image of the tower*/
 int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
 {
     for(int i=0;i<(int)listOfEnemies.size();i++)
@@ -261,4 +264,248 @@ int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
         }
     }
     return -1;
+}
+
+bool Map::isTowerPositonAlreadyUsed(int position)
+{
+    for(Tower *tower:listOfTower)
+    {
+        if(tower->getPosition() == position)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+*depending on the type of tower the player wants to buy
+*this method will call the correct method which will return an x and y position
+*/
+void Map::getPositionOfNewTower(TypeOfTower type, int position)
+{
+    switch(type)
+    {
+        case earth:
+            getPositionOfEarth(position);
+            break;
+        case iron:
+            getPositionOfIron(position);
+            break;
+        case ice:
+            getPositionOfIce(position);
+            break;
+        case sand:
+            getPositionOfSand(position);
+            break;
+    }
+    //cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
+}
+
+/**
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+void Map::getPositionOfEarth(int position)
+{
+    switch(position-1)
+    {
+        case 3:
+        {
+            xOfTheNextTower=100;
+            yOfTheNextTower=370-75;
+            break;
+        }
+        case 2:
+        {
+            xOfTheNextTower=350;
+            yOfTheNextTower=370-75;
+            break;
+        }
+        case 1:
+        {
+            xOfTheNextTower=650;
+            yOfTheNextTower=370-75;
+            break;
+        }
+        case 0:
+        {
+            xOfTheNextTower=990;
+            yOfTheNextTower=370-75;
+            break;
+        }
+        case 6:
+        {
+            xOfTheNextTower=40;
+            yOfTheNextTower=600-75;
+            break;
+        }
+        case 5:
+        {
+            xOfTheNextTower=300;
+            yOfTheNextTower=600-75;
+            break;
+        }
+        case 4:
+        {
+            xOfTheNextTower=975;
+            yOfTheNextTower=600-75;
+            break;
+        }
+    }
+}
+
+/**
+this method defines a position in x and yOfTheNextTower to display the tower in the right place on the map
+*/
+void Map::getPositionOfIce(int position)
+{
+    switch(position-1)
+    {
+        case 3:
+            {
+                xOfTheNextTower=100 +5;
+                yOfTheNextTower=385 -80;
+                break;
+            }
+        case 2:
+            {
+                xOfTheNextTower=350 +5;
+                yOfTheNextTower=385 -80;
+                break;
+            }
+        case 1:
+            {
+                xOfTheNextTower=650 +5;
+                yOfTheNextTower=385 -80;
+                break;
+            }
+        case 0:
+            {
+                xOfTheNextTower=990 +5;
+                yOfTheNextTower=385 -80;
+                break;
+            }
+        case 6:
+            {
+                xOfTheNextTower=40;
+                yOfTheNextTower=630 -80;
+                break;
+            }
+        case 5:
+            {
+                xOfTheNextTower=300;
+                yOfTheNextTower=630 -80;
+                break;
+            }
+        case 4:
+            {
+                xOfTheNextTower=975;
+                yOfTheNextTower=625 -80;
+                break;
+            }
+    }
+}
+
+/**
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+void Map::getPositionOfIron(int position)
+{
+    switch(position-1)
+    {
+        case 3:
+        {
+            xOfTheNextTower=100 +10;
+            yOfTheNextTower=330 -28;
+            break;
+        }
+        case 2:
+        {
+            xOfTheNextTower=360 +10;
+            yOfTheNextTower=330 -28;
+            break;
+        }
+        case 1:
+        {
+            xOfTheNextTower=660 +10;
+            yOfTheNextTower=330 -28;
+            break;
+        }
+        case 0:
+        {
+            xOfTheNextTower=990 +7;
+            yOfTheNextTower=330 -28;
+            break;
+        }
+        case 6:
+        {
+            xOfTheNextTower=38 ;
+            yOfTheNextTower=575 -30;
+            break;
+        }
+        case 5:
+        {
+            xOfTheNextTower=297 ;
+            yOfTheNextTower=575 -30;
+            break;
+        }
+        case 4:
+        {
+            xOfTheNextTower=980 +5;
+            yOfTheNextTower=575 -30;
+            break;
+        }
+    }
+}
+
+/**
+this method defines a position in x and y to display the tower in the right place on the map
+*/
+void Map::getPositionOfSand(int position)
+{
+    switch(position-1)
+    {
+        case 3:
+            {
+                xOfTheNextTower=100;
+                yOfTheNextTower=340 -35;
+                break;
+            }
+        case 2:
+            {
+                xOfTheNextTower=360;
+                yOfTheNextTower=340 -35;
+                break;
+            }
+        case 1:
+            {
+                xOfTheNextTower=660;
+                yOfTheNextTower=340 -35;
+                break;
+            }
+        case 0:
+            {
+                xOfTheNextTower=990;
+                yOfTheNextTower=340 -35;
+                break;
+            }
+        case 6:
+            {
+                xOfTheNextTower=40;
+                yOfTheNextTower=575 -35;
+                break;
+            }
+        case 5:
+            {
+                xOfTheNextTower=300;
+                yOfTheNextTower=575 -35;
+                break;
+            }
+        case 4:
+            {
+                xOfTheNextTower=975;
+                yOfTheNextTower=575 -35;
+                break;
+            }
+    }
 }

@@ -15,7 +15,7 @@ enum TypeOfTower : int
 class Tower
 {
     public:
-        Tower(int xTower=0, int yTower=0, int damage=20,int level=1,int price=100, int range=20);
+        Tower(int xTower=0, int yTower=0, int damage=20,int level=1,int price=100, int range=20,int position=-1);
 
         virtual ~Tower();
 
@@ -83,6 +83,16 @@ class Tower
             return range;
         }
 
+        int getPosition()
+        {
+            return position;
+        }
+
+        void setPosition(int position)
+        {
+            this->position=position;
+        }
+
         TypeOfTower getType()
         {
             return type;
@@ -97,6 +107,7 @@ class Tower
         int price;
         int range;
         TypeOfTower type;
+        int position;
 
     private:
 

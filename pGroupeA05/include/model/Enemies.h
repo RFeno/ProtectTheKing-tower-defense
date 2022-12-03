@@ -12,7 +12,7 @@ enum typeOfEnemies : int
     gremlinValue = 20,
     knightOfDeathValue = 100,
     ogreValue = 80,
-    orcValue =60,
+    orcValue = 60,
     shadowMonsterValue = 40
 };
 
@@ -36,6 +36,7 @@ class Enemies
     public:
 
         static inline int compteur = 0;
+        static const int NUMBER_OF_ENEMY_TYPES = 5;
 
         //canonic form
         Enemies(int health=100, int marketValue=100, int scoreValue=100, int damage=1,float walkingSpeed=1.0);

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Tower::Tower(int xTower, int yTower, int damage, int level, int price,int range): xTower(xTower), yTower(yTower), damage(damage), level(level), price(price), range(range)
+Tower::Tower(int xTower, int yTower, int damage, int level, int price,int range,int position): xTower(xTower), yTower(yTower), damage(damage), level(level), price(price), range(range), position(position)
 {
     //ctor
     if(level<=0)

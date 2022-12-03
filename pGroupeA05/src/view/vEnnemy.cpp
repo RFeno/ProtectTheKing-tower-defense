@@ -107,7 +107,7 @@ void vEnnemy::chargeInformations()
     }
 }
 
-/*update the texture of enemy in terms of his state and his type of enemy */
+/**update the texture of enemy in terms of his state and his type of enemy, his state of enemy and bind postion with model */
 void vEnnemy::updateTexture()
 {
     //bind position of sprite to model position
