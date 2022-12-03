@@ -33,14 +33,14 @@ int main()
 
     RenderWindow window(VideoMode(1400, 800), "Protect the king");
 
-    vMainMenu mainMenu(window);
-    mainMenu.launchMenu();
+//    vMainMenu mainMenu(window);
+//    mainMenu.launchMenu();
 
 //    vGameManager gameMan;
 //    gameMan.launchGame();
 
-//    vGameBoard gameBoard(window);
-//    gameBoard.launchView();
+    vGameBoard gameBoard(window);
+    gameBoard.launchView();
 
     //test methods of modèle
 

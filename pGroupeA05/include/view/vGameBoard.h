@@ -262,13 +262,6 @@ class vGameBoard
 
 
         ///informations sprite
-        sf::Sprite oneSprite;
-        sf::Sprite twoSprite;
-        sf::Sprite threeSprite;
-        sf::Sprite fourSprite;
-        sf::Sprite fiveSprite;
-        sf::Sprite sixSprite;
-        sf::Sprite sevenSprite;
         sf::Sprite twentySprite;
         sf::Sprite fourtySprite;
         sf::Sprite sixtySprite;
@@ -281,6 +274,13 @@ class vGameBoard
         std::vector<sf::Sprite*> swordSprites;
         std::vector<sf::Sprite*> crystalSprites;
         std::vector<sf::Sprite*> signSprites;
+        std::vector<sf::Sprite*> oneSprites;
+        std::vector<sf::Sprite*> twoSprites;
+        std::vector<sf::Sprite*> threeSprites;
+        std::vector<sf::Sprite*> fourSprites;
+        std::vector<sf::Sprite*> fiveSprites;
+        std::vector<sf::Sprite*> sixSprites;
+        std::vector<sf::Sprite*> sevenSprites;
 
 };
 

@@ -98,6 +98,41 @@ vGameBoard::~vGameBoard()
     {
         delete sword;
     }
+
+    for(Sprite *one: oneSprites)
+    {
+        delete one;
+    }
+
+    for(Sprite *two: twoSprites)
+    {
+        delete two;
+    }
+
+    for(Sprite *three: threeSprites)
+    {
+        delete three;
+    }
+
+    for(Sprite *four: fourSprites)
+    {
+        delete four;
+    }
+
+    for(Sprite *five: fiveSprites)
+    {
+        delete five;
+    }
+
+    for(Sprite *six: sixSprites)
+    {
+        delete six;
+    }
+
+    for(Sprite *seven: sevenSprites)
+    {
+        delete seven;
+    }
 }
 
 
@@ -368,7 +403,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             // for sell tower
             if(isSellingTower)
             {
-                if(isSpriteClicked(oneSprite))
+                if(isSpriteClicked(*oneSprites[0]))
                 {
                     position = 1;
                     isChoosingNumberForPositionTower = false;
@@ -382,7 +417,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     removeVTower(position);
                     isSellingTower = false;
                 }
-                if(isSpriteClicked(twoSprite))
+                if(isSpriteClicked(*twoSprites[0]))
                 {
                     position = 2;
                     isChoosingNumberForPositionTower = false;
@@ -396,7 +431,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     removeVTower(position);
                     isSellingTower = false;
                 }
-                if(isSpriteClicked(threeSprite))
+                if(isSpriteClicked(*threeSprites[0]))
                 {
                     position = 3;
                     isChoosingNumberForPositionTower = false;
@@ -410,7 +445,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     removeVTower(position);
                     isSellingTower = false;
                 }
-                if(isSpriteClicked(fourSprite))
+                if(isSpriteClicked(*fourSprites[0]))
                 {
                     position = 4;
                     isChoosingNumberForPositionTower = false;
@@ -424,7 +459,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     removeVTower(position);
                     isSellingTower = false;
                 }
-                if(isSpriteClicked(fiveSprite))
+                if(isSpriteClicked(*fiveSprites[0]))
                 {
                     position = 5;
                     isChoosingNumberForPositionTower = false;
@@ -438,7 +473,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     removeVTower(position);
                     isSellingTower = false;
                 }
-                if(isSpriteClicked(sixSprite))
+                if(isSpriteClicked(*sixSprites[0]))
                 {
                     position = 6;
                     isChoosingNumberForPositionTower = false;
@@ -452,7 +487,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                     removeVTower(position);
                     isSellingTower = false;
                 }
-                if(isSpriteClicked(sevenSprite))
+                if(isSpriteClicked(*sevenSprites[0]))
                 {
                     position = 7;
                     isChoosingNumberForPositionTower = false;
@@ -470,43 +505,43 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             // for buy a tower
             else
             {
-                if(isSpriteClicked(oneSprite))
+                if(isSpriteClicked(*oneSprites[0]))
                 {
                     position = 1;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
-                if(isSpriteClicked(twoSprite))
+                if(isSpriteClicked(*twoSprites[0]))
                 {
                     position = 2;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
-                if(isSpriteClicked(threeSprite))
+                if(isSpriteClicked(*threeSprites[0]))
                 {
                     position = 3;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
-                if(isSpriteClicked(fourSprite))
+                if(isSpriteClicked(*fourSprites[0]))
                 {
                     position = 4;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
-                if(isSpriteClicked(fiveSprite))
+                if(isSpriteClicked(*fiveSprites[0]))
                 {
                     position = 5;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
-                if(isSpriteClicked(sixSprite))
+                if(isSpriteClicked(*sixSprites[0]))
                 {
                     position = 6;
                     isChoosingNumberForPositionTower = false;
                     buyTower(typeTowerChoosed, position);
                 }
-                if(isSpriteClicked(sevenSprite))
+                if(isSpriteClicked(*sevenSprites[0]))
                 {
                     position = 7;
                     isChoosingNumberForPositionTower = false;
@@ -669,33 +704,76 @@ void vGameBoard::loadSprite()
     chooseNumberText.setScale(1.1f,1.1f);
     chooseNumberText.setPosition(Vector2f(540,162));
 
-    oneSprite.setTexture(oneTexture);
-    oneSprite.setPosition(530, 255);
-    oneSprite.setScale(Vector2f(0.5f,0.5f));
+    oneSprites.push_back(new Sprite());
+    oneSprites.back()->setTexture(oneTexture);
+    oneSprites.back()->setPosition(530, 255);
+    oneSprites.back()->setScale(0.5f,0.5f);
 
-    twoSprite.setTexture(twoTexture);
-    twoSprite.setPosition(580, 255);
-    twoSprite.setScale(Vector2f(0.5f,0.5f));
+    twoSprites.push_back(new Sprite());
+    twoSprites.back()->setTexture(twoTexture);
+    twoSprites.back()->setPosition(580, 255);
+    twoSprites.back()->setScale(0.5f,0.5f);
 
-    threeSprite.setTexture(threeTexture);
-    threeSprite.setPosition(630, 255);
-    threeSprite.setScale(Vector2f(0.5f,0.5f));
+    threeSprites.push_back(new Sprite());
+    threeSprites.back()->setTexture(threeTexture);
+    threeSprites.back()->setPosition(630, 255);
+    threeSprites.back()->setScale(0.5f,0.5f);
 
-    fourSprite.setTexture(fourTexture);
-    fourSprite.setPosition(680, 255);
-    fourSprite.setScale(Vector2f(0.5f,0.5f));
+    fourSprites.push_back(new Sprite());
+    fourSprites.back()->setTexture(fourTexture);
+    fourSprites.back()->setPosition(680, 255);
+    fourSprites.back()->setScale(0.5f,0.5f);
 
-    fiveSprite.setTexture(fiveTexture);
-    fiveSprite.setPosition(730, 255);
-    fiveSprite.setScale(Vector2f(0.5f,0.5f));
+    fiveSprites.push_back(new Sprite());
+    fiveSprites.back()->setTexture(fiveTexture);
+    fiveSprites.back()->setPosition(730, 255);
+    fiveSprites.back()->setScale(0.5f,0.5f);
 
-    sixSprite.setTexture(sixTexture);
-    sixSprite.setPosition(780, 255);
-    sixSprite.setScale(Vector2f(0.5f,0.5f));
+    sixSprites.push_back(new Sprite());
+    sixSprites.back()->setTexture(sixTexture);
+    sixSprites.back()->setPosition(780, 255);
+    sixSprites.back()->setScale(0.5f,0.5f);
 
-    sevenSprite.setTexture(sevenTexture);
-    sevenSprite.setPosition(830, 255);
-    sevenSprite.setScale(Vector2f(0.5f,0.5f));
+    sevenSprites.push_back(new Sprite());
+    sevenSprites.back()->setTexture(sevenTexture);
+    sevenSprites.back()->setPosition(830, 255);
+    sevenSprites.back()->setScale(0.5f,0.5f);
+
+    // Numbers to display under tower while choosing emplacement for tower
+    oneSprites.push_back(new Sprite());
+    oneSprites.back()->setTexture(oneTexture);
+    oneSprites.back()->setPosition(1060, 505);
+    oneSprites.back()->setScale(0.5f,0.5f);
+
+    twoSprites.push_back(new Sprite());
+    twoSprites.back()->setTexture(twoTexture);
+    twoSprites.back()->setPosition(730, 505);
+    twoSprites.back()->setScale(0.5f,0.5f);
+
+    threeSprites.push_back(new Sprite());
+    threeSprites.back()->setTexture(threeTexture);
+    threeSprites.back()->setPosition(430, 505);
+    threeSprites.back()->setScale(0.5f,0.5f);
+
+    fourSprites.push_back(new Sprite());
+    fourSprites.back()->setTexture(fourTexture);
+    fourSprites.back()->setPosition(170, 505);
+    fourSprites.back()->setScale(0.5f,0.5f);
+
+    fiveSprites.push_back(new Sprite());
+    fiveSprites.back()->setTexture(fiveTexture);
+    fiveSprites.back()->setPosition(1050, 750);
+    fiveSprites.back()->setScale(0.5f,0.5f);
+
+    sixSprites.push_back(new Sprite());
+    sixSprites.back()->setTexture(sixTexture);
+    sixSprites.back()->setPosition(360, 750);
+    sixSprites.back()->setScale(0.5f,0.5f);
+
+    sevenSprites.push_back(new Sprite());
+    sevenSprites.back()->setTexture(sevenTexture);
+    sevenSprites.back()->setPosition(100, 750);
+    sevenSprites.back()->setScale(0.5f,0.5f);
 }
 
 /** load and configure game speed entitites */
@@ -764,10 +842,28 @@ void vGameBoard::drawEntities()
         ///towers 1 to 4
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(i < 4)
+            if(listOfvTower[i]->getPosition() < 4)
             {
-              windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+                windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
+        }
+
+        // When the player must choose the emplacement of tower
+        if(isChoosingNumberForPositionTower)
+        {
+            windowFromMain->draw(*signSprites[4]);
+            for(int i = 0; i<2; i++)
+            {
+                windowFromMain->draw(*oneSprites[i]);
+                windowFromMain->draw(*twoSprites[i]);
+                windowFromMain->draw(*threeSprites[i]);
+                windowFromMain->draw(*fourSprites[i]);
+                windowFromMain->draw(*fiveSprites[i]);
+                windowFromMain->draw(*sixSprites[i]);
+                windowFromMain->draw(*sevenSprites[i]);
+            }
+            windowFromMain->draw(chooseNumberText);
+            windowFromMain->draw(closeButtonSprite);
         }
 
         drawEnemies();
@@ -781,9 +877,12 @@ void vGameBoard::drawEntities()
         }*/
 
         ///towers 5 to 7
-        for(int i = 4; i < (int)listOfvTower.size(); i++)
+        for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+            if(listOfvTower[i]->getPosition() >= 5)
+            {
+                windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+            }
         }
 
         /// attack animations of towers
@@ -804,20 +903,6 @@ void vGameBoard::drawEntities()
         windowFromMain->draw(sellButtonSprite);
         windowFromMain->draw(sellText);
 
-        // When the player must choose the emplacement of tower
-        if(isChoosingNumberForPositionTower)
-        {
-            windowFromMain->draw(*signSprites.back());
-            windowFromMain->draw(oneSprite);
-            windowFromMain->draw(twoSprite);
-            windowFromMain->draw(threeSprite);
-            windowFromMain->draw(fourSprite);
-            windowFromMain->draw(fiveSprite);
-            windowFromMain->draw(sixSprite);
-            windowFromMain->draw(sevenSprite);
-            windowFromMain->draw(chooseNumberText);
-            windowFromMain->draw(closeButtonSprite);
-        }
     }
 }
 
@@ -1012,14 +1097,74 @@ void vGameBoard::drawMapButtons()
 /** draw enemies*/
 void vGameBoard::drawEnemies()
 {
-    for(int i=0;i<(int)listOfvEnnemies.size();i++)
+//    for(int i=0;i<(int)listOfvEnnemies.size();i++)
+//    {
+//        //draw enemies who are not dead
+//        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+//        {
+//            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
+//            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
+//            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
+//        }
+//    }
+    for(vEnnemy* enemy: listOfvEnnemies)
     {
-        //draw enemies who are not dead
-        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
         {
-            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
-            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
+            if(dynamic_cast<Orc*>(enemy->getEnemy()))
+            {
+                windowFromMain->draw(*enemy->getSprite());
+                windowFromMain->draw(enemy->healthBarRedSprite);
+                windowFromMain->draw(enemy->healthBarGreenSprite);
+            }
+        }
+    }
+    for(vEnnemy* enemy: listOfvEnnemies)
+    {
+        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
+        {
+            if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
+            {
+                windowFromMain->draw(*enemy->getSprite());
+                windowFromMain->draw(enemy->healthBarRedSprite);
+                windowFromMain->draw(enemy->healthBarGreenSprite);
+            }
+        }
+    }
+    for(vEnnemy* enemy: listOfvEnnemies)
+    {
+        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
+        {
+            if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
+            {
+                windowFromMain->draw(*enemy->getSprite());
+                windowFromMain->draw(enemy->healthBarRedSprite);
+                windowFromMain->draw(enemy->healthBarGreenSprite);
+            }
+        }
+    }
+    for(vEnnemy* enemy: listOfvEnnemies)
+    {
+        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
+        {
+            if(dynamic_cast<Ogre*>(enemy->getEnemy()))
+            {
+                windowFromMain->draw(*enemy->getSprite());
+                windowFromMain->draw(enemy->healthBarRedSprite);
+                windowFromMain->draw(enemy->healthBarGreenSprite);
+            }
+        }
+    }
+    for(vEnnemy* enemy: listOfvEnnemies)
+    {
+        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
+        {
+            if(dynamic_cast<KnightOfDeath*>(enemy->getEnemy()))
+            {
+                windowFromMain->draw(*enemy->getSprite());
+                windowFromMain->draw(enemy->healthBarRedSprite);
+                windowFromMain->draw(enemy->healthBarGreenSprite);
+            }
         }
     }
 }
