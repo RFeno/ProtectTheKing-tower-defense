@@ -52,6 +52,33 @@ Map::Map(const Map& other)
 Map& Map::operator=(const Map& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    for(Enemies* enemy: listOfEnemies)
+    {
+        delete enemy;
+    }
+
+    for(Tower* tower: listOfTower)
+    {
+        delete tower;
+    }
+
+    this->listOfEnemies.clear();
+    this->listOfTower.clear();
+
+    for(Enemies* enemy: rhs.listOfEnemies)
+    {
+        this->listOfEnemies.push_back(enemy);
+    }
+
+    for(Tower* tower: rhs.listOfTower)
+    {
+        this->listOfTower.push_back(tower);
+    }
+
+    delete king;
+    this->king=rhs.king;
+
     //assignment operator
     return *this;
 }
@@ -75,15 +102,15 @@ string Map::strTowers()const
     }
     return result+="]";
 }
-
+/** add the new enemy on the map list in terms of the type of enemy */
 void Map::addEnemy(typeOfEnemies type)
 {
     switch(type)
     {
         case gremlinValue:
         {
-             listOfEnemies.push_back(new Gremlin());
-             break;
+            listOfEnemies.push_back(new Gremlin());
+            break;
         }
 
         case knightOfDeathValue:
@@ -111,6 +138,7 @@ void Map::addEnemy(typeOfEnemies type)
     }
 }
 
+/** return the index of enemy on the map else -1 */
 int Map::searchEnemy(Enemies& enemy)
 {
     int result = -1;
@@ -125,7 +153,7 @@ int Map::searchEnemy(Enemies& enemy)
     }
     return result;
 }
-
+/** remove the enemy on the map list*/
 bool Map::removeEnemy(Enemies& enemy)
 {
     int index = searchEnemy(enemy);
@@ -145,39 +173,40 @@ bool Map::removeEnemy(Enemies& enemy)
     return false;
 }
 
-void Map::addTower(int x, int y, TypeOfTower type,int position)
+/** add a new tower on the map */
+void Map::addTower(TypeOfTower type,int position)
 {
     //change the value of yOfTheNextTower and xOfTheNextTower
-    //getPositionOfNewTower(type,int position);
+    getPositionOfNewTower(type,position);
 
     switch(type)
     {
         case earth:
         {
-            listOfTower.push_back(new TowerEarth(x,y));
+            listOfTower.push_back(new TowerEarth(xOfTheNextTower,yOfTheNextTower,position));
             break;
         }
 
         case ice:
         {
-            listOfTower.push_back(new TowerIce(x,y));
+            listOfTower.push_back(new TowerIce(xOfTheNextTower,yOfTheNextTower,position));
             break;
         }
 
         case sand:
         {
-            listOfTower.push_back(new TowerSand(x,y));
+            listOfTower.push_back(new TowerSand(xOfTheNextTower,yOfTheNextTower,position));
             break;
         }
 
         case iron:
         {
-            listOfTower.push_back(new TowerIron(x,y));
+            listOfTower.push_back(new TowerIron(xOfTheNextTower,yOfTheNextTower,position));
             break;
         }
     }
 }
-
+/** return the index of the tower on the map else return -1*/
 int Map::searchTower(Tower &tower)
 {
     int result = -1;
@@ -192,7 +221,7 @@ int Map::searchTower(Tower &tower)
     }
     return result;
 }
-
+/** remove the tower at the map */
 bool Map::removeTower(Tower &tower)
 {
     int index = searchTower(tower);
@@ -212,7 +241,7 @@ bool Map::removeTower(Tower &tower)
     return false;
 }
 
-/* delete all enemies  */
+/**delete all enemies  */
 void Map::deleteAllEnemies()
 {
     for(Enemies *enemy: listOfEnemies)
@@ -222,7 +251,7 @@ void Map::deleteAllEnemies()
     listOfEnemies.clear();
 }
 
-/*improve statistics of all enemies */
+/**improve statistics of all enemies */
 void Map::improveAllEnemies(int numeroOfWave)
 {
     for(Enemies *enemy: listOfEnemies)
@@ -266,6 +295,7 @@ int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
     return -1;
 }
 
+/** return if the position is aleready used by a another tower on the map*/
 bool Map::isTowerPositonAlreadyUsed(int position)
 {
     for(Tower *tower:listOfTower)
@@ -280,7 +310,7 @@ bool Map::isTowerPositonAlreadyUsed(int position)
 
 /**
 *depending on the type of tower the player wants to buy
-*this method will call the correct method which will return an x and y position
+*this method will call the correct method which will change an x and y position
 */
 void Map::getPositionOfNewTower(TypeOfTower type, int position)
 {

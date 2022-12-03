@@ -42,7 +42,7 @@ class vGameBoard
         bool verifyImageTower();
         bool verifyImageMonsters();
         bool verifyImageMapEntities();
-        bool verifyImageInformations();
+        bool verifyImageTowersInformations();
 
         ///EVENTS
         void InputHandler(sf::Event event,sf::RenderWindow *window);

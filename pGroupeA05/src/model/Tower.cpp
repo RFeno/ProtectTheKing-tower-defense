@@ -29,7 +29,7 @@ Tower::~Tower()
     //dtor
 }
 
-Tower::Tower(const Tower& other): xTower(other.xTower), yTower(other.yTower), damage(other.damage), level(other.level), price(other.price), range(other.range)
+Tower::Tower(const Tower& other): xTower(other.xTower), yTower(other.yTower), damage(other.damage), level(other.level), price(other.price), range(other.range), position(other.position)
 {
     //copy ctor
 }
@@ -45,6 +45,7 @@ Tower& Tower::operator=(const Tower& rhs)
     this->xTower=rhs.xTower;
     this->yTower=rhs.yTower;
     this->type=rhs.type;
+    this->position=rhs.position;
 
     //assignment operator
     return *this;

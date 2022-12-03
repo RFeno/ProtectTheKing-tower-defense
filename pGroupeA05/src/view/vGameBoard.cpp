@@ -1322,8 +1322,7 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
         {
             case earth:
             {
-                game.getMap()->getPositionOfNewTower(earth,position);
-                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),earth,position);
+                game.getMap()->addTower(earth,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &earthTowerTexture1;
                 vtower->attackTexture = &earthAttack;
@@ -1333,8 +1332,7 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
             }
             case ice:
             {
-                game.getMap()->getPositionOfNewTower(ice,position);
-                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),ice,position);
+                game.getMap()->addTower(ice,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &iceTowerTexture1;
                 vtower->attackTexture = &iceAttack;
@@ -1344,8 +1342,7 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
             }
             case iron:
             {
-                game.getMap()->getPositionOfNewTower(iron,position);
-                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),iron,position);
+                game.getMap()->addTower(iron,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &ironTowerTexture1;
                 vtower->attackTexture = &ironAttack;
@@ -1355,8 +1352,7 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
             }
             case sand:
             {
-                game.getMap()->getPositionOfNewTower(sand,position);
-                game.getMap()->addTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),sand,position);
+                game.getMap()->addTower(sand,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
                 vtower->towerTexture = &sandTowerTexture1;
                 vtower->attackTexture = &sandAttack;
@@ -1385,17 +1381,15 @@ bool vGameBoard::verifyImage()
         return false;
     }
 
-
-    if(verifyImageMonsters() && verifyImageTower() && verifyImageMapEntities() && verifyImageInformations())
+    if(verifyImageMonsters() && verifyImageTower() && verifyImageMapEntities() && verifyImageTowersInformations())
     {
         return true;
     }
 
     return false;
-
 }
 
-/** verify if the image of towers are accessibles */
+/** verify if the image of towers are accessibles and charge in the texture */
 bool vGameBoard::verifyImageTower()
 {
     if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
@@ -1448,7 +1442,7 @@ bool vGameBoard::verifyImageTower()
     return true;
 }
 
-/** verify if the image of monsters are accessibles */
+/** verify if the image of monsters are accessibles and charge in the texture*/
 bool vGameBoard::verifyImageMonsters()
 {
     if (!ogreTextureWalk.loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
@@ -1543,7 +1537,7 @@ bool vGameBoard::verifyImageMonsters()
     return true;
 }
 
-/** verify if the image of map entities are accessibles */
+/** verify if the image of map entities are accessibles and charge in the texture */
 bool vGameBoard::verifyImageMapEntities()
 {
     if(!emptyButtonTexture.loadFromFile("res/images/gameBoard/button_empty.png"))
@@ -1663,8 +1657,8 @@ bool vGameBoard::verifyImageMapEntities()
     return true;
 }
 
-/** verify if the image of informations of towers are accessibles */
-bool vGameBoard::verifyImageInformations()
+/** verify if the image of informations of towers are accessibles and charge in the texture */
+bool vGameBoard::verifyImageTowersInformations()
 {
     if (!oneTexture.loadFromFile("res/images/gameBoard/num_1.png"))
     {

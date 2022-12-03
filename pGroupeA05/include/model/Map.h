@@ -11,8 +11,6 @@
 class Map
 {
     public:
-
-        //canonique
         Map();
         virtual ~Map();
         Map(const Map& other);
@@ -21,18 +19,19 @@ class Map
         /**methods*/
         std::string strEnemies()const;
         std::string strTowers()const;
-        void addEnemy(typeOfEnemies type);
-        void addTower(int x, int y, TypeOfTower type,int positon);
-        bool removeEnemy(Enemies &enemy);
-        int searchEnemy(Enemies &enemy);
-        bool removeTower(Tower &tower);
-        int searchTower(Tower &tower);
+
 
         ///ENEMIES
+        void addEnemy(typeOfEnemies type);
+        bool removeEnemy(Enemies &enemy);
+        int searchEnemy(Enemies &enemy);
         void deleteAllEnemies();
         void improveAllEnemies(int numeroOfWave);
 
         ///TOWERS
+        bool removeTower(Tower &tower);
+        int searchTower(Tower &tower);
+        void addTower(TypeOfTower type,int positon);
         int getFirstEnemyNotDead(Tower &tower,int middleOfTower);
         bool isTowerPositonAlreadyUsed(int position);
         void getPositionOfNewTower(TypeOfTower type, int position);
