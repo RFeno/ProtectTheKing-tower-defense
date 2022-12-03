@@ -135,7 +135,6 @@ vGameBoard::~vGameBoard()
     }
 }
 
-
 void vGameBoard::launchView()
 {
     //vsynch activation
@@ -171,9 +170,10 @@ void vGameBoard::launchView()
     }
 }
 
+/** bind the enemy to the vEnemy  */
 void vGameBoard::updateVennemyForView()
 {
-    //bind enemy model and sprite
+    //bind enemy on model to sprite on screen
     for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
     {
         listOfvEnnemies[i]->setEnemy(game.getMap()->getEnemies()[i]);
@@ -830,17 +830,6 @@ void vGameBoard::drawEntities()
         drawMapButtons();
         drawGameSpeedView();
 
-        ///A DEPLACER
-        ///enemies spawn one per one
-        if(spawnClock.getElapsedTime().asSeconds() > (game.getSpawnTime() / game.getGameSpeed()) && game.getNumberOfEnemiesSpawned() < (int)listOfvEnnemies.size() && !game.getGamePaused())
-        {
-            listOfvEnnemies[game.getNumberOfEnemiesSpawned()]->getEnemy()->setSpawn(true);
-
-            game.increaseNumberOfEnemiesSpawned();
-
-            spawnClock.restart();
-        }
-
         ///towers 1 to 4
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
@@ -953,44 +942,54 @@ void vGameBoard::updateGame()
     if(game.IsEndOfWave())
     {
         //desactivate all animations for tower
-        for(vTower *vtower:listOfvTower)
+        /*for(vTower *vtower:listOfvTower)
         {
             vtower->setAttackAnimation(false);
-        }
+        }*/
 
         game.refreshEnemies();
         updateVennemyForView();
     }
 
+    ///enemies spawn one per one
+    if(spawnClock.getElapsedTime().asSeconds() > (Game::spawnTime / game.getGameSpeed()) && game.getNumberOfEnemiesSpawned() < (int)listOfvEnnemies.size())
+    {
+        listOfvEnnemies[game.getNumberOfEnemiesSpawned()]->getEnemy()->setSpawn(true);
+
+        game.increaseNumberOfEnemiesSpawned();
+
+        spawnClock.restart();
+    }
+
+
+
+    ///game speed
     if(gameSpeedClook.getElapsedTime().asSeconds() > (0.013f / game.getGameSpeed()))
     {
         updateHealthBarAllEnemies();
 
+        ///walks of enemies
         for(int i=0;i<game.getGameSpeed();i++)
         {
             game.ennemiesWalk();
         }
 
-
+        ///attack of towers
         if(attackTowerClock.getElapsedTime().asSeconds() > (0.06 / game.getGameSpeed()))
         {
             for(vTower *vtower: listOfvTower)
             {
                 for(Enemies *enemy: game.getMap()->getEnemies())
                 {
-                    if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
+                    ///allow to attack only the first enemy in range and farthest
+                    if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
                     {
-                        ///allow to attack only the first enemy in range and farthest
-                        if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
-                        {
-                            /** ANIMATION DE LA TOUR SEULEMENT SI ON PASSE DANS CETTE BOUCLE */
-                            vtower->getTower()->attackEnemy(*enemy);
-                            vtower->setAttackAnimation(true);
-                        }
-                        else
-                        {
-                            vtower->setAttackAnimation(false);
-                        }
+                        vtower->getTower()->attackEnemy(*enemy);
+                        vtower->setAttackAnimation(true);
+                    }
+                    else
+                    {
+                        vtower->setAttackAnimation(false);
                     }
                 }
             }
@@ -1094,7 +1093,7 @@ void vGameBoard::drawMapButtons()
 /** draw enemies*/
 void vGameBoard::drawEnemies()
 {
-    for(int i=0;i<(int)listOfvEnnemies.size();i++)
+    /*for(int i=0;i<(int)listOfvEnnemies.size();i++)
     {
         //draw enemies who are not dead
         if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
@@ -1103,72 +1102,61 @@ void vGameBoard::drawEnemies()
             windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
             windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
         }
-    }
-
-    /*for(vEnnemy* enemy: listOfvEnnemies)
-    {
-        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
-        {
-            if(dynamic_cast<Orc*>(enemy->getEnemy()))
-            {
-                windowFromMain->draw(*enemy->getSprite());
-                windowFromMain->draw(enemy->healthBarRedSprite);
-                windowFromMain->draw(enemy->healthBarGreenSprite);
-            }
-        }
-    }
-
-    for(vEnnemy* enemy: listOfvEnnemies)
-    {
-        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
-        {
-            if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
-            {
-                windowFromMain->draw(*enemy->getSprite());
-                windowFromMain->draw(enemy->healthBarRedSprite);
-                windowFromMain->draw(enemy->healthBarGreenSprite);
-            }
-        }
-    }
-
-    for(vEnnemy* enemy: listOfvEnnemies)
-    {
-        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
-        {
-            if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
-            {
-                windowFromMain->draw(*enemy->getSprite());
-                windowFromMain->draw(enemy->healthBarRedSprite);
-                windowFromMain->draw(enemy->healthBarGreenSprite);
-            }
-        }
-    }
-
-    for(vEnnemy* enemy: listOfvEnnemies)
-    {
-        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
-        {
-            if(dynamic_cast<Ogre*>(enemy->getEnemy()))
-            {
-                windowFromMain->draw(*enemy->getSprite());
-                windowFromMain->draw(enemy->healthBarRedSprite);
-                windowFromMain->draw(enemy->healthBarGreenSprite);
-            }
-        }
-    }
-
-    for(vEnnemy* enemy: listOfvEnnemies)
-    {
-        if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
-        {
-            if(dynamic_cast<KnightOfDeath*>(enemy->getEnemy()))
-            {
-                windowFromMain->draw(*enemy->getSprite());
-                windowFromMain->draw(enemy->healthBarRedSprite);
-                windowFromMain->draw(enemy->healthBarGreenSprite);
-            }
-        }
     }*/
+
+    //allows you to draw some enemies before others
+    for(int i=0;i<5;i++)
+    {
+        for(vEnnemy* enemy: listOfvEnnemies)
+        {
+            if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
+            {
+                switch(i)
+                {
+                    case 0:
+                        if(dynamic_cast<Orc*>(enemy->getEnemy()))
+                        {
+                            windowFromMain->draw(*enemy->getSprite());
+                            windowFromMain->draw(enemy->healthBarRedSprite);
+                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                        }
+                        break;
+                    case 1:
+                        if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
+                        {
+                            windowFromMain->draw(*enemy->getSprite());
+                            windowFromMain->draw(enemy->healthBarRedSprite);
+                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                        }
+                        break;
+                    case 2:
+                        if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
+                        {
+                            windowFromMain->draw(*enemy->getSprite());
+                            windowFromMain->draw(enemy->healthBarRedSprite);
+                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                        }
+                        break;
+                    case 3:
+                        if(dynamic_cast<Ogre*>(enemy->getEnemy()))
+                        {
+                            windowFromMain->draw(*enemy->getSprite());
+                            windowFromMain->draw(enemy->healthBarRedSprite);
+                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                        }
+                        break;
+                    case 4:
+                        if(dynamic_cast<KnightOfDeath*>(enemy->getEnemy()))
+                        {
+                            windowFromMain->draw(*enemy->getSprite());
+                            windowFromMain->draw(enemy->healthBarRedSprite);
+                            windowFromMain->draw(enemy->healthBarGreenSprite);
+                        }
+                        break;
+                }
+            }
+        }
+    }
 }
 
 /**draw all entities for game speed */

@@ -8,6 +8,8 @@
 class Game
 {
     public:
+        static const int spawnTime = 3;
+
         Game();
 
         //mehtods
@@ -25,6 +27,8 @@ class Game
         virtual ~Game();
         Game(const Game& other);
         Game& operator=(const Game& other);
+
+
 
         Map* getMap()const
         {
@@ -82,11 +86,10 @@ class Game
         Player *player;
         Map *mapOfGame;
         const int numberOfEnemies =10;
-        int numeroOfWave =0;
+        int numeroOfWave = 30;
         int gameSpeed = 1;
         bool gamePaused = false;
         int numberOfEnemiesSpawned = 0;
-        static const int spawnTime = 3;
 
 
 };

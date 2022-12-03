@@ -32,7 +32,7 @@
 1669728898 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/King.h
 	<string>
 
-1670093300 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Game.h
+1670095095 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Game.h
 	<string>
 	"Player.h"
 	"King.h"
@@ -240,11 +240,11 @@
 1667463909 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vGame.h
 	<SFML/Graphics.hpp>
 
-1670093512 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vGameBoard.cpp
-	"vGameBoard.h"
+1670095050 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vGameBoard.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<unistd.h>
+	"vGameBoard.h"
 	"Ogre.h"
 	"Orc.h"
 	"ShadowMonster.h"
