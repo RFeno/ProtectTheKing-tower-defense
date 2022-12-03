@@ -1,6 +1,6 @@
 #include "TowerSand.h"
 
-TowerSand::TowerSand(int x, int y,int damage,int level,int price,int range):Tower(x,y,damage,level,price,range)
+TowerSand::TowerSand(int x, int y,int position, int damage,int level,int price,int range):Tower(x,y,damage,level,price,range,position)
 {
     this->type=sand;
 }

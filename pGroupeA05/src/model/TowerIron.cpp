@@ -1,6 +1,6 @@
 #include "TowerIron.h"
 
-TowerIron::TowerIron(int x, int y,int damage,int level,int price,int range):Tower(x,y,damage,level,price,range)
+TowerIron::TowerIron(int x, int y,int position,int damage,int level,int price,int range):Tower(x,y,damage,level,price,range,position)
 {
     this->type=iron;
 }
