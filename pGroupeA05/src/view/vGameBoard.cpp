@@ -1,8 +1,8 @@
-#include "vGameBoard.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <unistd.h>
 
+#include "vGameBoard.h"
 #include "Ogre.h"
 #include "Orc.h"
 #include "ShadowMonster.h"
@@ -157,7 +157,7 @@ void vGameBoard::launchView()
                 InputHandler(event, windowFromMain);
             }
 
-            if(!gamePaused && !game.isGameOver())
+            if(!game.getGamePaused() && !game.isGameOver())
             {
                 updateGame();
             }
@@ -181,7 +181,7 @@ void vGameBoard::updateVennemyForView()
     }
 }
 
-int vGameBoard::searchVEnemy(vEnnemy& enemy)
+/*int vGameBoard::searchVEnemy(vEnnemy& enemy)
 {
     int result = -1;
 
@@ -194,7 +194,7 @@ int vGameBoard::searchVEnemy(vEnnemy& enemy)
         }
     }
     return result;
-}
+}*/
 
 /**bool vGameBoard::removeVEnemy(vEnnemy& enemy)
 {
@@ -361,13 +361,13 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
             if(isSpriteClicked(pauseButtonSprite))
             {
-                if(gamePaused)
+                if(game.getGamePaused())
                 {
-                    gamePaused=false;
+                    game.setGamePaused(false);
                 }
-                else if(!gamePaused)
+                else if(!game.getGamePaused())
                 {
-                    gamePaused=true;
+                    game.setGamePaused(true);
                 }
             }
 
@@ -832,10 +832,12 @@ void vGameBoard::drawEntities()
 
         ///A DEPLACER
         ///enemies spawn one per one
-        if(spawnClock.getElapsedTime().asSeconds() > (spawnTime / game.getGameSpeed()) && idSpawn < (int)listOfvEnnemies.size() && !gamePaused)
+        if(spawnClock.getElapsedTime().asSeconds() > (game.getSpawnTime() / game.getGameSpeed()) && game.getNumberOfEnemiesSpawned() < (int)listOfvEnnemies.size() && !game.getGamePaused())
         {
-            listOfvEnnemies[idSpawn]->getEnemy()->setSpawn(true);
-            idSpawn++;
+            listOfvEnnemies[game.getNumberOfEnemiesSpawned()]->getEnemy()->setSpawn(true);
+
+            game.increaseNumberOfEnemiesSpawned();
+
             spawnClock.restart();
         }
 
@@ -946,34 +948,18 @@ void vGameBoard::updateGame()
 {
 //    cout << game.getMap()->strEnemies() << endl;
 //    cout << game.getMap()->getKing().getInformations() << endl;
-
 //    cout << game.getMap()->strTowers() <<endl;
 
     if(game.IsEndOfWave())
     {
-
         //desactivate all animations for tower
         for(vTower *vtower:listOfvTower)
         {
             vtower->setAttackAnimation(false);
         }
 
-
-        //delete all enemies who are dead
-        game.getMap()->deleteAllEnemies();
-
-        //create a new wave with 10 enemies
-        game.createWave();
-
-        //improve statistics of all enemies
-        game.getMap()->improveAllEnemies(game.getNumeroOfWave());
-
-        game.getMap()->strEnemies();
-        cout << "CREATE WAVE NUMBER ==> " << game.getNumeroOfWave() << endl;
+        game.refreshEnemies();
         updateVennemyForView();
-        //reset number of enemies who are spawn
-        idSpawn=0;
-
     }
 
     if(gameSpeedClook.getElapsedTime().asSeconds() > (0.013f / game.getGameSpeed()))
@@ -1108,17 +1094,18 @@ void vGameBoard::drawMapButtons()
 /** draw enemies*/
 void vGameBoard::drawEnemies()
 {
-//    for(int i=0;i<(int)listOfvEnnemies.size();i++)
-//    {
-//        //draw enemies who are not dead
-//        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
-//        {
-//            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
-//            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
-//            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
-//        }
-//    }
-    for(vEnnemy* enemy: listOfvEnnemies)
+    for(int i=0;i<(int)listOfvEnnemies.size();i++)
+    {
+        //draw enemies who are not dead
+        if(listOfvEnnemies[i]->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        {
+            windowFromMain->draw(*listOfvEnnemies[i]->getSprite());
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarRedSprite);
+            windowFromMain->draw(listOfvEnnemies[i]->healthBarGreenSprite);
+        }
+    }
+
+    /*for(vEnnemy* enemy: listOfvEnnemies)
     {
         if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
         {
@@ -1130,6 +1117,7 @@ void vGameBoard::drawEnemies()
             }
         }
     }
+
     for(vEnnemy* enemy: listOfvEnnemies)
     {
         if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
@@ -1142,6 +1130,7 @@ void vGameBoard::drawEnemies()
             }
         }
     }
+
     for(vEnnemy* enemy: listOfvEnnemies)
     {
         if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
@@ -1154,6 +1143,7 @@ void vGameBoard::drawEnemies()
             }
         }
     }
+
     for(vEnnemy* enemy: listOfvEnnemies)
     {
         if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
@@ -1166,6 +1156,7 @@ void vGameBoard::drawEnemies()
             }
         }
     }
+
     for(vEnnemy* enemy: listOfvEnnemies)
     {
         if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
@@ -1177,13 +1168,13 @@ void vGameBoard::drawEnemies()
                 windowFromMain->draw(enemy->healthBarGreenSprite);
             }
         }
-    }
+    }*/
 }
 
 /**draw all entities for game speed */
 void vGameBoard::drawGameSpeedView()
 {
-    if(!gamePaused)
+    if(!game.getGamePaused())
     {
         windowFromMain->draw(pauseButtonSprite);
     }

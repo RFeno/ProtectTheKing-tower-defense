@@ -1,9 +1,5 @@
 #include "Player.h"
 #include <string>
-#include <TowerEarth.h>
-#include <TowerIce.h>
-#include <TowerIron.h>
-#include <TowerSand.h>
 
 using namespace std;
 
@@ -18,12 +14,17 @@ Player::~Player()
     //dtor
 }
 
-/*Player& Player::operator=(const Player& rhs)
+Player& Player::operator=(const Player& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    this->name=rhs.name;
+    this->coins=rhs.coins;
+    this->score=rhs.score;
+
     //assignment operator
     return *this;
-}*/
+}
 
 void Player::addScore(int ScoreToAdd)
 {

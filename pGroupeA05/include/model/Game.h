@@ -19,6 +19,8 @@ class Game
         bool IsEndOfWave();
         void increaseGameSpeed();
         void decreaseGameSpeed();
+        void increaseNumberOfEnemiesSpawned();
+        void refreshEnemies();
 
         virtual ~Game();
         Game(const Game& other);
@@ -49,6 +51,31 @@ class Game
             return gameSpeed;
         }
 
+        int getNumberOfEnemiesSpawned()
+        {
+            return numberOfEnemiesSpawned;
+        }
+
+        int getSpawnTime()
+        {
+            return spawnTime;
+        }
+
+        bool getGamePaused()
+        {
+            return gamePaused;
+        }
+
+        void setGamePaused(bool pause)
+        {
+            gamePaused=pause;
+        }
+
+        void setNumberOfEnemiesSpawn(int spawn)
+        {
+            numberOfEnemiesSpawned=spawn;
+        }
+
     protected:
 
     private:
@@ -57,6 +84,9 @@ class Game
         const int numberOfEnemies =10;
         int numeroOfWave =0;
         int gameSpeed = 1;
+        bool gamePaused = false;
+        int numberOfEnemiesSpawned = 0;
+        static const int spawnTime = 3;
 
 
 };

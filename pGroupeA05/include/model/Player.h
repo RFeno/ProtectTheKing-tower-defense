@@ -12,6 +12,10 @@ class Player
 
         //constructors
         Player(std::string name="Anonymous",int coins = 400,int score = 0);
+        //destructor
+        virtual ~Player();
+        Player& operator=(const Player& rhs);
+
         //methods
         void buyTower(TypeOfTower type);
         void buySpell();
@@ -56,8 +60,7 @@ class Player
             }
         }
 
-        //destructor
-        virtual ~Player();
+
 
     protected:
 

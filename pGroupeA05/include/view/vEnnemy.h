@@ -76,17 +76,6 @@ class vEnnemy
         //model
         Enemies* enemy;
 
-        const int OGRE_WIDTH = 377 ;
-        const int OGRE_HEIGHT = 404;
-        const int ORC_WIDTH = 339;
-        const int ORC_HEIGHT = 353 ;
-        const int GREMLIN_WIDTH = 238;
-        const int GREMLIN_HEIGHT = 227;
-        const int SHADOWMONSTER_WIDTH = 326;
-        const int SHADOWMONSTER_HEIGHT = 302;
-        const int KNIGHTOFDEATH_WIDTH = 445;
-        const int KNIGHTOFDEATH_HEIGHT = 469;
-
         //sprites
         sf::Sprite *enemySprite;
 

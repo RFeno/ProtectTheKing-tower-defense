@@ -58,6 +58,7 @@ Game& Game::operator=(const Game& rhs)
 void Game::createWave()
 {
     numeroOfWave++;
+    cout << "CREATE WAVE NUMERO:  " << numeroOfWave << endl;
 
     for(int i = 1; i<= numberOfEnemies;i++)
     {
@@ -169,3 +170,24 @@ void Game::decreaseGameSpeed()
     }
 }
 
+/** increase the number of enemeis who are spawned on the map*/
+void Game::increaseNumberOfEnemiesSpawned()
+{
+    numberOfEnemiesSpawned++;
+}
+
+/** removes enemies then spawns 10 new ones and finally upgrades enemies to match wave difficulty level, reset the number of enemies spawned */
+void Game::refreshEnemies()
+{
+    //delete all enemies who are dead
+    mapOfGame->deleteAllEnemies();
+
+    //create a new wave with 10 enemies
+    createWave();
+
+    //improve statistics of all enemies
+    mapOfGame->improveAllEnemies(numeroOfWave);
+
+    //reset number of enemies who are spawn
+    numberOfEnemiesSpawned=0;
+}
