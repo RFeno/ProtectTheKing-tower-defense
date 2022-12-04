@@ -36,6 +36,7 @@ class vGameBoard
         ///IMAGES
         void loadSprite();
         void loadGameSpeedEntities();
+        void loadSpellEntities();
 
         bool verifyImage();
         bool verifyImageTower();
@@ -46,6 +47,7 @@ class vGameBoard
         ///EVENTS
         void InputHandler(sf::Event event,sf::RenderWindow *window);
         bool isSpriteClicked (sf::Sprite &spr);
+        void activeMessagePopUp(std::string message);
 
         void launchGame();
 
@@ -115,6 +117,7 @@ class vGameBoard
         sf::Clock attackClock;
         sf::Clock gameSpeedClook;
         sf::Clock attackTowerClock;
+        sf::Clock messageClock;
 
         Game game;
         sf::RenderWindow *windowFromMain;
@@ -193,8 +196,13 @@ class vGameBoard
         sf::Texture headerUpgradeTexture;
 
 
-        ///Speel textures
+        ///Spell textures
         sf::Texture acideCloudEffectTexture;
+
+        ///Spell sprites:
+        sf::Sprite fireBuyButtonSprite;
+        sf::Sprite acideCloudBuyButtonSprite;
+        sf::Sprite lightningBuyButtonSprite;
 
         ///Towers textures
         sf::Texture earthAttack;

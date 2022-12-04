@@ -12,7 +12,6 @@
 #include <iostream>
 
 
-
 using namespace std;
 
 //ctor
@@ -190,4 +189,14 @@ void Game::refreshEnemies()
 
     //reset number of enemies who are spawn
     numberOfEnemiesSpawned=0;
+}
+
+void Game::debitPlayerWallet(int price)
+{
+    player->setCoins(player->getCoins()-price);
+}
+
+void Game::creditPlayerWallet(int price)
+{
+    player->setCoins(player->getCoins()+price);
 }

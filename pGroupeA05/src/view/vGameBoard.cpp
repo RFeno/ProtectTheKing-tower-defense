@@ -2,7 +2,7 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "vGameBoard.h"
+/**ENEMIES*/
 #include "Ogre.h"
 #include "Orc.h"
 #include "ShadowMonster.h"
@@ -10,11 +10,13 @@
 #include "Gremlin.h"
 #include "vEnnemy.h"
 
+/**TOWERS*/
 #include "TowerEarth.h"
 #include "TowerIce.h"
 #include "TowerIron.h"
 #include "TowerSand.h"
 
+#include "vGameBoard.h"
 #include "StateDie.h"
 
 using namespace sf;
@@ -526,6 +528,7 @@ void vGameBoard::loadSprite()
     mapSprite.setScale(0.73f,0.75f);
 
     loadGameSpeedEntities();
+    loadSpellEntities();
 
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
@@ -806,6 +809,11 @@ void vGameBoard::loadGameSpeedEntities()
 
 }
 
+void vGameBoard::loadSpellEntities()
+{
+
+}
+
 /** to draw the entitties in the window */
 void vGameBoard::drawEntities()
 {
@@ -868,7 +876,7 @@ void vGameBoard::drawEntities()
         /// attack animations of towers
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->isAttackAnimation())
+            if(listOfvTower[i]->getTower()->isAttacking())
             {
                 /*if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
                 {*/
@@ -933,9 +941,11 @@ void vGameBoard::updateGame()
         //desactivate all animations for tower
         for(vTower *vtower:listOfvTower)
         {
-            vtower->setAttackAnimation(false);
+            vtower->getTower()->setAttacking(false);
         }
+        //delete and create and improve enemies
         game.refreshEnemies();
+        //bind model and view
         updateVennemyForView();
     }
 
@@ -971,12 +981,12 @@ void vGameBoard::updateGame()
                     ///allow to attack only the first enemy in range and farthest
                     if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
                     {
+                        vtower->getTower()->setAttacking(true);
                         vtower->getTower()->attackEnemy(*enemy);
-                        vtower->setAttackAnimation(true);
                     }
                     else
                     {
-                        vtower->setAttackAnimation(false);
+                        vtower->getTower()->setAttacking(false);
                     }
                 }
             }
@@ -1139,6 +1149,7 @@ void vGameBoard::drawEnemies()
     }
 }
 
+/** draws on the screen the enemy received as an argument */
 void vGameBoard::drawOneEnemy(vEnnemy *enemy)
 {
     windowFromMain->draw(*enemy->getSprite());
@@ -1350,19 +1361,18 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
                 break;
             }
         }
-        game.getPlayer()->setCoins(game.getPlayer()->getCoins() - game.getMap()->getTowers().back()->getType());
+        //type = price of tower
+        game.debitPlayerWallet(type);
         playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
         cout<<game.getPlayer()->getCoins()<<endl;
     }
     else
     {
-        cout << "A tower is already at this position. You canno't buy a another tower at the same postion" <<endl;
+        game.setMessage("A tower is already at this position. You canno't buy a another tower at the same postion");
     }
 }
 
-/**
-to verify if all images is accessible and charge in the texture
-*/
+/**to verify if all images is accessible and charge in the texture*/
 bool vGameBoard::verifyImage()
 {
     //verify load images

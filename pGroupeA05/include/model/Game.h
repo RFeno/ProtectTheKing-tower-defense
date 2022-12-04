@@ -1,9 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
-#include <string>
+
 #include "Player.h"
 #include "King.h"
 #include "Map.h"
+
+#include <string>
 
 class Game
 {
@@ -11,6 +13,9 @@ class Game
         static const int spawnTime = 3;
 
         Game();
+        virtual ~Game();
+        Game(const Game& other);
+        Game& operator=(const Game& other);
 
         //mehtods
         bool isGameOver();
@@ -23,10 +28,9 @@ class Game
         void decreaseGameSpeed();
         void increaseNumberOfEnemiesSpawned();
         void refreshEnemies();
-
-        virtual ~Game();
-        Game(const Game& other);
-        Game& operator=(const Game& other);
+        void debitPlayerWallet(int valueOfDebit);
+        void creditPlayerWallet(int valueOfCredit);
+        void increasePlayerScore(int valueToAdd);
 
 
 
@@ -70,6 +74,11 @@ class Game
             return gamePaused;
         }
 
+        std::string getMessage()
+        {
+            return message;
+        }
+
         void setGamePaused(bool pause)
         {
             gamePaused=pause;
@@ -79,6 +88,13 @@ class Game
         {
             numberOfEnemiesSpawned=spawn;
         }
+
+        void setMessage(std::string message)
+        {
+            this->message=message;
+        }
+
+
 
     protected:
 
@@ -90,6 +106,7 @@ class Game
         int gameSpeed = 1;
         bool gamePaused = false;
         int numberOfEnemiesSpawned = 0;
+        std::string message;
 
 
 };

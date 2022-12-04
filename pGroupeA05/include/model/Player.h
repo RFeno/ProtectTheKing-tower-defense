@@ -11,7 +11,7 @@ class Player
     public:
 
         //constructors
-        Player(std::string name="Anonymous",int coins = 400,int score = 0);
+        Player(std::string name="Anonymous",int coins = 100,int score = 0);
         //destructor
         virtual ~Player();
         Player& operator=(const Player& rhs);
@@ -59,8 +59,6 @@ class Player
                 this->score=score;
             }
         }
-
-
 
     protected:
 

@@ -98,6 +98,16 @@ class Tower
             return type;
         }
 
+        bool isAttacking()
+        {
+            return attackActivated;
+        }
+
+        void setAttacking(bool activated)
+        {
+            this->attackActivated=activated;
+        }
+
 
     protected:
         int xTower;
@@ -108,6 +118,7 @@ class Tower
         int range;
         TypeOfTower type;
         int position;
+        bool attackActivated = false;
 
     private:
 

@@ -18,6 +18,9 @@ AcidCloudSpell::AcidCloudSpell(const AcidCloudSpell& other)
 AcidCloudSpell& AcidCloudSpell::operator=(const AcidCloudSpell& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+
+
     //assignment operator
     return *this;
 }

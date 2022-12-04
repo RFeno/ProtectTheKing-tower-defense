@@ -81,13 +81,13 @@ void vMainMenu::loadSprite()
     //set positions
     playSprite.setPosition(sf::Vector2f(600, 600));
     settingsSprite.setPosition(sf::Vector2f(1230, 15));
-    logoSprite.setPosition(sf::Vector2f(200, -30));
+    logoSprite.setPosition(sf::Vector2f(340, 150));
     musiqueOnSprite.setPosition(Vector2f(0, 15));
     musiqueOnSprite.setPosition(Vector2f(0, 15));
 
     //change widht
     playSprite.setScale(0.5f, 0.5f);
-    logoSprite.setScale(1.0f, 1.0f);
+    logoSprite.setScale(0.75f,0.75f);
 }
 
 /** to verify if all images is accessible and charge in the texture */
@@ -125,7 +125,7 @@ bool vMainMenu::verifyImage()
         return false;
     }
 
-    if (!logoTexture.loadFromFile("res/images/menu/logo.png"))
+    if (!logoTexture.loadFromFile("res/images/menu/protectTheKingLogo.png"))
     {
         cout << "ERROR chargement texture" << endl;
         return false;
@@ -138,7 +138,7 @@ bool vMainMenu::verifyImage()
 void vMainMenu::drawEntities()
 {
     //display elemeents
-    //windowFromMain->draw(bgSprite);
+    windowFromMain->draw(bgSprite);
     windowFromMain->draw(musiqueOnSprite);
     windowFromMain->draw(settingsSprite);
     windowFromMain->draw(logoSprite);

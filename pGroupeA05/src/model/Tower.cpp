@@ -32,6 +32,7 @@ Tower::~Tower()
 Tower::Tower(const Tower& other): xTower(other.xTower), yTower(other.yTower), damage(other.damage), level(other.level), price(other.price), range(other.range), position(other.position)
 {
     //copy ctor
+    this->attackActivated=other.attackActivated;
 }
 
 Tower& Tower::operator=(const Tower& rhs)
@@ -46,6 +47,7 @@ Tower& Tower::operator=(const Tower& rhs)
     this->yTower=rhs.yTower;
     this->type=rhs.type;
     this->position=rhs.position;
+    this->attackActivated=rhs.attackActivated;
 
     //assignment operator
     return *this;
@@ -87,7 +89,7 @@ bool Tower::improveLevel()
 /** improve the statistics */
 void Tower::improveStatistics()
 {
-    //this.damage=(damage)
+    this->damage=(damage*0.5);
 }
 
 /** show the state of the tower */

@@ -17,10 +17,6 @@ class vTower
         sf::Clock* animAttackClock;
         sf::Clock bulletClock;
 
-
-        bool attackAnimation = false;
-
-
     public:
 
         vTower(int x,int y, Tower* tower);
@@ -63,16 +59,6 @@ class vTower
         int getY()
         {
             return y;
-        }
-
-        void setAttackAnimation(bool animation)
-        {
-            this->attackAnimation=animation;
-        }
-
-        bool isAttackAnimation()
-        {
-            return attackAnimation;
         }
 
         void setX(int x)
