@@ -123,7 +123,8 @@ class vGameBoard
         sf::Font font;
         sf::Text sellText;
         sf::Text chooseNumberText;
-
+        sf::Text playerGemsText;
+        sf::Text playerGemsNumberText;
 
         ///entities gameSpeed textures
         sf::Texture pauseButtonTexture;
@@ -233,7 +234,7 @@ class vGameBoard
         sf::Texture oneHundredFiftyTexture;
         sf::Texture twoHundredFiftyTexture;
         sf::Texture fourHundredTexture;
-        sf::Texture crystalTexture;
+        sf::Texture gemTexture;
         sf::Texture swordTexture;
         sf::Texture signTexture;
 
@@ -249,7 +250,7 @@ class vGameBoard
         sf::Sprite fourHundredSprite;
 
         std::vector<sf::Sprite*> swordSprites;
-        std::vector<sf::Sprite*> crystalSprites;
+        std::vector<sf::Sprite*> gemSprites;
         std::vector<sf::Sprite*> signSprites;
         std::vector<sf::Sprite*> oneSprites;
         std::vector<sf::Sprite*> twoSprites;

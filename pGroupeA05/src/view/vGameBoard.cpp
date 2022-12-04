@@ -84,9 +84,9 @@ vGameBoard::~vGameBoard()
         delete vTower;
     }
 
-    for(Sprite *crystal: crystalSprites)
+    for(Sprite *gem: gemSprites)
     {
-        delete crystal;
+        delete gem;
     }
 
     for(Sprite *sign: signSprites)
@@ -584,10 +584,10 @@ void vGameBoard::loadSprite()
     x = 1020;
     for(int i = 0; i < 4; i++)
     {
-        crystalSprites.push_back(new Sprite());
-        crystalSprites[i]->setTexture(crystalTexture);
-        crystalSprites[i]->setPosition(Vector2f(x, 159));
-        crystalSprites[i]->setScale(0.20f,0.20f);
+        gemSprites.push_back(new Sprite());
+        gemSprites[i]->setTexture(gemTexture);
+        gemSprites[i]->setPosition(Vector2f(x, 159));
+        gemSprites[i]->setScale(0.20f,0.20f);
         x+=100;
     }
 
@@ -705,7 +705,7 @@ void vGameBoard::loadSprite()
     sevenSprites.back()->setPosition(830, 255);
     sevenSprites.back()->setScale(0.5f,0.5f);
 
-    // Numbers to display under tower while choosing emplacement for tower
+    /// Numbers to display under tower while choosing emplacement for tower
     oneSprites.push_back(new Sprite());
     oneSprites.back()->setTexture(oneTexture);
     oneSprites.back()->setPosition(1060, 505);
@@ -740,6 +740,28 @@ void vGameBoard::loadSprite()
     sevenSprites.back()->setTexture(sevenTexture);
     sevenSprites.back()->setPosition(100, 750);
     sevenSprites.back()->setScale(0.5f,0.5f);
+
+    /// player gems
+    gemSprites.push_back(new Sprite());
+    gemSprites.back()->setTexture(gemTexture);
+    gemSprites.back()->setPosition(730,44);
+    gemSprites.back()->setScale(0.30f,0.30f);
+
+    playerGemsText.setFont(font);
+    playerGemsText.setFillColor(grey);
+    playerGemsText.setOutlineColor(Color::Black);
+    playerGemsText.setOutlineThickness(1.2f);
+    playerGemsText.setString("Player gems : ");
+    playerGemsText.setScale(0.8f,0.8f);
+    playerGemsText.setPosition(540,40);
+
+    playerGemsNumberText.setFont(font);
+    playerGemsNumberText.setFillColor(Color::Yellow);
+    playerGemsNumberText.setOutlineColor(Color::Black);
+    playerGemsNumberText.setOutlineThickness(1.2f);
+    playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
+    playerGemsNumberText.setScale(0.8f,0.8f);
+    playerGemsNumberText.setPosition(770,40);
 }
 
 /** load and configure game speed entitites */
@@ -1025,7 +1047,7 @@ void vGameBoard::drawMapEntities()
 
     for(int i=0; i < 4 ; i++)
     {
-        windowFromMain->draw(*crystalSprites[i]);
+        windowFromMain->draw(*gemSprites[i]);
     }
 
     ///prices of towers
@@ -1037,6 +1059,11 @@ void vGameBoard::drawMapEntities()
     windowFromMain->draw(oneHundredFiftySprite);
     windowFromMain->draw(twoHundredFiftySprite);
     windowFromMain->draw(fourHundredSprite);
+
+    /// player gems
+    windowFromMain->draw(playerGemsText);
+    windowFromMain->draw(playerGemsNumberText);
+    windowFromMain->draw(*gemSprites[4]);
 }
 
 /** draw map buttons */
@@ -1319,9 +1346,13 @@ void vGameBoard::buyTower(TypeOfTower type, int position)
                 vtower->attackTexture = &sandAttack;
                 vtower->chargeInformations();
                 listOfvTower.push_back(vtower);
+
                 break;
             }
         }
+        game.getPlayer()->setCoins(game.getPlayer()->getCoins() - game.getMap()->getTowers().back()->getType());
+        playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
+        cout<<game.getPlayer()->getCoins()<<endl;
     }
     else
     {
@@ -1710,7 +1741,7 @@ bool vGameBoard::verifyImageTowersInformations()
         return false;
     }
 
-    if (!crystalTexture.loadFromFile("res/images/gameBoard/coinCrystal.png"))
+    if (!gemTexture.loadFromFile("res/images/gameBoard/coinCrystal.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;
