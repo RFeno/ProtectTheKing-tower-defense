@@ -109,6 +109,7 @@ class vGameBoard
 
         bool isChoosingNumberForPositionTower = false;
         bool isSellingTower = false;
+        bool isMessagePopUp = false;
 
         TypeOfTower typeTowerChoosed;
 
@@ -122,13 +123,14 @@ class vGameBoard
         Game game;
         sf::RenderWindow *windowFromMain;
 
-        // texts
+        /// texts
         sf::Font font;
         sf::Text sellText;
         sf::Text chooseNumberText;
         sf::Text playerGemsText;
         sf::Text playerGemsNumberText;
         sf::Text spellTitleText;
+        sf::Text messagePopUpText;
 
         ///entities gameSpeed textures
         sf::Texture pauseButtonTexture;
