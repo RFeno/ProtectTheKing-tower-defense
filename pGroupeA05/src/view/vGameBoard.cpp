@@ -232,8 +232,6 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     // detect mouse click
     if (event.type == Event::MouseButtonPressed)
     {
-        cout << "model : " << game.getMap()->getTowers().size() <<endl;
-        cout << "vue : " << listOfvTower.size() <<endl;
         if (event.mouseButton.button == Mouse::Left)
         {
             if(!isChoosingNumberForPositionTower)
@@ -256,6 +254,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                         else
                         {
                             //display not enough coins message
+                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
                         }
                     }
                     else
@@ -277,6 +276,11 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                             isChoosingNumberForPositionTower = true;
                             typeTowerChoosed = TypeOfTowerPrice::sand;
                         }
+                        else
+                        {
+                            //display not enough coins message
+                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
+                        }
                     }
                 }
 
@@ -293,6 +297,11 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                             typeTowerChoosed = TypeOfTowerPrice::ice;
 
                         }
+                        else
+                        {
+                            //display not enough coins message
+                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
+                        }
                     }
                 }
 
@@ -307,6 +316,11 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                         {
                             isChoosingNumberForPositionTower = true;
                             typeTowerChoosed = TypeOfTowerPrice::iron;
+                        }
+                        else
+                        {
+                            //display not enough coins message
+                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
                         }
                     }
                 }
@@ -712,6 +726,14 @@ void vGameBoard::loadSprite()
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
     playerGemsNumberText.setScale(0.8f,0.8f);
     playerGemsNumberText.setPosition(770,40);
+
+    /// message pop up
+    messagePopUpText.setFont(font);
+    messagePopUpText.setFillColor(Color::Black);
+    messagePopUpText.setOutlineColor(Color::Black);
+    messagePopUpText.setOutlineThickness(1.2f);
+    messagePopUpText.setScale(0.5f,0.5f);
+    messagePopUpText.setPosition(Vector2f(1243,223));
 }
 
 /** load and configure game speed entitites */
@@ -1084,7 +1106,20 @@ void vGameBoard::drawMapEntities()
     ///king health and bubble message
     windowFromMain->draw(kingHealthRedSprite);
     windowFromMain->draw(kingHealthGreenSprite);
-    windowFromMain->draw(infoBulbleMessageSprite);
+    /// message pop up said by the king
+    if(isMessagePopUp)
+    {
+        if(messageClock.getElapsedTime().asSeconds() < 5)
+        {
+            windowFromMain->draw(infoBulbleMessageSprite);
+            windowFromMain->draw(messagePopUpText);
+        }
+        else
+        {
+            messageClock.restart();
+            isMessagePopUp = false;
+        }
+    }
 
     ///tower informations
     for(int i=0; i < 4 ; i++)
@@ -1350,6 +1385,13 @@ void vGameBoard::adaptAnimationTexture()
             listOfvEnnemies[i]->updateTexture();
         }
     }
+}
+
+/** launch a pop up with a message said by the king */
+void vGameBoard::activeMessagePopUp(std::string message)
+{
+    messagePopUpText.setString(message);
+    isMessagePopUp = true;
 }
 
 /** buy the tower*/
