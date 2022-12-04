@@ -336,7 +336,6 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             // close the sign to choose tower emplacement
             if(isSpriteClicked(closeButtonSprite))
             {
-                cout<<"test"<<endl;
                 isChoosingNumberForPositionTower = false;
                 isSellingTower = false;
             }
@@ -547,84 +546,13 @@ void vGameBoard::loadSprite()
     loadSpellEntities();
     loadTowersEntities();
 
-    int x = 1010;
-    for(int i = 0; i < 4; i++)
-    {
-        swordSprites.push_back(new Sprite());
-        swordSprites[i]->setTexture(swordTexture);
-        swordSprites[i]->setPosition(Vector2f(x, 89));
-        swordSprites[i]->setScale(0.1f,0.1f);
-        x+=100;
-    }
-
-    x = 1020;
-    for(int i = 0; i < 4; i++)
-    {
-        gemSprites.push_back(new Sprite());
-        gemSprites[i]->setTexture(gemTexture);
-        gemSprites[i]->setPosition(Vector2f(x, 159));
-        gemSprites[i]->setScale(0.20f,0.20f);
-        x+=100;
-    }
-
-    x = 1010;
-    for(int i = 0; i < 4; i++)
-    {
-        signSprites.push_back(new Sprite());
-        signSprites[i]->setTexture(signTexture);
-        signSprites[i]->setPosition(Vector2f(x, 89));
-        signSprites[i]->setScale(0.3f,0.3f);
-        x+=100;
-    }
-
-    twentySprite.setScale(0.30f,0.30f);
-    twentySprite.setPosition(Vector2f(1045,100));
-
-    fourtySprite.setScale(0.30f,0.30f);
-    fourtySprite.setPosition(Vector2f(1145,100));
-
-    sixtySprite.setScale(0.30f,0.30f);
-    sixtySprite.setPosition(Vector2f(1245,100));
-
-    eightySprite.setScale(0.30f,0.30f);
-    eightySprite.setPosition(Vector2f(1345,100));
-
-    oneHundredSprite.setScale(0.30f,0.30f);
-    oneHundredSprite.setPosition(Vector2f(1045,158));
-
-    oneHundredFiftySprite.setScale(0.30f,0.30f);
-    oneHundredFiftySprite.setPosition(Vector2f(1145,158));
-
-    twoHundredFiftySprite.setScale(0.30f,0.30f);
-    twoHundredFiftySprite.setPosition(Vector2f(1245,158));
-
-    fourHundredSprite.setScale(0.30f,0.30f);
-    fourHundredSprite.setPosition(Vector2f(1345,158));
-
-    sellButtonSprite.setTexture(emptyButtonTexture);
-    sellButtonSprite.setScale(0.50f,0.50f);
-    sellButtonSprite.setPosition(Vector2f(880,10));
-
-    Color grey(200,200,200);
-    sellText.setFont(font);
-    sellText.setFillColor(grey);
-    sellText.setOutlineColor(Color::Black);
-    sellText.setOutlineThickness(1.2f);
-    sellText.setString("Sell");
-    sellText.setScale(1.1f,1.1f);
-    sellText.setPosition(Vector2f(905,24));
-
-    closeButtonSprite.setTexture(closeButtonTexture);
-    closeButtonSprite.setRotation(45.f);
-    closeButtonSprite.setScale(Vector2f(0.5f, 0.5f));
-    closeButtonSprite.setPosition(880, 137);
-
     ///choose number
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(signTexture);
     signSprites.back()->setPosition(Vector2f(500, 150));
     signSprites.back()->setScale(1.5f,0.5f);
 
+    Color grey(200,200,200);
     chooseNumberText.setFont(font);
     chooseNumberText.setFillColor(grey);
     chooseNumberText.setOutlineColor(Color::Black);
@@ -705,27 +633,43 @@ void vGameBoard::loadSprite()
     sevenSprites.back()->setScale(0.5f,0.5f);
 
     /// player gems
+    signSprites.push_back(new Sprite());
+    signSprites.back()->setTexture(tableEmptyTexture);
+//    signSprites.back()->setPosition(590, 28);
+//    signSprites.back()->setScale(0.38f,0.14f);
+
+    signSprites.back()->setPosition(630, 5);
+    signSprites.back()->setScale(0.25f,0.25f);
+
     gemSprites.push_back(new Sprite());
     gemSprites.back()->setTexture(gemTexture);
-    gemSprites.back()->setPosition(730,44);
-    gemSprites.back()->setScale(0.30f,0.30f);
-
-    //pas besoin de dire c'est implicite
-    /*playerGemsText.setFont(font);
-    playerGemsText.setFillColor(grey);
-    playerGemsText.setOutlineColor(Color::Black);
-    playerGemsText.setOutlineThickness(1.2f);
-    playerGemsText.setString("Wallet : ");
-    playerGemsText.setScale(0.8f,0.8f);
-    playerGemsText.setPosition(540,40);*/
+    gemSprites.back()->setPosition(660,44);
+    gemSprites.back()->setScale(0.36f,0.36f);
 
     playerGemsNumberText.setFont(font);
     playerGemsNumberText.setFillColor(Color::Yellow);
     playerGemsNumberText.setOutlineColor(Color::Black);
     playerGemsNumberText.setOutlineThickness(1.2f);
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
-    playerGemsNumberText.setScale(0.8f,0.8f);
-    playerGemsNumberText.setPosition(770,40);
+    playerGemsNumberText.setScale(1.f,1.f);
+    playerGemsNumberText.setPosition(700,40);
+
+    /// wave number
+    waveNumberText.setFont(font);
+    waveNumberText.setFillColor(Color::Yellow);
+    waveNumberText.setOutlineColor(Color::Black);
+    waveNumberText.setOutlineThickness(1.2f);
+    waveNumberText.setString(to_string(game.getNumeroOfWave()));
+    waveNumberText.setScale(0.9f,0.9f);
+    waveNumberText.setPosition(705,135);
+
+    waveText.setFont(font);
+    waveText.setFillColor(grey);
+    waveText.setOutlineColor(Color::Black);
+    waveText.setOutlineThickness(1.2f);
+    waveText.setString("Wave number");
+    waveText.setScale(0.6f,0.6f);
+    waveText.setPosition(642,100);
 
     /// message pop up
     messagePopUpText.setFont(font);
@@ -789,9 +733,9 @@ void vGameBoard::loadSpellEntities()
     fireSprite.setScale(0.50f,0.50f);
     lightningSprite.setScale(0.50,0.50f);
 
-    acideCloudSprite.setPosition(Vector2f(10, 55));
-    fireSprite.setPosition(Vector2f(110, 55));
-    lightningSprite.setPosition(Vector2f(210, 55));
+    acideCloudSprite.setPosition(Vector2f(10, 5));
+    fireSprite.setPosition(Vector2f(110, 5));
+    lightningSprite.setPosition(Vector2f(210, 5));
 
     ///buttons to buy spells
     fireBuyButtonSprite.setTexture(emptyButtonTexture);
@@ -802,9 +746,9 @@ void vGameBoard::loadSpellEntities()
     acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
     lightningBuyButtonSprite.setScale(0.35f,0.35f);
 
-    fireBuyButtonSprite.setPosition(10,150);
-    acideCloudBuyButtonSprite.setPosition(110,150);
-    lightningBuyButtonSprite.setPosition(210,150);
+    fireBuyButtonSprite.setPosition(10,100);
+    acideCloudBuyButtonSprite.setPosition(110,100);
+    lightningBuyButtonSprite.setPosition(210,100);
 
     ///Title
     Color grey(200,200,200);
@@ -814,7 +758,7 @@ void vGameBoard::loadSpellEntities()
     spellTitleText.setOutlineThickness(1.2f);
     spellTitleText.setString("Spells");
     spellTitleText.setScale(1.1f,1.1f);
-    spellTitleText.setPosition(Vector2f(10,10));
+    spellTitleText.setPosition(Vector2f(310,20));
 
     ///effects
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
@@ -832,6 +776,16 @@ void vGameBoard::loadSpellEntities()
 /** load all entities for towers */
 void vGameBoard::loadTowersEntities()
 {
+    ///Title
+    Color grey(200,200,200);
+    towerTitleText.setFont(font);
+    towerTitleText.setFillColor(grey);
+    towerTitleText.setOutlineColor(Color::Black);
+    towerTitleText.setOutlineThickness(1.2f);
+    towerTitleText.setString("Towers");
+    towerTitleText.setScale(1.1f,1.1f);
+    towerTitleText.setPosition(Vector2f(870,20));
+
     ///towers buttons
     earthTowerButtonSprite.setTexture(earthTowerTextureButton);
     iceTowerButtonSprite.setTexture(iceTowerTextureButton);
@@ -849,14 +803,85 @@ void vGameBoard::loadTowersEntities()
     ironTowerButtonSprite.setPosition(Vector2f(1306,5));
 
     ///informations of tower
+
+    int x = 1010;
+    for(int i = 0; i < 4; i++)
+    {
+        swordSprites.push_back(new Sprite());
+        swordSprites[i]->setTexture(swordTexture);
+        swordSprites[i]->setPosition(Vector2f(x, 89));
+        swordSprites[i]->setScale(0.1f,0.1f);
+        x+=100;
+    }
+
+    x = 1020;
+    for(int i = 0; i < 4; i++)
+    {
+        gemSprites.push_back(new Sprite());
+        gemSprites[i]->setTexture(gemTexture);
+        gemSprites[i]->setPosition(Vector2f(x, 159));
+        gemSprites[i]->setScale(0.20f,0.20f);
+        x+=100;
+    }
+
+    x = 1010;
+    for(int i = 0; i < 4; i++)
+    {
+        signSprites.push_back(new Sprite());
+        signSprites[i]->setTexture(signTexture);
+        signSprites[i]->setPosition(Vector2f(x, 89));
+        signSprites[i]->setScale(0.3f,0.3f);
+        x+=100;
+    }
+
     twentySprite.setTexture(twentyTexture);
+    twentySprite.setScale(0.30f,0.30f);
+    twentySprite.setPosition(Vector2f(1045,100));
+
     fourtySprite.setTexture(fourtyTexture);
+    fourtySprite.setScale(0.30f,0.30f);
+    fourtySprite.setPosition(Vector2f(1145,100));
+
     sixtySprite.setTexture(sixtyTexture);
+    sixtySprite.setScale(0.30f,0.30f);
+    sixtySprite.setPosition(Vector2f(1245,100));
+
     eightySprite.setTexture(eightyTexture);
+    eightySprite.setScale(0.30f,0.30f);
+    eightySprite.setPosition(Vector2f(1345,100));
+
     oneHundredSprite.setTexture(oneHundredTexture);
+    oneHundredSprite.setScale(0.30f,0.30f);
+    oneHundredSprite.setPosition(Vector2f(1045,158));
+
     oneHundredFiftySprite.setTexture(oneHundredFiftyTexture);
+    oneHundredFiftySprite.setScale(0.30f,0.30f);
+    oneHundredFiftySprite.setPosition(Vector2f(1145,158));
+
     twoHundredFiftySprite.setTexture(twoHundredFiftyTexture);
+    twoHundredFiftySprite.setScale(0.30f,0.30f);
+    twoHundredFiftySprite.setPosition(Vector2f(1245,158));
+
     fourHundredSprite.setTexture(fourHundredTexture);
+    fourHundredSprite.setScale(0.30f,0.30f);
+    fourHundredSprite.setPosition(Vector2f(1345,158));
+
+    sellButtonSprite.setTexture(emptyButtonTexture);
+    sellButtonSprite.setScale(0.50f,0.50f);
+    sellButtonSprite.setPosition(Vector2f(880,100));
+
+    sellText.setFont(font);
+    sellText.setFillColor(grey);
+    sellText.setOutlineColor(Color::Black);
+    sellText.setOutlineThickness(1.2f);
+    sellText.setString("Sell");
+    sellText.setScale(1.1f,1.1f);
+    sellText.setPosition(Vector2f(905,114));
+
+    closeButtonSprite.setTexture(closeButtonTexture);
+    closeButtonSprite.setRotation(45.f);
+    closeButtonSprite.setScale(Vector2f(0.5f, 0.5f));
+    closeButtonSprite.setPosition(880, 137);
 }
 
 /**load all entities for map */
@@ -1009,6 +1034,10 @@ void vGameBoard::updateGame()
         }
         //delete and create and improve enemies
         game.refreshEnemies();
+
+        //set the wave number in the view
+        waveNumberText.setString(to_string(game.getNumeroOfWave()));
+
         //bind model and view
         updateVennemyForView();
     }
@@ -1122,6 +1151,7 @@ void vGameBoard::drawMapEntities()
     }
 
     ///tower informations
+    windowFromMain->draw(towerTitleText);
     for(int i=0; i < 4 ; i++)
     {
         windowFromMain->draw(*signSprites[i]);
@@ -1148,9 +1178,13 @@ void vGameBoard::drawMapEntities()
     windowFromMain->draw(fourHundredSprite);
 
     /// player gems
-    windowFromMain->draw(playerGemsText);
+    windowFromMain->draw(*signSprites[5]);
     windowFromMain->draw(playerGemsNumberText);
     windowFromMain->draw(*gemSprites[4]);
+
+    /// wave number
+    windowFromMain->draw(waveNumberText);
+    windowFromMain->draw(waveText);
 }
 
 /** draw map buttons */
@@ -1848,6 +1882,12 @@ bool vGameBoard::verifyImageTowersInformations()
     }
 
     if (!signTexture.loadFromFile("res/images/gameBoard/window_1.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if (!tableEmptyTexture.loadFromFile("res/images/gameBoard/table.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;

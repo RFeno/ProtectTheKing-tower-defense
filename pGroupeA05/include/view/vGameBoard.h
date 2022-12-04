@@ -129,6 +129,9 @@ class vGameBoard
         sf::Text playerGemsText;
         sf::Text playerGemsNumberText;
         sf::Text spellTitleText;
+        sf::Text towerTitleText;
+        sf::Text waveNumberText;
+        sf::Text waveText;
         sf::Text messagePopUpText;
 
         ///entities gameSpeed textures
