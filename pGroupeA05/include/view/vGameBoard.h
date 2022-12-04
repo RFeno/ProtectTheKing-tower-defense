@@ -20,23 +20,23 @@ class vGameBoard
 
         /**DRAW*/
         void drawEntities();
-
         void drawEnemies();
         void drawOneEnemy(vEnnemy *enemy);
-
         void drawMapEntities();
         void drawMapButtons();
-
         void drawTowers();
-
         void drawGameSpeedView();
-
+        void drawSpellEntities();
         void loadFont();
 
         ///IMAGES
         void loadSprite();
         void loadGameSpeedEntities();
         void loadSpellEntities();
+        void loadTowersEntities();
+        void loadMapEntities();
+        void loadKingEntities();
+
 
         bool verifyImage();
         bool verifyImageTower();
@@ -128,6 +128,7 @@ class vGameBoard
         sf::Text chooseNumberText;
         sf::Text playerGemsText;
         sf::Text playerGemsNumberText;
+        sf::Text spellTitleText;
 
         ///entities gameSpeed textures
         sf::Texture pauseButtonTexture;

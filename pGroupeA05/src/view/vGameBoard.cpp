@@ -527,52 +527,11 @@ void vGameBoard::loadSprite()
     mapSprite.setTexture(mapTexture);
     mapSprite.setScale(0.73f,0.75f);
 
+    loadMapEntities();
     loadGameSpeedEntities();
+
     loadSpellEntities();
-
-    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
-    {
-        listOfAcideCloudSpell.push_back(new Sprite());
-        listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
-        listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,909,2398));
-        listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
-        listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
-    }
-
-
-    ///king
-    kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
-    kingHealthRedSprite.setTexture(kingHealthRedTexture);
-    kingHealthGreenSprite.setScale(0.20f,0.20f);
-    kingHealthRedSprite.setScale(0.20,0.20f);
-    kingHealthGreenSprite.setPosition(1240,345);
-    kingHealthRedSprite.setPosition(1240,345);
-
-    ///towers buttons
-    earthTowerButtonSprite.setTexture(earthTowerTextureButton);
-    iceTowerButtonSprite.setTexture(iceTowerTextureButton);
-    sandTowerButtonSprite.setTexture(sandTowerTextureButton);
-    ironTowerButtonSprite.setTexture(ironTowerTextureButton);
-
-    earthTowerButtonSprite.setScale(0.50f,0.50f);
-    iceTowerButtonSprite.setScale(0.50f,0.50f);
-    sandTowerButtonSprite.setScale(0.50f,0.50f);
-    ironTowerButtonSprite.setScale(0.50f,0.50f);
-
-    earthTowerButtonSprite.setPosition(Vector2f(1206,5));
-    iceTowerButtonSprite.setPosition(Vector2f(1106,5));
-    sandTowerButtonSprite.setPosition(Vector2f(1006,5));
-    ironTowerButtonSprite.setPosition(Vector2f(1306,5));
-
-    ///informations of tower
-    twentySprite.setTexture(twentyTexture);
-    fourtySprite.setTexture(fourtyTexture);
-    sixtySprite.setTexture(sixtyTexture);
-    eightySprite.setTexture(eightyTexture);
-    oneHundredSprite.setTexture(oneHundredTexture);
-    oneHundredFiftySprite.setTexture(oneHundredFiftyTexture);
-    twoHundredFiftySprite.setTexture(twoHundredFiftyTexture);
-    fourHundredSprite.setTexture(fourHundredTexture);
+    loadTowersEntities();
 
     int x = 1010;
     for(int i = 0; i < 4; i++)
@@ -645,19 +604,6 @@ void vGameBoard::loadSprite()
     closeButtonSprite.setRotation(45.f);
     closeButtonSprite.setScale(Vector2f(0.5f, 0.5f));
     closeButtonSprite.setPosition(880, 137);
-
-    ///spells buttons
-    acideCloudSprite.setTexture(acideCloudTexture);
-    fireSprite.setTexture(fireTexture);
-    lightningSprite.setTexture(lightningTexture);
-
-    acideCloudSprite.setScale(0.50f,0.50f);
-    fireSprite.setScale(0.50f,0.50f);
-    lightningSprite.setScale(0.50,0.50f);
-
-    acideCloudSprite.setPosition(Vector2f(10, 5));
-    fireSprite.setPosition(Vector2f(110, 5));
-    lightningSprite.setPosition(Vector2f(210, 5));
 
     ///choose number
     signSprites.push_back(new Sprite());
@@ -750,13 +696,14 @@ void vGameBoard::loadSprite()
     gemSprites.back()->setPosition(730,44);
     gemSprites.back()->setScale(0.30f,0.30f);
 
-    playerGemsText.setFont(font);
+    //pas besoin de dire c'est implicite
+    /*playerGemsText.setFont(font);
     playerGemsText.setFillColor(grey);
     playerGemsText.setOutlineColor(Color::Black);
     playerGemsText.setOutlineThickness(1.2f);
-    playerGemsText.setString("Player gems : ");
+    playerGemsText.setString("Wallet : ");
     playerGemsText.setScale(0.8f,0.8f);
-    playerGemsText.setPosition(540,40);
+    playerGemsText.setPosition(540,40);*/
 
     playerGemsNumberText.setFont(font);
     playerGemsNumberText.setFillColor(Color::Yellow);
@@ -806,12 +753,96 @@ void vGameBoard::loadGameSpeedEntities()
     gameSpeedOneSprite.setScale(0.35f,0.35f);
     gameSpeedTwoSprite.setScale(0.35f,0.35f);
     gameSPeedThreeSprite.setScale(0.35f,0.35f);
+}
+
+/** load all entities for spell */
+void vGameBoard::loadSpellEntities()
+{
+    /// buttons to active spell
+    acideCloudSprite.setTexture(acideCloudTexture);
+    fireSprite.setTexture(fireTexture);
+    lightningSprite.setTexture(lightningTexture);
+
+    acideCloudSprite.setScale(0.50f,0.50f);
+    fireSprite.setScale(0.50f,0.50f);
+    lightningSprite.setScale(0.50,0.50f);
+
+    acideCloudSprite.setPosition(Vector2f(10, 5));
+    fireSprite.setPosition(Vector2f(110, 5));
+    lightningSprite.setPosition(Vector2f(210, 5));
+
+    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        listOfAcideCloudSpell.push_back(new Sprite());
+        listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
+        listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,909,2398));
+        listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
+        listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
+    }
+
+    fireBuyButtonSprite.setTexture(emptyButtonTexture);
+    acideCloudBuyButtonSprite.setTexture(emptyButtonTexture);
+    lightningBuyButtonSprite.setTexture(emptyButtonTexture);
+
+    /*Color grey(200,200,200);
+
+    spellTitleText.setFont(font);
+    spellTitleText.setFillColor(grey);
+    spellTitleText.setOutlineColor(Color::Black);
+    spellTitleText.setOutlineThickness(1.2f);
+    spellTitleText.setString("Spell");
+    spellTitleText.setScale(1.1f,1.1f);
+    spellTitleText.setPosition(Vector2f(50,24));*/
+
+
 
 }
 
-void vGameBoard::loadSpellEntities()
+/** load all entities for towers */
+void vGameBoard::loadTowersEntities()
 {
+    ///towers buttons
+    earthTowerButtonSprite.setTexture(earthTowerTextureButton);
+    iceTowerButtonSprite.setTexture(iceTowerTextureButton);
+    sandTowerButtonSprite.setTexture(sandTowerTextureButton);
+    ironTowerButtonSprite.setTexture(ironTowerTextureButton);
 
+    earthTowerButtonSprite.setScale(0.50f,0.50f);
+    iceTowerButtonSprite.setScale(0.50f,0.50f);
+    sandTowerButtonSprite.setScale(0.50f,0.50f);
+    ironTowerButtonSprite.setScale(0.50f,0.50f);
+
+    earthTowerButtonSprite.setPosition(Vector2f(1206,5));
+    iceTowerButtonSprite.setPosition(Vector2f(1106,5));
+    sandTowerButtonSprite.setPosition(Vector2f(1006,5));
+    ironTowerButtonSprite.setPosition(Vector2f(1306,5));
+
+    ///informations of tower
+    twentySprite.setTexture(twentyTexture);
+    fourtySprite.setTexture(fourtyTexture);
+    sixtySprite.setTexture(sixtyTexture);
+    eightySprite.setTexture(eightyTexture);
+    oneHundredSprite.setTexture(oneHundredTexture);
+    oneHundredFiftySprite.setTexture(oneHundredFiftyTexture);
+    twoHundredFiftySprite.setTexture(twoHundredFiftyTexture);
+    fourHundredSprite.setTexture(fourHundredTexture);
+}
+
+/**load all entities for map */
+void vGameBoard::loadMapEntities()
+{
+    loadKingEntities();
+}
+
+void vGameBoard::loadKingEntities()
+{
+    ///king
+    kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
+    kingHealthRedSprite.setTexture(kingHealthRedTexture);
+    kingHealthGreenSprite.setScale(0.20f,0.20f);
+    kingHealthRedSprite.setScale(0.20,0.20f);
+    kingHealthGreenSprite.setPosition(1240,345);
+    kingHealthRedSprite.setPosition(1240,345);
 }
 
 /** to draw the entitties in the window */
@@ -823,8 +854,8 @@ void vGameBoard::drawEntities()
     if(!game.isGameOver())
     {
         drawMapEntities();
-        drawMapButtons();
         drawGameSpeedView();
+
 
         ///towers 1 to 4
         for(int i = 0; i < (int)listOfvTower.size(); i++)
@@ -833,7 +864,6 @@ void vGameBoard::drawEntities()
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
-
         }
 
         // When the player must choose the emplacement of tower
@@ -857,12 +887,8 @@ void vGameBoard::drawEntities()
         drawEnemies();
 
         //Place here elemnets between the towers
+        drawSpellEntities();
 
-        ///Acid spell
-        /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
-        {
-            windowFromMain->draw(*listOfAcideCloudSpell[i]);
-        }*/
 
         ///towers 5 to 7
         for(int i = 0; i < (int)listOfvTower.size(); i++)
@@ -895,6 +921,21 @@ void vGameBoard::drawEntities()
         windowFromMain->draw(sellText);
 
     }
+}
+
+void vGameBoard::drawSpellEntities()
+{
+
+    ///Acid spell
+    /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        windowFromMain->draw(*listOfAcideCloudSpell[i]);
+    }*/
+
+
+    /*windowFromMain->draw(fireBuyButtonSprite);
+    windowFromMain->draw(acideCloudBuyButtonSprite);
+    windowFromMain->draw(lightningBuyButtonSprite);*/
 }
 
 /**Detect events when buttons are pressed*/

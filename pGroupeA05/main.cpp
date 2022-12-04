@@ -7,7 +7,7 @@
 #include "Gremlin.h"
 #include <unistd.h>
 
-#include <vGameManager.h>
+#include "vGameManager.h"
 
 using namespace std;
 using namespace sf;
