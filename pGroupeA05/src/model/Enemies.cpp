@@ -19,6 +19,11 @@ Enemies::Enemies(int health, int marketValue, int scoreValue, int damage,float w
     //ctor
     this->id = new int(++compteur);
     changeState(new StateWalk);
+    counted=false;
+    spawn=false;
+    //enemies start at -50 to arrive naturally on the screen
+    x=-50;
+    y=0;
 }
 
 Enemies::~Enemies()
@@ -33,6 +38,7 @@ Enemies::Enemies(const Enemies& other): health(other.health),marketValue(other.m
    //copy ctor
    //est-ce correct d'avoir deux ennemis avec le même id ?
     this->id = new int(*other.id);
+    this->counted=other.counted;
 }
 
 Enemies& Enemies::operator=(const Enemies& rhs)
@@ -49,6 +55,7 @@ Enemies& Enemies::operator=(const Enemies& rhs)
     this->walkingSpeed=rhs.walkingSpeed;
     this->x=rhs.x;
     this->x=rhs.y;
+    this->counted=rhs.counted;
 
     //assignment operator
     return *this;

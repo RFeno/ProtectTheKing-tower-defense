@@ -102,7 +102,7 @@ class Game
         Player *player;
         Map *mapOfGame;
         const int numberOfEnemies =10;
-        int numeroOfWave = 30;
+        int numeroOfWave = 20;
         int gameSpeed = 1;
         bool gamePaused = false;
         int numberOfEnemiesSpawned = 0;

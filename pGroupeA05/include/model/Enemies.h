@@ -38,13 +38,12 @@ class Enemies
         static inline int compteur = 0;
         static const int NUMBER_OF_ENEMY_TYPES = 5;
 
-        //canonic form
         Enemies(int health=100, int marketValue=100, int scoreValue=100, int damage=1,float walkingSpeed=1.0);
         virtual ~Enemies();
         Enemies(const Enemies& other);
         Enemies& operator=(const Enemies& other);
 
-        //methods
+        ///methods
         void attackKing(King &king);
         void walk();
         void receiveDamage(int damage);
@@ -52,7 +51,7 @@ class Enemies
         void die();
         void improveStatistics(int numeroOfWave);
 
-        //getters and setters
+        ///getters and setters
         void setHealth(int health);
         void setX(float x);
         void setWalkingSpeed(float speed);
@@ -97,6 +96,16 @@ class Enemies
             return spawn;
         }
 
+        bool isCounted()const
+        {
+            return counted;
+        }
+
+        void setCounted(bool counted)
+        {
+            this->counted=counted;
+        }
+
         void setSpawn(bool spawn)
         {
             this->spawn=spawn;
@@ -133,13 +142,15 @@ class Enemies
         int damage;
 
         //if the enemy is visible on the screen (given that they start walking at -40)
-        bool spawn = false;
+        bool spawn;
+
+        //if the enemy is already count for player score and coins
+        bool counted;
 
         float walkingSpeed;
 
-        //enemies start at -50 to arrive naturally on the screen
-        float x = -50;
-        float y = 0;
+        float x;
+        float y;
 
         int *id;
 

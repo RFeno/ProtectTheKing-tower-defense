@@ -251,7 +251,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                             //dont forget to remove coins in player wallet
 
                             isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTower::earth;
+                            typeTowerChoosed = TypeOfTowerPrice::earth;
                         }
                         else
                         {
@@ -275,7 +275,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                         if(game.getPlayer()->getCoins() - sand >= 0 )
                         {
                             isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTower::sand;
+                            typeTowerChoosed = TypeOfTowerPrice::sand;
                         }
                     }
                 }
@@ -290,7 +290,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                         if(game.getPlayer()->getCoins() - ice >= 0 )
                         {
                             isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTower::ice;
+                            typeTowerChoosed = TypeOfTowerPrice::ice;
 
                         }
                     }
@@ -306,7 +306,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                         if(game.getPlayer()->getCoins() - iron >= 0 )
                         {
                             isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTower::iron;
+                            typeTowerChoosed = TypeOfTowerPrice::iron;
                         }
                     }
                 }
@@ -758,7 +758,7 @@ void vGameBoard::loadGameSpeedEntities()
 /** load all entities for spell */
 void vGameBoard::loadSpellEntities()
 {
-    /// buttons to active spell
+    /// buttons to active spells
     acideCloudSprite.setTexture(acideCloudTexture);
     fireSprite.setTexture(fireTexture);
     lightningSprite.setTexture(lightningTexture);
@@ -767,10 +767,34 @@ void vGameBoard::loadSpellEntities()
     fireSprite.setScale(0.50f,0.50f);
     lightningSprite.setScale(0.50,0.50f);
 
-    acideCloudSprite.setPosition(Vector2f(10, 5));
-    fireSprite.setPosition(Vector2f(110, 5));
-    lightningSprite.setPosition(Vector2f(210, 5));
+    acideCloudSprite.setPosition(Vector2f(10, 55));
+    fireSprite.setPosition(Vector2f(110, 55));
+    lightningSprite.setPosition(Vector2f(210, 55));
 
+    ///buttons to buy spells
+    fireBuyButtonSprite.setTexture(emptyButtonTexture);
+    acideCloudBuyButtonSprite.setTexture(emptyButtonTexture);
+    lightningBuyButtonSprite.setTexture(emptyButtonTexture);
+
+    fireBuyButtonSprite.setScale(0.35f,0.35f);
+    acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
+    lightningBuyButtonSprite.setScale(0.35f,0.35f);
+
+    fireBuyButtonSprite.setPosition(10,150);
+    acideCloudBuyButtonSprite.setPosition(110,150);
+    lightningBuyButtonSprite.setPosition(210,150);
+
+    ///Title
+    Color grey(200,200,200);
+    spellTitleText.setFont(font);
+    spellTitleText.setFillColor(grey);
+    spellTitleText.setOutlineColor(Color::Black);
+    spellTitleText.setOutlineThickness(1.2f);
+    spellTitleText.setString("Spells");
+    spellTitleText.setScale(1.1f,1.1f);
+    spellTitleText.setPosition(Vector2f(10,10));
+
+    ///effects
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
@@ -779,21 +803,6 @@ void vGameBoard::loadSpellEntities()
         listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
         listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
     }
-
-    fireBuyButtonSprite.setTexture(emptyButtonTexture);
-    acideCloudBuyButtonSprite.setTexture(emptyButtonTexture);
-    lightningBuyButtonSprite.setTexture(emptyButtonTexture);
-
-    /*Color grey(200,200,200);
-
-    spellTitleText.setFont(font);
-    spellTitleText.setFillColor(grey);
-    spellTitleText.setOutlineColor(Color::Black);
-    spellTitleText.setOutlineThickness(1.2f);
-    spellTitleText.setString("Spell");
-    spellTitleText.setScale(1.1f,1.1f);
-    spellTitleText.setPosition(Vector2f(50,24));*/
-
 
 
 }
@@ -902,17 +911,9 @@ void vGameBoard::drawEntities()
         /// attack animations of towers
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getTower()->isAttacking())
+            if(listOfvTower[i]->getTower()->isAttacking() == true)
             {
-                /*if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 2)
-                {*/
-                    windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
-
-                    /*if(listOfvTower[i]->getAttackClock()->getElapsedTime().asSeconds() > 3)
-                    {
-                        listOfvTower[i]->getAttackClock()->restart();
-                    }
-                }*/
+                windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
             }
         }
 
@@ -932,10 +933,10 @@ void vGameBoard::drawSpellEntities()
         windowFromMain->draw(*listOfAcideCloudSpell[i]);
     }*/
 
-
-    /*windowFromMain->draw(fireBuyButtonSprite);
+    windowFromMain->draw(spellTitleText);
+    windowFromMain->draw(fireBuyButtonSprite);
     windowFromMain->draw(acideCloudBuyButtonSprite);
-    windowFromMain->draw(lightningBuyButtonSprite);*/
+    windowFromMain->draw(lightningBuyButtonSprite);
 }
 
 /**Detect events when buttons are pressed*/
@@ -1352,7 +1353,7 @@ void vGameBoard::adaptAnimationTexture()
 }
 
 /** buy the tower*/
-void vGameBoard::buyTower(TypeOfTower type, int position)
+void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
 {
     bool positionAlreadyUsed = game.getMap()->isTowerPositonAlreadyUsed(position);
 

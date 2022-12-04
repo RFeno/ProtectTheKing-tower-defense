@@ -14,7 +14,6 @@ class vTower
         sf::Sprite bulletSprite;
 
         Tower *tower;
-        sf::Clock* animAttackClock;
         sf::Clock bulletClock;
 
     public:
@@ -41,17 +40,12 @@ class vTower
             return tower;
         }
 
-        sf::Clock* getAttackClock()
-        {
-            return animAttackClock;
-        }
-
         sf::Sprite* getAttackSprite()
         {
             return attackSprite;
         }
 
-        int getX()
+        /*int getX()
         {
             return x;
         }
@@ -69,7 +63,7 @@ class vTower
         void setY(int y)
         {
             this->y=y;
-        }
+        }*/
 
     protected:
 };

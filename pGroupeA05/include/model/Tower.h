@@ -3,7 +3,7 @@
 #include <Enemies.h>
 
 
-enum TypeOfTower : int
+enum TypeOfTowerPrice : int
 {
     sand = 100,
     ice = 150,
@@ -16,9 +16,7 @@ class Tower
 {
     public:
         Tower(int xTower=0, int yTower=0, int damage=20,int level=1,int price=100, int range=20,int position=-1);
-
         virtual ~Tower();
-
         Tower(const Tower& other);
         Tower& operator=(const Tower& rhs);
 
@@ -39,7 +37,9 @@ class Tower
         void setLevel(int level)
         {
             if(level<=0)
+            {
                 this->level=level;
+            }
         }
 
         int getDamage()
@@ -60,10 +60,12 @@ class Tower
         void setPrice(int price)
         {
             if(price < 0)
+            {
                 this->price=price;
+            }
         }
 
-        void setType(TypeOfTower type)
+        void setType(TypeOfTowerPrice type)
         {
             this->type=type;
         }
@@ -93,7 +95,7 @@ class Tower
             this->position=position;
         }
 
-        TypeOfTower getType()
+        TypeOfTowerPrice getType()
         {
             return type;
         }
@@ -116,9 +118,9 @@ class Tower
         int level;
         int price;
         int range;
-        TypeOfTower type;
+        TypeOfTowerPrice type;
         int position;
-        bool attackActivated = false;
+        bool attackActivated;
 
     private:
 

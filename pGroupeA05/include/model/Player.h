@@ -17,7 +17,7 @@ class Player
         Player& operator=(const Player& rhs);
 
         //methods
-        void buyTower(TypeOfTower type);
+        void buyTower(TypeOfTowerPrice type);
         void buySpell();
         void placeTower(Tower tower);
         void sellTower();

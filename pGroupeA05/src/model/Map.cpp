@@ -174,7 +174,7 @@ bool Map::removeEnemy(Enemies& enemy)
 }
 
 /** add a new tower on the map */
-void Map::addTower(TypeOfTower type,int position)
+void Map::addTower(TypeOfTowerPrice type,int position)
 {
     //change the value of yOfTheNextTower and xOfTheNextTower
     getPositionOfNewTower(type,position);
@@ -312,7 +312,7 @@ bool Map::isTowerPositonAlreadyUsed(int position)
 *depending on the type of tower the player wants to buy
 *this method will call the correct method which will change an x and y position
 */
-void Map::getPositionOfNewTower(TypeOfTower type, int position)
+void Map::getPositionOfNewTower(TypeOfTowerPrice type, int position)
 {
     switch(type)
     {

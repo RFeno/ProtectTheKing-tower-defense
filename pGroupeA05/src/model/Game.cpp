@@ -191,12 +191,20 @@ void Game::refreshEnemies()
     numberOfEnemiesSpawned=0;
 }
 
+/** decrease the wallet of player */
 void Game::debitPlayerWallet(int price)
 {
     player->setCoins(player->getCoins()-price);
 }
 
+/** increase the wallet of player */
 void Game::creditPlayerWallet(int price)
 {
     player->setCoins(player->getCoins()+price);
+}
+
+/** incrase the score of player */
+void Game::increasePlayerScore(int value)
+{
+    player->addScore(value);
 }

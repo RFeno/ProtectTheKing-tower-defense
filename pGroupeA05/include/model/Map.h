@@ -31,10 +31,10 @@ class Map
         ///TOWERS
         bool removeTower(Tower &tower);
         int searchTower(Tower &tower);
-        void addTower(TypeOfTower type,int positon);
+        void addTower(TypeOfTowerPrice type,int positon);
         int getFirstEnemyNotDead(Tower &tower,int middleOfTower);
         bool isTowerPositonAlreadyUsed(int position);
-        void getPositionOfNewTower(TypeOfTower type, int position);
+        void getPositionOfNewTower(TypeOfTowerPrice type, int position);
         void getPositionOfEarth(int position);
         void getPositionOfIron(int position);
         void getPositionOfIce(int position);

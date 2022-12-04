@@ -34,7 +34,7 @@ void Player::addScore(int ScoreToAdd)
 *this method add a new tower to list of tower of player if he have enough money
 *if the purchase is completed, he debits the player
 */
-void Player::buyTower(TypeOfTower type)
+void Player::buyTower(TypeOfTowerPrice type)
 {
 
 }

@@ -22,6 +22,9 @@ Tower::Tower(int xTower, int yTower, int damage, int level, int price,int range,
     {
         cerr << "The damage of tower cannot be below or egal to 0" << endl;
     }
+
+    this->attackActivated=false;
+
 }
 
 Tower::~Tower()
@@ -29,10 +32,9 @@ Tower::~Tower()
     //dtor
 }
 
-Tower::Tower(const Tower& other): xTower(other.xTower), yTower(other.yTower), damage(other.damage), level(other.level), price(other.price), range(other.range), position(other.position)
+Tower::Tower(const Tower& other): xTower(other.xTower), yTower(other.yTower), damage(other.damage), level(other.level), price(other.price), range(other.range), position(other.position), attackActivated(other.attackActivated)
 {
     //copy ctor
-    this->attackActivated=other.attackActivated;
 }
 
 Tower& Tower::operator=(const Tower& rhs)

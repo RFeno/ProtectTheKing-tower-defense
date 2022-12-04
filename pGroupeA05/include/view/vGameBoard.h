@@ -37,7 +37,6 @@ class vGameBoard
         void loadMapEntities();
         void loadKingEntities();
 
-
         bool verifyImage();
         bool verifyImageTower();
         bool verifyImageMonsters();
@@ -60,7 +59,7 @@ class vGameBoard
 
 
         ///TOWERS
-        void buyTower(TypeOfTower type, int position);
+        void buyTower(TypeOfTowerPrice type, int position);
         bool removeVTower(int position);
         int searchVTower(int position);
         bool removeVEnemy(vEnnemy& enemy);
@@ -110,7 +109,7 @@ class vGameBoard
         bool isChoosingNumberForPositionTower = false;
         bool isSellingTower = false;
 
-        TypeOfTower typeTowerChoosed;
+        TypeOfTowerPrice typeTowerChoosed;
 
         sf::Clock animClock;
         sf::Clock spawnClock;

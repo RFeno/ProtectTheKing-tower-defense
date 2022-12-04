@@ -1,4 +1,5 @@
 #include "TowerEarth.h"
+#include <iostream>
 
 TowerEarth::TowerEarth(int x, int y,int position, int damage,int level,int price,int range):Tower(x,y,damage,level,price,range,position)
 {
@@ -13,6 +14,7 @@ TowerEarth::~TowerEarth()
 TowerEarth::TowerEarth(const TowerEarth& other):Tower(other)
 {
     //copy ctor
+
 }
 
 TowerEarth& TowerEarth::operator=(const TowerEarth& rhs)

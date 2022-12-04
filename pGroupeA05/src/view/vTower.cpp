@@ -15,7 +15,6 @@ vTower::vTower(int x,int y, Tower* tower): x(x), y(y), tower(tower)
     //ctor
     this->towerSprite = new Sprite();
     this->attackSprite = new Sprite();
-    this->animAttackClock = new Clock();
 }
 
 vTower::~vTower()
@@ -23,7 +22,6 @@ vTower::~vTower()
     //dtor
     delete towerSprite;
     delete attackSprite;
-    delete animAttackClock;
 }
 
 vTower::vTower(const vTower& other)
