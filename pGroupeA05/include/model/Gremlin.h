@@ -7,7 +7,7 @@
 class Gremlin : public Enemies
 {
     public:
-        Gremlin(int health=250, int marketValue=200, int scoreValue=200, int damage=1,float walkingSpeed=1.5);
+        Gremlin(int health=250, int marketValue=5, int scoreValue=200, int damage=1,float walkingSpeed=1.5);
         virtual ~Gremlin();
         Gremlin(const Gremlin& other);
         Gremlin& operator=(const Gremlin& other);

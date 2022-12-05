@@ -527,7 +527,7 @@ void vGameBoard::loadSprite()
     ///choose number
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(signTexture);
-    signSprites.back()->setPosition(Vector2f(500, 150));
+    signSprites.back()->setPosition(Vector2f(500, 220));
     signSprites.back()->setScale(1.5f,0.5f);
 
     Color grey(200,200,200);
@@ -537,42 +537,46 @@ void vGameBoard::loadSprite()
     chooseNumberText.setOutlineThickness(1.2f);
     chooseNumberText.setString("Choose the tower\n   emplacement");
     chooseNumberText.setScale(1.1f,1.1f);
-    chooseNumberText.setPosition(Vector2f(540,162));
+    chooseNumberText.setPosition(Vector2f(540,232));
 
     oneSprites.push_back(new Sprite());
     oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(530, 255);
+    oneSprites.back()->setPosition(530, 325);
     oneSprites.back()->setScale(0.5f,0.5f);
 
     twoSprites.push_back(new Sprite());
     twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(580, 255);
+    twoSprites.back()->setPosition(580, 325);
     twoSprites.back()->setScale(0.5f,0.5f);
 
     threeSprites.push_back(new Sprite());
     threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(630, 255);
+    threeSprites.back()->setPosition(630, 325);
     threeSprites.back()->setScale(0.5f,0.5f);
 
     fourSprites.push_back(new Sprite());
     fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(680, 255);
+    fourSprites.back()->setPosition(680, 325);
     fourSprites.back()->setScale(0.5f,0.5f);
 
     fiveSprites.push_back(new Sprite());
     fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(730, 255);
+    fiveSprites.back()->setPosition(730, 325);
     fiveSprites.back()->setScale(0.5f,0.5f);
 
     sixSprites.push_back(new Sprite());
     sixSprites.back()->setTexture(sixTexture);
-    sixSprites.back()->setPosition(780, 255);
+    sixSprites.back()->setPosition(780, 325);
     sixSprites.back()->setScale(0.5f,0.5f);
 
     sevenSprites.push_back(new Sprite());
     sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(830, 255);
+    sevenSprites.back()->setPosition(830, 325);
     sevenSprites.back()->setScale(0.5f,0.5f);
+
+    closeButtonSprite.setTexture(closeButtonTexture);
+    closeButtonSprite.setPosition(865, 210);
+    closeButtonSprite.setScale(0.35f,0.35f);
 
     /// Numbers to display under tower while choosing emplacement for tower
     oneSprites.push_back(new Sprite());
@@ -613,15 +617,12 @@ void vGameBoard::loadSprite()
     /// player gems
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(tableEmptyTexture);
-//    signSprites.back()->setPosition(590, 28);
-//    signSprites.back()->setScale(0.38f,0.14f);
-
-    signSprites.back()->setPosition(630, 5);
-    signSprites.back()->setScale(0.25f,0.25f);
+    signSprites.back()->setPosition(624, 5);
+    signSprites.back()->setScale(0.27f,0.25f);
 
     gemSprites.push_back(new Sprite());
     gemSprites.back()->setTexture(gemTexture);
-    gemSprites.back()->setPosition(660,44);
+    gemSprites.back()->setPosition(655,44);
     gemSprites.back()->setScale(0.36f,0.36f);
 
     playerGemsNumberText.setFont(font);
@@ -630,7 +631,7 @@ void vGameBoard::loadSprite()
     playerGemsNumberText.setOutlineThickness(1.2f);
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
     playerGemsNumberText.setScale(1.f,1.f);
-    playerGemsNumberText.setPosition(700,40);
+    playerGemsNumberText.setPosition(695,40);
 
     /// wave number
     waveNumberText.setFont(font);
@@ -852,11 +853,6 @@ void vGameBoard::loadTowersEntities()
     sellText.setString("Sell");
     sellText.setScale(1.1f,1.1f);
     sellText.setPosition(Vector2f(905,114));
-
-    closeButtonSprite.setTexture(closeButtonTexture);
-    closeButtonSprite.setRotation(45.f);
-    closeButtonSprite.setScale(Vector2f(0.5f, 0.5f));
-    closeButtonSprite.setPosition(880, 137);
 }
 
 /**load all entities for map */
@@ -1057,6 +1053,9 @@ void vGameBoard::drawEntities()
         drawMapEntities();
         drawGameSpeedView();
 
+        // button to sell towers
+        windowFromMain->draw(sellButtonSprite);
+        windowFromMain->draw(sellText);
 
         ///towers 1 to 4
         for(int i = 0; i < (int)listOfvTower.size(); i++)
@@ -1094,7 +1093,7 @@ void vGameBoard::drawEntities()
         ///towers 5 to 7
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getTower()->getPosition() >= 5)
+            if(listOfvTower[i]->getTower()->getPosition() >= 4)
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
@@ -1108,10 +1107,6 @@ void vGameBoard::drawEntities()
                 windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
             }
         }
-
-        // button to sell towers
-        windowFromMain->draw(sellButtonSprite);
-        windowFromMain->draw(sellText);
 
     }
     else
@@ -1700,7 +1695,7 @@ bool vGameBoard::verifyImageMapEntities()
         return false;
     }
 
-    if(!closeButtonTexture.loadFromFile("res/images/gameBoard/button_plus.png"))
+    if(!closeButtonTexture.loadFromFile("res/images/gameBoard/button_close.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;
