@@ -243,6 +243,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 {
                     isChoosingNumberForPositionTower = true;
                     isSellingTower = true;
+                    chooseNumberText.setString("Choose the location of\n     the tower to sell");
                 }
             }
 
@@ -461,6 +462,7 @@ void vGameBoard::eventsGameSpeed()
 /** allow to set choice of tower  */
 void vGameBoard::eventsChoiceTowers()
 {
+    chooseNumberText.setString("Choose the location of\n     the tower to buy");
     if(isSpriteClicked(earthTowerButtonSprite))
     {
         cout << "button buy earthTower click" << endl;
@@ -526,52 +528,50 @@ void vGameBoard::loadSprite()
 
     ///choose number
     signSprites.push_back(new Sprite());
-    signSprites.back()->setTexture(signTexture);
+    signSprites.back()->setTexture(bigTableTexture);
     signSprites.back()->setPosition(Vector2f(500, 220));
-    signSprites.back()->setScale(1.5f,0.5f);
+    signSprites.back()->setScale(0.4f,0.4f);
+
+    headerShopSprite.setTexture(headerShopTexture);
+    headerShopSprite.setPosition(595, 210);
+    headerShopSprite.setScale(0.5f,0.5f);
 
     Color grey(200,200,200);
-    chooseNumberText.setFont(font);
-    chooseNumberText.setFillColor(grey);
-    chooseNumberText.setOutlineColor(Color::Black);
-    chooseNumberText.setOutlineThickness(1.2f);
-    chooseNumberText.setString("Choose the tower\n   emplacement");
-    chooseNumberText.setScale(1.1f,1.1f);
-    chooseNumberText.setPosition(Vector2f(540,232));
+    createText(chooseNumberText, grey, Color::Black, "", 0.9f,0.9f, 532,292);
 
     oneSprites.push_back(new Sprite());
     oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(530, 325);
+    oneSprites.back()->setPosition(530, 395);
     oneSprites.back()->setScale(0.5f,0.5f);
 
     twoSprites.push_back(new Sprite());
     twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(580, 325);
+    twoSprites.back()->setPosition(580, 395);
     twoSprites.back()->setScale(0.5f,0.5f);
 
     threeSprites.push_back(new Sprite());
     threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(630, 325);
+    threeSprites.back()->setPosition(630, 395);
     threeSprites.back()->setScale(0.5f,0.5f);
 
     fourSprites.push_back(new Sprite());
     fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(680, 325);
+    fourSprites.back()->setPosition(680, 395);
     fourSprites.back()->setScale(0.5f,0.5f);
 
     fiveSprites.push_back(new Sprite());
     fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(730, 325);
+    fiveSprites.back()->setPosition(730, 395);
     fiveSprites.back()->setScale(0.5f,0.5f);
 
     sixSprites.push_back(new Sprite());
     sixSprites.back()->setTexture(sixTexture);
-    sixSprites.back()->setPosition(780, 325);
+    sixSprites.back()->setPosition(780, 395);
     sixSprites.back()->setScale(0.5f,0.5f);
 
     sevenSprites.push_back(new Sprite());
     sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(830, 325);
+    sevenSprites.back()->setPosition(830, 395);
     sevenSprites.back()->setScale(0.5f,0.5f);
 
     closeButtonSprite.setTexture(closeButtonTexture);
@@ -1070,6 +1070,7 @@ void vGameBoard::drawEntities()
             }
             windowFromMain->draw(chooseNumberText);
             windowFromMain->draw(closeButtonSprite);
+            windowFromMain->draw(headerShopSprite);
         }
 
         drawEnemies();
@@ -1511,6 +1512,7 @@ void vGameBoard::resetGameView()
         delete tower;
     }
     listOfvTower.clear();
+    isChoosingNumberForPositionTower = false;
 }
 
 void vGameBoard::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
@@ -1813,6 +1815,12 @@ bool vGameBoard::verifyImageMapEntities()
         return false;
     }
 
+    if(!headerShopTexture.loadFromFile("res/images/gameBoard/header_shop.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
     if(!backgroundTexture.loadFromFile("res/images/menu/game_background_4.png"))
     {
         cout << "ERROR chargement texture" << endl;
@@ -1898,6 +1906,12 @@ bool vGameBoard::verifyImageTowersInformations()
     }
 
     if (!tableEmptyTexture.loadFromFile("res/images/gameBoard/table.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if (!bigTableTexture.loadFromFile("res/images/gameBoard/big_table.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;

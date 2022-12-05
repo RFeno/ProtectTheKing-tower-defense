@@ -191,6 +191,7 @@ class vGameBoard
         sf::Sprite closeButtonSprite;
         sf::Sprite windowSmallSpellSprite;
         sf::Sprite windowSmallTowerSprite;
+        sf::Sprite headerShopSprite;
 
         ///Map and entitites textures
         sf::Texture mapTexture;
@@ -200,8 +201,9 @@ class vGameBoard
         sf::Texture fireTexture;
         sf::Texture emptyButtonTexture;
         sf::Texture closeButtonTexture;
-        sf::Texture headerUpgradeTexture;
+        sf::Texture headerShopTexture;
         sf::Texture windowSmallTexture;
+        sf::Texture bigTableTexture;
 
         ///Map and entitites texts
         sf::Text playerGemsNumberText;
