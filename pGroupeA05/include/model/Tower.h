@@ -6,8 +6,8 @@
 enum TypeOfTowerPrice : int
 {
     sand = 100,
-    ice = 150,
-    earth = 250,
+    earth = 150,
+    ice = 250,
     iron = 400
 };
 

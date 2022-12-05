@@ -47,6 +47,8 @@ class vGameBoard
         bool verifyImageMapEntities();
         bool verifyImageTowersInformations();
 
+        void createText(sf::Text& text, sf::Color colorFill, sf::Color colorOutline, std::string str, float xScale, float yScale, int xPosition, int yPosition);
+
         ///EVENTS
         void InputHandler(sf::Event event,sf::RenderWindow *window);
         void eventsTowers();
@@ -130,17 +132,7 @@ class vGameBoard
         Game game;
         sf::RenderWindow *windowFromMain;
 
-        /// texts
         sf::Font font;
-        sf::Text sellText;
-        sf::Text chooseNumberText;
-        sf::Text playerGemsText;
-        sf::Text playerGemsNumberText;
-        sf::Text spellTitleText;
-        sf::Text towerTitleText;
-        sf::Text waveNumberText;
-        sf::Text waveText;
-        sf::Text messagePopUpText;
 
         ///entities gameSpeed textures
         sf::Texture pauseButtonTexture;
@@ -211,6 +203,11 @@ class vGameBoard
         sf::Texture headerUpgradeTexture;
         sf::Texture windowSmallTexture;
 
+        ///Map and entitites texts
+        sf::Text playerGemsNumberText;
+        sf::Text waveNumberText;
+        sf::Text waveText;
+        sf::Text messagePopUpText;
 
         ///Spell textures
         sf::Texture acideCloudEffectTexture;
@@ -219,6 +216,9 @@ class vGameBoard
         sf::Sprite fireBuyButtonSprite;
         sf::Sprite acideCloudBuyButtonSprite;
         sf::Sprite lightningBuyButtonSprite;
+
+        ///Spell texts
+        sf::Text spellTitleText;
 
         ///Towers attacks textures
         sf::Texture earthAttack;
@@ -244,6 +244,19 @@ class vGameBoard
         sf::Sprite iceTowerButtonSprite;
         sf::Sprite ironTowerButtonSprite;
 
+        ///Informations tower texts
+        sf::Text towerTitleText;
+        sf::Text sellText;
+        sf::Text chooseNumberText;
+        sf::Text earthAttackText;
+        sf::Text earthPriceText;
+        sf::Text iceAttackText;
+        sf::Text icePriceText;
+        sf::Text sandAttackText;
+        sf::Text sandPriceText;
+        sf::Text ironAttackText;
+        sf::Text ironPriceText;
+
         ///Informations tower textures
         sf::Texture oneTexture;
         sf::Texture twoTexture;
@@ -252,28 +265,9 @@ class vGameBoard
         sf::Texture fiveTexture;
         sf::Texture sixTexture;
         sf::Texture sevenTexture;
-        sf::Texture twentyTexture;
-        sf::Texture fourtyTexture;
-        sf::Texture sixtyTexture;
-        sf::Texture eightyTexture;
-        sf::Texture oneHundredTexture;
-        sf::Texture oneHundredFiftyTexture;
-        sf::Texture twoHundredFiftyTexture;
-        sf::Texture fourHundredTexture;
         sf::Texture gemTexture;
         sf::Texture swordTexture;
         sf::Texture signTexture;
-
-
-        ///informations sprite
-        sf::Sprite twentySprite;
-        sf::Sprite fourtySprite;
-        sf::Sprite sixtySprite;
-        sf::Sprite eightySprite;
-        sf::Sprite oneHundredSprite;
-        sf::Sprite oneHundredFiftySprite;
-        sf::Sprite twoHundredFiftySprite;
-        sf::Sprite fourHundredSprite;
 
         ///Failed textures
         sf::Texture headerFailedTexture;

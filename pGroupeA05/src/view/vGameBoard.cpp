@@ -214,7 +214,7 @@ bool vGameBoard::removeVTower(int position)
     }
     else
     {
-        cout << "There is no tower at this position." << endl;
+        activeMessagePopUp("There is no\ntower at\nthis position.");
     }
     return false;
 }
@@ -235,7 +235,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         {
             if(!isChoosingNumberForPositionTower)
             {
-                //dectect events type of towers choice to buy or sell
+                //detect events type of towers choice to buy or sell
                 eventsChoiceTowers();
 
                 // sell tower
@@ -773,9 +773,9 @@ void vGameBoard::loadTowersEntities()
     sandTowerButtonSprite.setScale(0.50f,0.50f);
     ironTowerButtonSprite.setScale(0.50f,0.50f);
 
-    earthTowerButtonSprite.setPosition(Vector2f(1206,5));
-    iceTowerButtonSprite.setPosition(Vector2f(1106,5));
     sandTowerButtonSprite.setPosition(Vector2f(1006,5));
+    earthTowerButtonSprite.setPosition(Vector2f(1106,5));
+    iceTowerButtonSprite.setPosition(Vector2f(1206,5));
     ironTowerButtonSprite.setPosition(Vector2f(1306,5));
 
     ///informations of tower
@@ -795,7 +795,7 @@ void vGameBoard::loadTowersEntities()
     {
         gemSprites.push_back(new Sprite());
         gemSprites[i]->setTexture(gemTexture);
-        gemSprites[i]->setPosition(Vector2f(x, 159));
+        gemSprites[i]->setPosition(Vector2f(x, 129));
         gemSprites[i]->setScale(0.20f,0.20f);
         x+=100;
     }
@@ -806,53 +806,24 @@ void vGameBoard::loadTowersEntities()
         signSprites.push_back(new Sprite());
         signSprites[i]->setTexture(signTexture);
         signSprites[i]->setPosition(Vector2f(x, 89));
-        signSprites[i]->setScale(0.3f,0.3f);
+        signSprites[i]->setScale(0.3f,0.2f);
         x+=100;
     }
 
-    twentySprite.setTexture(twentyTexture);
-    twentySprite.setScale(0.30f,0.30f);
-    twentySprite.setPosition(Vector2f(1045,100));
+    createText(sandAttackText, Color::Yellow, Color::Black, to_string(TowerSand().getDamage()), 0.60f,0.60f, 1044,98);
+    createText(sandPriceText, Color::Yellow, Color::Black, to_string(TowerSand().getPrice()), 0.60f,0.60f, 1044,125);
+    createText(earthAttackText, Color::Yellow, Color::Black, to_string(TowerEarth().getDamage()), 0.60f,0.60f, 1144,98);
+    createText(earthPriceText, Color::Yellow, Color::Black, to_string(TowerEarth().getPrice()), 0.60f,0.60f, 1144,125);
+    createText(iceAttackText, Color::Yellow, Color::Black, to_string(TowerIce().getDamage()), 0.60f,0.60f, 1244,98);
+    createText(icePriceText, Color::Yellow, Color::Black, to_string(TowerIce().getPrice()), 0.60f,0.60f, 1244,125);
+    createText(ironAttackText, Color::Yellow, Color::Black, to_string(TowerIron().getDamage()), 0.60f,0.60f, 1344,98);
+    createText(ironPriceText, Color::Yellow, Color::Black, to_string(TowerIron().getPrice()), 0.60f,0.60f, 1344,125);
 
-    fourtySprite.setTexture(fourtyTexture);
-    fourtySprite.setScale(0.30f,0.30f);
-    fourtySprite.setPosition(Vector2f(1145,100));
-
-    sixtySprite.setTexture(sixtyTexture);
-    sixtySprite.setScale(0.30f,0.30f);
-    sixtySprite.setPosition(Vector2f(1245,100));
-
-    eightySprite.setTexture(eightyTexture);
-    eightySprite.setScale(0.30f,0.30f);
-    eightySprite.setPosition(Vector2f(1345,100));
-
-    oneHundredSprite.setTexture(oneHundredTexture);
-    oneHundredSprite.setScale(0.30f,0.30f);
-    oneHundredSprite.setPosition(Vector2f(1045,158));
-
-    oneHundredFiftySprite.setTexture(oneHundredFiftyTexture);
-    oneHundredFiftySprite.setScale(0.30f,0.30f);
-    oneHundredFiftySprite.setPosition(Vector2f(1145,158));
-
-    twoHundredFiftySprite.setTexture(twoHundredFiftyTexture);
-    twoHundredFiftySprite.setScale(0.30f,0.30f);
-    twoHundredFiftySprite.setPosition(Vector2f(1245,158));
-
-    fourHundredSprite.setTexture(fourHundredTexture);
-    fourHundredSprite.setScale(0.30f,0.30f);
-    fourHundredSprite.setPosition(Vector2f(1345,158));
-
+    /// sell button
     sellButtonSprite.setTexture(emptyButtonTexture);
     sellButtonSprite.setScale(0.50f,0.50f);
-    sellButtonSprite.setPosition(Vector2f(880,100));
-
-    sellText.setFont(font);
-    sellText.setFillColor(grey);
-    sellText.setOutlineColor(Color::Black);
-    sellText.setOutlineThickness(1.2f);
-    sellText.setString("Sell");
-    sellText.setScale(1.1f,1.1f);
-    sellText.setPosition(Vector2f(905,114));
+    sellButtonSprite.setPosition(Vector2f(880,90));
+    createText(sellText, grey, Color::Black, "Sell", 1.1f,1.1f, 905,104);
 }
 
 /**load all entities for map */
@@ -1192,14 +1163,14 @@ void vGameBoard::drawMapEntities()
     }
 
     ///prices of towers
-    windowFromMain->draw(twentySprite);
-    windowFromMain->draw(fourtySprite);
-    windowFromMain->draw(sixtySprite);
-    windowFromMain->draw(eightySprite);
-    windowFromMain->draw(oneHundredSprite);
-    windowFromMain->draw(oneHundredFiftySprite);
-    windowFromMain->draw(twoHundredFiftySprite);
-    windowFromMain->draw(fourHundredSprite);
+    windowFromMain->draw(earthAttackText);
+    windowFromMain->draw(earthPriceText);
+    windowFromMain->draw(sandAttackText);
+    windowFromMain->draw(sandPriceText);
+    windowFromMain->draw(iceAttackText);
+    windowFromMain->draw(icePriceText);
+    windowFromMain->draw(ironAttackText);
+    windowFromMain->draw(ironPriceText);
 
     /// player gems
     windowFromMain->draw(*signSprites[5]);
@@ -1528,7 +1499,7 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
     }
     else
     {
-        activeMessagePopUp("A tower is already at this position. You canno't buy a another tower at the same postion");
+        activeMessagePopUp("A tower is\nalready at this\nposition.");
     }
 }
 
@@ -1542,6 +1513,16 @@ void vGameBoard::resetGameView()
     listOfvTower.clear();
 }
 
+void vGameBoard::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
+{
+    text.setFont(font);
+    text.setFillColor(colorFill);
+    text.setOutlineColor(colorOutline);
+    text.setOutlineThickness(1.2f);
+    text.setString(str);
+    text.setScale(xScale,yScale);
+    text.setPosition(xPosition,yPosition);
+}
 
 /**to verify if all images is accessible and charge in the texture*/
 bool vGameBoard::verifyImage()
@@ -1893,54 +1874,6 @@ bool vGameBoard::verifyImageTowersInformations()
     }
 
     if (!sevenTexture.loadFromFile("res/images/gameBoard/num_7.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!twentyTexture.loadFromFile("res/images/gameBoard/20.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!fourtyTexture.loadFromFile("res/images/gameBoard/40.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!sixtyTexture.loadFromFile("res/images/gameBoard/60.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!eightyTexture.loadFromFile("res/images/gameBoard/80.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!oneHundredTexture.loadFromFile("res/images/gameBoard/100.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!oneHundredFiftyTexture.loadFromFile("res/images/gameBoard/150.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!twoHundredFiftyTexture.loadFromFile("res/images/gameBoard/250.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!fourHundredTexture.loadFromFile("res/images/gameBoard/400.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;
