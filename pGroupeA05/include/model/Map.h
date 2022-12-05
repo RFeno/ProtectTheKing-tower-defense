@@ -40,6 +40,7 @@ class Map
         void getPositionOfIron(int position);
         void getPositionOfIce(int position);
         void getPositionOfSand(int position);
+        bool isAllPlacesOccupied();
 
         //getters and setters
         //pointeurs ou référence

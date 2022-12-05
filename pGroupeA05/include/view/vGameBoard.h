@@ -49,6 +49,10 @@ class vGameBoard
 
         ///EVENTS
         void InputHandler(sf::Event event,sf::RenderWindow *window);
+        void eventsTowers();
+        void eventsGameSpeed();
+        void eventsChoiceTowers();
+        void eventsActiveTowersChoice(TypeOfTowerPrice type);
         bool isSpriteClicked (sf::Sprite &spr);
         void activeMessagePopUp(std::string message);
 

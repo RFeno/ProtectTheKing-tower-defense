@@ -202,7 +202,6 @@ int vGameBoard::searchVTower(int position)
 /**remove a vtower of gameboard*/
 bool vGameBoard::removeVTower(int position)
 {
-
     int index = searchVTower(position);
 
     if(index!=-1)
@@ -236,94 +235,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         {
             if(!isChoosingNumberForPositionTower)
             {
-                // buy earth tower
-                if(isSpriteClicked(earthTowerButtonSprite))
-                {
-                    cout << "button buy earthTower click" << endl;
-
-                    if(game.getMap()->getTowers().size() <7)
-                    {
-                        //display error message
-                        if(game.getPlayer()->getCoins() - earth >= 0 )
-                        {
-                            //dont forget to remove coins in player wallet
-
-                            isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTowerPrice::earth;
-                        }
-                        else
-                        {
-                            //display not enough coins message
-                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
-                        }
-                    }
-                    else
-                    {
-                        //display all tower places are occupied
-                    }
-
-                }
-
-                // buy sand tower
-                if(isSpriteClicked(sandTowerButtonSprite))
-                {
-                    cout << "button buy sandTower click" << endl;
-
-                    if(game.getMap()->getTowers().size() <7)
-                    {
-                        if(game.getPlayer()->getCoins() - sand >= 0 )
-                        {
-                            isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTowerPrice::sand;
-                        }
-                        else
-                        {
-                            //display not enough coins message
-                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
-                        }
-                    }
-                }
-
-                // buy ice tower
-                if(isSpriteClicked(iceTowerButtonSprite))
-                {
-                    cout << "button buy iceTower click" << endl;
-
-                    if(game.getMap()->getTowers().size() <7)
-                    {
-                        if(game.getPlayer()->getCoins() - ice >= 0 )
-                        {
-                            isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTowerPrice::ice;
-
-                        }
-                        else
-                        {
-                            //display not enough coins message
-                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
-                        }
-                    }
-                }
-
-                // buy iron tower
-                if(isSpriteClicked(ironTowerButtonSprite))
-                {
-                    cout << "button buy ironTower click" << endl;
-
-                    if(game.getMap()->getTowers().size() <7)
-                    {
-                        if(game.getPlayer()->getCoins() - iron >= 0 )
-                        {
-                            isChoosingNumberForPositionTower = true;
-                            typeTowerChoosed = TypeOfTowerPrice::iron;
-                        }
-                        else
-                        {
-                            //display not enough coins message
-                            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
-                        }
-                    }
-                }
+                //dectect events type of towers choice to buy or sell
+                eventsChoiceTowers();
 
                 // sell tower
                 if(isSpriteClicked(sellButtonSprite))
@@ -340,27 +253,8 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 isSellingTower = false;
             }
 
-            if(isSpriteClicked(pauseButtonSprite))
-            {
-                if(game.getGamePaused())
-                {
-                    game.setGamePaused(false);
-                }
-                else if(!game.getGamePaused())
-                {
-                    game.setGamePaused(true);
-                }
-            }
-
-            if(isSpriteClicked(decreaseSpeedButtonSprite))
-            {
-                game.decreaseGameSpeed();
-            }
-
-            if(isSpriteClicked(increaseSpeedButtonSprite))
-            {
-                game.increaseGameSpeed();
-            }
+            //detect pause, increase and decrease events
+            eventsGameSpeed();
 
             if(game.isGameOver() && isSpriteClicked(resetButtonFailSprite))
             {
@@ -370,7 +264,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         }
 
 
-        if (event.mouseButton.button == Mouse::Right)
+        /*if (event.mouseButton.button == Mouse::Right)
         {
             cout << "right click"<< endl;
 
@@ -378,7 +272,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             {
 
             }
-        }
+        }*/
     }
 
 
@@ -536,6 +430,82 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
                 }
             }
         }
+    }
+}
+
+void vGameBoard::eventsGameSpeed()
+{
+    if(isSpriteClicked(pauseButtonSprite))
+    {
+        if(game.getGamePaused())
+        {
+            game.setGamePaused(false);
+        }
+        else if(!game.getGamePaused())
+        {
+            game.setGamePaused(true);
+        }
+    }
+
+    if(isSpriteClicked(decreaseSpeedButtonSprite))
+    {
+        game.decreaseGameSpeed();
+    }
+
+    if(isSpriteClicked(increaseSpeedButtonSprite))
+    {
+        game.increaseGameSpeed();
+    }
+}
+
+/** allow to set choice of tower  */
+void vGameBoard::eventsChoiceTowers()
+{
+    if(isSpriteClicked(earthTowerButtonSprite))
+    {
+        cout << "button buy earthTower click" << endl;
+        eventsActiveTowersChoice(earth);
+    }
+
+    // buy sand tower
+    if(isSpriteClicked(sandTowerButtonSprite))
+    {
+        cout << "button buy sandTower click" << endl;
+        eventsActiveTowersChoice(sand);
+    }
+
+    // buy ice tower
+    if(isSpriteClicked(iceTowerButtonSprite))
+    {
+        cout << "button buy iceTower click" << endl;
+        eventsActiveTowersChoice(ice);
+    }
+
+    // buy iron tower
+    if(isSpriteClicked(ironTowerButtonSprite))
+    {
+        cout << "button buy ironTower click" << endl;
+        eventsActiveTowersChoice(iron);
+    }
+}
+
+void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
+{
+    if(!game.getMap()->isAllPlacesOccupied())
+    {
+        if(game.getPlayer()->getCoins() - type >= 0 )
+        {
+            isChoosingNumberForPositionTower = true;
+            typeTowerChoosed = type;
+        }
+        else
+        {
+            activeMessagePopUp("You have not\nenough gems to\nbuy this tower.");
+        }
+    }
+    else
+    {
+        activeMessagePopUp("All places of towers are occupied");
     }
 }
 

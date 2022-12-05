@@ -540,6 +540,7 @@ void Map::getPositionOfSand(int position)
     }
 }
 
+/***/
 void Map::deleteAllTowers()
 {
     for(Tower *tower: listOfTower)
@@ -547,4 +548,15 @@ void Map::deleteAllTowers()
         delete tower;
     }
     listOfTower.clear();
+}
+
+/** return if all towers places are occupied*/
+bool Map::isAllPlacesOccupied()
+{
+    if(listOfTower.size()>6)
+    {
+        return true;
+    }
+
+    return false;
 }
