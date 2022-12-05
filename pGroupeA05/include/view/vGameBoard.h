@@ -197,6 +197,8 @@ class vGameBoard
         sf::Sprite fireSprite;
         sf::Sprite sellButtonSprite;
         sf::Sprite closeButtonSprite;
+        sf::Sprite windowSmallSpellSprite;
+        sf::Sprite windowSmallTowerSprite;
 
         ///Map and entitites textures
         sf::Texture mapTexture;
@@ -207,6 +209,7 @@ class vGameBoard
         sf::Texture emptyButtonTexture;
         sf::Texture closeButtonTexture;
         sf::Texture headerUpgradeTexture;
+        sf::Texture windowSmallTexture;
 
 
         ///Spell textures

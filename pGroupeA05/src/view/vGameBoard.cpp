@@ -505,7 +505,7 @@ void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
     }
     else
     {
-        activeMessagePopUp("All places of towers are occupied");
+        activeMessagePopUp("All places of\ntowers are\noccupied\nplease sell");
     }
 }
 
@@ -858,6 +858,16 @@ void vGameBoard::loadTowersEntities()
 /**load all entities for map */
 void vGameBoard::loadMapEntities()
 {
+    windowSmallSpellSprite.setTexture(windowSmallTexture);
+    windowSmallTowerSprite.setTexture(windowSmallTexture);
+
+    windowSmallSpellSprite.setPosition(300,12.5);
+    windowSmallSpellSprite.setScale(1.05,1.05);
+
+    windowSmallTowerSprite.setPosition(860,12.5);
+    windowSmallTowerSprite.setScale(1.25,1.05);
+
+
     loadKingEntities();
 }
 
@@ -884,13 +894,11 @@ void vGameBoard::loadFailEntities()
     headerFailedSprite.setPosition(565,80);
 
     windowFailSprite.setTexture(signTexture);
-    //windowFailSprite.setScale(0.5,0.5);
     windowFailSprite.setPosition(575,220);
 
     backgroundSprite.setTexture(backgroundTexture);
 
     resetButtonFailSprite.setTexture(resetButtonTexture);
-    //resetButtonFailSprite.setScale(1,1.2);
     resetButtonFailSprite.setPosition(620,600);
 
 }
@@ -979,21 +987,30 @@ void vGameBoard::updateGame()
         }
 
         ///attack of towers
-        if(attackTowerClock.getElapsedTime().asSeconds() > (0.06 / game.getGameSpeed()))
+        if(attackTowerClock.getElapsedTime().asSeconds() > (0.06f / game.getGameSpeed()))
         {
             for(vTower *vtower: listOfvTower)
             {
                 for(Enemies *enemy: game.getMap()->getEnemies())
                 {
-                    ///allow to attack only the first enemy in range and farthest
-                    if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
+
+                    ///allow to change tower mode of attacking only is the enemy is in range
+                    if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
                     {
-                        vtower->getTower()->setAttacking(true);
-                        vtower->getTower()->attackEnemy(*enemy);
-                    }
-                    else
-                    {
-                        vtower->getTower()->setAttacking(false);
+
+                        ///allow to attack only if the enemy is the first and the farthest
+                        if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
+                        {
+                            cout << "tower positon " << vtower->getTower()->getPosition() << " passage à true" << endl;
+                            vtower->getTower()->setAttacking(true);
+                            vtower->getTower()->attackEnemy(*enemy);
+                        }
+                        else
+                        {
+                            cout << "tower positon " << vtower->getTower()->getPosition() << " passage à false" << endl;
+                            vtower->getTower()->setAttacking(false);
+                        }
+
                     }
                 }
             }
@@ -1157,6 +1174,7 @@ void vGameBoard::drawMapEntities()
     }
 
     ///tower informations
+    windowFromMain->draw(windowSmallTowerSprite);
     windowFromMain->draw(towerTitleText);
     for(int i=0; i < 4 ; i++)
     {
@@ -1191,6 +1209,11 @@ void vGameBoard::drawMapEntities()
     /// wave number
     windowFromMain->draw(waveNumberText);
     windowFromMain->draw(waveText);
+
+    ///
+    windowFromMain->draw(windowSmallSpellSprite);
+
+
 }
 
 /** draw map buttons */
@@ -1505,7 +1528,7 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
     }
     else
     {
-        game.setMessage("A tower is already at this position. You canno't buy a another tower at the same postion");
+        activeMessagePopUp("A tower is already at this position. You canno't buy a another tower at the same postion");
     }
 }
 
@@ -1816,6 +1839,12 @@ bool vGameBoard::verifyImageMapEntities()
     }
 
     if(!resetButtonTexture.loadFromFile("res/images/gameBoard/button_reset.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!windowSmallTexture.loadFromFile("res/images/gameBoard/window_2.png"))
     {
         cout << "ERROR chargement texture" << endl;
         return false;
