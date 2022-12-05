@@ -581,27 +581,27 @@ void vGameBoard::loadSprite()
     /// Numbers to display under tower while choosing emplacement for tower
     oneSprites.push_back(new Sprite());
     oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(1060, 505);
+    oneSprites.back()->setPosition(170, 505);
     oneSprites.back()->setScale(0.5f,0.5f);
 
     twoSprites.push_back(new Sprite());
     twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(730, 505);
+    twoSprites.back()->setPosition(430, 505);
     twoSprites.back()->setScale(0.5f,0.5f);
 
     threeSprites.push_back(new Sprite());
     threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(430, 505);
+    threeSprites.back()->setPosition(730, 505);
     threeSprites.back()->setScale(0.5f,0.5f);
 
     fourSprites.push_back(new Sprite());
     fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(170, 505);
+    fourSprites.back()->setPosition(1060, 505);
     fourSprites.back()->setScale(0.5f,0.5f);
 
     fiveSprites.push_back(new Sprite());
     fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(1050, 750);
+    fiveSprites.back()->setPosition(100, 750);
     fiveSprites.back()->setScale(0.5f,0.5f);
 
     sixSprites.push_back(new Sprite());
@@ -611,7 +611,7 @@ void vGameBoard::loadSprite()
 
     sevenSprites.push_back(new Sprite());
     sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(100, 750);
+    sevenSprites.back()->setPosition(1050, 750);
     sevenSprites.back()->setScale(0.5f,0.5f);
 
     /// player gems

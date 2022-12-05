@@ -339,46 +339,46 @@ void Map::getPositionOfEarth(int position)
 {
     switch(position-1)
     {
-        case 3:
+        case 0:
         {
             xOfTheNextTower=100;
-            yOfTheNextTower=370-75;
-            break;
-        }
-        case 2:
-        {
-            xOfTheNextTower=350;
-            yOfTheNextTower=370-75;
+            yOfTheNextTower=295;
             break;
         }
         case 1:
         {
-            xOfTheNextTower=650;
-            yOfTheNextTower=370-75;
+            xOfTheNextTower=350;
+            yOfTheNextTower=295;
             break;
         }
-        case 0:
+        case 2:
+        {
+            xOfTheNextTower=650;
+            yOfTheNextTower=295;
+            break;
+        }
+        case 3:
         {
             xOfTheNextTower=990;
-            yOfTheNextTower=370-75;
+            yOfTheNextTower=295;
             break;
         }
-        case 6:
+        case 4:
         {
             xOfTheNextTower=40;
-            yOfTheNextTower=600-75;
+            yOfTheNextTower=525;
             break;
         }
         case 5:
         {
             xOfTheNextTower=300;
-            yOfTheNextTower=600-75;
+            yOfTheNextTower=525;
             break;
         }
-        case 4:
+        case 6:
         {
             xOfTheNextTower=975;
-            yOfTheNextTower=600-75;
+            yOfTheNextTower=525;
             break;
         }
     }
@@ -391,46 +391,46 @@ void Map::getPositionOfIce(int position)
 {
     switch(position-1)
     {
-        case 3:
+        case 0:
             {
-                xOfTheNextTower=100 +5;
-                yOfTheNextTower=385 -80;
-                break;
-            }
-        case 2:
-            {
-                xOfTheNextTower=350 +5;
-                yOfTheNextTower=385 -80;
+                xOfTheNextTower=105;
+                yOfTheNextTower=305;
                 break;
             }
         case 1:
             {
-                xOfTheNextTower=650 +5;
-                yOfTheNextTower=385 -80;
+                xOfTheNextTower=355;
+                yOfTheNextTower=305;
                 break;
             }
-        case 0:
+        case 2:
             {
-                xOfTheNextTower=990 +5;
-                yOfTheNextTower=385 -80;
+                xOfTheNextTower=655;
+                yOfTheNextTower=305;
                 break;
             }
-        case 6:
+        case 3:
+            {
+                xOfTheNextTower=995;
+                yOfTheNextTower=305;
+                break;
+            }
+        case 4:
             {
                 xOfTheNextTower=40;
-                yOfTheNextTower=630 -80;
+                yOfTheNextTower=550;
                 break;
             }
         case 5:
             {
                 xOfTheNextTower=300;
-                yOfTheNextTower=630 -80;
+                yOfTheNextTower=550;
                 break;
             }
-        case 4:
+        case 6:
             {
                 xOfTheNextTower=975;
-                yOfTheNextTower=625 -80;
+                yOfTheNextTower=550;
                 break;
             }
     }
@@ -443,46 +443,46 @@ void Map::getPositionOfIron(int position)
 {
     switch(position-1)
     {
-        case 3:
+        case 0:
         {
-            xOfTheNextTower=100 +10;
-            yOfTheNextTower=330 -28;
-            break;
-        }
-        case 2:
-        {
-            xOfTheNextTower=360 +10;
-            yOfTheNextTower=330 -28;
+            xOfTheNextTower=110;
+            yOfTheNextTower=302;
             break;
         }
         case 1:
         {
-            xOfTheNextTower=660 +10;
-            yOfTheNextTower=330 -28;
+            xOfTheNextTower=370;
+            yOfTheNextTower=302;
             break;
         }
-        case 0:
+        case 2:
         {
-            xOfTheNextTower=990 +7;
-            yOfTheNextTower=330 -28;
+            xOfTheNextTower=670;
+            yOfTheNextTower=302;
             break;
         }
-        case 6:
+        case 3:
         {
-            xOfTheNextTower=38 ;
-            yOfTheNextTower=575 -30;
-            break;
-        }
-        case 5:
-        {
-            xOfTheNextTower=297 ;
-            yOfTheNextTower=575 -30;
+            xOfTheNextTower=997;
+            yOfTheNextTower=302;
             break;
         }
         case 4:
         {
-            xOfTheNextTower=980 +5;
-            yOfTheNextTower=575 -30;
+            xOfTheNextTower=38;
+            yOfTheNextTower=545;
+            break;
+        }
+        case 5:
+        {
+            xOfTheNextTower=297;
+            yOfTheNextTower=545;
+            break;
+        }
+        case 6:
+        {
+            xOfTheNextTower=985;
+            yOfTheNextTower=545;
             break;
         }
     }
@@ -495,46 +495,46 @@ void Map::getPositionOfSand(int position)
 {
     switch(position-1)
     {
-        case 3:
+        case 0:
             {
                 xOfTheNextTower=100;
-                yOfTheNextTower=340 -35;
-                break;
-            }
-        case 2:
-            {
-                xOfTheNextTower=360;
-                yOfTheNextTower=340 -35;
+                yOfTheNextTower=305;
                 break;
             }
         case 1:
             {
-                xOfTheNextTower=660;
-                yOfTheNextTower=340 -35;
+                xOfTheNextTower=360;
+                yOfTheNextTower=305;
                 break;
             }
-        case 0:
+        case 2:
+            {
+                xOfTheNextTower=660;
+                yOfTheNextTower=305;
+                break;
+            }
+        case 3:
             {
                 xOfTheNextTower=990;
-                yOfTheNextTower=340 -35;
+                yOfTheNextTower=305;
                 break;
             }
-        case 6:
+        case 4:
             {
                 xOfTheNextTower=40;
-                yOfTheNextTower=575 -35;
+                yOfTheNextTower=540;
                 break;
             }
         case 5:
             {
                 xOfTheNextTower=300;
-                yOfTheNextTower=575 -35;
+                yOfTheNextTower=540;
                 break;
             }
-        case 4:
+        case 6:
             {
                 xOfTheNextTower=975;
-                yOfTheNextTower=575 -35;
+                yOfTheNextTower=540;
                 break;
             }
     }
