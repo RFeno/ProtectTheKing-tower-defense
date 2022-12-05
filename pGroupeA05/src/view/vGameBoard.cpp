@@ -361,6 +361,12 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             {
                 game.increaseGameSpeed();
             }
+
+            if(game.isGameOver() && isSpriteClicked(resetButtonFailSprite))
+            {
+                game.resetGame();
+                resetGameView();
+            }
         }
 
 
@@ -546,6 +552,8 @@ void vGameBoard::loadSprite()
     loadSpellEntities();
     loadTowersEntities();
 
+    loadFailEntities();
+
     ///choose number
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(signTexture);
@@ -674,8 +682,6 @@ void vGameBoard::loadSprite()
     /// message pop up
     messagePopUpText.setFont(font);
     messagePopUpText.setFillColor(Color::Black);
-    messagePopUpText.setOutlineColor(Color::Black);
-    messagePopUpText.setOutlineThickness(1.2f);
     messagePopUpText.setScale(0.5f,0.5f);
     messagePopUpText.setPosition(Vector2f(1243,223));
 }
@@ -754,8 +760,8 @@ void vGameBoard::loadSpellEntities()
     Color grey(200,200,200);
     spellTitleText.setFont(font);
     spellTitleText.setFillColor(grey);
-    spellTitleText.setOutlineColor(Color::Black);
-    spellTitleText.setOutlineThickness(1.2f);
+    //spellTitleText.setOutlineColor(Color::Black);
+    //spellTitleText.setOutlineThickness(1.2f);
     spellTitleText.setString("Spells");
     spellTitleText.setScale(1.1f,1.1f);
     spellTitleText.setPosition(Vector2f(310,20));
@@ -763,7 +769,6 @@ void vGameBoard::loadSpellEntities()
     ///effects
     for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
     {
-        listOfAcideCloudSpell.push_back(new Sprite());
         listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
         listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,909,2398));
         listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
@@ -780,8 +785,8 @@ void vGameBoard::loadTowersEntities()
     Color grey(200,200,200);
     towerTitleText.setFont(font);
     towerTitleText.setFillColor(grey);
-    towerTitleText.setOutlineColor(Color::Black);
-    towerTitleText.setOutlineThickness(1.2f);
+    //towerTitleText.setOutlineColor(Color::Black);
+    //towerTitleText.setOutlineThickness(1.2f);
     towerTitleText.setString("Towers");
     towerTitleText.setScale(1.1f,1.1f);
     towerTitleText.setPosition(Vector2f(870,20));
@@ -901,89 +906,27 @@ void vGameBoard::loadKingEntities()
     kingHealthRedSprite.setPosition(1240,345);
 }
 
-/** to draw the entitties in the window */
-void vGameBoard::drawEntities()
+/** */
+void vGameBoard::loadFailEntities()
 {
-    ///map
-    windowFromMain->draw(mapSprite);
+    tableEmptyFailSprite.setTexture(tableEmptyTexture);
+    tableEmptyFailSprite.setScale(0.75f,0.75f);
+    tableEmptyFailSprite.setPosition(465,80);
 
-    if(!game.isGameOver())
-    {
-        drawMapEntities();
-        drawGameSpeedView();
+    headerFailedSprite.setTexture(headerFailedTexture);
+    headerFailedSprite.setScale(0.7f,0.7f);
+    headerFailedSprite.setPosition(565,80);
 
+    windowFailSprite.setTexture(signTexture);
+    //windowFailSprite.setScale(0.5,0.5);
+    windowFailSprite.setPosition(575,220);
 
-        ///towers 1 to 4
-        for(int i = 0; i < (int)listOfvTower.size(); i++)
-        {
-            if(listOfvTower[i]->getTower()->getPosition() < 4)
-            {
-                windowFromMain->draw(*(listOfvTower[i]->getSprite()));
-            }
-        }
+    backgroundSprite.setTexture(backgroundTexture);
 
-        // When the player must choose the emplacement of tower
-        if(isChoosingNumberForPositionTower)
-        {
-            windowFromMain->draw(*signSprites[4]);
-            for(int i = 0; i<2; i++)
-            {
-                windowFromMain->draw(*oneSprites[i]);
-                windowFromMain->draw(*twoSprites[i]);
-                windowFromMain->draw(*threeSprites[i]);
-                windowFromMain->draw(*fourSprites[i]);
-                windowFromMain->draw(*fiveSprites[i]);
-                windowFromMain->draw(*sixSprites[i]);
-                windowFromMain->draw(*sevenSprites[i]);
-            }
-            windowFromMain->draw(chooseNumberText);
-            windowFromMain->draw(closeButtonSprite);
-        }
+    resetButtonFailSprite.setTexture(resetButtonTexture);
+    //resetButtonFailSprite.setScale(1,1.2);
+    resetButtonFailSprite.setPosition(620,600);
 
-        drawEnemies();
-
-        //Place here elemnets between the towers
-        drawSpellEntities();
-
-
-        ///towers 5 to 7
-        for(int i = 0; i < (int)listOfvTower.size(); i++)
-        {
-            if(listOfvTower[i]->getTower()->getPosition() >= 5)
-            {
-                windowFromMain->draw(*(listOfvTower[i]->getSprite()));
-            }
-        }
-
-        /// attack animations of towers
-        for(int i = 0; i < (int)listOfvTower.size(); i++)
-        {
-            if(listOfvTower[i]->getTower()->isAttacking() == true)
-            {
-                windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
-            }
-        }
-
-        // button to sell towers
-        windowFromMain->draw(sellButtonSprite);
-        windowFromMain->draw(sellText);
-
-    }
-}
-
-void vGameBoard::drawSpellEntities()
-{
-
-    ///Acid spell
-    /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
-    {
-        windowFromMain->draw(*listOfAcideCloudSpell[i]);
-    }*/
-
-    windowFromMain->draw(spellTitleText);
-    windowFromMain->draw(fireBuyButtonSprite);
-    windowFromMain->draw(acideCloudBuyButtonSprite);
-    windowFromMain->draw(lightningBuyButtonSprite);
 }
 
 /**Detect events when buttons are pressed*/
@@ -1025,7 +968,7 @@ void vGameBoard::updateGame()
 //    cout << game.getMap()->strTowers() <<endl;
 
     ///reset wave is all enemies are dead
-    if(game.IsEndOfWave())
+    if(game.isEndOfWave())
     {
         //desactivate all animations for tower
         for(vTower *vtower:listOfvTower)
@@ -1127,6 +1070,98 @@ void vGameBoard::updateHealthBarAllEnemies()
         }
     }
 }
+
+/** to draw the entitties in the window */
+void vGameBoard::drawEntities()
+{
+    ///map
+    windowFromMain->draw(mapSprite);
+
+    if(!game.isGameOver())
+    {
+        drawMapEntities();
+        drawGameSpeedView();
+
+
+        ///towers 1 to 4
+        for(int i = 0; i < (int)listOfvTower.size(); i++)
+        {
+            if(listOfvTower[i]->getTower()->getPosition() < 4)
+            {
+                windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+            }
+        }
+
+        // When the player must choose the emplacement of tower
+        if(isChoosingNumberForPositionTower)
+        {
+            windowFromMain->draw(*signSprites[4]);
+            for(int i = 0; i<2; i++)
+            {
+                windowFromMain->draw(*oneSprites[i]);
+                windowFromMain->draw(*twoSprites[i]);
+                windowFromMain->draw(*threeSprites[i]);
+                windowFromMain->draw(*fourSprites[i]);
+                windowFromMain->draw(*fiveSprites[i]);
+                windowFromMain->draw(*sixSprites[i]);
+                windowFromMain->draw(*sevenSprites[i]);
+            }
+            windowFromMain->draw(chooseNumberText);
+            windowFromMain->draw(closeButtonSprite);
+        }
+
+        drawEnemies();
+
+        //Place here elemnets between the towers
+        drawSpellEntities();
+
+
+        ///towers 5 to 7
+        for(int i = 0; i < (int)listOfvTower.size(); i++)
+        {
+            if(listOfvTower[i]->getTower()->getPosition() >= 5)
+            {
+                windowFromMain->draw(*(listOfvTower[i]->getSprite()));
+            }
+        }
+
+        /// attack animations of towers
+        for(int i = 0; i < (int)listOfvTower.size(); i++)
+        {
+            if(listOfvTower[i]->getTower()->isAttacking() == true)
+            {
+                windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
+            }
+        }
+
+        // button to sell towers
+        windowFromMain->draw(sellButtonSprite);
+        windowFromMain->draw(sellText);
+
+    }
+    else
+    {
+        drawFailEntities();
+    }
+}
+
+/** draw entities for spells*/
+void vGameBoard::drawSpellEntities()
+{
+    ///Acid spell
+    /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    {
+        windowFromMain->draw(*listOfAcideCloudSpell[i]);
+    }*/
+
+
+
+    windowFromMain->draw(spellTitleText);
+    windowFromMain->draw(fireBuyButtonSprite);
+    windowFromMain->draw(acideCloudBuyButtonSprite);
+    windowFromMain->draw(lightningBuyButtonSprite);
+}
+
 /** draw map entities */
 void vGameBoard::drawMapEntities()
 {
@@ -1135,6 +1170,7 @@ void vGameBoard::drawMapEntities()
     ///king health and bubble message
     windowFromMain->draw(kingHealthRedSprite);
     windowFromMain->draw(kingHealthGreenSprite);
+
     /// message pop up said by the king
     if(isMessagePopUp)
     {
@@ -1302,6 +1338,19 @@ void vGameBoard::drawGameSpeedView()
             windowFromMain->draw(gameSPeedThreeSprite);
             break;
         }
+    }
+}
+
+/** draw the menu of fail */
+void vGameBoard::drawFailEntities()
+{
+    if(game.isGameOver())
+    {
+        windowFromMain->draw(backgroundSprite);
+        windowFromMain->draw(tableEmptyFailSprite);
+        windowFromMain->draw(windowFailSprite);
+        windowFromMain->draw(headerFailedSprite);
+        windowFromMain->draw(resetButtonFailSprite);
     }
 }
 
@@ -1489,6 +1538,17 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
         game.setMessage("A tower is already at this position. You canno't buy a another tower at the same postion");
     }
 }
+
+/**Reset view (towers) */
+void vGameBoard::resetGameView()
+{
+    for(vTower *tower:listOfvTower)
+    {
+        delete tower;
+    }
+    listOfvTower.clear();
+}
+
 
 /**to verify if all images is accessible and charge in the texture*/
 bool vGameBoard::verifyImage()
@@ -1770,6 +1830,24 @@ bool vGameBoard::verifyImageMapEntities()
     if(!multiplierTexture.loadFromFile("res/images/gameBoard/button_close.png"))
     {
         cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!headerFailedTexture.loadFromFile("res/images/gameBoard/header_failed.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!backgroundTexture.loadFromFile("res/images/menu/game_background_4.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!resetButtonTexture.loadFromFile("res/images/gameBoard/button_reset.png"))
+    {
+        cout << "ERROR chargement texture" << endl;
         return false;
     }
 

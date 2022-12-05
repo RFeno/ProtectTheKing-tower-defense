@@ -27,7 +27,8 @@ class vGameBoard
         void drawTowers();
         void drawGameSpeedView();
         void drawSpellEntities();
-        void loadFont();
+        void drawFailEntities();
+
 
         ///IMAGES
         void loadSprite();
@@ -36,6 +37,9 @@ class vGameBoard
         void loadTowersEntities();
         void loadMapEntities();
         void loadKingEntities();
+        void loadFailEntities();
+
+        void loadFont();
 
         bool verifyImage();
         bool verifyImageTower();
@@ -65,13 +69,14 @@ class vGameBoard
         bool removeVEnemy(vEnnemy& enemy);
         int searchVEnemy(vEnnemy& enemy);
 
-
-
         ///ADAPT IMAGES
         void adaptAnimationSprite();
         void adaptAnimationTexture();
         void adaptPartOfTexture();
         void updateKingHealth();
+
+
+        void resetGameView();
 
 
 
@@ -209,23 +214,25 @@ class vGameBoard
         sf::Sprite acideCloudBuyButtonSprite;
         sf::Sprite lightningBuyButtonSprite;
 
-        ///Towers textures
+        ///Towers attacks textures
         sf::Texture earthAttack;
         sf::Texture sandAttack;
         sf::Texture iceAttack;
         sf::Texture ironAttack;
 
+        ///Towers buy buttons textures
         sf::Texture earthTowerTextureButton;
         sf::Texture sandTowerTextureButton;
         sf::Texture iceTowerTextureButton;
         sf::Texture ironTowerTextureButton;
 
+        ///Towers textures
         sf::Texture sandTowerTexture1;
         sf::Texture iceTowerTexture1;
         sf::Texture ironTowerTexture1;
         sf::Texture earthTowerTexture1;
 
-        ///Tower sprites
+        ///Tower buttons sprites
         sf::Sprite earthTowerButtonSprite;
         sf::Sprite sandTowerButtonSprite;
         sf::Sprite iceTowerButtonSprite;
@@ -262,6 +269,18 @@ class vGameBoard
         sf::Sprite twoHundredFiftySprite;
         sf::Sprite fourHundredSprite;
 
+        ///Failed textures
+        sf::Texture headerFailedTexture;
+        sf::Texture resetButtonTexture;
+        sf::Texture backgroundTexture;
+
+        ///Failed Sprites
+        sf::Sprite tableEmptyFailSprite;
+        sf::Sprite windowFailSprite;
+        sf::Sprite resetButtonFailSprite;
+        sf::Sprite headerFailedSprite;
+        sf::Sprite backgroundSprite;
+
         std::vector<sf::Sprite*> swordSprites;
         std::vector<sf::Sprite*> gemSprites;
         std::vector<sf::Sprite*> signSprites;
@@ -275,8 +294,9 @@ class vGameBoard
 
         /**A déplacer */
         sf::Texture tableEmptyTexture;
-        sf::Texture headerFailedTexture;
-        sf::Texture resetButtonTexture;
+
+
+
 
 };
 
