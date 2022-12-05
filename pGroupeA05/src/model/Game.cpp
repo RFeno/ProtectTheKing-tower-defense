@@ -129,7 +129,7 @@ void Game::towerAttack()
 }
 
 /** detect if is the end of wave */
-bool Game::IsEndOfWave()
+bool Game::isEndOfWave()
 {
     for(Enemies *enemy:mapOfGame->getEnemies())
     {
@@ -207,4 +207,27 @@ void Game::creditPlayerWallet(int price)
 void Game::increasePlayerScore(int value)
 {
     player->addScore(value);
+}
+
+/** reset the game to be able to restart the game */
+void Game::resetGame()
+{
+    //give enough coins to buy sand tower
+    player->setCoins(sand);
+
+    player->setScore(0);
+
+    for(Spell* spell: player->getSpells())
+    {
+        delete spell;
+    }
+
+    player->getSpells().clear();
+
+    mapOfGame->deleteAllEnemies();
+    mapOfGame->deleteAllTowers();
+    mapOfGame->getKing().setHealth(mapOfGame->getKing().getKingHealthMax());
+    numeroOfWave=0;
+
+
 }

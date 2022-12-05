@@ -94,7 +94,7 @@ void vMainMenu::loadSprite()
 bool vMainMenu::verifyImage()
 {
     //verify load images
-    if(!bgTexture.loadFromFile("res/images/menu/bg.png"))
+    if(!bgTexture.loadFromFile("res/images/menu/game_background_3.png"))
     {
         cout << "ERROR chargement texture" << endl;
         return false;

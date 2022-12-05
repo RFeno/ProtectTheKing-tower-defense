@@ -18,12 +18,13 @@ class Game
         Game& operator=(const Game& other);
 
         //mehtods
+        void resetGame();
         bool isGameOver();
         void createWave();
         void ennemiesWalk();
         void towerAttack();
         void ennemiesAttack();
-        bool IsEndOfWave();
+        bool isEndOfWave();
         void increaseGameSpeed();
         void decreaseGameSpeed();
         void increaseNumberOfEnemiesSpawned();
@@ -31,6 +32,8 @@ class Game
         void debitPlayerWallet(int valueOfDebit);
         void creditPlayerWallet(int valueOfCredit);
         void increasePlayerScore(int valueToAdd);
+
+
 
 
 
@@ -103,7 +106,7 @@ class Game
         Map *mapOfGame;
         const int numberOfEnemies =10;
         int numeroOfWave = 0;
-        int gameSpeed = 1;
+        int gameSpeed = 10;
         bool gamePaused = false;
         int numberOfEnemiesSpawned = 0;
         std::string message;

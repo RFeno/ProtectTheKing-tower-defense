@@ -60,6 +60,11 @@ class Player
             }
         }
 
+        std::list<Spell*> getSpells()const
+        {
+            return listOfSpells;
+        }
+
     protected:
 
     private:

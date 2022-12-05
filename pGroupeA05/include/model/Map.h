@@ -30,6 +30,7 @@ class Map
 
         ///TOWERS
         bool removeTower(Tower &tower);
+        void deleteAllTowers();
         int searchTower(Tower &tower);
         void addTower(TypeOfTowerPrice type,int positon);
         int getFirstEnemyNotDead(Tower &tower,int middleOfTower);

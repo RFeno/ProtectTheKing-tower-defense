@@ -539,3 +539,12 @@ void Map::getPositionOfSand(int position)
             }
     }
 }
+
+void Map::deleteAllTowers()
+{
+    for(Tower *tower: listOfTower)
+    {
+        delete tower;
+    }
+    listOfTower.clear();
+}
