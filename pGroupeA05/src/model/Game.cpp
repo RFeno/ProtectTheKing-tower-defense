@@ -203,6 +203,19 @@ void Game::creditPlayerWallet(int price)
     player->setCoins(player->getCoins()+price);
 }
 
+/** increase the gems of the player when he kills a enemy */
+void Game::increaseGemsWhenEnemyKilled()
+{
+    for(Enemies* e: getMap()->getEnemies())
+    {
+        if(e->getHealth() == 0 && !e->isCounted())
+        {
+            creditPlayerWallet(e->getMarketValue());
+            e->setCounted(true);
+        }
+    }
+}
+
 /** incrase the score of player */
 void Game::increasePlayerScore(int value)
 {

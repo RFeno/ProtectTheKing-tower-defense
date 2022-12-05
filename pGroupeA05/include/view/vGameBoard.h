@@ -90,7 +90,6 @@ class vGameBoard
 
         const int NUMBER_ACIDE_SPELL = 13;
 
-
         std::vector<vEnnemy*> listOfvEnnemies;
         std::vector<vTower*> listOfvTower;
         std::vector<sf::Sprite*> listOfAcideCloudSpell;

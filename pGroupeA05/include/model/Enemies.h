@@ -121,6 +121,11 @@ class Enemies
             return state;
         }
 
+        int getMarketValue()
+        {
+            return marketValue;
+        }
+
         virtual std::string getInformations()const = 0 ;
 
 

@@ -937,6 +937,11 @@ void vGameBoard::updateGame()
 //    cout << game.getMap()->getKing().getInformations() << endl;
 //    cout << game.getMap()->strTowers() <<endl;
 
+    ///give gems when enemy dies
+    game.increaseGemsWhenEnemyKilled();
+    playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
+
+
     ///reset wave is all enemies are dead
     if(game.isEndOfWave())
     {

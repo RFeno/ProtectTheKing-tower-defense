@@ -28,6 +28,7 @@ class Game
         void increaseGameSpeed();
         void decreaseGameSpeed();
         void increaseNumberOfEnemiesSpawned();
+        void increaseGemsWhenEnemyKilled();
         void refreshEnemies();
         void debitPlayerWallet(int valueOfDebit);
         void creditPlayerWallet(int valueOfCredit);
@@ -106,7 +107,7 @@ class Game
         Map *mapOfGame;
         const int numberOfEnemies =10;
         int numeroOfWave = 0;
-        int gameSpeed = 10;
+        int gameSpeed = 1;
         bool gamePaused = false;
         int numberOfEnemiesSpawned = 0;
         std::string message;
