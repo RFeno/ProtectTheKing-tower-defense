@@ -1,55 +1,51 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <list>
-#include <Spell.h>
-#include <Tower.h>
+
+#include "Spell.h"
+#include "Tower.h"
+
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Player
 {
     public:
-
-        //constructors
-        Player(std::string name="Anonymous",int coins = 100,int score = 0);
-        //destructor
+        //canonic form
+        Player(int coins = sand,int score = 0);
+        Player(const Player& other);
         virtual ~Player();
         Player& operator=(const Player& rhs);
 
         //methods
-        void buyTower(TypeOfTowerPrice type);
-        void buySpell();
-        void placeTower(Tower tower);
-        void sellTower();
-        void improveTower(Tower tower);
-        void activeSpell();
+        void buySpell(TypeOfSpell type);
+        int searchSpellByType(TypeOfSpell type);
+        bool useAndRemoveSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);
+        bool activeSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);
         void addScore(int score);
 
-        //getters and setters
-        std::string getName()const
-        {
-            return name;
-        }
-
-        void setName(std::string name)
-        {
-            this->name=name;
-        }
-
+        //getters and setter
         int getCoins()const
         {
             return coins;
         }
 
+         int getScore()const
+        {
+            return score;
+        }
+
+        int getNumberOfEnemyKilled()const
+        {
+            return numberOfEnemyKilled;
+        }
+
         void setCoins(int coins)
         {
             if(coins>=0)
+            {
                 this->coins=coins;
-        }
-
-        int getScore()
-        {
-            return score;
+            }
         }
 
         void setScore(int score)
@@ -60,17 +56,12 @@ class Player
             }
         }
 
-        int getEnemyKilled()
+        void setNumberOfEnemyKilled(int numberOfEnemyKilled)
         {
-            return enemyKilled;
+            this->numberOfEnemyKilled=numberOfEnemyKilled;
         }
 
-        void setEnemyKilled(int enemyKilled)
-        {
-            this->enemyKilled=enemyKilled;
-        }
-
-        std::list<Spell*> getSpells()const
+        std::vector<Spell*> getSpells()const
         {
             return listOfSpells;
         }
@@ -79,11 +70,10 @@ class Player
 
     private:
         //attributes
-        std::string name;
         int coins;
         int score;
-        int enemyKilled = 0;
-        std::list<Spell*> listOfSpells;
+        int numberOfEnemyKilled = 0;
+        std::vector<Spell*> listOfSpells;
 
 
 };

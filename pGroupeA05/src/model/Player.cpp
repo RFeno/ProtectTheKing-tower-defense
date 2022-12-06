@@ -20,6 +20,10 @@ Player::Player(const Player& other): coins(other.coins),score(other.score)
 Player::~Player()
 {
     //dtor
+    for(Spell *spell:listOfSpells)
+    {
+        delete spell;
+    }
 }
 
 Player& Player::operator=(const Player& rhs)
@@ -80,34 +84,52 @@ int Player::searchSpellByType(TypeOfSpell type)
 {
     int index = -1;
 
+    cout << "cherche :" << endl;
+
     for(int i=0;i<(int)listOfSpells.size();i++)
     {
+        cout << "je parcours la liste :"<<i<< endl;
         switch(type)
         {
             case fire:
                 if(dynamic_cast<FireSpell*>(listOfSpells[i]))
                 {
-                    index=i;
-                    break;
+                    return i;
                 }
                 break;
             case cloud:
                 if(dynamic_cast<AcidCloudSpell*>(listOfSpells[i]))
                 {
-                    index=i;
-                    break;
+                    return i;
                 }
                 break;
             case lightning:
                 if(dynamic_cast<LightningSpell*>(listOfSpells[i]))
                 {
-                    index=i;
-                    break;
+                    return i;
                 }
             break;
         }
     }
 
     return index;
+}
+
+/** add a new spell to list */
+
+void Player::buySpell(TypeOfSpell type)
+{
+    switch(type)
+    {
+        case cloud:
+            listOfSpells.push_back(new AcidCloudSpell());
+            break;
+        case fire:
+            listOfSpells.push_back(new FireSpell());
+            break;
+        case lightning:
+            listOfSpells.push_back(new LightningSpell());
+            break;
+    }
 }
 

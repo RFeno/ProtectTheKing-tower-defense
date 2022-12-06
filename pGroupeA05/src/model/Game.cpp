@@ -212,7 +212,7 @@ void Game::increasePlayerStatsWhenEnemyKilled()
         {
             creditPlayerWallet(e->getMarketValue());
             getPlayer()->addScore(e->getScoreValue());
-            getPlayer()->setEnemyKilled(getPlayer()->getEnemyKilled()+1);
+            getPlayer()->setNumberOfEnemyKilled(getPlayer()->getNumberOfEnemyKilled()+1);
             e->setCounted(true);
         }
     }
@@ -232,7 +232,7 @@ void Game::resetGame()
 
     player->setScore(0);
 
-    player->setEnemyKilled(0);
+    player->setNumberOfEnemyKilled(0);
 
     for(Spell* spell: player->getSpells())
     {

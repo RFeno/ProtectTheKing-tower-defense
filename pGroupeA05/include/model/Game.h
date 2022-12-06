@@ -35,9 +35,6 @@ class Game
         void increasePlayerScore(int valueToAdd);
 
 
-
-
-
         Map* getMap()const
         {
             return mapOfGame;
@@ -73,7 +70,7 @@ class Game
             return spawnTime;
         }
 
-        bool getGamePaused()
+        bool isGamePaused()
         {
             return gamePaused;
         }
@@ -81,6 +78,21 @@ class Game
         std::string getMessage()
         {
             return message;
+        }
+
+        bool isFireSpellActive()
+        {
+            return fireSpellActive;
+        }
+
+        bool isAcidCloudSpellActive()
+        {
+            return acidCloudSpellActive;
+        }
+
+        bool isLightNingSpellActive()
+        {
+            return lightningSpellActive;
         }
 
         void setGamePaused(bool pause)
@@ -98,6 +110,21 @@ class Game
             this->message=message;
         }
 
+        void setFireActive(bool value)
+        {
+            this->fireSpellActive=value;
+        }
+
+        void setAcidCloudActive(bool value)
+        {
+            this->acidCloudSpellActive=value;
+        }
+
+        void setLightningActive(bool value)
+        {
+            this->lightningSpellActive=value;
+        }
+
 
 
     protected:
@@ -109,6 +136,9 @@ class Game
         int numeroOfWave = 0;
         int gameSpeed = 1;
         bool gamePaused = false;
+        bool fireSpellActive = false;
+        bool acidCloudSpellActive = false;
+        bool lightningSpellActive = false;
         int numberOfEnemiesSpawned = 0;
         std::string message;
 
