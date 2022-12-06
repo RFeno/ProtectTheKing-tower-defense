@@ -1,6 +1,7 @@
 #include "LightningSpell.h"
 
-LightningSpell::LightningSpell(int damage, int effectduration):Spell(damaga,effectduration)
+
+LightningSpell::LightningSpell(int damage, float effectduration):Spell(damage,effectduration)
 {
     //ctor
 }
@@ -10,7 +11,7 @@ LightningSpell::~LightningSpell()
     //dtor
 }
 
-LightningSpell::LightningSpell(const LightningSpell& other):other
+LightningSpell::LightningSpell(const LightningSpell& other):Spell(other)
 {
     //copy ctor
 }
