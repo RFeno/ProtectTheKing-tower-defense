@@ -1,13 +1,13 @@
 #ifndef ACIDCLOUDSPELL_H
 #define ACIDCLOUDSPELL_H
 
-#include <Spell.h>
+#include "Spell.h"
 
 
 class AcidCloudSpell : public Spell
 {
     public:
-        AcidCloudSpell();
+        AcidCloudSpell(int damage=cloudDamage,float effectduration=cloudDuration);
         virtual ~AcidCloudSpell();
         AcidCloudSpell(const AcidCloudSpell& other);
         AcidCloudSpell& operator=(const AcidCloudSpell& other);

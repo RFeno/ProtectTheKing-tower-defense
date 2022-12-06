@@ -1,6 +1,6 @@
 #include "FireSpell.h"
 
-FireSpell::FireSpell()
+FireSpell::FireSpell(int damage, float effectduration): Spell(damage,effectduration)
 {
     //ctor
 }
@@ -10,7 +10,7 @@ FireSpell::~FireSpell()
     //dtor
 }
 
-FireSpell::FireSpell(const FireSpell& other)
+FireSpell::FireSpell(const FireSpell& other):Spell(other)
 {
     //copy ctor
 }
@@ -18,6 +18,9 @@ FireSpell::FireSpell(const FireSpell& other)
 FireSpell& FireSpell::operator=(const FireSpell& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
+
+    Spell::operator=(rhs);
+
     //assignment operator
     return *this;
 }

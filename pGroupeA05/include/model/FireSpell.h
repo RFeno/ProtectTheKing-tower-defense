@@ -2,10 +2,10 @@
 #define FIRESPELL_H
 
 
-class FireSpell
+class FireSpell : public Spell
 {
     public:
-        FireSpell();
+        FireSpell(int damage=fireDamage,float effectduration=fireDuration);
         virtual ~FireSpell();
         FireSpell(const FireSpell& other);
         FireSpell& operator=(const FireSpell& rhs);

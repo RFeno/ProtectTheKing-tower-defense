@@ -5,7 +5,7 @@
 class Spell
 {
     public:
-        Spell();
+        Spell(int damage=1,effectduration=1);
         virtual ~Spell();
         Spell(const Spell& other);
         Spell& operator=(const Spell& other);
@@ -13,6 +13,8 @@ class Spell
     protected:
 
     private:
+        int damage;
+        float effectduration;
 };
 
 #endif // SPELL_H
