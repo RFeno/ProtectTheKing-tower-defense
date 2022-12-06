@@ -1,29 +1,11 @@
 #include "Spell.h"
 
+#include "Enemies.h"
+#include <vector>
 
-enum TypeOfSpell : int
-{
-    fire = 0,
-    cloud = 1,
-    lightning = 2,
-};
+using namespace std;
 
-enum DamageOfSpell : int
-{
-    fireDamage = 5,
-    cloudDamage = 3,
-    lightningDamage = 1,
-};
-
-enum EffectDuration: float
-{
-    fireDuration = 3,
-    cloudDuration = 2,
-    lightningDuration = 1,
-};
-
-
-Spell::Spell(int damage,int effectduration): damage(damage), effectduration(effectduration)
+Spell::Spell(int damage,float effectduration): damage(damage), effectduration(effectduration)
 {
     //ctor
 }
@@ -47,4 +29,12 @@ Spell& Spell::operator=(const Spell& rhs)
 
     //assignment operator
     return *this;
+}
+
+void Spell::attackEnemies(vector<Enemies*> listOfEnemies)
+{
+    for(Enemies *enemy:listOfEnemies)
+    {
+        enemy->receiveDamage(damage);
+    }
 }
