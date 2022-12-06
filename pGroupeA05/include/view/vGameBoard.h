@@ -50,11 +50,12 @@ class vGameBoard
         void createText(sf::Text& text, sf::Color colorFill, sf::Color colorOutline, std::string str, float xScale, float yScale, int xPosition, int yPosition);
 
         ///EVENTS
-        void InputHandler(sf::Event event,sf::RenderWindow *window);
+        void InputHandler(sf::Event event);
         void eventsTowers();
         void eventsGameSpeed();
         void eventsChoiceTowers();
         void eventsActiveTowersChoice(TypeOfTowerPrice type);
+        void eventsSpells();
         bool isSpriteClicked (sf::Sprite &spr);
         void activeMessagePopUp(std::string message);
 
@@ -91,7 +92,9 @@ class vGameBoard
 
     private:
 
-        const int NUMBER_ACIDE_SPELL = 13;
+        const int NUMBER_ACID_SPELL = 13;
+        const int NUMBER_FIRE_SPELL = 13;
+        const int NUMBER_LIGHTNING_SPELL = 13;
 
         std::vector<vEnnemy*> listOfvEnnemies;
         std::vector<vTower*> listOfvTower;
@@ -129,6 +132,9 @@ class vGameBoard
         sf::Clock gameSpeedClook;
         sf::Clock attackTowerClock;
         sf::Clock messageClock;
+        sf::Clock acidCloudSpellClock;
+        sf::Clock fireSpellClock;
+        sf::Clock lightningSpellClock;
 
         Game game;
         sf::RenderWindow *windowFromMain;

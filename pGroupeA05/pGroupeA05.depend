@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1670169826 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/main.cpp
+1670343522 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/main.cpp
 	<SFML/Graphics.hpp>
 	"iostream"
 	"vMainMenu.h"
@@ -8,19 +8,19 @@
 	"vEnnemy.h"
 	"Gremlin.h"
 	<unistd.h>
-	<vGameManager.h>
+	"vGameManager.h"
 
 1669998261 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vMainMenu.h
 	<SFML/Graphics.hpp>
 
-1670168849 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vGameBoard.h
+1670357476 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vGameBoard.h
 	<SFML/Graphics.hpp>
 	"Enemies.h"
 	"Game.h"
 	"vEnnemy.h"
 	"vTower.h"
 
-1670100292 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Enemies.h
+1670313055 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Enemies.h
 	<string>
 	"State.h"
 	"King.h"
@@ -32,25 +32,27 @@
 1669728898 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/King.h
 	<string>
 
-1670167384 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Game.h
+1670354826 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Game.h
 	"Player.h"
 	"King.h"
 	"Map.h"
 	<string>
 
-1670165184 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Player.h
-	<list>
-	<Spell.h>
-	<Tower.h>
+1670357139 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Player.h
+	"Spell.h"
+	"Tower.h"
 	<iostream>
 	<string>
+	<vector>
 
-1667212753 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Spell.h
+1670351716 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Spell.h
+	<vector>
+	"Enemies.h"
 
-1670163908 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Tower.h
+1670276089 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Tower.h
 	<Enemies.h>
 
-1670101916 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Map.h
+1670252713 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Map.h
 	"Tower.h"
 	"Enemies.h"
 	"King.h"
@@ -61,7 +63,7 @@
 	<SFML/Graphics.hpp>
 	"Enemies.h"
 
-1670165209 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vTower.h
+1670185903 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vTower.h
 	<SFML/Graphics.hpp>
 	"Tower.h"
 
@@ -71,13 +73,13 @@
 1670104296 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vGameManager.h
 	<SFML/Graphics.hpp>
 
-1670163685 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/AcidCloudSpell.cpp
+1670350080 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/AcidCloudSpell.cpp
 	"AcidCloudSpell.h"
 
-1667211238 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/AcidCloudSpell.h
-	<Spell.h>
+1670350275 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/AcidCloudSpell.h
+	"Spell.h"
 
-1670006761 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Enemies.cpp
+1670177905 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Enemies.cpp
 	"State.h"
 	"StateWalk.h"
 	"StateAttack.h"
@@ -95,12 +97,13 @@
 1670002916 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/StateAttack.h
 	"State.h"
 
-1670008295 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/FireSpell.cpp
+1670350330 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/FireSpell.cpp
 	"FireSpell.h"
 
-1670008375 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/FireSpell.h
+1670350824 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/FireSpell.h
+	"Spell.h"
 
-1670168507 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Game.cpp
+1670351750 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Game.cpp
 	"Game.h"
 	"Player.h"
 	"King.h"
@@ -115,7 +118,7 @@
 	"Enemies.h"
 	<string.h>
 
-1669825686 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Gremlin.h
+1670272586 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Gremlin.h
 	"Enemies.h"
 	<string>
 
@@ -127,10 +130,10 @@
 	"KnightOfDeath.h"
 	<string>
 
-1669824880 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/KnightOfDeath.h
+1670272586 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/KnightOfDeath.h
 	<Enemies.h>
 
-1670103035 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Map.cpp
+1670272586 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Map.cpp
 	<string>
 	<iostream>
 	"Map.h"
@@ -147,13 +150,13 @@
 	"TowerIron.h"
 	"TowerSand.h"
 
-1669824872 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Ogre.h
+1670272586 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Ogre.h
 	<Enemies.h>
 
-1669824868 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Orc.h
+1670272586 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/Orc.h
 	<Enemies.h>
 
-1669825696 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/ShadowMonster.h
+1670272586 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/ShadowMonster.h
 	<Enemies.h>
 
 1670101538 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/TowerIce.h
@@ -173,16 +176,21 @@
 	"Orc.h"
 	<string>
 
-1670089677 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Player.cpp
+1670357169 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Player.cpp
 	"Player.h"
+	"FireSpell.h"
+	"AcidCloudSpell.h"
+	"LightningSpell.h"
 	<string>
 
 1669732606 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/ShadowMonster.cpp
 	"ShadowMonster.h"
 	<string.h>
 
-1667212754 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Spell.cpp
+1670351738 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Spell.cpp
 	"Spell.h"
+	"Enemies.h"
+	<vector>
 
 1669144881 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/State.cpp
 	"State.h"
@@ -201,14 +209,15 @@
 	<iostream>
 	"StateDie.h"
 
-1670164806 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Tower.cpp
+1670185510 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/Tower.cpp
 	"Tower.h"
 	<Enemies.h>
 	<stdexcept>
 	<iostream>
 
-1670101608 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/TowerEarth.cpp
+1670185657 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/TowerEarth.cpp
 	"TowerEarth.h"
+	<iostream>
 
 1670101620 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/TowerIce.cpp
 	"TowerIce.h"
@@ -240,7 +249,7 @@
 1667463909 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vGame.h
 	<SFML/Graphics.hpp>
 
-1670168873 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vGameBoard.cpp
+1670357725 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vGameBoard.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<unistd.h>
@@ -254,6 +263,7 @@
 	"TowerIce.h"
 	"TowerIron.h"
 	"TowerSand.h"
+	"AcidCloudSpell.h"
 	"vGameBoard.h"
 	"StateDie.h"
 
@@ -268,13 +278,13 @@
 1670001602 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/view/vGameOver.h
 	<SFML/Graphics.hpp>
 
-1670169978 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vMainMenu.cpp
+1670249620 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vMainMenu.cpp
 	"vMainMenu.h"
 	<SFML/Graphics.hpp>
 	<iostream>
 	"vGameBoard.h"
 
-1670097839 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vTower.cpp
+1670185914 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/view/vTower.cpp
 	"vTower.h"
 	"TowerEarth.h"
 	"TowerSand.h"
@@ -529,4 +539,10 @@
 	"TowerIron.h"
 	<SFML/Graphics.hpp>
 	<iostream>
+
+1670351011 source:/home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/src/model/LightningSpell.cpp
+	"LightningSpell.h"
+
+1670350385 /home/rfeno/Documents/bac3LinuxInterne/workspace/Projet/pGroupeA05/include/model/LightningSpell.h
+	<Spell.h>
 

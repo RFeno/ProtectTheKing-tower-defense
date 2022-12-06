@@ -15,6 +15,7 @@
 #include "TowerIce.h"
 #include "TowerIron.h"
 #include "TowerSand.h"
+#include "AcidCloudSpell.h"
 
 #include "vGameBoard.h"
 #include "StateDie.h"
@@ -24,6 +25,15 @@ using namespace std;
 
 vGameBoard::vGameBoard(RenderWindow &window)
 {
+    /**TO DELETE */
+   game.getPlayer()->buySpell(cloud);
+   game.getPlayer()->buySpell(cloud);
+   game.getPlayer()->buySpell(cloud);
+   game.getPlayer()->buySpell(cloud);
+   game.getPlayer()->buySpell(cloud);
+
+    cout <<  game.getPlayer()->getSpells().size() << "size" << endl;
+
     this->windowFromMain = &window;
 
     isChoosingNumberForPositionTower=false;
@@ -62,7 +72,7 @@ vGameBoard::vGameBoard(RenderWindow &window)
         listOfvEnnemies.push_back(venemy);
     }
 
-    for(int i=0; i < NUMBER_ACIDE_SPELL; i++)
+    for(int i=0; i < NUMBER_ACID_SPELL; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
     }
@@ -137,6 +147,7 @@ vGameBoard::~vGameBoard()
     }
 }
 
+/** allow to run and launch view game */
 void vGameBoard::launchView()
 {
     //vsynch activation
@@ -145,6 +156,7 @@ void vGameBoard::launchView()
     // limit the window to 60 images per second
     windowFromMain->setFramerateLimit(60);
 
+    /** if we have success to charge all images and load sprites, display screen */
     if(verifyImage())
     {
         loadSprite();
@@ -155,10 +167,10 @@ void vGameBoard::launchView()
 
             while(windowFromMain->pollEvent(event))
             {
-                InputHandler(event, windowFromMain);
+                InputHandler(event);
             }
 
-            if(!game.getGamePaused() && !game.isGameOver())
+            if(!game.isGamePaused() && !game.isGameOver())
             {
                 updateGame();
             }
@@ -220,12 +232,12 @@ bool vGameBoard::removeVTower(int position)
 }
 
 /**to manage the events */
-void vGameBoard::InputHandler(Event event, RenderWindow *window)
+void vGameBoard::InputHandler(Event event)
 {
     // close the window
     if (event.type == Event::Closed)
     {
-        window->close();
+        windowFromMain->close();
     }
 
     // detect mouse click
@@ -256,6 +268,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
 
             //detect pause, increase and decrease events
             eventsGameSpeed();
+            eventsSpells();
 
             if(game.isGameOver() && isSpriteClicked(resetButtonFailSprite))
             {
@@ -277,6 +290,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
     }
 
 
+    /** verify after the pannel is showing if the player have choice a number */
     if(isChoosingNumberForPositionTower)
     {
         if (event.mouseButton.button == Mouse::Left)
@@ -438,11 +452,11 @@ void vGameBoard::eventsGameSpeed()
 {
     if(isSpriteClicked(pauseButtonSprite))
     {
-        if(game.getGamePaused())
+        if(game.isGamePaused())
         {
             game.setGamePaused(false);
         }
-        else if(!game.getGamePaused())
+        else
         {
             game.setGamePaused(true);
         }
@@ -509,6 +523,33 @@ void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
     {
         activeMessagePopUp("All places of\ntowers are\noccupied\nplease sell");
     }
+}
+
+/** events to active spells */
+void vGameBoard::eventsSpells()
+{
+
+    //button to buy
+    if(isSpriteClicked(acideCloudBuyButtonSprite))
+    {
+        cout <<  "acide cloud buy button click" << endl;
+    }
+
+    //button to active
+    if(isSpriteClicked(acideCloudSprite))
+    {
+        cout <<  "acide cloud active button click" << endl;
+
+        if(game.getPlayer()->activeSpell(cloud,game.getMap()->getEnemies()))
+        {
+            game.setAcidCloudActive(true);
+        }
+
+
+    }
+
+
+
 }
 
 /** to load the sprites, adding texture to sprite */
@@ -632,7 +673,7 @@ void vGameBoard::loadSprite()
 
     /// enemy killed
     createText(enemiesKilledText, grey, Color::Black, "Enemies killed : ", 0.7f,0.7f, 540, 115);
-    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getEnemyKilled()), 0.9f,0.9f, 730,111);
+    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getNumberOfEnemyKilled()), 0.9f,0.9f, 730,111);
 
     /// score
     createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 156);
@@ -726,7 +767,7 @@ void vGameBoard::loadSpellEntities()
     spellTitleText.setPosition(Vector2f(310,20));
 
     ///effects
-    for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    for(int i=0; i < NUMBER_ACID_SPELL ; i++)
     {
         listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
         listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,909,2398));
@@ -904,7 +945,7 @@ void vGameBoard::updateGame()
     game.increasePlayerStatsWhenEnemyKilled();
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
     scoreNumberText.setString(to_string(game.getPlayer()->getScore()));
-    enemiesKilledNumberText.setString(to_string(game.getPlayer()->getEnemyKilled()));
+    enemiesKilledNumberText.setString(to_string(game.getPlayer()->getNumberOfEnemyKilled()));
 
     ///reset wave is all enemies are dead
     if(game.isEndOfWave())
@@ -1095,13 +1136,15 @@ void vGameBoard::drawEntities()
 void vGameBoard::drawSpellEntities()
 {
     ///Acid spell
-    /*for(int i=0; i < NUMBER_ACIDE_SPELL ; i++)
+    if(game.isAcidCloudSpellActive())
     {
-        windowFromMain->draw(*listOfAcideCloudSpell[i]);
-    }*/
+        for(int i=0; i < NUMBER_ACID_SPELL ; i++)
+        {
+            windowFromMain->draw(*listOfAcideCloudSpell[i]);
+        }
+    }
 
-
-
+    ///buttons and title
     windowFromMain->draw(spellTitleText);
     windowFromMain->draw(fireBuyButtonSprite);
     windowFromMain->draw(acideCloudBuyButtonSprite);
@@ -1264,7 +1307,7 @@ void vGameBoard::drawOneEnemy(vEnnemy *enemy)
 /**draw all entities for game speed */
 void vGameBoard::drawGameSpeedView()
 {
-    if(!game.getGamePaused())
+    if(!game.isGamePaused())
     {
         windowFromMain->draw(pauseButtonSprite);
     }
@@ -1436,9 +1479,11 @@ void vGameBoard::adaptPartOfTexture()
             x_knight++;
         }
 
-         if(x_acide*909 >= (int)acideCloudEffectTexture.getSize().x - 909)
+        if(x_acide*909 >= (int)acideCloudEffectTexture.getSize().x - 909)
         {
             x_acide = 0;
+            //fin de l'animation à la fin du compte à rebour
+            game.setAcidCloudActive(false);
         }
         else
         {
@@ -1539,11 +1584,13 @@ void vGameBoard::resetGameView()
     {
         delete tower;
     }
+
     listOfvTower.clear();
     isChoosingNumberForPositionTower = false;
     changeStatsPosition(game.isGameOver());
 }
 
+/** configure a text who that will after showing on screnn*/
 void vGameBoard::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
 {
     text.setFont(font);
