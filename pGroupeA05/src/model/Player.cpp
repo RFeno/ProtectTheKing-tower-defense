@@ -84,11 +84,8 @@ int Player::searchSpellByType(TypeOfSpell type)
 {
     int index = -1;
 
-    cout << "cherche :" << endl;
-
     for(int i=0;i<(int)listOfSpells.size();i++)
     {
-        cout << "je parcours la liste :"<<i<< endl;
         switch(type)
         {
             case fire:
@@ -97,7 +94,7 @@ int Player::searchSpellByType(TypeOfSpell type)
                     return i;
                 }
                 break;
-            case cloud:
+            case acidCloud:
                 if(dynamic_cast<AcidCloudSpell*>(listOfSpells[i]))
                 {
                     return i;
@@ -116,12 +113,11 @@ int Player::searchSpellByType(TypeOfSpell type)
 }
 
 /** add a new spell to list */
-
 void Player::buySpell(TypeOfSpell type)
 {
     switch(type)
     {
-        case cloud:
+        case acidCloud:
             listOfSpells.push_back(new AcidCloudSpell());
             break;
         case fire:

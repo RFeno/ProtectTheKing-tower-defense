@@ -6,7 +6,7 @@
 class FireSpell : public Spell
 {
     public:
-        FireSpell(int damage=fireDamage,float effectduration=fireDuration);
+        FireSpell(int damage=fireDamage,float effectduration=fireDuration,int price=fire);
         virtual ~FireSpell();
         FireSpell(const FireSpell& other);
         FireSpell& operator=(const FireSpell& rhs);

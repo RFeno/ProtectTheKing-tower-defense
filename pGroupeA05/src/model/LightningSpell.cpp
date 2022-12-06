@@ -1,7 +1,7 @@
 #include "LightningSpell.h"
 
 
-LightningSpell::LightningSpell(int damage, float effectduration):Spell(damage,effectduration)
+LightningSpell::LightningSpell(int damage, float effectduration,int price):Spell(damage,effectduration,price)
 {
     //ctor
 }

@@ -6,9 +6,9 @@
 
 enum TypeOfSpell : int
 {
-    fire = 0,
-    cloud = 1,
-    lightning = 2,
+    fire = 300,
+    acidCloud = 200,
+    lightning = 100,
 };
 
 enum DamageOfSpell : int

@@ -1,6 +1,6 @@
 #include "FireSpell.h"
 
-FireSpell::FireSpell(int damage, float effectduration): Spell(damage,effectduration)
+FireSpell::FireSpell(int damage, float effectduration,int price): Spell(damage,effectduration,price)
 {
     //ctor
 }

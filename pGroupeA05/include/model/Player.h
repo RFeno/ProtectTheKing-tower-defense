@@ -12,7 +12,7 @@ class Player
 {
     public:
         //canonic form
-        Player(int coins = sand,int score = 0);
+        Player(int coins = sand+9999,int score = 0);
         Player(const Player& other);
         virtual ~Player();
         Player& operator=(const Player& rhs);
