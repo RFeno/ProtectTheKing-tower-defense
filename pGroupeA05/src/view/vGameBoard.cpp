@@ -231,6 +231,23 @@ bool vGameBoard::removeVTower(int position)
     return false;
 }
 
+/**sell a tower of gameboard */
+void vGameBoard::sellTower(int position)
+{
+    isChoosingNumberForPositionTower = false;
+    for(vTower* vt : listOfvTower)
+    {
+        if(vt->getTower()->getPosition() == position)
+        {
+            game.creditPlayerWallet(vt->getTower()->getType() * 0.5f);
+            playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
+            game.getMap()->removeTower(*vt->getTower());
+        }
+    }
+    removeVTower(position);
+    isSellingTower = false;
+}
+
 /**to manage the events */
 void vGameBoard::InputHandler(Event event)
 {
@@ -302,100 +319,37 @@ void vGameBoard::InputHandler(Event event)
                 if(isSpriteClicked(*oneSprites[0]))
                 {
                     position = 1;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
                 if(isSpriteClicked(*twoSprites[0]))
                 {
                     position = 2;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
                 if(isSpriteClicked(*threeSprites[0]))
                 {
                     position = 3;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
                 if(isSpriteClicked(*fourSprites[0]))
                 {
                     position = 4;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
                 if(isSpriteClicked(*fiveSprites[0]))
                 {
                     position = 5;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
                 if(isSpriteClicked(*sixSprites[0]))
                 {
                     position = 6;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
                 if(isSpriteClicked(*sevenSprites[0]))
                 {
                     position = 7;
-                    isChoosingNumberForPositionTower = false;
-                    for(vTower* vt : listOfvTower)
-                    {
-                        if(vt->getTower()->getPosition() == position)
-                        {
-                            game.getMap()->removeTower(*vt->getTower());
-                        }
-                    }
-                    removeVTower(position);
-                    isSellingTower = false;
+                    sellTower(position);
                 }
             }
             // for buy a tower
