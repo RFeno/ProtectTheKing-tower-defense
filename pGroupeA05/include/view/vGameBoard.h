@@ -66,6 +66,7 @@ class vGameBoard
         void updateHealthBarAllEnemies();
         void enemyAnimation();
         void displayEnd();
+        void changeStatsPosition(bool isGameOver);
 
 
         ///TOWERS
@@ -284,6 +285,10 @@ class vGameBoard
         sf::Sprite resetButtonFailSprite;
         sf::Sprite headerFailedSprite;
         sf::Sprite backgroundSprite;
+
+         ///Failed texts
+         sf::Text enemiesKilledText;
+         sf::Text enemiesKilledNumberText;
 
         std::vector<sf::Sprite*> swordSprites;
         std::vector<sf::Sprite*> gemSprites;

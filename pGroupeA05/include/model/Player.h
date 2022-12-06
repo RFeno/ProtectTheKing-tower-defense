@@ -60,6 +60,16 @@ class Player
             }
         }
 
+        int getEnemyKilled()
+        {
+            return enemyKilled;
+        }
+
+        void setEnemyKilled(int enemyKilled)
+        {
+            this->enemyKilled=enemyKilled;
+        }
+
         std::list<Spell*> getSpells()const
         {
             return listOfSpells;
@@ -72,6 +82,7 @@ class Player
         std::string name;
         int coins;
         int score;
+        int enemyKilled = 0;
         std::list<Spell*> listOfSpells;
 
 

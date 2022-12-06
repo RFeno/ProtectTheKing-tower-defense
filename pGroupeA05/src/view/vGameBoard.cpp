@@ -622,18 +622,21 @@ void vGameBoard::loadSprite()
 
     gemSprites.push_back(new Sprite());
     gemSprites.back()->setTexture(gemTexture);
-    gemSprites.back()->setPosition(595,44);
+    gemSprites.back()->setPosition(595,34);
     gemSprites.back()->setScale(0.36f,0.36f);
-
-    createText(playerGemsNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getCoins()), 1.f,1.f, 635,38);
+    createText(playerGemsNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getCoins()), 1.f,1.f, 635,28);
 
     /// wave number
-    createText(waveNumberText, Color::Yellow, Color::Black, to_string(game.getNumeroOfWave()), 0.9f,0.9f, 730,86);
-    createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 540, 90);
+    createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 540, 70);
+    createText(waveNumberText, Color::Yellow, Color::Black, to_string(game.getNumeroOfWave()), 0.9f,0.9f, 730,66);
+
+    /// enemy killed
+    createText(enemiesKilledText, grey, Color::Black, "Enemies killed : ", 0.7f,0.7f, 540, 115);
+    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getEnemyKilled()), 0.9f,0.9f, 730,111);
 
     /// score
-    createText(scoreNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getScore()), 0.9f,0.9f, 680,136);
-    createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 140);
+    createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 156);
+    createText(scoreNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getScore()), 0.9f,0.9f, 680,151);
 
     /// message pop up
     messagePopUpText.setFont(font);
@@ -901,6 +904,7 @@ void vGameBoard::updateGame()
     game.increasePlayerStatsWhenEnemyKilled();
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
     scoreNumberText.setString(to_string(game.getPlayer()->getScore()));
+    enemiesKilledNumberText.setString(to_string(game.getPlayer()->getEnemyKilled()));
 
     ///reset wave is all enemies are dead
     if(game.isEndOfWave())
@@ -1161,11 +1165,14 @@ void vGameBoard::drawMapEntities()
     windowFromMain->draw(playerGemsNumberText);
     windowFromMain->draw(*gemSprites[4]);
     /// wave number
-    windowFromMain->draw(waveNumberText);
     windowFromMain->draw(waveText);
+    windowFromMain->draw(waveNumberText);
     /// score
-    windowFromMain->draw(scoreNumberText);
     windowFromMain->draw(scoreText);
+    windowFromMain->draw(scoreNumberText);
+    /// enemies killed
+    windowFromMain->draw(enemiesKilledText);
+    windowFromMain->draw(enemiesKilledNumberText);
 
     ///
     windowFromMain->draw(windowSmallSpellSprite);
@@ -1294,6 +1301,7 @@ void vGameBoard::drawGameSpeedView()
 /** draw the menu of fail */
 void vGameBoard::drawFailEntities()
 {
+    changeStatsPosition(game.isGameOver());
     if(game.isGameOver())
     {
         windowFromMain->draw(backgroundSprite);
@@ -1301,6 +1309,40 @@ void vGameBoard::drawFailEntities()
         windowFromMain->draw(windowFailSprite);
         windowFromMain->draw(headerFailedSprite);
         windowFromMain->draw(resetButtonFailSprite);
+        windowFromMain->draw(*gemSprites[4]);
+        windowFromMain->draw(playerGemsNumberText);
+        windowFromMain->draw(waveText);
+        windowFromMain->draw(waveNumberText);
+        windowFromMain->draw(enemiesKilledText);
+        windowFromMain->draw(enemiesKilledNumberText);
+        windowFromMain->draw(scoreText);
+        windowFromMain->draw(scoreNumberText);
+    }
+}
+
+void vGameBoard::changeStatsPosition(bool isGameOver)
+{
+    if(isGameOver)
+    {
+        gemSprites[4]->setPosition(650, 275);
+        playerGemsNumberText.setPosition(690,270);
+        waveText.setPosition(600,350);
+        waveNumberText.setPosition(780,347);
+        enemiesKilledText.setPosition(600,425);
+        enemiesKilledNumberText.setPosition(780,422);
+        scoreText.setPosition(600,500);
+        scoreNumberText.setPosition(690,497);
+    }
+    else
+    {
+        gemSprites[4]->setPosition(595,34);
+        playerGemsNumberText.setPosition(635,28);
+        waveText.setPosition(540, 70);
+        waveNumberText.setPosition(730,66);
+        enemiesKilledText.setPosition(540, 115);
+        enemiesKilledNumberText.setPosition(730,111);
+        scoreText.setPosition(580, 156);
+        scoreNumberText.setPosition(680,151);
     }
 }
 
@@ -1425,6 +1467,7 @@ void vGameBoard::activeMessagePopUp(std::string message)
 {
     messagePopUpText.setString(message);
     isMessagePopUp = true;
+    messageClock.restart();
 }
 
 /** buy the tower*/
@@ -1498,6 +1541,7 @@ void vGameBoard::resetGameView()
     }
     listOfvTower.clear();
     isChoosingNumberForPositionTower = false;
+    changeStatsPosition(game.isGameOver());
 }
 
 void vGameBoard::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
