@@ -28,7 +28,7 @@ class Game
         void increaseGameSpeed();
         void decreaseGameSpeed();
         void increaseNumberOfEnemiesSpawned();
-        void increaseGemsWhenEnemyKilled();
+        void increasePlayerStatsWhenEnemyKilled();
         void refreshEnemies();
         void debitPlayerWallet(int valueOfDebit);
         void creditPlayerWallet(int valueOfCredit);

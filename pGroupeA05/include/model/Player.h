@@ -54,7 +54,7 @@ class Player
 
         void setScore(int score)
         {
-            if(score<=0)
+            if(score>=0)
             {
                 this->score=score;
             }

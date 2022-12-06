@@ -209,6 +209,8 @@ class vGameBoard
         sf::Text playerGemsNumberText;
         sf::Text waveNumberText;
         sf::Text waveText;
+        sf::Text scoreNumberText;
+        sf::Text scoreText;
         sf::Text messagePopUpText;
 
         ///Spell textures

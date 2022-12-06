@@ -265,7 +265,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
         }
 
 
-        /*if (event.mouseButton.button == Mouse::Right)
+        if (event.mouseButton.button == Mouse::Right)
         {
             cout << "right click"<< endl;
 
@@ -273,7 +273,7 @@ void vGameBoard::InputHandler(Event event, RenderWindow *window)
             {
 
             }
-        }*/
+        }
     }
 
 
@@ -616,39 +616,24 @@ void vGameBoard::loadSprite()
 
     /// player gems
     signSprites.push_back(new Sprite());
-    signSprites.back()->setTexture(tableEmptyTexture);
-    signSprites.back()->setPosition(624, 5);
-    signSprites.back()->setScale(0.27f,0.25f);
+    signSprites.back()->setTexture(bigTableTexture);
+    signSprites.back()->setPosition(504, 10);
+    signSprites.back()->setScale(0.3f,0.3f);
 
     gemSprites.push_back(new Sprite());
     gemSprites.back()->setTexture(gemTexture);
-    gemSprites.back()->setPosition(655,44);
+    gemSprites.back()->setPosition(595,44);
     gemSprites.back()->setScale(0.36f,0.36f);
 
-    playerGemsNumberText.setFont(font);
-    playerGemsNumberText.setFillColor(Color::Yellow);
-    playerGemsNumberText.setOutlineColor(Color::Black);
-    playerGemsNumberText.setOutlineThickness(1.2f);
-    playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
-    playerGemsNumberText.setScale(1.f,1.f);
-    playerGemsNumberText.setPosition(695,40);
+    createText(playerGemsNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getCoins()), 1.f,1.f, 635,38);
 
     /// wave number
-    waveNumberText.setFont(font);
-    waveNumberText.setFillColor(Color::Yellow);
-    waveNumberText.setOutlineColor(Color::Black);
-    waveNumberText.setOutlineThickness(1.2f);
-    waveNumberText.setString(to_string(game.getNumeroOfWave()));
-    waveNumberText.setScale(0.9f,0.9f);
-    waveNumberText.setPosition(705,135);
+    createText(waveNumberText, Color::Yellow, Color::Black, to_string(game.getNumeroOfWave()), 0.9f,0.9f, 730,86);
+    createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 540, 90);
 
-    waveText.setFont(font);
-    waveText.setFillColor(grey);
-    waveText.setOutlineColor(Color::Black);
-    waveText.setOutlineThickness(1.2f);
-    waveText.setString("Wave number");
-    waveText.setScale(0.6f,0.6f);
-    waveText.setPosition(642,100);
+    /// score
+    createText(scoreNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getScore()), 0.9f,0.9f, 680,136);
+    createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 140);
 
     /// message pop up
     messagePopUpText.setFont(font);
@@ -912,10 +897,10 @@ void vGameBoard::updateGame()
 //    cout << game.getMap()->getKing().getInformations() << endl;
 //    cout << game.getMap()->strTowers() <<endl;
 
-    ///give gems when enemy dies
-    game.increaseGemsWhenEnemyKilled();
+    ///update player stats when enemy dies
+    game.increasePlayerStatsWhenEnemyKilled();
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
-
+    scoreNumberText.setString(to_string(game.getPlayer()->getScore()));
 
     ///reset wave is all enemies are dead
     if(game.isEndOfWave())
@@ -972,13 +957,11 @@ void vGameBoard::updateGame()
                         ///allow to attack only if the enemy is the first and the farthest
                         if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
                         {
-                            cout << "tower positon " << vtower->getTower()->getPosition() << " passage à true" << endl;
                             vtower->getTower()->setAttacking(true);
                             vtower->getTower()->attackEnemy(*enemy);
                         }
                         else
                         {
-                            cout << "tower positon " << vtower->getTower()->getPosition() << " passage à false" << endl;
                             vtower->getTower()->setAttacking(false);
                         }
 
@@ -1177,10 +1160,12 @@ void vGameBoard::drawMapEntities()
     windowFromMain->draw(*signSprites[5]);
     windowFromMain->draw(playerGemsNumberText);
     windowFromMain->draw(*gemSprites[4]);
-
     /// wave number
     windowFromMain->draw(waveNumberText);
     windowFromMain->draw(waveText);
+    /// score
+    windowFromMain->draw(scoreNumberText);
+    windowFromMain->draw(scoreText);
 
     ///
     windowFromMain->draw(windowSmallSpellSprite);
