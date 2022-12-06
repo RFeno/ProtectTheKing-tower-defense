@@ -25,42 +25,6 @@ using namespace std;
 
 vGameBoard::vGameBoard(RenderWindow &window)
 {
-    /**TO DELETE */
-
-    game.getPlayer()->buySpell(lightning);
-    game.getPlayer()->buySpell(lightning);
-    game.getPlayer()->buySpell(lightning);
-    game.getPlayer()->buySpell(lightning);
-    game.getPlayer()->buySpell(lightning);
-
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-    game.getPlayer()->buySpell(cloud);
-
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-    game.getPlayer()->buySpell(fire);
-
-
-
-
     this->windowFromMain = &window;
 
     isChoosingNumberForPositionTower=false;
@@ -590,20 +554,29 @@ void vGameBoard::eventsSpells()
     if(isSpriteClicked(acideCloudBuyButtonSprite))
     {
         cout <<  "acide cloud buy button click" << endl;
+        eventsActiveSpell(acidCloud);
+    }
+    else if(isSpriteClicked(fireBuyButtonSprite))
+    {
+        cout <<  "fire buy button click" << endl;
+        eventsActiveSpell(fire);
+    }
+    else if(isSpriteClicked(lightningBuyButtonSprite))
+    {
+        cout <<  "lightning buy button click" << endl;
+        eventsActiveSpell(lightning);
     }
 
     //button to active
     if(isSpriteClicked(acideCloudSprite))
     {
         cout <<  "acide cloud spell active button click" << endl;
-        if(game.getPlayer()->activeSpell(cloud,game.getMap()->getEnemies()))
+        if(game.getPlayer()->activeSpell(acidCloud,game.getMap()->getEnemies()))
         {
             game.setAcidCloudActive(true);
         }
     }
-
-    //button to active
-    if(isSpriteClicked(fireSprite))
+    else if(isSpriteClicked(fireSprite))
     {
         cout <<  "fire spell active button click" << endl;
         if(game.getPlayer()->activeSpell(fire,game.getMap()->getEnemies()))
@@ -611,9 +584,7 @@ void vGameBoard::eventsSpells()
             game.setFireActive(true);
         }
     }
-
-     //button to active
-    if(isSpriteClicked(lightningSprite))
+    else if(isSpriteClicked(lightningSprite))
     {
         cout <<  "lightning spell active button click" << endl;
         if(game.getPlayer()->activeSpell(lightning,game.getMap()->getEnemies()))
@@ -624,6 +595,21 @@ void vGameBoard::eventsSpells()
 
 
 
+}
+
+/***/
+void vGameBoard::eventsActiveSpell(TypeOfSpell type)
+{
+    //type == (type and price)
+    if((game.getPlayer()->getCoins()) - type >=0 )
+    {
+        game.getPlayer()->buySpell(type);
+        game.debitPlayerWallet(type);
+    }
+    else
+    {
+        activeMessagePopUp("You have not\nenough gems to\nbuy this spell.");
+    }
 }
 
 /** to load the sprites, adding texture to sprite */
@@ -826,8 +812,8 @@ void vGameBoard::loadSpellEntities()
     acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
     lightningBuyButtonSprite.setScale(0.35f,0.35f);
 
-    fireBuyButtonSprite.setPosition(10,100);
-    acideCloudBuyButtonSprite.setPosition(110,100);
+    fireBuyButtonSprite.setPosition(110,100);
+    acideCloudBuyButtonSprite.setPosition(11,100);
     lightningBuyButtonSprite.setPosition(210,100);
 
     ///Title

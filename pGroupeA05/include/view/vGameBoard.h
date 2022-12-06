@@ -56,6 +56,7 @@ class vGameBoard
         void eventsChoiceTowers();
         void eventsActiveTowersChoice(TypeOfTowerPrice type);
         void eventsSpells();
+        void eventsActiveSpell(TypeOfSpell type);
         bool isSpriteClicked (sf::Sprite &spr);
         void activeMessagePopUp(std::string message);
 
