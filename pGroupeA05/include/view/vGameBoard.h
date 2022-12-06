@@ -94,7 +94,7 @@ class vGameBoard
 
         const int NUMBER_ACID_SPELL = 13;
         const int NUMBER_FIRE_SPELL = 13;
-        const int NUMBER_LIGHTNING_SPELL = 13;
+        const int NUMBER_LIGHTNING_SPELL = 24;
 
         std::vector<vEnnemy*> listOfvEnnemies;
         std::vector<vTower*> listOfvTower;
@@ -119,6 +119,8 @@ class vGameBoard
         int y_knight = 0;
 
         int x_acide = 0;
+        int x_fire = 0;
+        int x_lightning =0;
 
         bool isChoosingNumberForPositionTower = false;
         bool isSellingTower = false;
@@ -203,9 +205,6 @@ class vGameBoard
         ///Map and entitites textures
         sf::Texture mapTexture;
         sf::Texture pauseTexture;
-        sf::Texture acideCloudTexture;
-        sf::Texture lightningTexture;
-        sf::Texture fireTexture;
         sf::Texture emptyButtonTexture;
         sf::Texture closeButtonTexture;
         sf::Texture headerShopTexture;
@@ -221,7 +220,12 @@ class vGameBoard
         sf::Text messagePopUpText;
 
         ///Spell textures
+        sf::Texture acideCloudActiveButtonTexture;
+        sf::Texture lightningActiveButtonTexture;
+        sf::Texture fireActiveButtonTexture;
         sf::Texture acideCloudEffectTexture;
+        sf::Texture fireEffectTexture;
+        sf::Texture lightningEffectTexture;
 
         ///Spell sprites:
         sf::Sprite fireBuyButtonSprite;
