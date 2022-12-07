@@ -371,7 +371,7 @@ void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
     }
     else
     {
-        activeMessagePopUp("All places of\ntowers are\noccupied\nplease sell");
+        activeMessagePopUp("All slots are\noccupied. Please\nsell a tower.");
     }
 }
 
@@ -623,25 +623,6 @@ void vGameBoard::drawEntities()
             }
         }
 
-        // When the player must choose the emplacement of tower
-        if(isChoosingNumberForPositionTower)
-        {
-            windowFromMain->draw(*signSprites[4]);
-            for(int i = 0; i<2; i++)
-            {
-                windowFromMain->draw(*oneSprites[i]);
-                windowFromMain->draw(*twoSprites[i]);
-                windowFromMain->draw(*threeSprites[i]);
-                windowFromMain->draw(*fourSprites[i]);
-                windowFromMain->draw(*fiveSprites[i]);
-                windowFromMain->draw(*sixSprites[i]);
-                windowFromMain->draw(*sevenSprites[i]);
-            }
-            windowFromMain->draw(chooseNumberText);
-            windowFromMain->draw(*closeButtonSprite);
-            windowFromMain->draw(*headerShopSprite);
-        }
-
         drawEnemies();
 
         //Place here elemnets between the towers
@@ -663,6 +644,25 @@ void vGameBoard::drawEntities()
             {
                 windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
             }
+        }
+
+        // When the player must choose the emplacement of tower
+        if(isChoosingNumberForPositionTower)
+        {
+            windowFromMain->draw(*signSprites[4]);
+            for(int i = 0; i<2; i++)
+            {
+                windowFromMain->draw(*oneSprites[i]);
+                windowFromMain->draw(*twoSprites[i]);
+                windowFromMain->draw(*threeSprites[i]);
+                windowFromMain->draw(*fourSprites[i]);
+                windowFromMain->draw(*fiveSprites[i]);
+                windowFromMain->draw(*sixSprites[i]);
+                windowFromMain->draw(*sevenSprites[i]);
+            }
+            windowFromMain->draw(chooseNumberText);
+            windowFromMain->draw(*closeButtonSprite);
+            windowFromMain->draw(*headerShopSprite);
         }
     }
     else

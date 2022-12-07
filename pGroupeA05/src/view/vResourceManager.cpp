@@ -323,7 +323,6 @@ void vResourceManager::loadTowersEntities()
     ironTowerButtonSprite.setPosition(Vector2f(1306,5));
 
     ///informations of tower
-
     int x = 1010;
     for(int i = 0; i < 4; i++)
     {
@@ -381,7 +380,6 @@ void vResourceManager::loadMapEntities()
 
     windowSmallTowerSprite.setPosition(860,12.5);
     windowSmallTowerSprite.setScale(1.25,1.05);
-
 
     loadKingEntities();
 }
@@ -543,16 +541,16 @@ void vResourceManager::loadStatsPlayerEntities()
     createText(playerGemsNumberText, Color::Yellow, Color::Black, "0", 1.f,1.f, 635,28);
 
     /// wave number
-    createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 540, 70);
-    createText(waveNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 730,66);
+    createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 530, 70);
+    createText(waveNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 710,66);
 
     /// enemy killed
-    createText(enemiesKilledText, grey, Color::Black, "Enemies killed : ", 0.7f,0.7f, 540, 115);
-    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 730,111);
+    createText(enemiesKilledText, grey, Color::Black, "Enemies killed : ", 0.7f,0.7f, 530, 115);
+    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 710,111);
 
     /// score
-    createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 156);
-    createText(scoreNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 680,151);
+    createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 570, 156);
+    createText(scoreNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 650,151);
 }
 
 

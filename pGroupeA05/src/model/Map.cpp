@@ -347,13 +347,13 @@ void Map::getPositionOfEarth(int position)
         }
         case 1:
         {
-            xOfTheNextTower=350;
+            xOfTheNextTower=360;
             yOfTheNextTower=295;
             break;
         }
         case 2:
         {
-            xOfTheNextTower=650;
+            xOfTheNextTower=660;
             yOfTheNextTower=295;
             break;
         }
