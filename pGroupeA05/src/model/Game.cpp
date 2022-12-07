@@ -234,17 +234,12 @@ void Game::resetGame()
 
     player->setNumberOfEnemyKilled(0);
 
-    for(Spell* spell: player->getSpells())
-    {
-        delete spell;
-    }
+    player->clearListOfSpells();
 
-    player->getSpells().clear();
+    player->updateSpellsNumber();
 
     mapOfGame->deleteAllEnemies();
     mapOfGame->deleteAllTowers();
     mapOfGame->getKing().setHealth(mapOfGame->getKing().getKingHealthMax());
     numeroOfWave=0;
-
-
 }

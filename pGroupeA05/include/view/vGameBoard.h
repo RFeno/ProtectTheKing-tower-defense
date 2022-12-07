@@ -225,6 +225,18 @@ class vGameBoard
 
         ///Spell texts
         sf::Text spellTitleText;
+        sf::Text acidStockText;
+        sf::Text fireStockText;
+        sf::Text lightningStockText;
+        sf::Text acidStockNumberText;
+        sf::Text fireStockNumberText;
+        sf::Text lightningStockNumberText;
+        sf::Text acidAttackNumberText;
+        sf::Text fireAttackNumberText;
+        sf::Text lightningAttackNumberText;
+        sf::Text acidPriceText;
+        sf::Text firePriceText;
+        sf::Text lightningPriceText;
 
         ///Towers attacks textures
         sf::Texture *earthAttack;

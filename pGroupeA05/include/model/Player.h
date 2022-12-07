@@ -23,6 +23,8 @@ class Player
         bool useAndRemoveSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);
         bool activeSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);
         void addScore(int score);
+        void updateSpellsNumber();
+        void clearListOfSpells();
 
         //getters and setter
         int getCoins()const
@@ -65,6 +67,39 @@ class Player
         {
             return listOfSpells;
         }
+         int getAcidNumber()
+        {
+            return acidNumber;
+        }
+        int getFireNumber()
+        {
+            return fireNumber;
+        }
+        int getLightningNumber()
+        {
+            return lightningNumber;
+        }
+        void setAcidNumber(int acidNumber)
+        {
+            if(acidNumber>=0)
+            {
+                this->acidNumber=acidNumber;
+            }
+        }
+        void setFireNumber(int fireNumber)
+        {
+            if(fireNumber>=0)
+            {
+                this->fireNumber=fireNumber;
+            }
+        }
+        void setLightningNumber(int lightningNumber)
+        {
+            if(lightningNumber>=0)
+            {
+                this->lightningNumber=lightningNumber;
+            }
+        }
 
     protected:
 
@@ -74,7 +109,9 @@ class Player
         int score;
         int numberOfEnemyKilled = 0;
         std::vector<Spell*> listOfSpells;
-
+        int acidNumber = 0;
+        int fireNumber = 0;
+        int lightningNumber = 0;
 
 };
 

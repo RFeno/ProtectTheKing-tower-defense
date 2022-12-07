@@ -129,3 +129,39 @@ void Player::buySpell(TypeOfSpell type)
     }
 }
 
+/** update the number of each spells in stock */
+void Player::updateSpellsNumber()
+{
+    acidNumber = 0;
+    fireNumber = 0;
+    lightningNumber = 0;
+    if(getSpells().size() != 0)
+    {
+        for(Spell* spell : getSpells())
+        {
+            if(dynamic_cast<AcidCloudSpell*>(spell))
+            {
+               acidNumber++;
+            }
+            if(dynamic_cast<FireSpell*>(spell))
+            {
+               fireNumber++;
+            }
+            if(dynamic_cast<LightningSpell*>(spell))
+            {
+               lightningNumber++;
+            }
+        }
+    }
+}
+
+/** clear the list of spells */
+void Player::clearListOfSpells()
+{
+    for(Spell* spell: listOfSpells)
+    {
+        delete spell;
+    }
+    listOfSpells.clear();
+}
+

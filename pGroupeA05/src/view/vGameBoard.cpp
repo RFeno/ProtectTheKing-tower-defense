@@ -14,7 +14,11 @@
 #include "TowerIce.h"
 #include "TowerIron.h"
 #include "TowerSand.h"
+
+/**SPELLS */
 #include "AcidCloudSpell.h"
+#include "FireSpell.h"
+#include "LightningSpell.h"
 
 #include "vGameBoard.h"
 #include "StateDie.h"
@@ -417,8 +421,12 @@ void vGameBoard::eventsSpells()
         }
     }
 
-
-
+    // calculation of spell number of th eplayer
+    game.getPlayer()->updateSpellsNumber();
+    // update stock of spells
+    acidStockNumberText.setString(to_string(game.getPlayer()->getAcidNumber()));
+    fireStockNumberText.setString(to_string(game.getPlayer()->getFireNumber()));
+    lightningStockNumberText.setString(to_string(game.getPlayer()->getLightningNumber()));
 }
 
 /***/
@@ -639,7 +647,6 @@ void vGameBoard::drawEntities()
         //Place here elemnets between the towers
         drawSpellEntities();
 
-
         ///towers 5 to 7
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
@@ -657,7 +664,6 @@ void vGameBoard::drawEntities()
                 windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
             }
         }
-
     }
     else
     {
@@ -700,6 +706,34 @@ void vGameBoard::drawSpellEntities()
     windowFromMain->draw(*fireBuyButtonSprite);
     windowFromMain->draw(*acideCloudBuyButtonSprite);
     windowFromMain->draw(*lightningBuyButtonSprite);
+
+    ///informations of spells
+    for(int i = 6; i < 9; i++)
+    {
+        windowFromMain->draw(*signSprites[i]);
+    }
+
+    for(int i = 5; i < 8; i++)
+    {
+        windowFromMain->draw(*gemSprites[i]);
+    }
+
+    for(int i = 4; i < 7; i++)
+    {
+        windowFromMain->draw(*swordSprites[i]);
+    }
+    windowFromMain->draw(acidStockText);
+    windowFromMain->draw(acidStockNumberText);
+    windowFromMain->draw(acidAttackNumberText);
+    windowFromMain->draw(acidPriceText);
+    windowFromMain->draw(fireStockText);
+    windowFromMain->draw(fireStockNumberText);
+    windowFromMain->draw(fireAttackNumberText);
+    windowFromMain->draw(firePriceText);
+    windowFromMain->draw(lightningStockText);
+    windowFromMain->draw(lightningStockNumberText);
+    windowFromMain->draw(lightningAttackNumberText);
+    windowFromMain->draw(lightningPriceText);
 }
 
 /** draw map entities */
@@ -1179,6 +1213,10 @@ void vGameBoard::resetGameView()
     listOfvTower.clear();
     isChoosingNumberForPositionTower = false;
     changeStatsPosition(game.isGameOver());
+    // reset spells stock
+    acidStockNumberText.setString(to_string(game.getPlayer()->getAcidNumber()));
+    fireStockNumberText.setString(to_string(game.getPlayer()->getFireNumber()));
+    lightningStockNumberText.setString(to_string(game.getPlayer()->getLightningNumber()));
 }
 
 bool vGameBoard::verifyImage()
@@ -1200,9 +1238,9 @@ bool vGameBoard::verifyImage()
     increaseSpeedButtonSprite = &resourceManager.increaseSpeedButtonSprite;
     decreaseSpeedButtonSprite = &resourceManager.decreaseSpeedButtonSprite;
     infoBulbleMessageSprite = &resourceManager.infoBulbleMessageSprite;
-    playGameButtonSprite = &resourceManager.infoBulbleMessageSprite;
-    gameSpeedEmptyTableSprite = &resourceManager.infoBulbleMessageSprite;
-    multiplierSprite = &resourceManager.infoBulbleMessageSprite;
+    playGameButtonSprite = &resourceManager.playGameButtonSprite;
+    gameSpeedEmptyTableSprite = &resourceManager.gameSpeedEmptyTableSprite;
+    multiplierSprite = &resourceManager.multiplierSprite;
     gameSpeedOneSprite = &resourceManager.gameSpeedOneSprite;
     gameSpeedTwoSprite = &resourceManager.gameSpeedTwoSprite;
     gameSPeedThreeSprite = &resourceManager.gameSPeedThreeSprite;
@@ -1278,6 +1316,18 @@ bool vGameBoard::verifyImage()
 
     ///Spell texts
     spellTitleText = resourceManager.spellTitleText;
+    acidStockText = resourceManager.acidStockText;
+    fireStockText = resourceManager.fireStockText;
+    lightningStockText = resourceManager.lightningStockText;
+    acidStockNumberText = resourceManager.acidStockNumberText;
+    fireStockNumberText = resourceManager.fireStockNumberText;
+    lightningStockNumberText = resourceManager.lightningStockNumberText;
+    acidAttackNumberText = resourceManager.acidAttackNumberText;
+    fireAttackNumberText = resourceManager.fireAttackNumberText;
+    lightningAttackNumberText = resourceManager.lightningAttackNumberText;
+    acidPriceText = resourceManager.acidPriceText;
+    firePriceText = resourceManager.firePriceText;
+    lightningPriceText = resourceManager.lightningPriceText;
 
     ///Towers attacks textures
     earthAttack = &resourceManager.earthAttack ;

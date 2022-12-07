@@ -203,9 +203,9 @@ void vResourceManager::loadSpellEntities()
     fireSprite.setScale(0.50f,0.50f);
     lightningSprite.setScale(0.50,0.50f);
 
-    acideCloudSprite.setPosition(Vector2f(10, 5));
-    fireSprite.setPosition(Vector2f(110, 5));
-    lightningSprite.setPosition(Vector2f(210, 5));
+    acideCloudSprite.setPosition(Vector2f(110, 5));
+    fireSprite.setPosition(Vector2f(210, 5));
+    lightningSprite.setPosition(Vector2f(10, 5));
 
     ///buttons to buy spells
     fireBuyButtonSprite.setTexture(emptyButtonTexture);
@@ -216,9 +216,49 @@ void vResourceManager::loadSpellEntities()
     acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
     lightningBuyButtonSprite.setScale(0.35f,0.35f);
 
-    fireBuyButtonSprite.setPosition(110,100);
-    acideCloudBuyButtonSprite.setPosition(11,100);
-    lightningBuyButtonSprite.setPosition(210,100);
+    acideCloudBuyButtonSprite.setPosition(110,100);
+    fireBuyButtonSprite.setPosition(210,100);
+    lightningBuyButtonSprite.setPosition(10,100);
+
+    int x = 20;
+    for(int i = 0; i < 3; i++)
+    {
+        gemSprites.push_back(new Sprite());
+        createSprite(*gemSprites.back(), gemTexture, 0.20f,0.20f, x,115);
+        x+=100;
+    }
+    createText(acidPriceText, Color::Yellow, Color::Black, to_string(TypeOfSpell::acidCloud), 0.65f,0.65f, 140,111);
+    createText(firePriceText, Color::Yellow, Color::Black, to_string(TypeOfSpell::fire), 0.65f,0.65f, 240,111);
+    createText(lightningPriceText, Color::Yellow, Color::Black, to_string(TypeOfSpell::lightning), 0.65f,0.65f, 40,111);
+
+    /// Informations of spells
+    x = 13;
+    for(int i = 0; i < 3; i++)
+    {
+        signSprites.push_back(new Sprite());
+        createSprite(*signSprites.back(), signTexture, 0.3f,0.2f, x,165);
+        x+=100;
+    }
+
+    // Damage
+    x =9;
+    for(int i = 0; i < 3; i++)
+    {
+        swordSprites.push_back(new Sprite());
+        createSprite(*swordSprites.back(), swordTexture, 0.1f,0.1f, x,165);
+        x+=100;
+    }
+    createText(acidAttackNumberText, Color::Yellow, Color::Black, to_string(DamageOfSpell::cloudDamage), 0.55f,0.55f, 147,175);
+    createText(fireAttackNumberText, Color::Yellow, Color::Black, to_string(DamageOfSpell::fireDamage), 0.55f,0.55f, 247,175);
+    createText(lightningAttackNumberText, Color::Yellow, Color::Black, to_string(DamageOfSpell::lightningDamage), 0.55f,0.55f, 47,175);
+
+    // Stock
+    createText(acidStockText, grey, Color::Black, "Stock :", 0.4f,0.4f, 120,205);
+    createText(fireStockText, grey, Color::Black, "Stock :", 0.4f,0.4f, 220,205);
+    createText(lightningStockText, grey, Color::Black, "Stock :", 0.4f,0.4f, 20,205);
+    createText(acidStockNumberText, Color::Yellow, Color::Black, "0", 0.5f,0.5f, 165,204);
+    createText(fireStockNumberText, Color::Yellow, Color::Black, "0", 0.5f,0.5f, 265,204);
+    createText(lightningStockNumberText, Color::Yellow, Color::Black, "0", 0.5f,0.5f, 65,204);
 
     ///Title
     Color grey(200,200,200);
@@ -378,7 +418,7 @@ void vResourceManager::loadFailEntities()
 
 }
 
-/** configure a text who that will after showing on screnn*/
+/** Configures a text that will be displayed on the screen afterwards*/
 void vResourceManager::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
 {
     text.setFont(font);
@@ -390,22 +430,16 @@ void vResourceManager::createText(Text& text, Color colorFill, Color colorOutlin
     text.setPosition(xPosition,yPosition);
 }
 
-
-/** to load the sprites, adding texture to sprite */
-void vResourceManager::loadSprite()
+/** Configures a sprite that will be displayed on the screen afterwards*/
+void vResourceManager::createSprite(sf::Sprite& sprite, sf::Texture& texture, float xScale, float yScale, int xPosition, int yPosition)
 {
-    ///map
-    mapSprite.setTexture(mapTexture);
-    mapSprite.setScale(0.73f,0.75f);
+    sprite.setTexture(texture);
+    sprite.setScale(xScale,yScale);
+    sprite.setPosition(xPosition,yPosition);
+}
 
-    loadMapEntities();
-    loadGameSpeedEntities();
-
-    loadSpellEntities();
-    loadTowersEntities();
-
-    loadFailEntities();
-
+void vResourceManager::loadChoosingNumberEntities()
+{
     ///choose number
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(bigTableTexture);
@@ -493,7 +527,9 @@ void vResourceManager::loadSprite()
     sevenSprites.back()->setTexture(sevenTexture);
     sevenSprites.back()->setPosition(1050, 750);
     sevenSprites.back()->setScale(0.5f,0.5f);
-
+}
+void vResourceManager::loadStatsPlayerEntities()
+{
     /// player gems
     signSprites.push_back(new Sprite());
     signSprites.back()->setTexture(bigTableTexture);
@@ -504,20 +540,39 @@ void vResourceManager::loadSprite()
     gemSprites.back()->setTexture(gemTexture);
     gemSprites.back()->setPosition(595,34);
     gemSprites.back()->setScale(0.36f,0.36f);
-
-    /*createText(playerGemsNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getCoins()), 1.f,1.f, 635,28);
+    createText(playerGemsNumberText, Color::Yellow, Color::Black, "0", 1.f,1.f, 635,28);
 
     /// wave number
     createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 540, 70);
-    createText(waveNumberText, Color::Yellow, Color::Black, to_string(game.getNumeroOfWave()), 0.9f,0.9f, 730,66);
+    createText(waveNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 730,66);
 
     /// enemy killed
     createText(enemiesKilledText, grey, Color::Black, "Enemies killed : ", 0.7f,0.7f, 540, 115);
-    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getNumberOfEnemyKilled()), 0.9f,0.9f, 730,111);
+    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 730,111);
 
     /// score
     createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 156);
-    createText(scoreNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getScore()), 0.9f,0.9f, 680,151);*/
+    createText(scoreNumberText, Color::Yellow, Color::Black, "0", 0.9f,0.9f, 680,151);
+}
+
+
+/** to load the sprites, adding texture to sprite */
+void vResourceManager::loadSprite()
+{
+    ///map
+    mapSprite.setTexture(mapTexture);
+    mapSprite.setScale(0.73f,0.75f);
+
+    loadMapEntities();
+    loadGameSpeedEntities();
+
+    loadTowersEntities();
+
+    loadChoosingNumberEntities();
+    loadStatsPlayerEntities();
+
+    loadSpellEntities();
+    loadFailEntities();
 
     /// message pop up
     messagePopUpText.setFont(font);
@@ -525,8 +580,6 @@ void vResourceManager::loadSprite()
     messagePopUpText.setScale(0.5f,0.5f);
     messagePopUpText.setPosition(Vector2f(1243,223));
 }
-
-
 
 /**to verify if all images is accessible and charge in the texture*/
 bool vResourceManager::verifyImage()

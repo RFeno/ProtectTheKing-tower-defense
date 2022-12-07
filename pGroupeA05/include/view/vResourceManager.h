@@ -26,13 +26,17 @@ class vResourceManager
         void loadMapEntities();
         void loadKingEntities();
         void loadFailEntities();
+        void loadChoosingNumberEntities();
+        void loadStatsPlayerEntities();
 
         void loadFont();
 
         void createText(sf::Text& text, sf::Color colorFill, sf::Color colorOutline, std::string str, float xScale, float yScale, int xPosition, int yPosition);
+        void createSprite(sf::Sprite& sprite, sf::Texture& texture, float xScale, float yScale, int xPosition, int yPosition);
 
 
         sf::Font font;
+        sf::Color grey = sf::Color(200,200,200);
 
         ///entities gameSpeed textures
         sf::Texture pauseButtonTexture;
@@ -125,6 +129,18 @@ class vResourceManager
 
         ///Spell texts
         sf::Text spellTitleText;
+        sf::Text acidStockText;
+        sf::Text fireStockText;
+        sf::Text lightningStockText;
+        sf::Text acidStockNumberText;
+        sf::Text fireStockNumberText;
+        sf::Text lightningStockNumberText;
+        sf::Text acidAttackNumberText;
+        sf::Text fireAttackNumberText;
+        sf::Text lightningAttackNumberText;
+        sf::Text acidPriceText;
+        sf::Text firePriceText;
+        sf::Text lightningPriceText;
 
         ///Towers attacks textures
         sf::Texture earthAttack;
