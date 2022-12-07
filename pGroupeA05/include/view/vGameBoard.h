@@ -65,6 +65,7 @@ class vGameBoard
         int searchVTower(int position);
         bool removeVEnemy(vEnnemy& enemy);
         int searchVEnemy(vEnnemy& enemy);
+        void sellTower(int position);
 
         ///ADAPT IMAGES
         void adaptAnimationSprite();
