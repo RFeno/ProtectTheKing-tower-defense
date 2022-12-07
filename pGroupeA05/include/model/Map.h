@@ -34,14 +34,16 @@ class Map
         void deleteAllTowers();
         int searchTower(Tower &tower);
         void addTower(TypeOfTowerPrice type,int positon);
-        int getFirstEnemyNotDead(Tower &tower,int middleOfTower);
+        int getFirstEnemyNotDead(Tower &tower);
         bool isTowerPositonAlreadyUsed(int position);
-        void getPositionOfNewTower(TypeOfTowerPrice type, int position);
-        void getPositionOfEarth(int position);
-        void getPositionOfIron(int position);
-        void getPositionOfIce(int position);
-        void getPositionOfSand(int position);
+        void calculPositionOfNewTower(TypeOfTowerPrice type, int position);
+        void calculPositionOfEarth(int position);
+        void calculPositionOfIron(int position);
+        void calculPositionOfIce(int position);
+        void calculPositionOfSand(int position);
         bool isAllPlacesOccupied();
+        void confrontationTowersEnemies();
+        int getMiddlePositionOfTower(Tower &tower);
 
         //getters and setters
         //pointeurs ou référence
@@ -55,7 +57,7 @@ class Map
             return listOfEnemies;
         }
 
-        King &getKing()
+        King &getKing()const
         {
             return *king;
         }
@@ -73,6 +75,8 @@ class Map
     protected:
 
     private:
+
+        /**AIP because the enemy are only accessible by the map */
         std::vector<Tower*> listOfTower;
         std::vector<Enemies*> listOfEnemies;
         King *king;

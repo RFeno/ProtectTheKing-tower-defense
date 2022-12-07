@@ -37,16 +37,20 @@ Map::~Map()
         delete enemy;
     }
 
+    listOfEnemies.clear();
+
     for(Tower* tower: listOfTower)
     {
         delete tower;
     }
 
+    listOfTower.clear();
+
     delete king;
 
 }
 
-Map::Map(const Map& other)
+Map::Map(const Map& other): xOfTheNextTower(other.xOfTheNextTower), yOfTheNextTower(other.yOfTheNextTower)
 {
     //copy ctor
     for(Enemies *enemy:other.listOfEnemies)
@@ -56,8 +60,9 @@ Map::Map(const Map& other)
 
     for(Tower *tower:listOfTower)
     {
-        listOfTower.push_back(tower.clone());
+        listOfTower.push_back(tower->clone());
     }
+
 }
 
 Map& Map::operator=(const Map& rhs)
@@ -79,16 +84,16 @@ Map& Map::operator=(const Map& rhs)
 
     for(Enemies* enemy: rhs.listOfEnemies)
     {
-        this->listOfEnemies.push_back(enemy);
+        this->listOfEnemies.push_back(enemy->clone());
     }
 
     for(Tower* tower: rhs.listOfTower)
     {
-        this->listOfTower.push_back(tower);
+        this->listOfTower.push_back(tower->clone());
     }
 
     delete king;
-    this->king=rhs.king;
+    this->king=rhs.king->clone();
 
     //assignment operator
     return *this;
@@ -113,6 +118,7 @@ string Map::strTowers()const
     }
     return result+="]";
 }
+
 /** add the new enemy on the map list in terms of the type of enemy */
 void Map::addEnemy(typeOfEnemies type)
 {
@@ -188,7 +194,7 @@ bool Map::removeEnemy(Enemies& enemy)
 void Map::addTower(TypeOfTowerPrice type,int position)
 {
     //change the value of yOfTheNextTower and xOfTheNextTower
-    getPositionOfNewTower(type,position);
+    calculPositionOfNewTower(type,position);
 
     switch(type)
     {
@@ -273,7 +279,7 @@ void Map::improveAllEnemies(int numeroOfWave)
 /**return the first enemy not dead and who is the who is the closest to the king and too in range of tower,
 that is to say the farthest on the map else return -1
 take in parameter the tower which wants to attack as well as the middle of the size of the image of the tower*/
-int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
+int Map::getFirstEnemyNotDead(Tower &tower)
 {
     for(int i=0;i<(int)listOfEnemies.size();i++)
     {
@@ -281,7 +287,7 @@ int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
         {
             int xOfenemy = listOfEnemies[i]->getX();
 
-            if(tower.isInRange(xOfenemy,middleOfTower))
+            if(tower.isInRange(xOfenemy,getMiddlePositionOfTower(tower)))
             {
                 bool isTheFarthest = true;
 
@@ -289,7 +295,7 @@ int Map::getFirstEnemyNotDead(Tower &tower, int middleOfTower)
                 {
                     int xOfSecondEnemy = listOfEnemies[j]->getX();
 
-                    if(xOfenemy < xOfSecondEnemy && tower.isInRange(xOfSecondEnemy,middleOfTower) && !dynamic_cast<StateDie*>(listOfEnemies[j]->getState()))
+                    if(xOfenemy < xOfSecondEnemy && tower.isInRange(xOfSecondEnemy,getMiddlePositionOfTower(tower)) && !dynamic_cast<StateDie*>(listOfEnemies[j]->getState()))
                     {
                         isTheFarthest=false;
                         break;
@@ -323,30 +329,29 @@ bool Map::isTowerPositonAlreadyUsed(int position)
 *depending on the type of tower the player wants to buy
 *this method will call the correct method which will change an x and y position
 */
-void Map::getPositionOfNewTower(TypeOfTowerPrice type, int position)
+void Map::calculPositionOfNewTower(TypeOfTowerPrice type, int position)
 {
     switch(type)
     {
         case earth:
-            getPositionOfEarth(position);
+            calculPositionOfEarth(position);
             break;
         case iron:
-            getPositionOfIron(position);
+            calculPositionOfIron(position);
             break;
         case ice:
-            getPositionOfIce(position);
+            calculPositionOfIce(position);
             break;
         case sand:
-            getPositionOfSand(position);
+            calculPositionOfSand(position);
             break;
     }
-    //cout << "X vaut " << to_string(x) << " Y vaut " << to_string(y) << endl;
 }
 
 /**
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void Map::getPositionOfEarth(int position)
+void Map::calculPositionOfEarth(int position)
 {
     switch(position-1)
     {
@@ -398,7 +403,7 @@ void Map::getPositionOfEarth(int position)
 /**
 this method defines a position in x and yOfTheNextTower to display the tower in the right place on the map
 */
-void Map::getPositionOfIce(int position)
+void Map::calculPositionOfIce(int position)
 {
     switch(position-1)
     {
@@ -450,7 +455,7 @@ void Map::getPositionOfIce(int position)
 /**
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void Map::getPositionOfIron(int position)
+void Map::calculPositionOfIron(int position)
 {
     switch(position-1)
     {
@@ -502,7 +507,7 @@ void Map::getPositionOfIron(int position)
 /**
 this method defines a position in x and y to display the tower in the right place on the map
 */
-void Map::getPositionOfSand(int position)
+void Map::calculPositionOfSand(int position)
 {
     switch(position-1)
     {
@@ -551,7 +556,7 @@ void Map::getPositionOfSand(int position)
     }
 }
 
-/***/
+/**delete all towers of map*/
 void Map::deleteAllTowers()
 {
     for(Tower *tower: listOfTower)
@@ -572,7 +577,65 @@ bool Map::isAllPlacesOccupied()
     return false;
 }
 
+/**clone the map*/
 Map* Map::clone()const
 {
     return new Map(*this);
+}
+
+/** confrontation between towers enemy */
+void Map::confrontationTowersEnemies()
+{
+    for(Tower *tower:listOfTower)
+    {
+        for(Enemies *enemy: listOfEnemies)
+        {
+            if(tower->isInRange(enemy->getX(),getMiddlePositionOfTower(*tower)))
+            {
+                ///allow to attack only if the enemy is the first and the farthest
+                if(getFirstEnemyNotDead(*tower) == searchEnemy(*enemy))
+                {
+                    tower->setAttacking(true);
+                    tower->attackEnemy(*enemy);
+                }
+                else
+                {
+                    tower->setAttacking(false);
+                }
+            }
+        }
+    }
+}
+
+int Map::getMiddlePositionOfTower(Tower &tower)
+{
+    if(dynamic_cast<TowerEarth*>(&tower))
+    {
+        return 87;
+    }
+    else
+    {
+        if(dynamic_cast<TowerSand*>(&tower))
+        {
+            return 88;
+        }
+        else
+        {
+            if(dynamic_cast<TowerIce*>(&tower))
+            {
+                return 89;
+            }
+            else
+            {
+                if(dynamic_cast<TowerIron*>(&tower))
+                {
+                    return 81;
+                }
+                else
+                {
+                   return 0;
+                }
+            }
+        }
+    }
 }
