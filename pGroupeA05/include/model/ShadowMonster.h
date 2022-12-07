@@ -12,6 +12,7 @@ class ShadowMonster : public Enemies
         ShadowMonster(const ShadowMonster& other);
         ShadowMonster& operator=(const ShadowMonster& other);
         std::string getInformations()const;
+        ShadowMonster* clone() const;
 
     protected:
 

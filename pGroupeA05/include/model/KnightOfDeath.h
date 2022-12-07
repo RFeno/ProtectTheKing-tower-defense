@@ -12,6 +12,7 @@ class KnightOfDeath : public Enemies
         KnightOfDeath(const KnightOfDeath& other);
         KnightOfDeath& operator=(const KnightOfDeath& other);
         std::string getInformations()const;
+        KnightOfDeath* clone() const;
 
     protected:
 

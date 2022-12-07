@@ -12,6 +12,7 @@ class Orc : public Enemies
         Orc(const Orc& other);
         Orc& operator=(const Orc& other);
         std::string getInformations()const;
+        Orc* clone() const;
 
     protected:
 

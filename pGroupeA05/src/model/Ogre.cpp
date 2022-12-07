@@ -17,7 +17,6 @@ Ogre::~Ogre()
 Ogre::Ogre(const Ogre& other):Enemies(other)
 {
     //copy ctor
-
 }
 
 Ogre& Ogre::operator=(const Ogre& rhs)
@@ -30,9 +29,15 @@ Ogre& Ogre::operator=(const Ogre& rhs)
     return *this;
 }
 
-
+/**return the state of the enemy */
 string Ogre::getInformations()const
 {
     return "[id: "+ to_string(*id)+"      |Ogre          x:"+ to_string(x) +"    health:" + to_string(health) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) + "  walking speed:"+to_string(walkingSpeed) + " ]";
+}
+
+/**clone the enemies*/
+Ogre* Ogre::clone() const
+{
+    return new Ogre(*this);
 }
 

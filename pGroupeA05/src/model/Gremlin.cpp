@@ -32,8 +32,14 @@ Gremlin& Gremlin::operator=(const Gremlin& rhs)
     return *this;
 }
 
-/* return the state(informations of enemy */
+/** return the state(informations of enemy **/
 string Gremlin::getInformations()const
 {
     return "[id: "+ to_string(*id)+ "      |Gremlin       x:"+ to_string(x) +"    health:" + to_string(health) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) +"  walking speed:"+to_string(walkingSpeed) + " ]";
+}
+
+/** clone the enemies */
+Gremlin* Gremlin::clone()const
+{
+    return new Gremlin(*this);
 }

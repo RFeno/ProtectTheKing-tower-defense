@@ -12,6 +12,7 @@ class Gremlin : public Enemies
         Gremlin(const Gremlin& other);
         Gremlin& operator=(const Gremlin& other);
         std::string getInformations()const;
+        Gremlin* clone() const;
 
 
     protected:

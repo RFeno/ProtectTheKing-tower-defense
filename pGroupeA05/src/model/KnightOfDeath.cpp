@@ -30,3 +30,8 @@ string KnightOfDeath::getInformations()const
 {
     return "[id: "+ to_string(*id)+ "      |KnightOfDeath x:"+ to_string(x) +"    health:" + to_string(health) + "    market value:" + to_string(marketValue) + "    score value:" + to_string(scoreValue) +" walking speed:"+to_string(walkingSpeed) + "]";
 }
+
+KnightOfDeath* KnightOfDeath::clone() const
+{
+    return new KnightOfDeath(*this);
+}

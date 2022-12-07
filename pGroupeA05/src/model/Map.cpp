@@ -25,6 +25,8 @@ Map::Map()
 {
     //ctor
     this->king = new King();
+    xOfTheNextTower =0;
+    yOfTheNextTower = 0;
 }
 
 Map::~Map()
@@ -47,6 +49,15 @@ Map::~Map()
 Map::Map(const Map& other)
 {
     //copy ctor
+    for(Enemies *enemy:other.listOfEnemies)
+    {
+        listOfEnemies.push_back(enemy->clone());
+    }
+
+    for(Tower *tower:listOfTower)
+    {
+        listOfTower.push_back(tower.clone());
+    }
 }
 
 Map& Map::operator=(const Map& rhs)

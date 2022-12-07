@@ -12,6 +12,7 @@ class Ogre : public Enemies
         Ogre(const Ogre& other);
         Ogre& operator=(const Ogre& other);
         std::string getInformations()const;
+        Ogre* clone() const;
 
     protected:
 

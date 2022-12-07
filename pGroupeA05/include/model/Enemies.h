@@ -50,6 +50,8 @@ class Enemies
         void changeState(State *state);
         void die();
         void improveStatistics(int numeroOfWave);
+        virtual std::string getInformations()const = 0 ;
+        virtual Enemies* clone() const = 0 ;
 
         ///getters and setters
         void setHealth(int health);
@@ -131,7 +133,7 @@ class Enemies
             return scoreValue;
         }
 
-        virtual std::string getInformations()const = 0 ;
+
 
 
     protected:
