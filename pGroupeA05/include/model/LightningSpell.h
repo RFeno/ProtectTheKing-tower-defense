@@ -7,7 +7,7 @@
 class LightningSpell : public Spell
 {
     public:
-        LightningSpell(int damage=lightningDamage,float effectduration=lightningDuration);
+        LightningSpell(int damage=lightningDamage,float effectduration=lightningDuration,int price=lightning);
         virtual ~LightningSpell();
         LightningSpell(const LightningSpell& other);
         LightningSpell& operator=(const LightningSpell& other);

@@ -7,7 +7,7 @@
 class AcidCloudSpell : public Spell
 {
     public:
-        AcidCloudSpell(int damage=cloudDamage,float effectduration=cloudDuration);
+        AcidCloudSpell(int damage=cloudDamage,float effectduration=cloudDuration,int price=acidCloud);
         virtual ~AcidCloudSpell();
         AcidCloudSpell(const AcidCloudSpell& other);
         AcidCloudSpell& operator=(const AcidCloudSpell& other);

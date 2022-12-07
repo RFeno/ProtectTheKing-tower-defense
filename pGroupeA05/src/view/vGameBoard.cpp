@@ -25,15 +25,6 @@ using namespace std;
 
 vGameBoard::vGameBoard(RenderWindow &window)
 {
-    /**TO DELETE */
-   game.getPlayer()->buySpell(cloud);
-   game.getPlayer()->buySpell(cloud);
-   game.getPlayer()->buySpell(cloud);
-   game.getPlayer()->buySpell(cloud);
-   game.getPlayer()->buySpell(cloud);
-
-    cout <<  game.getPlayer()->getSpells().size() << "size" << endl;
-
     this->windowFromMain = &window;
 
     isChoosingNumberForPositionTower=false;
@@ -72,30 +63,55 @@ vGameBoard::vGameBoard(RenderWindow &window)
         listOfvEnnemies.push_back(venemy);
     }
 
+    ///spells sprites
     for(int i=0; i < NUMBER_ACID_SPELL; i++)
     {
         listOfAcideCloudSpell.push_back(new Sprite());
+    }
+
+    for(int i=0; i < NUMBER_FIRE_SPELL; i++)
+    {
+        listOfFireSpell.push_back(new Sprite());
+    }
+
+    for(int i=0; i < NUMBER_LIGHTNING_SPELL; i++)
+    {
+        listOfLigntningSpell.push_back(new Sprite());
     }
 }
 
 vGameBoard::~vGameBoard()
 {
     //dtor
+    ///ENEMIES
     for(vEnnemy *venemy: listOfvEnnemies)
     {
         delete venemy;
     }
 
+    ///SPELLS
     for(Sprite *acide: listOfAcideCloudSpell)
     {
         delete acide;
     }
 
+    for(Sprite *fire: listOfFireSpell)
+    {
+        delete fire;
+    }
+
+    for(Sprite *lightning: listOfLigntningSpell)
+    {
+        delete lightning;
+    }
+
+    ///TOWERS
     for(vTower *vTower: listOfvTower)
     {
         delete vTower;
     }
 
+    ///INFORMATIONS AND DIGITS
     for(Sprite *gem: gemSprites)
     {
         delete gem;
@@ -285,7 +301,13 @@ void vGameBoard::InputHandler(Event event)
 
             //detect pause, increase and decrease events
             eventsGameSpeed();
-            eventsSpells();
+
+            //detect spells buttons
+            if(!game.isGamePaused())
+            {
+                eventsSpells();
+            }
+
 
             if(game.isGameOver() && isSpriteClicked(resetButtonFailSprite))
             {
@@ -482,28 +504,66 @@ void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
 /** events to active spells */
 void vGameBoard::eventsSpells()
 {
-
     //button to buy
     if(isSpriteClicked(acideCloudBuyButtonSprite))
     {
         cout <<  "acide cloud buy button click" << endl;
+        eventsActiveSpell(acidCloud);
+    }
+    else if(isSpriteClicked(fireBuyButtonSprite))
+    {
+        cout <<  "fire buy button click" << endl;
+        eventsActiveSpell(fire);
+    }
+    else if(isSpriteClicked(lightningBuyButtonSprite))
+    {
+        cout <<  "lightning buy button click" << endl;
+        eventsActiveSpell(lightning);
     }
 
     //button to active
     if(isSpriteClicked(acideCloudSprite))
     {
-        cout <<  "acide cloud active button click" << endl;
-
-        if(game.getPlayer()->activeSpell(cloud,game.getMap()->getEnemies()))
+        cout <<  "acide cloud spell active button click" << endl;
+        if(game.getPlayer()->activeSpell(acidCloud,game.getMap()->getEnemies()))
         {
             game.setAcidCloudActive(true);
         }
-
-
+    }
+    else if(isSpriteClicked(fireSprite))
+    {
+        cout <<  "fire spell active button click" << endl;
+        if(game.getPlayer()->activeSpell(fire,game.getMap()->getEnemies()))
+        {
+            game.setFireActive(true);
+        }
+    }
+    else if(isSpriteClicked(lightningSprite))
+    {
+        cout <<  "lightning spell active button click" << endl;
+        if(game.getPlayer()->activeSpell(lightning,game.getMap()->getEnemies()))
+        {
+            game.setLightningActive(true);
+        }
     }
 
 
 
+}
+
+/***/
+void vGameBoard::eventsActiveSpell(TypeOfSpell type)
+{
+    //type == (type and price)
+    if((game.getPlayer()->getCoins()) - type >=0 )
+    {
+        game.getPlayer()->buySpell(type);
+        game.debitPlayerWallet(type);
+    }
+    else
+    {
+        activeMessagePopUp("You have not\nenough gems to\nbuy this spell.");
+    }
 }
 
 /** to load the sprites, adding texture to sprite */
@@ -685,9 +745,9 @@ void vGameBoard::loadGameSpeedEntities()
 void vGameBoard::loadSpellEntities()
 {
     /// buttons to active spells
-    acideCloudSprite.setTexture(acideCloudTexture);
-    fireSprite.setTexture(fireTexture);
-    lightningSprite.setTexture(lightningTexture);
+    acideCloudSprite.setTexture(acideCloudActiveButtonTexture);
+    fireSprite.setTexture(fireActiveButtonTexture);
+    lightningSprite.setTexture(lightningActiveButtonTexture);
 
     acideCloudSprite.setScale(0.50f,0.50f);
     fireSprite.setScale(0.50f,0.50f);
@@ -706,16 +766,14 @@ void vGameBoard::loadSpellEntities()
     acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
     lightningBuyButtonSprite.setScale(0.35f,0.35f);
 
-    fireBuyButtonSprite.setPosition(10,100);
-    acideCloudBuyButtonSprite.setPosition(110,100);
+    fireBuyButtonSprite.setPosition(110,100);
+    acideCloudBuyButtonSprite.setPosition(11,100);
     lightningBuyButtonSprite.setPosition(210,100);
 
     ///Title
     Color grey(200,200,200);
     spellTitleText.setFont(font);
     spellTitleText.setFillColor(grey);
-    //spellTitleText.setOutlineColor(Color::Black);
-    //spellTitleText.setOutlineThickness(1.2f);
     spellTitleText.setString("Spells");
     spellTitleText.setScale(1.1f,1.1f);
     spellTitleText.setPosition(Vector2f(310,20));
@@ -724,11 +782,26 @@ void vGameBoard::loadSpellEntities()
     for(int i=0; i < NUMBER_ACID_SPELL ; i++)
     {
         listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
-        listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,909,2398));
+        listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,ACID_CLOUD_WIDTH,ACID_CLOUD_HEIGHT));
         listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
         listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
     }
 
+    for(int i=0; i < NUMBER_FIRE_SPELL ; i++)
+    {
+        listOfFireSpell[i]->setTexture(fireEffectTexture);
+        listOfFireSpell[i]->setTextureRect(IntRect(0,0,ACID_CLOUD_WIDTH,ACID_CLOUD_HEIGHT));
+        listOfFireSpell[i]->setPosition(Vector2f(i*96, 280));
+        listOfFireSpell[i]->setScale(0.165f,0.165f);
+    }
+
+    for(int i=0; i < NUMBER_LIGHTNING_SPELL ; i++)
+    {
+        listOfLigntningSpell[i]->setTexture(lightningEffectTexture);
+        listOfLigntningSpell[i]->setTextureRect(IntRect(0,0,LIGHTNING_WIDTH,LIGHTNING_HEIGHT));
+        listOfLigntningSpell[i]->setPosition(Vector2f(i*50, 278));
+        listOfLigntningSpell[i]->setScale(0.165f,0.165f);
+    }
 
 }
 
@@ -739,8 +812,6 @@ void vGameBoard::loadTowersEntities()
     Color grey(200,200,200);
     towerTitleText.setFont(font);
     towerTitleText.setFillColor(grey);
-    //towerTitleText.setOutlineColor(Color::Black);
-    //towerTitleText.setOutlineThickness(1.2f);
     towerTitleText.setString("Towers");
     towerTitleText.setScale(1.1f,1.1f);
     towerTitleText.setPosition(Vector2f(870,20));
@@ -1089,12 +1160,30 @@ void vGameBoard::drawEntities()
 /** draw entities for spells*/
 void vGameBoard::drawSpellEntities()
 {
-    ///Acid spell
+    ///Acid spell effect
     if(game.isAcidCloudSpellActive())
     {
         for(int i=0; i < NUMBER_ACID_SPELL ; i++)
         {
             windowFromMain->draw(*listOfAcideCloudSpell[i]);
+        }
+    }
+
+    ///Fire spell effect
+    if(game.isFireSpellActive())
+    {
+        for(int i=0; i < NUMBER_FIRE_SPELL ; i++)
+        {
+            windowFromMain->draw(*listOfFireSpell[i]);
+        }
+    }
+
+    ///Lightning spell effect
+    if(game.isLightNingSpellActive())
+    {
+        for(int i=0; i < NUMBER_LIGHTNING_SPELL ; i++)
+        {
+            windowFromMain->draw(*listOfLigntningSpell[i]);
         }
     }
 
@@ -1346,13 +1435,48 @@ void vGameBoard::changeStatsPosition(bool isGameOver)
 /**update the sprites */
 void vGameBoard::adaptAnimationSprite()
 {
-    adaptPartOfTexture();
-
-    /*for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
+    /** change value in enum after */
+    for(size_t i=0;i<listOfAcideCloudSpell.size();i++)
     {
         listOfAcideCloudSpell[i]->setTextureRect(IntRect(x_acide*909,0,909,2938));
-    }*/
+    }
 
+    for(size_t i=0;i<listOfFireSpell.size();i++)
+    {
+        listOfFireSpell[i]->setTextureRect(IntRect(x_fire*FIRE_HEIGHT,0,FIRE_HEIGHT,FIRE_WIDTH));
+    }
+
+    for(size_t i=0;i<listOfLigntningSpell.size();i++)
+    {
+        listOfLigntningSpell[i]->setTextureRect(IntRect(x_lightning*FIRE_HEIGHT,0,FIRE_HEIGHT,FIRE_WIDTH));
+    }
+
+    ///ENEMIES
+    for(int i = 0; i<(int)listOfvEnnemies.size();i++)
+    {
+        if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
+        {
+            listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
+        }
+        else if(dynamic_cast<Orc*>(listOfvEnnemies[i]->getEnemy()))
+        {
+            listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Orc*ORC_WIDTH,y_Orc*ORC_HEIGHT,ORC_WIDTH,ORC_HEIGHT));
+        }
+        else if(dynamic_cast<ShadowMonster*>(listOfvEnnemies[i]->getEnemy()))
+        {
+            listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_shadowMonster*SHADOWMONSTER_WIDTH,y_shadowMonster*SHADOWMONSTER_HEIGHT,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
+        }
+        else if(dynamic_cast<KnightOfDeath*>(listOfvEnnemies[i]->getEnemy()))
+        {
+            listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_knight*KNIGHTOFDEATH_WIDTH,y_knight*KNIGHTOFDEATH_HEIGHT,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
+        }
+        else if(dynamic_cast<Gremlin*>(listOfvEnnemies[i]->getEnemy()))
+        {
+            listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
+        }
+    }
+
+    adaptPartOfTexture();
 }
 
 /**adapt which part of spreet sheet we need to display for animation */
@@ -1360,31 +1484,6 @@ void vGameBoard::adaptPartOfTexture()
 {
     if(animClock.getElapsedTime().asSeconds() > 0.08f / game.getGameSpeed())
     {
-        for(int i = 0; i<(int)listOfvEnnemies.size();i++)
-        {
-            if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
-            }
-            else if(dynamic_cast<Orc*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Orc*ORC_WIDTH,y_Orc*ORC_HEIGHT,ORC_WIDTH,ORC_HEIGHT));
-            }
-            else if(dynamic_cast<ShadowMonster*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_shadowMonster*SHADOWMONSTER_WIDTH,y_shadowMonster*SHADOWMONSTER_HEIGHT,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
-            }
-            else if(dynamic_cast<KnightOfDeath*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_knight*KNIGHTOFDEATH_WIDTH,y_knight*KNIGHTOFDEATH_HEIGHT,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
-            }
-            else if(dynamic_cast<Gremlin*>(listOfvEnnemies[i]->getEnemy()))
-            {
-                listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
-            }
-        }
-
-
         if(x_Ogre*OGRE_WIDTH >= (int)ogreTextureWalk.getSize().x - OGRE_WIDTH)
         {
             x_Ogre = 0;
@@ -1433,16 +1532,49 @@ void vGameBoard::adaptPartOfTexture()
             x_knight++;
         }
 
-        if(x_acide*909 >= (int)acideCloudEffectTexture.getSize().x - 909)
+        ///if the animation is at the end
+        if(game.isAcidCloudSpellActive())
         {
-            x_acide = 0;
-            //fin de l'animation à la fin du compte à rebour
-            game.setAcidCloudActive(false);
+            if(x_acide*909 >= (int)acideCloudEffectTexture.getSize().x - 909)
+            {
+                game.setAcidCloudActive(false);
+                x_acide = 0;
+            }
+            else
+            {
+                x_acide++;
+            }
         }
-        else
+
+        ///if the animation is at the end
+        if(game.isFireSpellActive())
         {
-            x_acide++;
+            if(x_fire*FIRE_HEIGHT>= (int)fireEffectTexture.getSize().x - FIRE_HEIGHT)
+            {
+                game.setFireActive(false);
+                x_fire = 0;
+            }
+            else
+            {
+                x_fire++;
+            }
         }
+
+        ///if the animation is at the end
+        if(game.isLightNingSpellActive())
+        {
+            if(x_lightning*LIGHTNING_HEIGHT>= (int)lightningEffectTexture.getSize().x - LIGHTNING_HEIGHT)
+            {
+                game.setLightningActive(false);
+                x_lightning = 0;
+            }
+            else
+            {
+                x_lightning++;
+            }
+        }
+
+
 
         animClock.restart();
     }
@@ -1737,19 +1869,19 @@ bool vGameBoard::verifyImageMapEntities()
         return false;
     }
 
-    if(!lightningTexture.loadFromFile("res/images/gameBoard/lightning.png"))
+    if(!lightningActiveButtonTexture.loadFromFile("res/images/gameBoard/lightning.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
-    if(!fireTexture.loadFromFile("res/images/gameBoard/fire.png"))
+    if(!fireActiveButtonTexture.loadFromFile("res/images/gameBoard/fire.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;
     }
 
-    if(!acideCloudTexture.loadFromFile("res/images/gameBoard/cloud.png"))
+    if(!acideCloudActiveButtonTexture.loadFromFile("res/images/gameBoard/cloud.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;
@@ -1780,6 +1912,18 @@ bool vGameBoard::verifyImageMapEntities()
     }
 
     if(!acideCloudEffectTexture.loadFromFile("res/images/sprites/spells/acideCloud.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!fireEffectTexture.loadFromFile("res/images/sprites/spells/fire.png"))
+    {
+        cerr << "ERROR chargement texture" << endl;
+        return false;
+    }
+
+    if(!lightningEffectTexture.loadFromFile("res/images/sprites/spells/lightning.png"))
     {
         cerr << "ERROR chargement texture" << endl;
         return false;

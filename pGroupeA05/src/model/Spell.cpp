@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Spell::Spell(int damage,float effectduration): damage(damage), effectduration(effectduration)
+Spell::Spell(int damage,float effectduration,int price): damage(damage), effectduration(effectduration), price(price)
 {
     //ctor
 }
@@ -15,7 +15,7 @@ Spell::~Spell()
     //dtor
 }
 
-Spell::Spell(const Spell& other): damage(other.damage), effectduration(other.effectduration)
+Spell::Spell(const Spell& other): damage(other.damage), effectduration(other.effectduration), price(other.price)
 {
     //copy ctor
 }
@@ -26,6 +26,7 @@ Spell& Spell::operator=(const Spell& rhs)
 
     this->damage=rhs.damage;
     this->effectduration=rhs.effectduration;
+    this->price=rhs.price;
 
     //assignment operator
     return *this;
@@ -35,6 +36,9 @@ void Spell::attackEnemies(vector<Enemies*> listOfEnemies)
 {
     for(Enemies *enemy:listOfEnemies)
     {
-        enemy->receiveDamage(damage);
+        if(enemy->isSpawn())
+        {
+            enemy->receiveDamage(damage);
+        }
     }
 }

@@ -1,6 +1,6 @@
 #include "AcidCloudSpell.h"
 
-AcidCloudSpell::AcidCloudSpell(int damage,float effectduration): Spell(damage,effectduration)
+AcidCloudSpell::AcidCloudSpell(int damage,float effectduration,int price): Spell(damage,effectduration,price)
 {
     //ctor
 }
