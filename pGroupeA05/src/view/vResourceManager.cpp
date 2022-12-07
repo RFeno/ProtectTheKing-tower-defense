@@ -70,7 +70,7 @@ vResourceManager::vResourceManager()
 vResourceManager::~vResourceManager()
 {
     //dtor
-     ///ENEMIES
+    ///ENEMIES
     for(vEnnemy *venemy: listOfvEnnemies)
     {
         delete venemy;
@@ -268,9 +268,9 @@ void vResourceManager::loadTowersEntities()
     towerTitleText.setPosition(Vector2f(870,20));
 
     ///towers buttons
-    createSprite(earthTowerButtonSprite, earthTowerTextureButton, 0.50f,0.50f, 1006,5);
-    createSprite(iceTowerButtonSprite, iceTowerTextureButton, 0.50f,0.50f, 1106,5);
-    createSprite(sandTowerButtonSprite, sandTowerTextureButton, 0.50f,0.50f, 1206,5);
+    createSprite(earthTowerButtonSprite, earthTowerTextureButton, 0.50f,0.50f, 1106,5);
+    createSprite(iceTowerButtonSprite, iceTowerTextureButton, 0.50f,0.50f, 1206,5);
+    createSprite(sandTowerButtonSprite, sandTowerTextureButton, 0.50f,0.50f, 1006,5);
     createSprite(ironTowerButtonSprite, ironTowerTextureButton, 0.50f,0.50f, 1306,5);
 
     ///informations of tower

@@ -2,6 +2,7 @@
 #include "State.h"
 #include "StateWalk.h"
 #include "StateAttack.h"
+#include "StateDie.h"
 #include "Enemies.h"
 #include "King.h"
 
@@ -9,7 +10,6 @@
 #include <iostream>
 
 class State;
-class StateDie;
 
 using namespace std;
 
@@ -39,6 +39,27 @@ Enemies::Enemies(const Enemies& other): health(other.health),marketValue(other.m
     this->id = new int(*other.id);
     this->counted=other.counted;
     this->healthMax=other.healthMax;
+
+    if(state!=nullptr)
+    {
+        delete state;
+    }
+
+    if(dynamic_cast<StateWalk*>(other.getState()))
+    {
+        changeState(new StateWalk);
+    }
+    else
+    {
+        if(dynamic_cast<StateAttack*>(other.getState()))
+        {
+            changeState(new StateWalk);
+        }
+        else
+        {
+            changeState(new StateDie);
+        }
+    }
 }
 
 Enemies& Enemies::operator=(const Enemies& rhs)

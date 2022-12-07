@@ -105,6 +105,9 @@ void vEnnemy::chargeInformations(Enemies *enemy)
             }
         }
     }
+
+    //since we receive a clone, we delete it
+    delete enemy;
 }
 
 /**update the texture of enemy in terms of his state and his type of enemy, his state of enemy and bind postion with model */
@@ -182,6 +185,9 @@ void vEnnemy::updateTexture(Enemies *enemy)
             enemySprite->setTexture(*gremlinAttackTexture);
         }
     }
+
+    //since we receive a clone, we delete it
+    delete enemy;
 }
 
 void vEnnemy::updateHealth(Enemies *enemy)
@@ -192,6 +198,9 @@ void vEnnemy::updateHealth(Enemies *enemy)
 
     //0.08f is the widht per default for the health bar
     healthBarGreenSprite.setScale(Vector2f(0.08*remainingHealth,0.08));
+
+    //since we receive a clone, we delete it
+    delete enemy;
 }
 
 

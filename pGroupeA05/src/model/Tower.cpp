@@ -97,5 +97,5 @@ void Tower::improveStatistics()
 /** show the state of the tower */
 string Tower::toString()const
 {
-    return "[Tower: damage=> " + to_string(damage) + " level=>" + to_string(level) + " price=>"+ to_string(price) + " range:"+ to_string(range) + " x:" + to_string(xTower)+ "]";
+    return "[Tower: damage=> " + to_string(damage) + " position: "+ to_string(position) + " level=>" + to_string(level) + " price=>"+ to_string(price) + " range:"+ to_string(range) + " x:" + to_string(xTower)+ "]";
 }

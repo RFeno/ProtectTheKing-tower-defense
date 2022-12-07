@@ -97,7 +97,6 @@ int vGameBoard::searchVTower(int position)
             break;
         }
     }
-
     return result;
 }
 
@@ -132,11 +131,10 @@ void vGameBoard::sellTower(int position)
         {
             game.creditPlayerWallet(game.getMap()->getTowers()[i]->getType() * 0.5f);
             playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
+            removeVTower(position);
             game.getMap()->removeTower(*game.getMap()->getTowers()[i]);
         }
     }
-
-    removeVTower(position);
     isSellingTower = false;
 }
 
@@ -184,22 +182,11 @@ void vGameBoard::InputHandler(Event event)
                 eventsSpells();
             }
 
-
+            //detect button reset
             if(game.isGameOver() && isSpriteClicked(*resetButtonFailSprite))
             {
                 game.resetGame();
                 resetGameView();
-            }
-        }
-
-
-        if (event.mouseButton.button == Mouse::Right)
-        {
-            cout << "right click"<< endl;
-
-             if(isSpriteClicked(*acideCloudSprite) == 1)
-            {
-
             }
         }
     }
@@ -480,9 +467,9 @@ void vGameBoard::enemyAnimation()
 /** play once, update model of game */
 void vGameBoard::updateGame()
 {
-    cout << game.getMap()->strEnemies() << endl;
-    cout << game.getMap()->getKing().getInformations() << endl;
-    cout << game.getMap()->strTowers() <<endl;
+//    cout << game.getMap()->strEnemies() << endl;
+//    cout << game.getMap()->getKing().getInformations() << endl;
+//    cout << game.getMap()->strTowers() <<endl;
 
     ///update player stats when enemy dies
     game.increasePlayerStatsWhenEnemyKilled();
@@ -570,21 +557,10 @@ void vGameBoard::updateKingHealth()
 /**update health bar of all enemies who are not dead **/
 void vGameBoard::updateHealthBarAllEnemies()
 {
-
-
     for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
     {
         listOfvEnnemies[i]->updateHealth(game.getMap()->getEnemies()[i]->clone());
     }
-
-    /*for(Enemies* enemy:game.getMap().getEnemies())
-    {
-        if(!dynamic_cast<StateDie*>(venemy->getEnemy()->getState()))
-        {
-
-            venemy->
-        }
-    }*/
 }
 
 /** to draw the entitties in the window */
@@ -1119,7 +1095,7 @@ void vGameBoard::adaptAnimationTexture()
     {
         if(!dynamic_cast<StateDie*>(game.getMap()->getEnemies()[i]->getState()))
         {
-            listOfvEnnemies[i]->updateTexture(game.getMap()->getEnemies()[i]);
+            listOfvEnnemies[i]->updateTexture(game.getMap()->getEnemies()[i]->clone());
         }
     }
 }
@@ -1135,9 +1111,9 @@ void vGameBoard::activeMessagePopUp(std::string message)
 /** buy the tower*/
 void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
 {
-    cout << "but this mec " << endl;
 
     bool positionAlreadyUsed = game.getMap()->isTowerPositonAlreadyUsed(position);
+
 
     /**clone when add because AIP */
     if(!positionAlreadyUsed)
@@ -1189,7 +1165,6 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
         //type = price of tower
         game.debitPlayerWallet(type);
         playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
-        cout<<game.getPlayer()->getCoins()<<endl;
     }
     else
     {
