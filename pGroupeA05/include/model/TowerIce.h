@@ -11,6 +11,7 @@ class TowerIce : public Tower
         virtual ~TowerIce();
         TowerIce(const TowerIce& other);
         TowerIce& operator=(const TowerIce& other);
+        TowerIce* clone() const;
 
     protected:
 

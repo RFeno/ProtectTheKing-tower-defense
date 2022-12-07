@@ -27,6 +27,12 @@ TowerEarth& TowerEarth::operator=(const TowerEarth& rhs)
     return *this;
 }
 
+/** clone the tower */
+TowerEarth* TowerEarth::clone()const
+{
+    return new TowerEarth(*this);
+}
+
 
 
 

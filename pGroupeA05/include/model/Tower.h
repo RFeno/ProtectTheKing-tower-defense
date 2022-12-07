@@ -19,6 +19,7 @@ class Tower
         virtual ~Tower();
         Tower(const Tower& other);
         Tower& operator=(const Tower& rhs);
+        virtual Tower* clone()const=0;
 
         //methods
         bool improveLevel();

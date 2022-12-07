@@ -45,7 +45,13 @@ void King::receiveDamage(int damage)
     setHealth(health-damage);
 }
 
+/**return the health of the king */
 string King::getInformations()const
 {
     return "[King health:" + to_string(health) +"]";
+}
+
+King *King::clone()const
+{
+    return new King(*this);
 }

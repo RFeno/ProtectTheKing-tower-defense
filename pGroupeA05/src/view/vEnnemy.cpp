@@ -16,7 +16,7 @@
 using namespace sf;
 using namespace std;
 
-vEnnemy::vEnnemy(Enemies *enemy): enemy(enemy)
+vEnnemy::vEnnemy()
 {
     //ctor
     enemySprite = new Sprite();
@@ -31,7 +31,7 @@ vEnnemy::~vEnnemy()
     delete enemySprite;
 }
 
-vEnnemy::vEnnemy(const vEnnemy& other): enemy(other.enemy), enemySprite(other.enemySprite)
+vEnnemy::vEnnemy(const vEnnemy& other):enemySprite(other.enemySprite)
 {
     //copy ctor
 }
@@ -44,7 +44,7 @@ vEnnemy& vEnnemy::operator=(const vEnnemy& rhs)
 }
 
 /*give texture to vEnemy and configure it */
-void vEnnemy::chargeInformations()
+void vEnnemy::chargeInformations(Enemies *enemy)
 {
     //health bar
     healthBarGreenSprite.setTexture(*healthBarGreenTexture);
@@ -108,7 +108,7 @@ void vEnnemy::chargeInformations()
 }
 
 /**update the texture of enemy in terms of his state and his type of enemy, his state of enemy and bind postion with model */
-void vEnnemy::updateTexture()
+void vEnnemy::updateTexture(Enemies *enemy)
 {
     //bind position of sprite to model position
     enemySprite->setPosition(enemy->getX(),enemy->getY());
@@ -117,6 +117,7 @@ void vEnnemy::updateTexture()
     {
         healthBarRedSprite.setPosition(enemy->getX()+5,enemy->getY()-3);
         healthBarGreenSprite.setPosition(enemy->getX()+5,enemy->getY()-3);
+
         if(dynamic_cast<StateWalk*>(enemy->getState()))
         {
             enemySprite->setTexture(*ogreTextureWalk);
@@ -183,7 +184,7 @@ void vEnnemy::updateTexture()
     }
 }
 
-void vEnnemy::updateHealth()
+void vEnnemy::updateHealth(Enemies *enemy)
 {
     double healthMax = enemy->getHealthMax();
     double healthReel = enemy->getHealth();

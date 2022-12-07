@@ -27,7 +27,7 @@ class King
 
         void setHealth(int health);
         void receiveDamage(int damage);
-
+        King *clone()const;
         std::string getInformations()const;
 
 

@@ -11,6 +11,7 @@ class TowerSand : public Tower
         virtual ~TowerSand();
         TowerSand(const TowerSand& other);
         TowerSand& operator=(const TowerSand& other);
+        TowerSand* clone() const;
 
     protected:
 

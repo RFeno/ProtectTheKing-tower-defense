@@ -25,3 +25,9 @@ TowerSand& TowerSand::operator=(const TowerSand& rhs)
     return *this;
 }
 
+/** clone the tower */
+TowerSand* TowerSand::clone()const
+{
+    return new TowerSand(*this);
+}
+

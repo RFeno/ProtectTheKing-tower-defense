@@ -11,6 +11,7 @@ class TowerEarth : public Tower
         virtual ~TowerEarth();
         TowerEarth(const TowerEarth& other);
         TowerEarth& operator=(const TowerEarth& other);
+        TowerEarth* clone() const;
 
     protected:
 

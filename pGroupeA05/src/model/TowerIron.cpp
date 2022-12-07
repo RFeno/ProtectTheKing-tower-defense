@@ -26,4 +26,10 @@ TowerIron& TowerIron::operator=(const TowerIron& rhs)
     return *this;
 }
 
+/** clone the tower */
+TowerIron* TowerIron::clone()const
+{
+    return new TowerIron(*this);
+}
+
 

@@ -11,6 +11,7 @@ class TowerIron : public Tower
         TowerIron(const TowerIron& other);
         TowerIron& operator=(const TowerIron& rhs);
         virtual ~TowerIron();
+        TowerIron* clone() const;
 
 
     protected:

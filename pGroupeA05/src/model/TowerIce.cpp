@@ -25,3 +25,9 @@ TowerIce& TowerIce::operator=(const TowerIce& rhs)
     return *this;
 }
 
+/** clone the tower */
+TowerIce* TowerIce::clone()const
+{
+    return new TowerIce(*this);
+}
+
