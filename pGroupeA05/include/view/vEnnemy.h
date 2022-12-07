@@ -2,30 +2,24 @@
 #define VENNEMY_H
 
 #include <SFML/Graphics.hpp>
-#include "Enemies.h"
-//#include "vState.h"
+#include <Enemies.h>
 
 class vEnnemy
 {
     public:
 
-        vEnnemy(Enemies *enemy=nullptr);
+        vEnnemy();
         virtual ~vEnnemy();
         vEnnemy(const vEnnemy& other);
         vEnnemy& operator=(const vEnnemy& other);
 
-        void chargeInformations();
-        void updateTexture();
-        void updatePartOfTexture();
+        void chargeInformations(Enemies *enemy);
+        void updateTexture(Enemies *enemy);
+        void updatePartOfTexture(Enemies *enemy);
         void animationClock();
-        void updateHealth();
+        void updateHealth(Enemies *enemy);
 
         //getters and setters
-        Enemies* getEnemy()
-        {
-            return enemy;
-        }
-
         sf::Sprite *getSprite()
         {
             return enemySprite;
@@ -34,11 +28,6 @@ class vEnnemy
         void setSprite(sf::Sprite *enemySprite)
         {
             this->enemySprite=enemySprite;
-        }
-
-        void setEnemy(Enemies* enemy)
-        {
-            this->enemy=enemy;
         }
 
         //all textures of walk
@@ -73,9 +62,6 @@ class vEnnemy
     protected:
 
     private:
-        //model
-        Enemies* enemy;
-
         //sprites
         sf::Sprite *enemySprite;
 

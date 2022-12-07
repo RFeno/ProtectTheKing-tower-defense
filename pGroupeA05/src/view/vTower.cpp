@@ -10,7 +10,7 @@
 using namespace std;
 using namespace sf;
 
-vTower::vTower(int x,int y, Tower* tower): x(x), y(y), tower(tower)
+vTower::vTower(int x,int y): x(x), y(y)
 {
     //ctor
     this->towerSprite = new Sprite();
@@ -36,7 +36,7 @@ vTower& vTower::operator=(const vTower& rhs)
     return *this;
 }
 
-void vTower::chargeInformations()
+void vTower::chargeInformations(Tower *tower)
 {
     towerSprite->setTexture(*towerTexture);
     bulletSprite.setTexture(*attackTexture);
@@ -72,6 +72,7 @@ void vTower::chargeInformations()
             }
         }
     }
+
     towerSprite->setPosition(x, y);
 }
 

@@ -12,18 +12,16 @@ class vTower
         sf::Sprite* towerSprite;
         sf::Sprite* attackSprite;
         sf::Sprite bulletSprite;
-
-        Tower *tower;
         sf::Clock bulletClock;
 
     public:
 
-        vTower(int x,int y, Tower* tower);
+        vTower(int x,int y);
         virtual ~vTower();
         vTower(const vTower& other);
         vTower& operator=(const vTower& other);
 
-        void chargeInformations();
+        void chargeInformations(Tower *tower);
         void animAttack();
         int calculateMiddlePosition();
 
@@ -33,11 +31,6 @@ class vTower
         sf::Sprite* getSprite()
         {
             return towerSprite;
-        }
-
-        Tower* getTower()
-        {
-            return tower;
         }
 
         sf::Sprite* getAttackSprite()

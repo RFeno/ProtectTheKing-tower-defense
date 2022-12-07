@@ -36,9 +36,9 @@ Enemies::~Enemies()
 Enemies::Enemies(const Enemies& other): health(other.health),marketValue(other.marketValue),scoreValue(other.scoreValue),damage(other.damage),walkingSpeed(other.walkingSpeed),x(other.x),y(other.y)
 {
    //copy ctor
-   //est-ce correct d'avoir deux ennemis avec le même id ?
     this->id = new int(*other.id);
     this->counted=other.counted;
+    this->healthMax=other.healthMax;
 }
 
 Enemies& Enemies::operator=(const Enemies& rhs)
@@ -56,6 +56,7 @@ Enemies& Enemies::operator=(const Enemies& rhs)
     this->x=rhs.x;
     this->x=rhs.y;
     this->counted=rhs.counted;
+    this->healthMax=rhs.healthMax;
 
     //assignment operator
     return *this;
