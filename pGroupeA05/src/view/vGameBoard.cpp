@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <unistd.h>
 
 /**ENEMIES*/
 #include "Ogre.h"
@@ -30,137 +29,13 @@ vGameBoard::vGameBoard(RenderWindow &window)
     isChoosingNumberForPositionTower=false;
     isSellingTower = false;
 
-    for(int i=0; i< game.getNumberOfEnemies(); i++)
-    {
-        //create vEnemy with nullptr enemy
-        vEnnemy *venemy = new vEnnemy();
-
-        //set all textures of enemies
-        venemy->gremlinAttackTexture =&gremlinAttackTexture;
-        venemy->gremlinDeadTexture = &gremlinDeadTexture;
-        venemy->gremlinTextureWalk = &gremlinTextureWalk;
-
-        venemy->ogreAttackTexture = &ogreAttackTexture;
-        venemy->ogreDeadTexture = &ogreDeadTexture;
-        venemy->ogreTextureWalk = &ogreTextureWalk;
-
-        venemy->orcAttackTexture = &orcAttackTexture;
-        venemy->orcDeadTexture = &orcDeadTexture;
-        venemy->orcTextureWalk = &orcTextureWalk;
-
-        venemy->knightOfDeathAttackTexture = &knightOfDeathAttackTexture;
-        venemy->knightOfDeathDeadTexture = &knightOfDeathDeadTexture;
-        venemy->knightOfDeathTextureWalk = &knightOfDeathTextureWalk;
-
-        venemy->shadowMonsterAttackTexture = &shadowMonsterAttackTexture;
-        venemy->shadowMonsterDeadTexture = &shadowMonsterDeadTexture;
-        venemy->shadowMonsterTextureWalk = &shadowMonsterTextureWalk;
-
-        //health bar textures
-        venemy->healthBarGreenTexture = &kingHealthGreenTexture;
-        venemy->healthBarRedTexture = &kingHealthRedTexture;
-
-        listOfvEnnemies.push_back(venemy);
-    }
-
-    ///spells sprites
-    for(int i=0; i < NUMBER_ACID_SPELL; i++)
-    {
-        listOfAcideCloudSpell.push_back(new Sprite());
-    }
-
-    for(int i=0; i < NUMBER_FIRE_SPELL; i++)
-    {
-        listOfFireSpell.push_back(new Sprite());
-    }
-
-    for(int i=0; i < NUMBER_LIGHTNING_SPELL; i++)
-    {
-        listOfLigntningSpell.push_back(new Sprite());
-    }
+    cout << verifyImage() << endl;
 }
 
 vGameBoard::~vGameBoard()
 {
     //dtor
-    ///ENEMIES
-    for(vEnnemy *venemy: listOfvEnnemies)
-    {
-        delete venemy;
-    }
 
-    ///SPELLS
-    for(Sprite *acide: listOfAcideCloudSpell)
-    {
-        delete acide;
-    }
-
-    for(Sprite *fire: listOfFireSpell)
-    {
-        delete fire;
-    }
-
-    for(Sprite *lightning: listOfLigntningSpell)
-    {
-        delete lightning;
-    }
-
-    ///TOWERS
-    for(vTower *vTower: listOfvTower)
-    {
-        delete vTower;
-    }
-
-    ///INFORMATIONS AND DIGITS
-    for(Sprite *gem: gemSprites)
-    {
-        delete gem;
-    }
-
-    for(Sprite *sign: signSprites)
-    {
-        delete sign;
-    }
-
-    for(Sprite *sword: swordSprites)
-    {
-        delete sword;
-    }
-
-    for(Sprite *one: oneSprites)
-    {
-        delete one;
-    }
-
-    for(Sprite *two: twoSprites)
-    {
-        delete two;
-    }
-
-    for(Sprite *three: threeSprites)
-    {
-        delete three;
-    }
-
-    for(Sprite *four: fourSprites)
-    {
-        delete four;
-    }
-
-    for(Sprite *five: fiveSprites)
-    {
-        delete five;
-    }
-
-    for(Sprite *six: sixSprites)
-    {
-        delete six;
-    }
-
-    for(Sprite *seven: sevenSprites)
-    {
-        delete seven;
-    }
 }
 
 /** allow to run and launch view game */
@@ -171,11 +46,6 @@ void vGameBoard::launchView()
 
     // limit the window to 60 images per second
     windowFromMain->setFramerateLimit(60);
-
-    /** if we have success to charge all images and load sprites, display screen */
-    if(verifyImage())
-    {
-        loadSprite();
 
         while (windowFromMain->isOpen())
         {
@@ -197,7 +67,7 @@ void vGameBoard::launchView()
 
             windowFromMain->display();
         }
-    }
+
 }
 
 /** bind the enemy to the vEnemy  */
@@ -267,7 +137,7 @@ void vGameBoard::InputHandler(Event event)
                 eventsChoiceTowers();
 
                 // sell tower
-                if(isSpriteClicked(sellButtonSprite))
+                if(isSpriteClicked(*sellButtonSprite))
                 {
                     isChoosingNumberForPositionTower = true;
                     isSellingTower = true;
@@ -276,7 +146,7 @@ void vGameBoard::InputHandler(Event event)
             }
 
             // close the sign to choose tower emplacement
-            if(isSpriteClicked(closeButtonSprite))
+            if(isSpriteClicked(*closeButtonSprite))
             {
                 isChoosingNumberForPositionTower = false;
                 isSellingTower = false;
@@ -292,7 +162,7 @@ void vGameBoard::InputHandler(Event event)
             }
 
 
-            if(game.isGameOver() && isSpriteClicked(resetButtonFailSprite))
+            if(game.isGameOver() && isSpriteClicked(*resetButtonFailSprite))
             {
                 game.resetGame();
                 resetGameView();
@@ -304,7 +174,7 @@ void vGameBoard::InputHandler(Event event)
         {
             cout << "right click"<< endl;
 
-             if(isSpriteClicked(acideCloudSprite) == 1)
+             if(isSpriteClicked(*acideCloudSprite) == 1)
             {
 
             }
@@ -472,7 +342,7 @@ void vGameBoard::InputHandler(Event event)
 
 void vGameBoard::eventsGameSpeed()
 {
-    if(isSpriteClicked(pauseButtonSprite))
+    if(isSpriteClicked(*pauseButtonSprite))
     {
         if(game.isGamePaused())
         {
@@ -484,12 +354,12 @@ void vGameBoard::eventsGameSpeed()
         }
     }
 
-    if(isSpriteClicked(decreaseSpeedButtonSprite))
+    if(isSpriteClicked(*decreaseSpeedButtonSprite))
     {
         game.decreaseGameSpeed();
     }
 
-    if(isSpriteClicked(increaseSpeedButtonSprite))
+    if(isSpriteClicked(*increaseSpeedButtonSprite))
     {
         game.increaseGameSpeed();
     }
@@ -499,28 +369,28 @@ void vGameBoard::eventsGameSpeed()
 void vGameBoard::eventsChoiceTowers()
 {
     chooseNumberText.setString("Choose the location of\n     the tower to buy");
-    if(isSpriteClicked(earthTowerButtonSprite))
+    if(isSpriteClicked(*earthTowerButtonSprite))
     {
         cout << "button buy earthTower click" << endl;
         eventsActiveTowersChoice(earth);
     }
 
     // buy sand tower
-    if(isSpriteClicked(sandTowerButtonSprite))
+    if(isSpriteClicked(*sandTowerButtonSprite))
     {
         cout << "button buy sandTower click" << endl;
         eventsActiveTowersChoice(sand);
     }
 
     // buy ice tower
-    if(isSpriteClicked(iceTowerButtonSprite))
+    if(isSpriteClicked(*iceTowerButtonSprite))
     {
         cout << "button buy iceTower click" << endl;
         eventsActiveTowersChoice(ice);
     }
 
     // buy iron tower
-    if(isSpriteClicked(ironTowerButtonSprite))
+    if(isSpriteClicked(*ironTowerButtonSprite))
     {
         cout << "button buy ironTower click" << endl;
         eventsActiveTowersChoice(iron);
@@ -551,24 +421,24 @@ void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
 void vGameBoard::eventsSpells()
 {
     //button to buy
-    if(isSpriteClicked(acideCloudBuyButtonSprite))
+    if(isSpriteClicked(*acideCloudBuyButtonSprite))
     {
         cout <<  "acide cloud buy button click" << endl;
         eventsActiveSpell(acidCloud);
     }
-    else if(isSpriteClicked(fireBuyButtonSprite))
+    else if(isSpriteClicked(*fireBuyButtonSprite))
     {
         cout <<  "fire buy button click" << endl;
         eventsActiveSpell(fire);
     }
-    else if(isSpriteClicked(lightningBuyButtonSprite))
+    else if(isSpriteClicked(*lightningBuyButtonSprite))
     {
         cout <<  "lightning buy button click" << endl;
         eventsActiveSpell(lightning);
     }
 
     //button to active
-    if(isSpriteClicked(acideCloudSprite))
+    if(isSpriteClicked(*acideCloudSprite))
     {
         cout <<  "acide cloud spell active button click" << endl;
         if(game.getPlayer()->activeSpell(acidCloud,game.getMap()->getEnemies()))
@@ -576,7 +446,7 @@ void vGameBoard::eventsSpells()
             game.setAcidCloudActive(true);
         }
     }
-    else if(isSpriteClicked(fireSprite))
+    else if(isSpriteClicked(*fireSprite))
     {
         cout <<  "fire spell active button click" << endl;
         if(game.getPlayer()->activeSpell(fire,game.getMap()->getEnemies()))
@@ -584,7 +454,7 @@ void vGameBoard::eventsSpells()
             game.setFireActive(true);
         }
     }
-    else if(isSpriteClicked(lightningSprite))
+    else if(isSpriteClicked(*lightningSprite))
     {
         cout <<  "lightning spell active button click" << endl;
         if(game.getPlayer()->activeSpell(lightning,game.getMap()->getEnemies()))
@@ -610,368 +480,6 @@ void vGameBoard::eventsActiveSpell(TypeOfSpell type)
     {
         activeMessagePopUp("You have not\nenough gems to\nbuy this spell.");
     }
-}
-
-/** to load the sprites, adding texture to sprite */
-void vGameBoard::loadSprite()
-{
-    ///map
-    mapSprite.setTexture(mapTexture);
-    mapSprite.setScale(0.73f,0.75f);
-
-    loadMapEntities();
-    loadGameSpeedEntities();
-
-    loadSpellEntities();
-    loadTowersEntities();
-
-    loadFailEntities();
-
-    ///choose number
-    signSprites.push_back(new Sprite());
-    signSprites.back()->setTexture(bigTableTexture);
-    signSprites.back()->setPosition(Vector2f(500, 220));
-    signSprites.back()->setScale(0.4f,0.4f);
-
-    headerShopSprite.setTexture(headerShopTexture);
-    headerShopSprite.setPosition(595, 210);
-    headerShopSprite.setScale(0.5f,0.5f);
-
-    Color grey(200,200,200);
-    createText(chooseNumberText, grey, Color::Black, "", 0.9f,0.9f, 532,292);
-
-    oneSprites.push_back(new Sprite());
-    oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(530, 395);
-    oneSprites.back()->setScale(0.5f,0.5f);
-
-    twoSprites.push_back(new Sprite());
-    twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(580, 395);
-    twoSprites.back()->setScale(0.5f,0.5f);
-
-    threeSprites.push_back(new Sprite());
-    threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(630, 395);
-    threeSprites.back()->setScale(0.5f,0.5f);
-
-    fourSprites.push_back(new Sprite());
-    fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(680, 395);
-    fourSprites.back()->setScale(0.5f,0.5f);
-
-    fiveSprites.push_back(new Sprite());
-    fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(730, 395);
-    fiveSprites.back()->setScale(0.5f,0.5f);
-
-    sixSprites.push_back(new Sprite());
-    sixSprites.back()->setTexture(sixTexture);
-    sixSprites.back()->setPosition(780, 395);
-    sixSprites.back()->setScale(0.5f,0.5f);
-
-    sevenSprites.push_back(new Sprite());
-    sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(830, 395);
-    sevenSprites.back()->setScale(0.5f,0.5f);
-
-    closeButtonSprite.setTexture(closeButtonTexture);
-    closeButtonSprite.setPosition(865, 210);
-    closeButtonSprite.setScale(0.35f,0.35f);
-
-    /// Numbers to display under tower while choosing emplacement for tower
-    oneSprites.push_back(new Sprite());
-    oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(170, 505);
-    oneSprites.back()->setScale(0.5f,0.5f);
-
-    twoSprites.push_back(new Sprite());
-    twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(430, 505);
-    twoSprites.back()->setScale(0.5f,0.5f);
-
-    threeSprites.push_back(new Sprite());
-    threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(730, 505);
-    threeSprites.back()->setScale(0.5f,0.5f);
-
-    fourSprites.push_back(new Sprite());
-    fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(1060, 505);
-    fourSprites.back()->setScale(0.5f,0.5f);
-
-    fiveSprites.push_back(new Sprite());
-    fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(100, 750);
-    fiveSprites.back()->setScale(0.5f,0.5f);
-
-    sixSprites.push_back(new Sprite());
-    sixSprites.back()->setTexture(sixTexture);
-    sixSprites.back()->setPosition(360, 750);
-    sixSprites.back()->setScale(0.5f,0.5f);
-
-    sevenSprites.push_back(new Sprite());
-    sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(1050, 750);
-    sevenSprites.back()->setScale(0.5f,0.5f);
-
-    /// player gems
-    signSprites.push_back(new Sprite());
-    signSprites.back()->setTexture(bigTableTexture);
-    signSprites.back()->setPosition(504, 10);
-    signSprites.back()->setScale(0.3f,0.3f);
-
-    gemSprites.push_back(new Sprite());
-    gemSprites.back()->setTexture(gemTexture);
-    gemSprites.back()->setPosition(595,34);
-    gemSprites.back()->setScale(0.36f,0.36f);
-    createText(playerGemsNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getCoins()), 1.f,1.f, 635,28);
-
-    /// wave number
-    createText(waveText, grey, Color::Black, "Wave number :", 0.7f,0.7f, 540, 70);
-    createText(waveNumberText, Color::Yellow, Color::Black, to_string(game.getNumeroOfWave()), 0.9f,0.9f, 730,66);
-
-    /// enemy killed
-    createText(enemiesKilledText, grey, Color::Black, "Enemies killed : ", 0.7f,0.7f, 540, 115);
-    createText(enemiesKilledNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getNumberOfEnemyKilled()), 0.9f,0.9f, 730,111);
-
-    /// score
-    createText(scoreText, grey, Color::Black, "Score :", 0.7f,0.7f, 580, 156);
-    createText(scoreNumberText, Color::Yellow, Color::Black, to_string(game.getPlayer()->getScore()), 0.9f,0.9f, 680,151);
-
-    /// message pop up
-    messagePopUpText.setFont(font);
-    messagePopUpText.setFillColor(Color::Black);
-    messagePopUpText.setScale(0.5f,0.5f);
-    messagePopUpText.setPosition(Vector2f(1243,223));
-}
-
-/** load and configure game speed entitites */
-void vGameBoard::loadGameSpeedEntities()
-{
-    ///gameSpeed
-    infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
-    pauseButtonSprite.setTexture(pauseButtonTexture);
-    increaseSpeedButtonSprite.setTexture(increaseSpeedButtonTexture);
-    decreaseSpeedButtonSprite.setTexture(decreaseSpeedButtonTexture);
-    playGameButtonSprite.setTexture(playGameButtonTexture);
-    gameSpeedEmptyTableSprite.setTexture(emptyButtonTexture);
-    multiplierSprite.setTexture(multiplierTexture);
-    gameSpeedOneSprite.setTexture(oneTexture);
-    gameSpeedTwoSprite.setTexture(twoTexture);
-    gameSPeedThreeSprite.setTexture(threeTexture);
-
-    multiplierSprite.setRotation(80.0f);
-    infoBulbleMessageSprite.setPosition(1233, 215);
-    pauseButtonSprite.setPosition(660, 707);
-    increaseSpeedButtonSprite.setPosition(760, 707);
-    decreaseSpeedButtonSprite.setPosition(560, 707);
-    playGameButtonSprite.setPosition(665, 712);
-    gameSpeedEmptyTableSprite.setPosition(663,655);
-    multiplierSprite.setPosition(702,668);
-
-    gameSpeedOneSprite.setPosition(710,672);
-    gameSpeedTwoSprite.setPosition(710,672);
-    gameSPeedThreeSprite.setPosition(710,672);
-
-    infoBulbleMessageSprite.setScale(Vector2f(0.25f,0.25f));
-    pauseButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    increaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    decreaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    playGameButtonSprite.setScale(Vector2f(0.24f,0.24f));
-    gameSpeedEmptyTableSprite.setScale(0.35f,0.35f);
-    multiplierSprite.setScale(0.25f,0.25f);
-
-    gameSpeedOneSprite.setScale(0.35f,0.35f);
-    gameSpeedTwoSprite.setScale(0.35f,0.35f);
-    gameSPeedThreeSprite.setScale(0.35f,0.35f);
-}
-
-/** load all entities for spell */
-void vGameBoard::loadSpellEntities()
-{
-    /// buttons to active spells
-    acideCloudSprite.setTexture(acideCloudActiveButtonTexture);
-    fireSprite.setTexture(fireActiveButtonTexture);
-    lightningSprite.setTexture(lightningActiveButtonTexture);
-
-    acideCloudSprite.setScale(0.50f,0.50f);
-    fireSprite.setScale(0.50f,0.50f);
-    lightningSprite.setScale(0.50,0.50f);
-
-    acideCloudSprite.setPosition(Vector2f(10, 5));
-    fireSprite.setPosition(Vector2f(110, 5));
-    lightningSprite.setPosition(Vector2f(210, 5));
-
-    ///buttons to buy spells
-    fireBuyButtonSprite.setTexture(emptyButtonTexture);
-    acideCloudBuyButtonSprite.setTexture(emptyButtonTexture);
-    lightningBuyButtonSprite.setTexture(emptyButtonTexture);
-
-    fireBuyButtonSprite.setScale(0.35f,0.35f);
-    acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
-    lightningBuyButtonSprite.setScale(0.35f,0.35f);
-
-    fireBuyButtonSprite.setPosition(110,100);
-    acideCloudBuyButtonSprite.setPosition(11,100);
-    lightningBuyButtonSprite.setPosition(210,100);
-
-    ///Title
-    Color grey(200,200,200);
-    spellTitleText.setFont(font);
-    spellTitleText.setFillColor(grey);
-    spellTitleText.setString("Spells");
-    spellTitleText.setScale(1.1f,1.1f);
-    spellTitleText.setPosition(Vector2f(310,20));
-
-    ///effects
-    for(int i=0; i < NUMBER_ACID_SPELL ; i++)
-    {
-        listOfAcideCloudSpell[i]->setTexture(acideCloudEffectTexture);
-        listOfAcideCloudSpell[i]->setTextureRect(IntRect(0,0,ACID_CLOUD_WIDTH,ACID_CLOUD_HEIGHT));
-        listOfAcideCloudSpell[i]->setPosition(Vector2f(i*98, 240));
-        listOfAcideCloudSpell[i]->setScale(0.17f,0.17f);
-    }
-
-    for(int i=0; i < NUMBER_FIRE_SPELL ; i++)
-    {
-        listOfFireSpell[i]->setTexture(fireEffectTexture);
-        listOfFireSpell[i]->setTextureRect(IntRect(0,0,ACID_CLOUD_WIDTH,ACID_CLOUD_HEIGHT));
-        listOfFireSpell[i]->setPosition(Vector2f(i*96, 280));
-        listOfFireSpell[i]->setScale(0.165f,0.165f);
-    }
-
-    for(int i=0; i < NUMBER_LIGHTNING_SPELL ; i++)
-    {
-        listOfLigntningSpell[i]->setTexture(lightningEffectTexture);
-        listOfLigntningSpell[i]->setTextureRect(IntRect(0,0,LIGHTNING_WIDTH,LIGHTNING_HEIGHT));
-        listOfLigntningSpell[i]->setPosition(Vector2f(i*50, 278));
-        listOfLigntningSpell[i]->setScale(0.165f,0.165f);
-    }
-
-}
-
-/** load all entities for towers */
-void vGameBoard::loadTowersEntities()
-{
-    ///Title
-    Color grey(200,200,200);
-    towerTitleText.setFont(font);
-    towerTitleText.setFillColor(grey);
-    towerTitleText.setString("Towers");
-    towerTitleText.setScale(1.1f,1.1f);
-    towerTitleText.setPosition(Vector2f(870,20));
-
-    ///towers buttons
-    earthTowerButtonSprite.setTexture(earthTowerTextureButton);
-    iceTowerButtonSprite.setTexture(iceTowerTextureButton);
-    sandTowerButtonSprite.setTexture(sandTowerTextureButton);
-    ironTowerButtonSprite.setTexture(ironTowerTextureButton);
-
-    earthTowerButtonSprite.setScale(0.50f,0.50f);
-    iceTowerButtonSprite.setScale(0.50f,0.50f);
-    sandTowerButtonSprite.setScale(0.50f,0.50f);
-    ironTowerButtonSprite.setScale(0.50f,0.50f);
-
-    sandTowerButtonSprite.setPosition(Vector2f(1006,5));
-    earthTowerButtonSprite.setPosition(Vector2f(1106,5));
-    iceTowerButtonSprite.setPosition(Vector2f(1206,5));
-    ironTowerButtonSprite.setPosition(Vector2f(1306,5));
-
-    ///informations of tower
-
-    int x = 1010;
-    for(int i = 0; i < 4; i++)
-    {
-        swordSprites.push_back(new Sprite());
-        swordSprites[i]->setTexture(swordTexture);
-        swordSprites[i]->setPosition(Vector2f(x, 89));
-        swordSprites[i]->setScale(0.1f,0.1f);
-        x+=100;
-    }
-
-    x = 1020;
-    for(int i = 0; i < 4; i++)
-    {
-        gemSprites.push_back(new Sprite());
-        gemSprites[i]->setTexture(gemTexture);
-        gemSprites[i]->setPosition(Vector2f(x, 129));
-        gemSprites[i]->setScale(0.20f,0.20f);
-        x+=100;
-    }
-
-    x = 1010;
-    for(int i = 0; i < 4; i++)
-    {
-        signSprites.push_back(new Sprite());
-        signSprites[i]->setTexture(signTexture);
-        signSprites[i]->setPosition(Vector2f(x, 89));
-        signSprites[i]->setScale(0.3f,0.2f);
-        x+=100;
-    }
-
-    createText(sandAttackText, Color::Yellow, Color::Black, to_string(TowerSand().getDamage()), 0.60f,0.60f, 1044,98);
-    createText(sandPriceText, Color::Yellow, Color::Black, to_string(TowerSand().getPrice()), 0.60f,0.60f, 1044,125);
-    createText(earthAttackText, Color::Yellow, Color::Black, to_string(TowerEarth().getDamage()), 0.60f,0.60f, 1144,98);
-    createText(earthPriceText, Color::Yellow, Color::Black, to_string(TowerEarth().getPrice()), 0.60f,0.60f, 1144,125);
-    createText(iceAttackText, Color::Yellow, Color::Black, to_string(TowerIce().getDamage()), 0.60f,0.60f, 1244,98);
-    createText(icePriceText, Color::Yellow, Color::Black, to_string(TowerIce().getPrice()), 0.60f,0.60f, 1244,125);
-    createText(ironAttackText, Color::Yellow, Color::Black, to_string(TowerIron().getDamage()), 0.60f,0.60f, 1344,98);
-    createText(ironPriceText, Color::Yellow, Color::Black, to_string(TowerIron().getPrice()), 0.60f,0.60f, 1344,125);
-
-    /// sell button
-    sellButtonSprite.setTexture(emptyButtonTexture);
-    sellButtonSprite.setScale(0.50f,0.50f);
-    sellButtonSprite.setPosition(Vector2f(880,90));
-    createText(sellText, grey, Color::Black, "Sell", 1.1f,1.1f, 905,104);
-}
-
-/**load all entities for map */
-void vGameBoard::loadMapEntities()
-{
-    windowSmallSpellSprite.setTexture(windowSmallTexture);
-    windowSmallTowerSprite.setTexture(windowSmallTexture);
-
-    windowSmallSpellSprite.setPosition(300,12.5);
-    windowSmallSpellSprite.setScale(1.05,1.05);
-
-    windowSmallTowerSprite.setPosition(860,12.5);
-    windowSmallTowerSprite.setScale(1.25,1.05);
-
-
-    loadKingEntities();
-}
-
-void vGameBoard::loadKingEntities()
-{
-    ///king
-    kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
-    kingHealthRedSprite.setTexture(kingHealthRedTexture);
-    kingHealthGreenSprite.setScale(0.20f,0.20f);
-    kingHealthRedSprite.setScale(0.20,0.20f);
-    kingHealthGreenSprite.setPosition(1240,345);
-    kingHealthRedSprite.setPosition(1240,345);
-}
-
-/** */
-void vGameBoard::loadFailEntities()
-{
-    tableEmptyFailSprite.setTexture(tableEmptyTexture);
-    tableEmptyFailSprite.setScale(0.75f,0.75f);
-    tableEmptyFailSprite.setPosition(465,80);
-
-    headerFailedSprite.setTexture(headerFailedTexture);
-    headerFailedSprite.setScale(0.7f,0.7f);
-    headerFailedSprite.setPosition(565,80);
-
-    windowFailSprite.setTexture(signTexture);
-    windowFailSprite.setPosition(575,220);
-
-    backgroundSprite.setTexture(backgroundTexture);
-
-    resetButtonFailSprite.setTexture(resetButtonTexture);
-    resetButtonFailSprite.setPosition(620,600);
-
 }
 
 /**Detect events when buttons are pressed*/
@@ -1114,7 +622,7 @@ void vGameBoard::updateKingHealth()
     double kingHealthReel = game.getMap()->getKing().getHealth();
     double remainingHealth = (kingHealthReel  / kingHealthMax );
     //0.20 is the widht per default for the health bar
-    kingHealthGreenSprite.setScale(Vector2f(0.20*remainingHealth,0.20));
+    kingHealthGreenSprite->setScale(Vector2f(0.20*remainingHealth,0.20));
 }
 
 /**update health bar of all enemies who are not dead **/
@@ -1133,7 +641,7 @@ void vGameBoard::updateHealthBarAllEnemies()
 void vGameBoard::drawEntities()
 {
     ///map
-    windowFromMain->draw(mapSprite);
+    windowFromMain->draw(*mapSprite);
 
     if(!game.isGameOver())
     {
@@ -1141,7 +649,7 @@ void vGameBoard::drawEntities()
         drawGameSpeedView();
 
         // button to sell towers
-        windowFromMain->draw(sellButtonSprite);
+        windowFromMain->draw(*sellButtonSprite);
         windowFromMain->draw(sellText);
 
         ///towers 1 to 4
@@ -1168,8 +676,8 @@ void vGameBoard::drawEntities()
                 windowFromMain->draw(*sevenSprites[i]);
             }
             windowFromMain->draw(chooseNumberText);
-            windowFromMain->draw(closeButtonSprite);
-            windowFromMain->draw(headerShopSprite);
+            windowFromMain->draw(*closeButtonSprite);
+            windowFromMain->draw(*headerShopSprite);
         }
 
         drawEnemies();
@@ -1235,9 +743,9 @@ void vGameBoard::drawSpellEntities()
 
     ///buttons and title
     windowFromMain->draw(spellTitleText);
-    windowFromMain->draw(fireBuyButtonSprite);
-    windowFromMain->draw(acideCloudBuyButtonSprite);
-    windowFromMain->draw(lightningBuyButtonSprite);
+    windowFromMain->draw(*fireBuyButtonSprite);
+    windowFromMain->draw(*acideCloudBuyButtonSprite);
+    windowFromMain->draw(*lightningBuyButtonSprite);
 }
 
 /** draw map entities */
@@ -1246,15 +754,15 @@ void vGameBoard::drawMapEntities()
     drawMapButtons();
 
     ///king health and bubble message
-    windowFromMain->draw(kingHealthRedSprite);
-    windowFromMain->draw(kingHealthGreenSprite);
+    windowFromMain->draw(*kingHealthRedSprite);
+    windowFromMain->draw(*kingHealthGreenSprite);
 
     /// message pop up said by the king
     if(isMessagePopUp)
     {
         if(messageClock.getElapsedTime().asSeconds() < 5)
         {
-            windowFromMain->draw(infoBulbleMessageSprite);
+            windowFromMain->draw(*infoBulbleMessageSprite);
             windowFromMain->draw(messagePopUpText);
         }
         else
@@ -1265,7 +773,7 @@ void vGameBoard::drawMapEntities()
     }
 
     ///tower informations
-    windowFromMain->draw(windowSmallTowerSprite);
+    windowFromMain->draw(*windowSmallTowerSprite);
     windowFromMain->draw(towerTitleText);
     for(int i=0; i < 4 ; i++)
     {
@@ -1307,7 +815,7 @@ void vGameBoard::drawMapEntities()
     windowFromMain->draw(enemiesKilledNumberText);
 
     ///
-    windowFromMain->draw(windowSmallSpellSprite);
+    windowFromMain->draw(*windowSmallSpellSprite);
 
 
 }
@@ -1316,15 +824,15 @@ void vGameBoard::drawMapEntities()
 void vGameBoard::drawMapButtons()
 {
     ///spell buttons
-    windowFromMain->draw(lightningSprite);
-    windowFromMain->draw(fireSprite);
-    windowFromMain->draw(acideCloudSprite);
+    windowFromMain->draw(*lightningSprite);
+    windowFromMain->draw(*fireSprite);
+    windowFromMain->draw(*acideCloudSprite);
 
     ///towers buttons
-    windowFromMain->draw(ironTowerButtonSprite);
-    windowFromMain->draw(iceTowerButtonSprite);
-    windowFromMain->draw(sandTowerButtonSprite);
-    windowFromMain->draw(earthTowerButtonSprite);
+    windowFromMain->draw(*ironTowerButtonSprite);
+    windowFromMain->draw(*iceTowerButtonSprite);
+    windowFromMain->draw(*sandTowerButtonSprite);
+    windowFromMain->draw(*earthTowerButtonSprite);
 }
 
 /** draw enemies*/
@@ -1398,33 +906,33 @@ void vGameBoard::drawGameSpeedView()
 {
     if(!game.isGamePaused())
     {
-        windowFromMain->draw(pauseButtonSprite);
+        windowFromMain->draw(*pauseButtonSprite);
     }
     else
     {
-        windowFromMain->draw(playGameButtonSprite);
+        windowFromMain->draw(*playGameButtonSprite);
     }
 
-    windowFromMain->draw(increaseSpeedButtonSprite);
-    windowFromMain->draw(decreaseSpeedButtonSprite);
-    windowFromMain->draw(gameSpeedEmptyTableSprite);
-    windowFromMain->draw(multiplierSprite);
+    windowFromMain->draw(*increaseSpeedButtonSprite);
+    windowFromMain->draw(*decreaseSpeedButtonSprite);
+    windowFromMain->draw(*gameSpeedEmptyTableSprite);
+    windowFromMain->draw(*multiplierSprite);
 
     switch(game.getGameSpeed())
     {
         case 1:
         {
-            windowFromMain->draw(gameSpeedOneSprite);
+            windowFromMain->draw(*gameSpeedOneSprite);
             break;
         }
         case 2:
         {
-            windowFromMain->draw(gameSpeedTwoSprite);
+            windowFromMain->draw(*gameSpeedTwoSprite);
             break;
         }
         case 3:
         {
-            windowFromMain->draw(gameSPeedThreeSprite);
+            windowFromMain->draw(*gameSPeedThreeSprite);
             break;
         }
     }
@@ -1434,13 +942,14 @@ void vGameBoard::drawGameSpeedView()
 void vGameBoard::drawFailEntities()
 {
     changeStatsPosition(game.isGameOver());
+
     if(game.isGameOver())
     {
-        windowFromMain->draw(backgroundSprite);
-        windowFromMain->draw(tableEmptyFailSprite);
-        windowFromMain->draw(windowFailSprite);
-        windowFromMain->draw(headerFailedSprite);
-        windowFromMain->draw(resetButtonFailSprite);
+        windowFromMain->draw(*backgroundSprite);
+        windowFromMain->draw(*tableEmptyFailSprite);
+        windowFromMain->draw(*windowFailSprite);
+        windowFromMain->draw(*headerFailedSprite);
+        windowFromMain->draw(*resetButtonFailSprite);
         windowFromMain->draw(*gemSprites[4]);
         windowFromMain->draw(playerGemsNumberText);
         windowFromMain->draw(waveText);
@@ -1521,7 +1030,6 @@ void vGameBoard::adaptAnimationSprite()
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
         }
     }
-
     adaptPartOfTexture();
 }
 
@@ -1530,7 +1038,7 @@ void vGameBoard::adaptPartOfTexture()
 {
     if(animClock.getElapsedTime().asSeconds() > 0.08f / game.getGameSpeed())
     {
-        if(x_Ogre*OGRE_WIDTH >= (int)ogreTextureWalk.getSize().x - OGRE_WIDTH)
+        if(x_Ogre*OGRE_WIDTH >= (int)ogreTextureWalk->getSize().x - OGRE_WIDTH)
         {
             x_Ogre = 0;
         }
@@ -1539,7 +1047,7 @@ void vGameBoard::adaptPartOfTexture()
             x_Ogre++;
         }
 
-        if(x_shadowMonster*SHADOWMONSTER_WIDTH >= (int)shadowMonsterTextureWalk.getSize().x - SHADOWMONSTER_WIDTH)
+        if(x_shadowMonster*SHADOWMONSTER_WIDTH >= (int)shadowMonsterTextureWalk->getSize().x - SHADOWMONSTER_WIDTH)
         {
             x_shadowMonster = 0;
         }
@@ -1549,7 +1057,7 @@ void vGameBoard::adaptPartOfTexture()
         }
 
 
-        if(x_Orc*ORC_WIDTH >= (int)orcTextureWalk.getSize().x - ORC_WIDTH)
+        if(x_Orc*ORC_WIDTH >= (int)orcTextureWalk->getSize().x - ORC_WIDTH)
         {
             x_Orc = 0;
         }
@@ -1559,7 +1067,7 @@ void vGameBoard::adaptPartOfTexture()
         }
 
 
-        if(x_gremlin*GREMLIN_WIDTH >= (int)gremlinTextureWalk.getSize().x - GREMLIN_WIDTH)
+        if(x_gremlin*GREMLIN_WIDTH >= (int)gremlinTextureWalk->getSize().x - GREMLIN_WIDTH)
         {
             x_gremlin = 0;
         }
@@ -1569,7 +1077,7 @@ void vGameBoard::adaptPartOfTexture()
         }
 
 
-        if(x_knight*KNIGHTOFDEATH_WIDTH >= (int)knightOfDeathTextureWalk.getSize().x - KNIGHTOFDEATH_WIDTH)
+        if(x_knight*KNIGHTOFDEATH_WIDTH >= (int)knightOfDeathTextureWalk->getSize().x - KNIGHTOFDEATH_WIDTH)
         {
             x_knight = 0;
         }
@@ -1581,7 +1089,7 @@ void vGameBoard::adaptPartOfTexture()
         ///if the animation is at the end
         if(game.isAcidCloudSpellActive())
         {
-            if(x_acide*909 >= (int)acideCloudEffectTexture.getSize().x - 909)
+            if(x_acide*909 >= (int)acideCloudEffectTexture->getSize().x - 909)
             {
                 game.setAcidCloudActive(false);
                 x_acide = 0;
@@ -1595,7 +1103,7 @@ void vGameBoard::adaptPartOfTexture()
         ///if the animation is at the end
         if(game.isFireSpellActive())
         {
-            if(x_fire*FIRE_HEIGHT>= (int)fireEffectTexture.getSize().x - FIRE_HEIGHT)
+            if(x_fire*FIRE_HEIGHT>= (int)fireEffectTexture->getSize().x - FIRE_HEIGHT)
             {
                 game.setFireActive(false);
                 x_fire = 0;
@@ -1609,7 +1117,7 @@ void vGameBoard::adaptPartOfTexture()
         ///if the animation is at the end
         if(game.isLightNingSpellActive())
         {
-            if(x_lightning*LIGHTNING_HEIGHT>= (int)lightningEffectTexture.getSize().x - LIGHTNING_HEIGHT)
+            if(x_lightning*LIGHTNING_HEIGHT>= (int)lightningEffectTexture->getSize().x - LIGHTNING_HEIGHT)
             {
                 game.setLightningActive(false);
                 x_lightning = 0;
@@ -1619,9 +1127,6 @@ void vGameBoard::adaptPartOfTexture()
                 x_lightning++;
             }
         }
-
-
-
         animClock.restart();
     }
 }
@@ -1660,8 +1165,8 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
             {
                 game.getMap()->addTower(earth,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
-                vtower->towerTexture = &earthTowerTexture1;
-                vtower->attackTexture = &earthAttack;
+                vtower->towerTexture = &resourceManager.earthTowerTexture1;
+                vtower->attackTexture = &resourceManager.earthAttack;
                 vtower->chargeInformations();
                 listOfvTower.push_back(vtower);
                 break;
@@ -1670,8 +1175,8 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
             {
                 game.getMap()->addTower(ice,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
-                vtower->towerTexture = &iceTowerTexture1;
-                vtower->attackTexture = &iceAttack;
+                vtower->towerTexture = &resourceManager.iceTowerTexture1;
+                vtower->attackTexture = &resourceManager.iceAttack;
                 vtower->chargeInformations();
                 listOfvTower.push_back(vtower);
                 break;
@@ -1680,8 +1185,8 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
             {
                 game.getMap()->addTower(iron,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
-                vtower->towerTexture = &ironTowerTexture1;
-                vtower->attackTexture = &ironAttack;
+                vtower->towerTexture = &resourceManager.ironTowerTexture1;
+                vtower->attackTexture = &resourceManager.ironAttack;
                 vtower->chargeInformations();
                 listOfvTower.push_back(vtower);
                 break;
@@ -1690,8 +1195,8 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
             {
                 game.getMap()->addTower(sand,position);
                 vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
-                vtower->towerTexture = &sandTowerTexture1;
-                vtower->attackTexture = &sandAttack;
+                vtower->towerTexture = &resourceManager.sandTowerTexture1;
+                vtower->attackTexture = &resourceManager.sandAttack;
                 vtower->chargeInformations();
                 listOfvTower.push_back(vtower);
 
@@ -1722,428 +1227,199 @@ void vGameBoard::resetGameView()
     changeStatsPosition(game.isGameOver());
 }
 
-/** configure a text who that will after showing on screnn*/
-void vGameBoard::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
-{
-    text.setFont(font);
-    text.setFillColor(colorFill);
-    text.setOutlineColor(colorOutline);
-    text.setOutlineThickness(1.2f);
-    text.setString(str);
-    text.setScale(xScale,yScale);
-    text.setPosition(xPosition,yPosition);
-}
-
-/**to verify if all images is accessible and charge in the texture*/
 bool vGameBoard::verifyImage()
 {
-    //verify load images
-    if (!mapTexture.loadFromFile("res/images/gameBoard/map.png"))
-    {
-        cerr << "ERROR to charge texture" << endl;
-        return false;
-    }
+    resourceManager.verifyImage();
+    resourceManager.loadSprite();
+    sf::Font font = resourceManager.font;
 
-    if(verifyImageMonsters() && verifyImageTower() && verifyImageMapEntities() && verifyImageTowersInformations())
-    {
-        return true;
-    }
+    ///entities gameSpeed textures
+    pauseButtonTexture = &resourceManager.pauseButtonTexture;
+    increaseSpeedButtonTexture =&resourceManager.increaseSpeedButtonTexture;
+    decreaseSpeedButtonTexture = &resourceManager.decreaseSpeedButtonTexture;
+    infoBulbleMessageTexture = &resourceManager.infoBulbleMessageTexture;
+    playGameButtonTexture = &resourceManager.playGameButtonTexture;
+    multiplierTexture = &resourceManager.multiplierTexture;
 
-    return false;
-}
+    ///entities gameSpeed sprites
+    pauseButtonSprite = &resourceManager.pauseButtonSprite;
+    increaseSpeedButtonSprite = &resourceManager.increaseSpeedButtonSprite;
+    decreaseSpeedButtonSprite = &resourceManager.decreaseSpeedButtonSprite;
+    infoBulbleMessageSprite = &resourceManager.infoBulbleMessageSprite;
+    playGameButtonSprite = &resourceManager.infoBulbleMessageSprite;
+    gameSpeedEmptyTableSprite = &resourceManager.infoBulbleMessageSprite;
+    multiplierSprite = &resourceManager.infoBulbleMessageSprite;
+    gameSpeedOneSprite = &resourceManager.gameSpeedOneSprite;
+    gameSpeedTwoSprite = &resourceManager.gameSpeedTwoSprite;
+    gameSPeedThreeSprite = &resourceManager.gameSPeedThreeSprite;
 
-/** verify if the image of towers are accessibles and charge in the texture */
-bool vGameBoard::verifyImageTower()
-{
-    if (!earthTowerTexture1.loadFromFile("res/images/towers/earth.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///King health
+    kingHealthGreenTexture = &resourceManager.kingHealthGreenTexture;
+    kingHealthRedTexture = &resourceManager.kingHealthRedTexture;
+    kingHealthGreenSprite = &resourceManager.kingHealthGreenSprite;
+    kingHealthRedSprite = &resourceManager.kingHealthRedSprite;
 
-    if (!iceTowerTexture1.loadFromFile("res/images/towers/ice.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///enemies walk textures
+    gremlinTextureWalk = &resourceManager.gremlinTextureWalk;
+    knightOfDeathTextureWalk = &resourceManager.knightOfDeathTextureWalk;
+    shadowMonsterTextureWalk = &resourceManager.shadowMonsterTextureWalk ;
+    ogreTextureWalk = &resourceManager.ogreTextureWalk;
+    orcTextureWalk = &resourceManager.orcTextureWalk;
 
-    if (!sandTowerTexture1.loadFromFile("res/images/towers/sand.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///enemies attack textures
+    gremlinAttackTexture = &resourceManager.gremlinAttackTexture;
+    knightOfDeathAttackTexture = &resourceManager.knightOfDeathAttackTexture ;
+    shadowMonsterAttackTexture = &resourceManager.shadowMonsterAttackTexture;
+    ogreAttackTexture = &resourceManager.ogreAttackTexture;
+    orcAttackTexture = &resourceManager.orcAttackTexture;
 
-    if (!ironTowerTexture1.loadFromFile("res/images/towers/iron.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///enemies dead textures
+    gremlinDeadTexture = &resourceManager.gremlinDeadTexture ;
+    knightOfDeathDeadTexture = &resourceManager.knightOfDeathDeadTexture;
+    shadowMonsterDeadTexture = &resourceManager.shadowMonsterDeadTexture;
+    ogreDeadTexture = &resourceManager.ogreDeadTexture;
+    orcDeadTexture = &resourceManager.orcDeadTexture;
 
-    if (!earthAttack.loadFromFile("res/images/towers/earthEffect.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///map and entitites sprites
+    mapSprite = &resourceManager.mapSprite;
+    pauseSprite = &resourceManager.pauseSprite;
+    acideCloudSprite = &resourceManager.acideCloudSprite;
+    lightningSprite = &resourceManager.lightningSprite;
+    fireSprite = &resourceManager.fireSprite;
+    sellButtonSprite = &resourceManager.sellButtonSprite;
+    closeButtonSprite = &resourceManager.closeButtonSprite;
+    windowSmallSpellSprite = &resourceManager.windowSmallSpellSprite;
+    windowSmallTowerSprite = &resourceManager.windowSmallTowerSprite;
+    headerShopSprite = &resourceManager.headerShopSprite;
 
-    if (!sandAttack.loadFromFile("res/images/towers/sandEffect.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Map and entitites textures
+    mapTexture = &resourceManager.mapTexture;
+    pauseTexture = &resourceManager.pauseTexture;
+    emptyButtonTexture = &resourceManager.emptyButtonTexture;
+    closeButtonTexture = &resourceManager.closeButtonTexture;
+    headerShopTexture = &resourceManager.headerShopTexture;
+    windowSmallTexture = &resourceManager.windowSmallTexture;
+    bigTableTexture = &resourceManager.bigTableTexture;
 
-    if (!iceAttack.loadFromFile("res/images/towers/iceEffect.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Map and entitites texts
+    playerGemsNumberText = resourceManager.playerGemsNumberText;
+    waveNumberText = resourceManager.waveNumberText;
+    waveText = resourceManager.waveText;
+    scoreNumberText = resourceManager.scoreNumberText;
+    scoreText = resourceManager.scoreText;
+    messagePopUpText = resourceManager.messagePopUpText;
 
-    if (!ironAttack.loadFromFile("res/images/towers/ironEffect.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-    return true;
-}
+    ///Spell textures
+    acideCloudActiveButtonTexture = &resourceManager.acideCloudActiveButtonTexture;
+    lightningActiveButtonTexture = &resourceManager.lightningActiveButtonTexture;
+    fireActiveButtonTexture = &resourceManager.fireActiveButtonTexture;
+    acideCloudEffectTexture = &resourceManager.acideCloudEffectTexture;
+    fireEffectTexture = &resourceManager.fireEffectTexture;
+    lightningEffectTexture = &resourceManager.lightningEffectTexture;
 
-/** verify if the image of monsters are accessibles and charge in the texture*/
-bool vGameBoard::verifyImageMonsters()
-{
-    if (!ogreTextureWalk.loadFromFile("res/images/sprites/1/1_enemies_1_WALK_spritesheet.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Spell sprites:
+    fireBuyButtonSprite = &resourceManager.fireBuyButtonSprite;
+    acideCloudBuyButtonSprite = &resourceManager.acideCloudBuyButtonSprite;
+    lightningBuyButtonSprite = &resourceManager.lightningBuyButtonSprite;
 
-    if (!orcTextureWalk.loadFromFile("res/images/sprites/2/spritesheet_WALK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Spell texts
+    spellTitleText = resourceManager.spellTitleText;
 
-    if (!gremlinTextureWalk.loadFromFile("res/images/sprites/3/spritesheet_WALK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Towers attacks textures
+    earthAttack = &resourceManager.earthAttack ;
+    sandAttack = &resourceManager.sandAttack;
+    iceAttack = &resourceManager.iceAttack;
+    ironAttack = &resourceManager.ironAttack;
 
-    if (!shadowMonsterTextureWalk.loadFromFile("res/images/sprites/5/spritesheet_WALK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Towers buy buttons textures
+    earthTowerTextureButton = &resourceManager.earthTowerTextureButton;
+    sandTowerTextureButton = &resourceManager.sandTowerTextureButton;
+    iceTowerTextureButton = &resourceManager.iceTowerTextureButton;
+    ironTowerTextureButton = &resourceManager.ironTowerTextureButton;
 
-    if (!knightOfDeathTextureWalk.loadFromFile("res/images/sprites/9/spritesheet_WALK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Towers textures
+    sandTowerTexture1 = &resourceManager.sandTowerTexture1;
+    iceTowerTexture1 = &resourceManager.iceTowerTexture1;
+    ironTowerTexture1 = &resourceManager.iceTowerTexture1;
+    earthTowerTexture1 = &resourceManager.earthTowerTexture1;
 
-    if (!ogreAttackTexture.loadFromFile("res/images/sprites/1/1_enemies_1_ATTACK_spritesheet.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Tower buttons sprites
+    earthTowerButtonSprite = &resourceManager.earthTowerButtonSprite;
+    sandTowerButtonSprite = &resourceManager.sandTowerButtonSprite;
+    iceTowerButtonSprite = &resourceManager.iceTowerButtonSprite;
+    ironTowerButtonSprite = &resourceManager.ironTowerButtonSprite;
 
-    if (!orcAttackTexture.loadFromFile("res/images/sprites/2/spritesheet_ATTACK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Informations tower texts
+    towerTitleText = resourceManager.towerTitleText;
+    sellText = resourceManager.sellText;
+    chooseNumberText = resourceManager.chooseNumberText;
+    earthAttackText = resourceManager.earthAttackText;
+    earthPriceText = resourceManager.earthPriceText;
+    iceAttackText = resourceManager.iceAttackText;
+    icePriceText = resourceManager.icePriceText;
+    sandAttackText = resourceManager.sandAttackText;
+    sandPriceText = resourceManager.sandPriceText;
+    ironAttackText = resourceManager.ironAttackText;
+    ironPriceText = resourceManager.ironPriceText;
 
-    if (!gremlinAttackTexture.loadFromFile("res/images/sprites/3/spritesheet_ATTACK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Informations tower textures
+    oneTexture = &resourceManager.oneTexture;
+    twoTexture = &resourceManager.twoTexture;
+    threeTexture = &resourceManager.threeTexture;
+    fourTexture = &resourceManager.fourTexture;
+    fiveTexture = &resourceManager.fiveTexture;
+    sixTexture = &resourceManager.sixTexture;
+    sevenTexture = &resourceManager.sevenTexture;
+    gemTexture = &resourceManager.gemTexture;
+    swordTexture = &resourceManager.swordTexture;
+    signTexture = &resourceManager.signTexture;
 
-    if (!shadowMonsterAttackTexture.loadFromFile("res/images/sprites/5/spritesheet_ATTACK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Failed textures
+    headerFailedTexture = &resourceManager.headerFailedTexture;
+    resetButtonTexture = &resourceManager.resetButtonTexture;
+    backgroundTexture = &resourceManager.backgroundTexture;
 
-    if (!knightOfDeathAttackTexture.loadFromFile("res/images/sprites/9/spritesheet_ATTACK.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Failed Sprites
+    tableEmptyFailSprite = &resourceManager.tableEmptyFailSprite;
+    windowFailSprite = &resourceManager.windowFailSprite;
+    resetButtonFailSprite = &resourceManager.resetButtonFailSprite;
+    headerFailedSprite = &resourceManager.headerFailedSprite;
+    backgroundSprite = &resourceManager.backgroundSprite;
 
-    if (!ogreDeadTexture.loadFromFile("res/images/sprites/1/1_enemies_1_DIE_spritesheet.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    ///Failed texts
+    enemiesKilledText = resourceManager.enemiesKilledText;
+    enemiesKilledNumberText = resourceManager.enemiesKilledNumberText;
 
-    if (!orcDeadTexture.loadFromFile("res/images/sprites/2/spritesheet_DIE.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    swordSprites = resourceManager.swordSprites;
+    gemSprites = resourceManager.gemSprites;
+    signSprites = resourceManager.signSprites;
+    oneSprites = resourceManager.oneSprites;
+    twoSprites = resourceManager.twoSprites;
+    threeSprites = resourceManager.threeSprites;
+    fourSprites = resourceManager.fourSprites;
+    fiveSprites = resourceManager.fiveSprites;
+    sixSprites = resourceManager.sixSprites;
+    sevenSprites = resourceManager.sevenSprites;
 
-    if (!gremlinDeadTexture.loadFromFile("res/images/sprites/3/spritesheet_DIE.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    tableEmptyTexture = &resourceManager.tableEmptyTexture;
 
-    if (!shadowMonsterDeadTexture.loadFromFile("res/images/sprites/5/spritesheet_DIE.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
+    swordSprites = resourceManager.swordSprites;
+    gemSprites = resourceManager.gemSprites;
+    signSprites = resourceManager.signSprites;
+    oneSprites = resourceManager.oneSprites;
+    twoSprites = resourceManager.twoSprites;
+    threeSprites = resourceManager.threeSprites;
+    fourSprites = resourceManager.fourSprites;
+    fiveSprites = resourceManager.fiveSprites;
+    sixSprites = resourceManager.sixSprites;
+    sevenSprites = resourceManager.sevenSprites;
 
-    if (!knightOfDeathDeadTexture.loadFromFile("res/images/sprites/9/spritesheet_DIE.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-    return true;
-}
-
-/** verify if the image of map entities are accessibles and charge in the texture */
-bool vGameBoard::verifyImageMapEntities()
-{
-    if(!emptyButtonTexture.loadFromFile("res/images/gameBoard/button_empty.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!closeButtonTexture.loadFromFile("res/images/gameBoard/button_close.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!lightningActiveButtonTexture.loadFromFile("res/images/gameBoard/lightning.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!fireActiveButtonTexture.loadFromFile("res/images/gameBoard/fire.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!acideCloudActiveButtonTexture.loadFromFile("res/images/gameBoard/cloud.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!earthTowerTextureButton.loadFromFile("res/images/gameBoard/earthTowerButton.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!iceTowerTextureButton.loadFromFile("res/images/gameBoard/iceTowerButton.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!ironTowerTextureButton.loadFromFile("res/images/gameBoard/ironTowerButton.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!sandTowerTextureButton.loadFromFile("res/images/gameBoard/sandTowerButton.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!acideCloudEffectTexture.loadFromFile("res/images/sprites/spells/acideCloud.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!fireEffectTexture.loadFromFile("res/images/sprites/spells/fire.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!lightningEffectTexture.loadFromFile("res/images/sprites/spells/lightning.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!kingHealthGreenTexture.loadFromFile("res/images/gameBoard/health_bar-green.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!kingHealthRedTexture.loadFromFile("res/images/gameBoard/health_bar-red.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!pauseButtonTexture.loadFromFile("res/images/gameBoard/button_pause.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!increaseSpeedButtonTexture.loadFromFile("res/images/gameBoard/button_quick.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!decreaseSpeedButtonTexture.loadFromFile("res/images/gameBoard/button_slow.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!infoBulbleMessageTexture.loadFromFile("res/images/gameBoard/message.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!playGameButtonTexture.loadFromFile("res/images/gameBoard/button_play.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!playGameButtonTexture.loadFromFile("res/images/gameBoard/button_play.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!multiplierTexture.loadFromFile("res/images/gameBoard/button_close.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!headerFailedTexture.loadFromFile("res/images/gameBoard/header_failed.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!headerShopTexture.loadFromFile("res/images/gameBoard/header_shop.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!backgroundTexture.loadFromFile("res/images/menu/game_background_4.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!resetButtonTexture.loadFromFile("res/images/gameBoard/button_reset.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!windowSmallTexture.loadFromFile("res/images/gameBoard/window_2.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
+    listOfvEnnemies = resourceManager.listOfvEnnemies;
+    listOfvTower = resourceManager.listOfvTower;
+    listOfAcideCloudSpell = resourceManager.listOfAcideCloudSpell;
+    listOfFireSpell = resourceManager.listOfFireSpell;
+    listOfLigntningSpell = resourceManager.listOfLigntningSpell;
 
     return true;
 }
-
-/** verify if the image of informations of towers are accessibles and charge in the texture */
-bool vGameBoard::verifyImageTowersInformations()
-{
-    if (!oneTexture.loadFromFile("res/images/gameBoard/num_1.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!twoTexture.loadFromFile("res/images/gameBoard/num_2.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!threeTexture.loadFromFile("res/images/gameBoard/num_3.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!fourTexture.loadFromFile("res/images/gameBoard/num_4.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!fiveTexture.loadFromFile("res/images/gameBoard/num_5.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!sixTexture.loadFromFile("res/images/gameBoard/num_6.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!sevenTexture.loadFromFile("res/images/gameBoard/num_7.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!gemTexture.loadFromFile("res/images/gameBoard/coinCrystal.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!swordTexture.loadFromFile("res/images/gameBoard/sword.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!signTexture.loadFromFile("res/images/gameBoard/window_1.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!tableEmptyTexture.loadFromFile("res/images/gameBoard/table.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!bigTableTexture.loadFromFile("res/images/gameBoard/big_table.png"))
-    {
-        cerr << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if (!font.loadFromFile("res/fonts/plump.ttf"))
-    {
-        cerr << "ERROR chargement font" << endl;
-        return false;
-    }
-
-    return true;
-}
-
 

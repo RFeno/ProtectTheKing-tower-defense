@@ -50,6 +50,7 @@
 		<Unit filename="include/model/Gremlin.h" />
 		<Unit filename="include/model/King.h" />
 		<Unit filename="include/model/KnightOfDeath.h" />
+		<Unit filename="include/model/LightningSpell.h" />
 		<Unit filename="include/model/Map.h" />
 		<Unit filename="include/model/Ogre.h" />
 		<Unit filename="include/model/Orc.h" />
@@ -69,6 +70,7 @@
 		<Unit filename="include/view/vGameBoard.h" />
 		<Unit filename="include/view/vGameManager.h" />
 		<Unit filename="include/view/vMainMenu.h" />
+		<Unit filename="include/view/vResourceManager.h" />
 		<Unit filename="include/view/vTower.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/model/AcidCloudSpell.cpp" />
@@ -78,6 +80,7 @@
 		<Unit filename="src/model/Gremlin.cpp" />
 		<Unit filename="src/model/King.cpp" />
 		<Unit filename="src/model/KnightOfDeath.cpp" />
+		<Unit filename="src/model/LightningSpell.cpp" />
 		<Unit filename="src/model/Map.cpp" />
 		<Unit filename="src/model/Ogre.cpp" />
 		<Unit filename="src/model/Orc.cpp" />
@@ -97,6 +100,7 @@
 		<Unit filename="src/view/vGameBoard.cpp" />
 		<Unit filename="src/view/vGameManager.cpp" />
 		<Unit filename="src/view/vMainMenu.cpp" />
+		<Unit filename="src/view/vResourceManager.cpp" />
 		<Unit filename="src/view/vTower.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
