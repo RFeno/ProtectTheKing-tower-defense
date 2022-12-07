@@ -32,8 +32,6 @@ vGameBoard::vGameBoard(RenderWindow &window)
 
     isChoosingNumberForPositionTower=false;
     isSellingTower = false;
-
-    cout << verifyImage() << endl;
 }
 
 vGameBoard::~vGameBoard()
@@ -51,6 +49,8 @@ void vGameBoard::launchView()
     // limit the window to 60 images per second
     windowFromMain->setFramerateLimit(60);
 
+    if(verifyImage())
+    {
         while (windowFromMain->isOpen())
         {
             Event event;
@@ -71,7 +71,7 @@ void vGameBoard::launchView()
 
             windowFromMain->display();
         }
-
+    }
 }
 
 /** bind the enemy to the vEnemy  */

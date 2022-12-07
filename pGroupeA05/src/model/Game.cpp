@@ -19,6 +19,14 @@ Game::Game()
 {
     this->player = new Player();
     this->mapOfGame = new Map();
+
+    numeroOfWave = 0;
+    gameSpeed = 1;
+    gamePaused = false;
+    fireSpellActive = false;
+    acidCloudSpellActive = false;
+    lightningSpellActive = false;
+    numberOfEnemiesSpawned = 0;
 }
 //dtor
 Game::~Game()
@@ -30,6 +38,13 @@ Game::~Game()
 Game::Game(const Game& other): player(other.player), mapOfGame(other.mapOfGame)
 {
     //copy ctor
+    this->numeroOfWave = other.numeroOfWave;
+    this->gameSpeed = other.gameSpeed;
+    this->gamePaused = other.gamePaused;
+    this->fireSpellActive = other.fireSpellActive;
+    this->acidCloudSpellActive = other.acidCloudSpellActive;
+    this->lightningSpellActive = other.lightningSpellActive;
+    this->numberOfEnemiesSpawned = other.numberOfEnemies;
 }
 
 Game& Game::operator=(const Game& rhs)
@@ -48,6 +63,13 @@ Game& Game::operator=(const Game& rhs)
 
     this->player=rhs.player;
     this->mapOfGame=rhs.mapOfGame;
+    this->numeroOfWave = rhs.numeroOfWave;
+    this->gameSpeed = rhs.gameSpeed;
+    this->gamePaused = rhs.gamePaused;
+    this->fireSpellActive = rhs.fireSpellActive;
+    this->acidCloudSpellActive = rhs.acidCloudSpellActive;
+    this->lightningSpellActive = rhs.lightningSpellActive;
+    this->numberOfEnemiesSpawned = rhs.numberOfEnemies;
 
     //assignment operator
     return *this;

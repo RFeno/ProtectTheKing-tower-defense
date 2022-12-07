@@ -12,6 +12,7 @@ class Game
     public:
         static const int spawnTime = 3;
 
+        //default constructor
         Game();
         virtual ~Game();
         Game(const Game& other);
@@ -34,7 +35,6 @@ class Game
         void creditPlayerWallet(int valueOfCredit);
         void increasePlayerScore(int valueToAdd);
 
-
         Map* getMap()const
         {
             return mapOfGame;
@@ -50,47 +50,42 @@ class Game
             return numberOfEnemies;
         }
 
-        int getNumeroOfWave()
+        int getNumeroOfWave()const
         {
             return numeroOfWave;
         }
 
-        int getGameSpeed()
+        int getGameSpeed()const
         {
             return gameSpeed;
         }
 
-        int getNumberOfEnemiesSpawned()
+        int getNumberOfEnemiesSpawned()const
         {
             return numberOfEnemiesSpawned;
         }
 
-        int getSpawnTime()
+        int getSpawnTime()const
         {
             return spawnTime;
         }
 
-        bool isGamePaused()
+        bool isGamePaused()const
         {
             return gamePaused;
         }
 
-        std::string getMessage()
-        {
-            return message;
-        }
-
-        bool isFireSpellActive()
+        bool isFireSpellActive()const
         {
             return fireSpellActive;
         }
 
-        bool isAcidCloudSpellActive()
+        bool isAcidCloudSpellActive()const
         {
             return acidCloudSpellActive;
         }
 
-        bool isLightNingSpellActive()
+        bool isLightNingSpellActive()const
         {
             return lightningSpellActive;
         }
@@ -103,11 +98,6 @@ class Game
         void setNumberOfEnemiesSpawn(int spawn)
         {
             numberOfEnemiesSpawned=spawn;
-        }
-
-        void setMessage(std::string message)
-        {
-            this->message=message;
         }
 
         void setFireActive(bool value)
@@ -126,21 +116,21 @@ class Game
         }
 
 
-
     protected:
 
     private:
+        /** on fait une AIP car pour nous le joueur(player) ainsi que la carte(map)
+        ne sont pas acccessible autre part que via le jeu (game) */
         Player *player;
         Map *mapOfGame;
-        const int numberOfEnemies =10;
-        int numeroOfWave = 0;
-        int gameSpeed = 1;
-        bool gamePaused = false;
-        bool fireSpellActive = false;
-        bool acidCloudSpellActive = false;
-        bool lightningSpellActive = false;
-        int numberOfEnemiesSpawned = 0;
-        std::string message;
+        const int numberOfEnemies = 10;
+        int numeroOfWave;
+        int gameSpeed;
+        bool gamePaused;
+        bool fireSpellActive;
+        bool acidCloudSpellActive;
+        bool lightningSpellActive;
+        int numberOfEnemiesSpawned;
 
 
 };

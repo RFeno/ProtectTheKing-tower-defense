@@ -165,3 +165,7 @@ void Player::clearListOfSpells()
     listOfSpells.clear();
 }
 
+Player* Player::clone()const
+{
+    return new Player(*this);
+}

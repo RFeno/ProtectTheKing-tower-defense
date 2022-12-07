@@ -8,7 +8,6 @@
 #include "vTower.h"
 #include "vResourceManager.h"
 
-
 class vGameBoard
 {
     public:
@@ -34,7 +33,6 @@ class vGameBoard
         //void createText(sf::Text& text, sf::Color colorFill, sf::Color colorOutline, std::string str, float xScale, float yScale, int xPosition, int yPosition);
 
         bool verifyImage();
-
 
 
         ///EVENTS

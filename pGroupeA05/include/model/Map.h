@@ -19,6 +19,7 @@ class Map
         /**methods*/
         std::string strEnemies()const;
         std::string strTowers()const;
+        Map *clone()const;
 
 
         ///ENEMIES

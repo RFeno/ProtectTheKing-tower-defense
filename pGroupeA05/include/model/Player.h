@@ -12,12 +12,13 @@ class Player
 {
     public:
         //canonic form
-        Player(int coins = sand+9999,int score = 0);
+        Player(int coins = sand,int score = 0);
         Player(const Player& other);
         virtual ~Player();
         Player& operator=(const Player& rhs);
 
         //methods
+        Player *clone()const;
         void buySpell(TypeOfSpell type);
         int searchSpellByType(TypeOfSpell type);
         bool useAndRemoveSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);

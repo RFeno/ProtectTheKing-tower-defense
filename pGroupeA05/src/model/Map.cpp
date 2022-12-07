@@ -560,3 +560,8 @@ bool Map::isAllPlacesOccupied()
 
     return false;
 }
+
+Map* Map::clone()const
+{
+    return new Map(*this);
+}
