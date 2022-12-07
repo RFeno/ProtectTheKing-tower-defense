@@ -154,71 +154,32 @@ vResourceManager::~vResourceManager()
 void vResourceManager::loadGameSpeedEntities()
 {
     ///gameSpeed
-    infoBulbleMessageSprite.setTexture(infoBulbleMessageTexture);
-    pauseButtonSprite.setTexture(pauseButtonTexture);
-    increaseSpeedButtonSprite.setTexture(increaseSpeedButtonTexture);
-    decreaseSpeedButtonSprite.setTexture(decreaseSpeedButtonTexture);
-    playGameButtonSprite.setTexture(playGameButtonTexture);
-    gameSpeedEmptyTableSprite.setTexture(emptyButtonTexture);
-    multiplierSprite.setTexture(multiplierTexture);
-    gameSpeedOneSprite.setTexture(oneTexture);
-    gameSpeedTwoSprite.setTexture(twoTexture);
-    gameSPeedThreeSprite.setTexture(threeTexture);
+    createSprite(infoBulbleMessageSprite, infoBulbleMessageTexture, 0.25f,0.25f, 1233, 215);
+    createSprite(pauseButtonSprite, pauseButtonTexture, 0.5f,0.5f, 660, 707);
+    createSprite(increaseSpeedButtonSprite, increaseSpeedButtonTexture, 0.5f,0.5f, 760, 707);
+    createSprite(decreaseSpeedButtonSprite, decreaseSpeedButtonTexture, 0.5f,0.5f, 560, 707);
+    createSprite(playGameButtonSprite, playGameButtonTexture, 0.24f,0.24f, 665, 712);
+    createSprite(gameSpeedEmptyTableSprite, emptyButtonTexture, 0.35f,0.35f, 663,655);
+    createSprite(multiplierSprite, multiplierTexture, 0.25f,0.25f, 702,668);
+    createSprite(gameSpeedOneSprite, oneTexture, 0.35f,0.35f, 710,672);
+    createSprite(gameSpeedTwoSprite, twoTexture, 0.35f,0.35f, 710,672);
+    createSprite(gameSPeedThreeSprite, threeTexture, 0.35f,0.35f, 710,672);
 
     multiplierSprite.setRotation(80.0f);
-    infoBulbleMessageSprite.setPosition(1233, 215);
-    pauseButtonSprite.setPosition(660, 707);
-    increaseSpeedButtonSprite.setPosition(760, 707);
-    decreaseSpeedButtonSprite.setPosition(560, 707);
-    playGameButtonSprite.setPosition(665, 712);
-    gameSpeedEmptyTableSprite.setPosition(663,655);
-    multiplierSprite.setPosition(702,668);
-
-    gameSpeedOneSprite.setPosition(710,672);
-    gameSpeedTwoSprite.setPosition(710,672);
-    gameSPeedThreeSprite.setPosition(710,672);
-
-    infoBulbleMessageSprite.setScale(Vector2f(0.25f,0.25f));
-    pauseButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    increaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    decreaseSpeedButtonSprite.setScale(Vector2f(0.5f,0.5f));
-    playGameButtonSprite.setScale(Vector2f(0.24f,0.24f));
-    gameSpeedEmptyTableSprite.setScale(0.35f,0.35f);
-    multiplierSprite.setScale(0.25f,0.25f);
-
-    gameSpeedOneSprite.setScale(0.35f,0.35f);
-    gameSpeedTwoSprite.setScale(0.35f,0.35f);
-    gameSPeedThreeSprite.setScale(0.35f,0.35f);
 }
 
 /** load all entities for spell */
 void vResourceManager::loadSpellEntities()
 {
     /// buttons to active spells
-    acideCloudSprite.setTexture(acideCloudActiveButtonTexture);
-    fireSprite.setTexture(fireActiveButtonTexture);
-    lightningSprite.setTexture(lightningActiveButtonTexture);
-
-    acideCloudSprite.setScale(0.50f,0.50f);
-    fireSprite.setScale(0.50f,0.50f);
-    lightningSprite.setScale(0.50,0.50f);
-
-    acideCloudSprite.setPosition(Vector2f(110, 5));
-    fireSprite.setPosition(Vector2f(210, 5));
-    lightningSprite.setPosition(Vector2f(10, 5));
+    createSprite(acideCloudSprite, acideCloudActiveButtonTexture, 0.50f,0.50f, 110, 5);
+    createSprite(fireSprite, fireActiveButtonTexture, 0.50f,0.50f, 210, 5);
+    createSprite(lightningSprite, lightningActiveButtonTexture, 0.50f,0.50f, 10, 5);
 
     ///buttons to buy spells
-    fireBuyButtonSprite.setTexture(emptyButtonTexture);
-    acideCloudBuyButtonSprite.setTexture(emptyButtonTexture);
-    lightningBuyButtonSprite.setTexture(emptyButtonTexture);
-
-    fireBuyButtonSprite.setScale(0.35f,0.35f);
-    acideCloudBuyButtonSprite.setScale(0.35f,0.35f);
-    lightningBuyButtonSprite.setScale(0.35f,0.35f);
-
-    acideCloudBuyButtonSprite.setPosition(110,100);
-    fireBuyButtonSprite.setPosition(210,100);
-    lightningBuyButtonSprite.setPosition(10,100);
+    createSprite(fireBuyButtonSprite, emptyButtonTexture, 0.35f,0.35f, 210,100);
+    createSprite(acideCloudBuyButtonSprite, emptyButtonTexture, 0.35f,0.35f, 110,100);
+    createSprite(lightningBuyButtonSprite, emptyButtonTexture, 0.35f,0.35f, 10,100);
 
     int x = 20;
     for(int i = 0; i < 3; i++)
@@ -307,29 +268,17 @@ void vResourceManager::loadTowersEntities()
     towerTitleText.setPosition(Vector2f(870,20));
 
     ///towers buttons
-    earthTowerButtonSprite.setTexture(earthTowerTextureButton);
-    iceTowerButtonSprite.setTexture(iceTowerTextureButton);
-    sandTowerButtonSprite.setTexture(sandTowerTextureButton);
-    ironTowerButtonSprite.setTexture(ironTowerTextureButton);
-
-    earthTowerButtonSprite.setScale(0.50f,0.50f);
-    iceTowerButtonSprite.setScale(0.50f,0.50f);
-    sandTowerButtonSprite.setScale(0.50f,0.50f);
-    ironTowerButtonSprite.setScale(0.50f,0.50f);
-
-    sandTowerButtonSprite.setPosition(Vector2f(1006,5));
-    earthTowerButtonSprite.setPosition(Vector2f(1106,5));
-    iceTowerButtonSprite.setPosition(Vector2f(1206,5));
-    ironTowerButtonSprite.setPosition(Vector2f(1306,5));
+    createSprite(earthTowerButtonSprite, earthTowerTextureButton, 0.50f,0.50f, 1006,5);
+    createSprite(iceTowerButtonSprite, iceTowerTextureButton, 0.50f,0.50f, 1106,5);
+    createSprite(sandTowerButtonSprite, sandTowerTextureButton, 0.50f,0.50f, 1206,5);
+    createSprite(ironTowerButtonSprite, ironTowerTextureButton, 0.50f,0.50f, 1306,5);
 
     ///informations of tower
     int x = 1010;
     for(int i = 0; i < 4; i++)
     {
         swordSprites.push_back(new Sprite());
-        swordSprites[i]->setTexture(swordTexture);
-        swordSprites[i]->setPosition(Vector2f(x, 89));
-        swordSprites[i]->setScale(0.1f,0.1f);
+        createSprite(*swordSprites[i], swordTexture, 0.1f,0.1f, x, 89);
         x+=100;
     }
 
@@ -337,9 +286,7 @@ void vResourceManager::loadTowersEntities()
     for(int i = 0; i < 4; i++)
     {
         gemSprites.push_back(new Sprite());
-        gemSprites[i]->setTexture(gemTexture);
-        gemSprites[i]->setPosition(Vector2f(x, 129));
-        gemSprites[i]->setScale(0.20f,0.20f);
+        createSprite(*gemSprites[i], gemTexture, 0.20f,0.20f, x, 129);
         x+=100;
     }
 
@@ -347,9 +294,7 @@ void vResourceManager::loadTowersEntities()
     for(int i = 0; i < 4; i++)
     {
         signSprites.push_back(new Sprite());
-        signSprites[i]->setTexture(signTexture);
-        signSprites[i]->setPosition(Vector2f(x, 89));
-        signSprites[i]->setScale(0.3f,0.2f);
+        createSprite(*signSprites[i], signTexture, 0.3f,0.2f, x, 89);
         x+=100;
     }
 
@@ -363,23 +308,15 @@ void vResourceManager::loadTowersEntities()
     createText(ironPriceText, Color::Yellow, Color::Black, to_string(TowerIron().getPrice()), 0.60f,0.60f, 1344,125);
 
     /// sell button
-    sellButtonSprite.setTexture(emptyButtonTexture);
-    sellButtonSprite.setScale(0.50f,0.50f);
-    sellButtonSprite.setPosition(Vector2f(880,90));
+    createSprite(sellButtonSprite, emptyButtonTexture, 0.50f,0.50f, 880,90);
     createText(sellText, grey, Color::Black, "Sell", 1.1f,1.1f, 905,104);
 }
 
 /**load all entities for map */
 void vResourceManager::loadMapEntities()
 {
-    windowSmallSpellSprite.setTexture(windowSmallTexture);
-    windowSmallTowerSprite.setTexture(windowSmallTexture);
-
-    windowSmallSpellSprite.setPosition(300,12.5);
-    windowSmallSpellSprite.setScale(1.05,1.05);
-
-    windowSmallTowerSprite.setPosition(860,12.5);
-    windowSmallTowerSprite.setScale(1.25,1.05);
+    createSprite(windowSmallSpellSprite, windowSmallTexture, 1.05,1.05, 300,12.5);
+    createSprite(windowSmallTowerSprite, windowSmallTexture, 1.25,1.05, 860,12.5);
 
     loadKingEntities();
 }
@@ -387,157 +324,82 @@ void vResourceManager::loadMapEntities()
 void vResourceManager::loadKingEntities()
 {
     ///king
-    kingHealthGreenSprite.setTexture(kingHealthGreenTexture);
-    kingHealthRedSprite.setTexture(kingHealthRedTexture);
-    kingHealthGreenSprite.setScale(0.20f,0.20f);
-    kingHealthRedSprite.setScale(0.20,0.20f);
-    kingHealthGreenSprite.setPosition(1240,345);
-    kingHealthRedSprite.setPosition(1240,345);
+    createSprite(kingHealthGreenSprite, kingHealthGreenTexture, 0.20f,0.20f, 1240,345);
+    createSprite(kingHealthRedSprite, kingHealthRedTexture, 0.20f,0.20f, 1240,345);
 }
 
 /** */
 void vResourceManager::loadFailEntities()
 {
-    tableEmptyFailSprite.setTexture(tableEmptyTexture);
-    tableEmptyFailSprite.setScale(0.75f,0.75f);
-    tableEmptyFailSprite.setPosition(465,80);
-
-    headerFailedSprite.setTexture(headerFailedTexture);
-    headerFailedSprite.setScale(0.7f,0.7f);
-    headerFailedSprite.setPosition(565,80);
-
-    windowFailSprite.setTexture(signTexture);
-    windowFailSprite.setPosition(575,220);
-
+    createSprite(tableEmptyFailSprite, tableEmptyTexture, 0.75f,0.75f, 465,80);
+    createSprite(headerFailedSprite, headerFailedTexture, 0.7f,0.7f, 565,80);
+    createSprite(windowFailSprite, signTexture, 1,1, 575,220);
+    createSprite(resetButtonFailSprite, resetButtonTexture, 1,1, 620,600);
     backgroundSprite.setTexture(backgroundTexture);
-
-    resetButtonFailSprite.setTexture(resetButtonTexture);
-    resetButtonFailSprite.setPosition(620,600);
-
-}
-
-/** Configures a text that will be displayed on the screen afterwards*/
-void vResourceManager::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
-{
-    text.setFont(font);
-    text.setFillColor(colorFill);
-    text.setOutlineColor(colorOutline);
-    text.setOutlineThickness(1.2f);
-    text.setString(str);
-    text.setScale(xScale,yScale);
-    text.setPosition(xPosition,yPosition);
-}
-
-/** Configures a sprite that will be displayed on the screen afterwards*/
-void vResourceManager::createSprite(sf::Sprite& sprite, sf::Texture& texture, float xScale, float yScale, int xPosition, int yPosition)
-{
-    sprite.setTexture(texture);
-    sprite.setScale(xScale,yScale);
-    sprite.setPosition(xPosition,yPosition);
 }
 
 void vResourceManager::loadChoosingNumberEntities()
 {
     ///choose number
     signSprites.push_back(new Sprite());
-    signSprites.back()->setTexture(bigTableTexture);
-    signSprites.back()->setPosition(Vector2f(500, 220));
-    signSprites.back()->setScale(0.4f,0.4f);
-
-    headerShopSprite.setTexture(headerShopTexture);
-    headerShopSprite.setPosition(595, 210);
-    headerShopSprite.setScale(0.5f,0.5f);
+    createSprite(*signSprites.back(), bigTableTexture, 0.4f,0.4f, 500, 220);
+    createSprite(headerShopSprite, headerShopTexture, 0.5f,0.5f, 595, 210);
 
     Color grey(200,200,200);
     createText(chooseNumberText, grey, Color::Black, "", 0.9f,0.9f, 532,292);
 
     oneSprites.push_back(new Sprite());
-    oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(530, 395);
-    oneSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*oneSprites.back(), oneTexture, 0.5f,0.5f, 530, 395);
 
     twoSprites.push_back(new Sprite());
-    twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(580, 395);
-    twoSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*twoSprites.back(), twoTexture, 0.5f,0.5f, 580, 395);
 
     threeSprites.push_back(new Sprite());
-    threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(630, 395);
-    threeSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*threeSprites.back(), threeTexture, 0.5f,0.5f, 630, 395);
 
     fourSprites.push_back(new Sprite());
-    fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(680, 395);
-    fourSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*fourSprites.back(), fourTexture, 0.5f,0.5f, 680, 395);
 
     fiveSprites.push_back(new Sprite());
-    fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(730, 395);
-    fiveSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*fiveSprites.back(), fiveTexture, 0.5f,0.5f, 730, 395);
 
     sixSprites.push_back(new Sprite());
-    sixSprites.back()->setTexture(sixTexture);
-    sixSprites.back()->setPosition(780, 395);
-    sixSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*sixSprites.back(), sixTexture, 0.5f,0.5f, 780, 395);
 
     sevenSprites.push_back(new Sprite());
-    sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(830, 395);
-    sevenSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*sevenSprites.back(), sevenTexture, 0.5f,0.5f, 830, 395);
 
-    closeButtonSprite.setTexture(closeButtonTexture);
-    closeButtonSprite.setPosition(865, 210);
-    closeButtonSprite.setScale(0.35f,0.35f);
+    createSprite(closeButtonSprite, closeButtonTexture, 0.35f,0.35f, 865, 210);
 
     /// Numbers to display under tower while choosing emplacement for tower
     oneSprites.push_back(new Sprite());
-    oneSprites.back()->setTexture(oneTexture);
-    oneSprites.back()->setPosition(170, 505);
-    oneSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*oneSprites.back(), oneTexture, 0.5f,0.5f, 170, 505);
 
     twoSprites.push_back(new Sprite());
-    twoSprites.back()->setTexture(twoTexture);
-    twoSprites.back()->setPosition(430, 505);
-    twoSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*twoSprites.back(), twoTexture, 0.5f,0.5f, 430, 505);
 
     threeSprites.push_back(new Sprite());
-    threeSprites.back()->setTexture(threeTexture);
-    threeSprites.back()->setPosition(730, 505);
-    threeSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*threeSprites.back(), threeTexture, 0.5f,0.5f, 730, 505);
 
     fourSprites.push_back(new Sprite());
-    fourSprites.back()->setTexture(fourTexture);
-    fourSprites.back()->setPosition(1060, 505);
-    fourSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*fourSprites.back(), fourTexture, 0.5f,0.5f, 1060, 505);
 
     fiveSprites.push_back(new Sprite());
-    fiveSprites.back()->setTexture(fiveTexture);
-    fiveSprites.back()->setPosition(100, 750);
-    fiveSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*fiveSprites.back(), fiveTexture, 0.5f,0.5f, 100, 750);
 
     sixSprites.push_back(new Sprite());
-    sixSprites.back()->setTexture(sixTexture);
-    sixSprites.back()->setPosition(360, 750);
-    sixSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*sixSprites.back(), sixTexture, 0.5f,0.5f, 360, 750);
 
     sevenSprites.push_back(new Sprite());
-    sevenSprites.back()->setTexture(sevenTexture);
-    sevenSprites.back()->setPosition(1050, 750);
-    sevenSprites.back()->setScale(0.5f,0.5f);
+    createSprite(*sevenSprites.back(), sevenTexture, 0.5f,0.5f, 1050, 750);
 }
 void vResourceManager::loadStatsPlayerEntities()
 {
     /// player gems
     signSprites.push_back(new Sprite());
-    signSprites.back()->setTexture(bigTableTexture);
-    signSprites.back()->setPosition(504, 10);
-    signSprites.back()->setScale(0.3f,0.3f);
-
+    createSprite(*signSprites.back(), bigTableTexture, 0.3f,0.3f, 504, 10);
     gemSprites.push_back(new Sprite());
-    gemSprites.back()->setTexture(gemTexture);
-    gemSprites.back()->setPosition(595,34);
-    gemSprites.back()->setScale(0.36f,0.36f);
+    createSprite(*gemSprites.back(), gemTexture, 0.36f,0.36f, 595,34);
     createText(playerGemsNumberText, Color::Yellow, Color::Black, "0", 1.f,1.f, 635,28);
 
     /// wave number
@@ -577,6 +439,26 @@ void vResourceManager::loadSprite()
     messagePopUpText.setFillColor(Color::Black);
     messagePopUpText.setScale(0.5f,0.5f);
     messagePopUpText.setPosition(Vector2f(1243,223));
+}
+
+/** Configures a text that will be displayed on the screen afterwards*/
+void vResourceManager::createText(Text& text, Color colorFill, Color colorOutline, string str, float xScale, float yScale, int xPosition, int yPosition)
+{
+    text.setFont(font);
+    text.setFillColor(colorFill);
+    text.setOutlineColor(colorOutline);
+    text.setOutlineThickness(1.2f);
+    text.setString(str);
+    text.setScale(xScale,yScale);
+    text.setPosition(xPosition,yPosition);
+}
+
+/** Configures a sprite that will be displayed on the screen afterwards*/
+void vResourceManager::createSprite(sf::Sprite& sprite, sf::Texture& texture, float xScale, float yScale, int xPosition, int yPosition)
+{
+    sprite.setTexture(texture);
+    sprite.setScale(xScale,yScale);
+    sprite.setPosition(xPosition,yPosition);
 }
 
 /**to verify if all images is accessible and charge in the texture*/
