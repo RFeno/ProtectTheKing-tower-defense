@@ -297,9 +297,9 @@ class vGameBoard
         sf::Sprite *headerFailedSprite;
         sf::Sprite *backgroundSprite;
 
-         ///Failed texts
-         sf::Text enemiesKilledText;
-         sf::Text enemiesKilledNumberText;
+        ///Failed texts
+        sf::Text enemiesKilledText;
+        sf::Text enemiesKilledNumberText;
 
         std::vector<sf::Sprite*> swordSprites;
         std::vector<sf::Sprite*> gemSprites;
@@ -312,7 +312,7 @@ class vGameBoard
         std::vector<sf::Sprite*> sixSprites;
         std::vector<sf::Sprite*> sevenSprites;
 
-        /**A déplacer */
+        /**utils */
         sf::Texture *tableEmptyTexture;
 };
 

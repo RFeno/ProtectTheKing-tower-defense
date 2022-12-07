@@ -119,8 +119,8 @@ class Game
     protected:
 
     private:
-        /** on fait une AIP car pour nous le joueur(player) ainsi que la carte(map)
-        ne sont pas acccessible autre part que via le jeu (game) */
+        /** we make an AIP because for us the player (player) as well as the map (map)
+        are not accessible other than via the game (game) */
         Player *player;
         Map *mapOfGame;
         const int numberOfEnemies = 10;

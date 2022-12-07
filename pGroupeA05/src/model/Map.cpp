@@ -583,7 +583,7 @@ Map* Map::clone()const
     return new Map(*this);
 }
 
-/** confrontation between towers enemy */
+/** confrontation between towers and enemies */
 void Map::confrontationTowersEnemies()
 {
     for(Tower *tower:listOfTower)
@@ -607,6 +607,16 @@ void Map::confrontationTowersEnemies()
     }
 }
 
+/** confrontation between enemies and king */
+void Map::confrontationEnemiesKing()
+{
+    for(Enemies *enemy: listOfEnemies)
+    {
+        enemy->attackKing(*king);
+    }
+}
+
+/** depending on the type of the tower, returns half its size to calculate the range*/
 int Map::getMiddlePositionOfTower(Tower &tower)
 {
     if(dynamic_cast<TowerEarth*>(&tower))

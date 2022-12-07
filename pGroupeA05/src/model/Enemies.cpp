@@ -53,7 +53,7 @@ Enemies::Enemies(const Enemies& other): health(other.health),marketValue(other.m
     {
         if(dynamic_cast<StateAttack*>(other.getState()))
         {
-            changeState(new StateWalk);
+            changeState(new StateAttack);
         }
         else
         {
@@ -96,7 +96,6 @@ void Enemies::changeState(State *state)
     {
         delete this->state;
     }
-
     this->state = state;
     this->state->setEnemy(this);
 }

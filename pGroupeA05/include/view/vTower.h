@@ -28,22 +28,22 @@ class vTower
         sf::Texture *towerTexture = nullptr;
         sf::Texture *attackTexture = nullptr;
 
-        sf::Sprite* getSprite()
+        sf::Sprite* getSprite()const
         {
             return towerSprite;
         }
 
-        sf::Sprite* getAttackSprite()
+        sf::Sprite* getAttackSprite()const
         {
             return attackSprite;
         }
 
-        /*int getX()
+        int getX()const
         {
             return x;
         }
 
-        int getY()
+        int getY()const
         {
             return y;
         }
@@ -56,7 +56,7 @@ class vTower
         void setY(int y)
         {
             this->y=y;
-        }*/
+        }
 
     protected:
 };

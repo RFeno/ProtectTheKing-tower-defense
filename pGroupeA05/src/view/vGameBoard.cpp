@@ -467,10 +467,6 @@ void vGameBoard::enemyAnimation()
 /** play once, update model of game */
 void vGameBoard::updateGame()
 {
-//    cout << game.getMap()->strEnemies() << endl;
-//    cout << game.getMap()->getKing().getInformations() << endl;
-//    cout << game.getMap()->strTowers() <<endl;
-
     ///update player stats when enemy dies
     game.increasePlayerStatsWhenEnemyKilled();
     playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
@@ -525,15 +521,18 @@ void vGameBoard::updateGame()
             attackTowerClock.restart();
         }
 
+        ///attack of enemies
         if(attackClock.getElapsedTime().asSeconds() > (0.5f / game.getGameSpeed()))
         {
-            for(Enemies *enemy: game.getMap()->getEnemies())
-            {
-                enemy->attackKing(game.getMap()->getKing());
+            //update King Health
+            updateKingHealth();
 
-                //update King Health
-                updateKingHealth();
-            }
+            game.getMap()->confrontationEnemiesKing();
+
+            updateKingHealth();
+
+
+
             attackClock.restart();
         }
 
@@ -842,10 +841,6 @@ void vGameBoard::drawEnemies()
                 }
             }
         }
-
-
-
-
     }
 }
 

@@ -71,19 +71,13 @@ void vMainMenu::InputHandler(Event event)
 void vMainMenu::loadSprite()
 {
     //adding texture to sprite
-    musiqueOnSprite.setTexture(musiqueOnTexture);
-    musiqueOffSprite.setTexture(musiqueOffTexture);
-    settingsSprite.setTexture(settingsTexture);
     playSprite.setTexture(playTexture);
     bgSprite.setTexture(bgTexture);
     logoSprite.setTexture(logoTexture);
 
     //set positions
     playSprite.setPosition(sf::Vector2f(600, 600));
-    settingsSprite.setPosition(sf::Vector2f(1230, 15));
     logoSprite.setPosition(sf::Vector2f(340, 150));
-    musiqueOnSprite.setPosition(Vector2f(0, 15));
-    musiqueOnSprite.setPosition(Vector2f(0, 15));
 
     //change widht
     playSprite.setScale(0.5f, 0.5f);
@@ -99,25 +93,6 @@ bool vMainMenu::verifyImage()
         cout << "ERROR chargement texture" << endl;
         return false;
     }
-
-    if(!musiqueOnTexture.loadFromFile("res/images/menu/button_music.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!musiqueOffTexture.loadFromFile("res/images/menu/button_music_off.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
-    if(!settingsTexture.loadFromFile("res/images/menu/button_settings.png"))
-    {
-        cout << "ERROR chargement texture" << endl;
-        return false;
-    }
-
 
     if (!playTexture.loadFromFile("res/images/menu/button_play.png"))
     {
@@ -139,8 +114,6 @@ void vMainMenu::drawEntities()
 {
     //display elemeents
     windowFromMain->draw(bgSprite);
-    windowFromMain->draw(musiqueOnSprite);
-    windowFromMain->draw(settingsSprite);
     windowFromMain->draw(logoSprite);
     windowFromMain->draw(playSprite);
 }

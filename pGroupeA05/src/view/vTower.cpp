@@ -74,6 +74,9 @@ void vTower::chargeInformations(Tower *tower)
     }
 
     towerSprite->setPosition(x, y);
+
+    //because it's a clone
+    delete tower;
 }
 
 int vTower::calculateMiddlePosition()

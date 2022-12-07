@@ -43,10 +43,11 @@ class Map
         void calculPositionOfSand(int position);
         bool isAllPlacesOccupied();
         void confrontationTowersEnemies();
+        void confrontationEnemiesKing();
         int getMiddlePositionOfTower(Tower &tower);
 
+
         //getters and setters
-        //pointeurs ou référence
         std::vector<Tower*> getTowers()const
         {
             return listOfTower;

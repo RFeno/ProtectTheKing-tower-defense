@@ -3,7 +3,6 @@
 
 #include "Spell.h"
 
-
 class AcidCloudSpell : public Spell
 {
     public:
