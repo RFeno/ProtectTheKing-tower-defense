@@ -37,7 +37,6 @@ vGameBoard::vGameBoard(RenderWindow &window)
 vGameBoard::~vGameBoard()
 {
     //dtor
-
 }
 
 /** allow to run and launch view game */
@@ -78,10 +77,10 @@ void vGameBoard::launchView()
 void vGameBoard::updateVennemyForView()
 {
     //bind enemy on model to sprite on screen
+    //bind because AIP
     for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
     {
-        listOfvEnnemies[i]->setEnemy(game.getMap()->getEnemies()[i]);
-        listOfvEnnemies[i]->chargeInformations();
+        listOfvEnnemies[i]->chargeInformations(game.getMap()->getEnemies()[i]->clone());
     }
 }
 
@@ -92,12 +91,13 @@ int vGameBoard::searchVTower(int position)
 
     for(size_t i=0;i<listOfvTower.size();i++)
     {
-        if(listOfvTower[i]->getTower()->getPosition() == position)
+        if(game.getMap()->getTowers()[i]->getPosition() == position)
         {
             result=i;
             break;
         }
     }
+
     return result;
 }
 
@@ -125,15 +125,17 @@ bool vGameBoard::removeVTower(int position)
 void vGameBoard::sellTower(int position)
 {
     isChoosingNumberForPositionTower = false;
-    for(vTower* vt : listOfvTower)
+
+    for(int i=0;i<(int)game.getMap()->getTowers().size();i++)
     {
-        if(vt->getTower()->getPosition() == position)
+        if(game.getMap()->getTowers()[i]->getPosition() == position)
         {
-            game.creditPlayerWallet(vt->getTower()->getType() * 0.5f);
+            game.creditPlayerWallet(game.getMap()->getTowers()[i]->getType() * 0.5f);
             playerGemsNumberText.setString(to_string(game.getPlayer()->getCoins()));
-            game.getMap()->removeTower(*vt->getTower());
+            game.getMap()->removeTower(*game.getMap()->getTowers()[i]);
         }
     }
+
     removeVTower(position);
     isSellingTower = false;
 }
@@ -478,9 +480,9 @@ void vGameBoard::enemyAnimation()
 /** play once, update model of game */
 void vGameBoard::updateGame()
 {
-//    cout << game.getMap()->strEnemies() << endl;
-//    cout << game.getMap()->getKing().getInformations() << endl;
-//    cout << game.getMap()->strTowers() <<endl;
+    cout << game.getMap()->strEnemies() << endl;
+    cout << game.getMap()->getKing().getInformations() << endl;
+    cout << game.getMap()->strTowers() <<endl;
 
     ///update player stats when enemy dies
     game.increasePlayerStatsWhenEnemyKilled();
@@ -492,10 +494,11 @@ void vGameBoard::updateGame()
     if(game.isEndOfWave())
     {
         //desactivate all animations for tower
-        for(vTower *vtower:listOfvTower)
+        for(Tower *tower:game.getMap()->getTowers())
         {
-            vtower->getTower()->setAttacking(false);
+            tower->setAttacking(false);
         }
+
         //delete and create and improve enemies
         game.refreshEnemies();
 
@@ -509,7 +512,7 @@ void vGameBoard::updateGame()
     ///enemies spawn one per one
     if(spawnClock.getElapsedTime().asSeconds() > (Game::spawnTime / game.getGameSpeed()) && game.getNumberOfEnemiesSpawned() < (int)listOfvEnnemies.size())
     {
-        listOfvEnnemies[game.getNumberOfEnemiesSpawned()]->getEnemy()->setSpawn(true);
+        game.getMap()->getEnemies()[game.getNumberOfEnemiesSpawned()]->setSpawn(true);
 
         game.increaseNumberOfEnemiesSpawned();
 
@@ -531,33 +534,10 @@ void vGameBoard::updateGame()
         ///attack of towers
         if(attackTowerClock.getElapsedTime().asSeconds() > (0.06f / game.getGameSpeed()))
         {
-            for(vTower *vtower: listOfvTower)
-            {
-                for(Enemies *enemy: game.getMap()->getEnemies())
-                {
-
-                    ///allow to change tower mode of attacking only is the enemy is in range
-                    if(vtower->getTower()->isInRange(enemy->getX(),vtower->calculateMiddlePosition()))
-                    {
-
-                        ///allow to attack only if the enemy is the first and the farthest
-                        if(game.getMap()->getFirstEnemyNotDead(*vtower->getTower(),vtower->calculateMiddlePosition()) == game.getMap()->searchEnemy(*enemy))
-                        {
-                            vtower->getTower()->setAttacking(true);
-                            vtower->getTower()->attackEnemy(*enemy);
-                        }
-                        else
-                        {
-                            vtower->getTower()->setAttacking(false);
-                        }
-
-                    }
-                }
-            }
+            game.getMap()->confrontationTowersEnemies();
             attackTowerClock.restart();
         }
 
-        /** GERER ICI LE TEMPS ENTRE 2 ATTACK DES ENNEMIS SUR LE ROI */
         if(attackClock.getElapsedTime().asSeconds() > (0.5f / game.getGameSpeed()))
         {
             for(Enemies *enemy: game.getMap()->getEnemies())
@@ -590,13 +570,21 @@ void vGameBoard::updateKingHealth()
 /**update health bar of all enemies who are not dead **/
 void vGameBoard::updateHealthBarAllEnemies()
 {
-    for(vEnnemy *venemy:listOfvEnnemies)
+
+
+    for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
+    {
+        listOfvEnnemies[i]->updateHealth(game.getMap()->getEnemies()[i]->clone());
+    }
+
+    /*for(Enemies* enemy:game.getMap().getEnemies())
     {
         if(!dynamic_cast<StateDie*>(venemy->getEnemy()->getState()))
         {
-            venemy->updateHealth();
+
+            venemy->
         }
-    }
+    }*/
 }
 
 /** to draw the entitties in the window */
@@ -617,7 +605,7 @@ void vGameBoard::drawEntities()
         ///towers 1 to 4
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getTower()->getPosition() < 4)
+            if(game.getMap()->getTowers()[i]->getPosition() -1 < 4)
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
@@ -631,7 +619,7 @@ void vGameBoard::drawEntities()
         ///towers 5 to 7
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getTower()->getPosition() >= 4)
+            if(game.getMap()->getTowers()[i]->getPosition() -1 >= 4)
             {
                 windowFromMain->draw(*(listOfvTower[i]->getSprite()));
             }
@@ -640,7 +628,7 @@ void vGameBoard::drawEntities()
         /// attack animations of towers
         for(int i = 0; i < (int)listOfvTower.size(); i++)
         {
-            if(listOfvTower[i]->getTower()->isAttacking() == true)
+            if(game.getMap()->getTowers()[i]->isAttacking())
             {
                 windowFromMain->draw(*(listOfvTower[i]->getAttackSprite()));
             }
@@ -829,55 +817,59 @@ void vGameBoard::drawEnemies()
     //allows you to draw some enemies before others
     for(int i=0;i<Enemies::NUMBER_OF_ENEMY_TYPES;i++)
     {
-        for(vEnnemy* enemy: listOfvEnnemies)
+        for(int j=0;j<(int)game.getMap()->getEnemies().size();j++)
         {
-            if(enemy->getEnemy()->isSpawn() && !dynamic_cast<StateDie*>(enemy->getEnemy()->getState()))
+            if(game.getMap()->getEnemies()[j]->isSpawn() && !dynamic_cast<StateDie*>(game.getMap()->getEnemies()[j]->getState()))
             {
                 switch(i)
                 {
                     case 0:
                     {
-                        if(dynamic_cast<Orc*>(enemy->getEnemy()))
+                        if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[j]))
                         {
-                           drawOneEnemy(enemy);
+                           drawOneEnemy(listOfvEnnemies[j]);
                         }
                         break;
                     }
                     case 1:
                     {
-                        if(dynamic_cast<Gremlin*>(enemy->getEnemy()))
+                        if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[j]))
                         {
-                            drawOneEnemy(enemy);
+                            drawOneEnemy(listOfvEnnemies[j]);
                         }
                         break;
                     }
                     case 2:
                     {
-                        if(dynamic_cast<ShadowMonster*>(enemy->getEnemy()))
+                        if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[j]))
                         {
-                           drawOneEnemy(enemy);
+                           drawOneEnemy(listOfvEnnemies[j]);
                         }
                         break;
                     }
                     case 3:
                     {
-                        if(dynamic_cast<Ogre*>(enemy->getEnemy()))
+                        if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[j]))
                         {
-                           drawOneEnemy(enemy);
+                           drawOneEnemy(listOfvEnnemies[j]);
                         }
                         break;
                     }
                     case 4:
                     {
-                        if(dynamic_cast<KnightOfDeath*>(enemy->getEnemy()))
+                        if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[j]))
                         {
-                            drawOneEnemy(enemy);
+                            drawOneEnemy(listOfvEnnemies[j]);
                         }
                         break;
                     }
                 }
             }
         }
+
+
+
+
     }
 }
 
@@ -997,23 +989,23 @@ void vGameBoard::adaptAnimationSprite()
     ///ENEMIES
     for(int i = 0; i<(int)listOfvEnnemies.size();i++)
     {
-        if(dynamic_cast<Ogre*>(listOfvEnnemies[i]->getEnemy()))
+        if(dynamic_cast<Ogre*>(game.getMap()->getEnemies()[i]))
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Ogre*OGRE_WIDTH,y_Ogre*OGRE_HEIGHT,OGRE_WIDTH,OGRE_HEIGHT));
         }
-        else if(dynamic_cast<Orc*>(listOfvEnnemies[i]->getEnemy()))
+        else if(dynamic_cast<Orc*>(game.getMap()->getEnemies()[i]))
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_Orc*ORC_WIDTH,y_Orc*ORC_HEIGHT,ORC_WIDTH,ORC_HEIGHT));
         }
-        else if(dynamic_cast<ShadowMonster*>(listOfvEnnemies[i]->getEnemy()))
+        else if(dynamic_cast<ShadowMonster*>(game.getMap()->getEnemies()[i]))
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_shadowMonster*SHADOWMONSTER_WIDTH,y_shadowMonster*SHADOWMONSTER_HEIGHT,SHADOWMONSTER_WIDTH,SHADOWMONSTER_HEIGHT));
         }
-        else if(dynamic_cast<KnightOfDeath*>(listOfvEnnemies[i]->getEnemy()))
+        else if(dynamic_cast<KnightOfDeath*>(game.getMap()->getEnemies()[i]))
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_knight*KNIGHTOFDEATH_WIDTH,y_knight*KNIGHTOFDEATH_HEIGHT,KNIGHTOFDEATH_WIDTH,KNIGHTOFDEATH_HEIGHT));
         }
-        else if(dynamic_cast<Gremlin*>(listOfvEnnemies[i]->getEnemy()))
+        else if(dynamic_cast<Gremlin*>(game.getMap()->getEnemies()[i]))
         {
             listOfvEnnemies[i]->getSprite()->setTextureRect(IntRect(x_gremlin*GREMLIN_WIDTH,y_gremlin*GREMLIN_HEIGHT,GREMLIN_WIDTH,GREMLIN_HEIGHT));
         }
@@ -1125,9 +1117,9 @@ void vGameBoard::adaptAnimationTexture()
     //adapt the texture of only dead enemies to save resources
     for(int i=0;i < (int)listOfvEnnemies.size();i++)
     {
-        if(!dynamic_cast<StateDie*>(listOfvEnnemies[i]->getEnemy()->getState()))
+        if(!dynamic_cast<StateDie*>(game.getMap()->getEnemies()[i]->getState()))
         {
-            listOfvEnnemies[i]->updateTexture();
+            listOfvEnnemies[i]->updateTexture(game.getMap()->getEnemies()[i]);
         }
     }
 }
@@ -1143,8 +1135,11 @@ void vGameBoard::activeMessagePopUp(std::string message)
 /** buy the tower*/
 void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
 {
+    cout << "but this mec " << endl;
+
     bool positionAlreadyUsed = game.getMap()->isTowerPositonAlreadyUsed(position);
 
+    /**clone when add because AIP */
     if(!positionAlreadyUsed)
     {
         switch(type)
@@ -1152,40 +1147,40 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
             case earth:
             {
                 game.getMap()->addTower(earth,position);
-                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower());
                 vtower->towerTexture = &resourceManager.earthTowerTexture1;
                 vtower->attackTexture = &resourceManager.earthAttack;
-                vtower->chargeInformations();
+                vtower->chargeInformations(game.getMap()->getTowers().back()->clone());
                 listOfvTower.push_back(vtower);
                 break;
             }
             case ice:
             {
                 game.getMap()->addTower(ice,position);
-                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower());
                 vtower->towerTexture = &resourceManager.iceTowerTexture1;
                 vtower->attackTexture = &resourceManager.iceAttack;
-                vtower->chargeInformations();
+                vtower->chargeInformations(game.getMap()->getTowers().back()->clone());
                 listOfvTower.push_back(vtower);
                 break;
             }
             case iron:
             {
                 game.getMap()->addTower(iron,position);
-                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower());
                 vtower->towerTexture = &resourceManager.ironTowerTexture1;
                 vtower->attackTexture = &resourceManager.ironAttack;
-                vtower->chargeInformations();
+                vtower->chargeInformations(game.getMap()->getTowers().back()->clone());
                 listOfvTower.push_back(vtower);
                 break;
             }
             case sand:
             {
                 game.getMap()->addTower(sand,position);
-                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower(),game.getMap()->getTowers().back());
+                vTower *vtower = new vTower(game.getMap()->getXOftheNextTower(),game.getMap()->getYOftheNextTower());
                 vtower->towerTexture = &resourceManager.sandTowerTexture1;
                 vtower->attackTexture = &resourceManager.sandAttack;
-                vtower->chargeInformations();
+                vtower->chargeInformations(game.getMap()->getTowers().back()->clone());
                 listOfvTower.push_back(vtower);
 
                 break;

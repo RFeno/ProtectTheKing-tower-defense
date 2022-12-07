@@ -314,10 +314,6 @@ class vGameBoard
 
         /**A déplacer */
         sf::Texture *tableEmptyTexture;
-
-
-
-
 };
 
 #endif // VGAMEBOARD_H
