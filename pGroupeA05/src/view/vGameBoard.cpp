@@ -1165,6 +1165,11 @@ void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
 
                 break;
             }
+            case none:
+                {
+                    cout << "this type of tower cannot be instancied" << endl;
+                    break;
+                }
         }
         //type = price of tower
         game.debitPlayerWallet(type);
