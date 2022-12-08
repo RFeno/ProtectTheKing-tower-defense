@@ -190,6 +190,7 @@ void vEnnemy::updateTexture(Enemies *enemy)
     delete enemy;
 }
 
+/**update the health bar of the sprite */
 void vEnnemy::updateHealth(Enemies *enemy)
 {
     double healthMax = enemy->getHealthMax();

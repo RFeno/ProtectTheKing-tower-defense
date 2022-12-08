@@ -54,7 +54,7 @@ class vGameBoard
         void updateHealthBarAllEnemies();
         void enemyAnimation();
         void displayEnd();
-        void changeStatsPosition(bool isGameOver);
+        void changeStatsPosition();
 
 
         ///TOWERS

@@ -222,7 +222,6 @@ class vResourceManager
         sf::Texture tableEmptyTexture;
 
         std::vector<vEnnemy*> listOfvEnnemies;
-        std::vector<vTower*> listOfvTower;
         std::vector<sf::Sprite*> listOfAcideCloudSpell;
         std::vector<sf::Sprite*> listOfFireSpell;
         std::vector<sf::Sprite*> listOfLigntningSpell;

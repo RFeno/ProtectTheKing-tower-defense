@@ -37,13 +37,13 @@ Player& Player::operator=(const Player& rhs)
     return *this;
 }
 
-/** this method add score of player score */
+/** this method add score to player score */
 void Player::addScore(int ScoreToAdd)
 {
     setScore(score+ScoreToAdd);
 }
 
-/** if the spell */
+/** if the type of spell is in the list of player, use the spell and after remove */
 bool Player::activeSpell(TypeOfSpell type,vector<Enemies*> listOfEnemies)
 {
     if(useAndRemoveSpell(type,listOfEnemies))
@@ -53,17 +53,15 @@ bool Player::activeSpell(TypeOfSpell type,vector<Enemies*> listOfEnemies)
     return false;
 }
 
-/** use the spell to cause damage and then remove the spell in th list of spell of player*/
+/** use the spell to cause damage and then remove the spell in the list of spell of player*/
 bool Player::useAndRemoveSpell(TypeOfSpell type,vector<Enemies*> listOfEnemies)
 {
     int index = searchSpellByType(type);
 
     if(index!=-1)
     {
-
         ///USE
         listOfSpells[index]->attackEnemies(listOfEnemies);
-
 
         ///REMOVE
         Spell *tmp = *(listOfSpells.begin() + index);
@@ -165,6 +163,7 @@ void Player::clearListOfSpells()
     listOfSpells.clear();
 }
 
+/** return a clone of player */
 Player* Player::clone()const
 {
     return new Player(*this);

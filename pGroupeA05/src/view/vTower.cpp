@@ -36,10 +36,10 @@ vTower& vTower::operator=(const vTower& rhs)
     return *this;
 }
 
+/** charges informations for vTower */
 void vTower::chargeInformations(Tower *tower)
 {
     towerSprite->setTexture(*towerTexture);
-    bulletSprite.setTexture(*attackTexture);
     attackSprite->setTexture(*attackTexture);
     towerSprite->setScale(0.9f,0.9f);
 
@@ -79,6 +79,7 @@ void vTower::chargeInformations(Tower *tower)
     delete tower;
 }
 
+/** calculate the middle position of the vTower */
 int vTower::calculateMiddlePosition()
 {
     return towerTexture->getSize().x / 2 ;

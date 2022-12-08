@@ -88,12 +88,6 @@ bool Tower::improveLevel()
     }
 }
 
-/** improve the statistics */
-void Tower::improveStatistics()
-{
-    this->damage=(damage*0.5);
-}
-
 /** show the state of the tower */
 string Tower::toString()const
 {

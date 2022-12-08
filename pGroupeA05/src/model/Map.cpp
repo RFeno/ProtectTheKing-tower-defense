@@ -62,7 +62,6 @@ Map::Map(const Map& other): xOfTheNextTower(other.xOfTheNextTower), yOfTheNextTo
     {
         listOfTower.push_back(tower->clone());
     }
-
 }
 
 Map& Map::operator=(const Map& rhs)
@@ -98,7 +97,7 @@ Map& Map::operator=(const Map& rhs)
     //assignment operator
     return *this;
 }
-
+/** return the state of enemies (informations) */
 string Map::strEnemies()const
 {
     string result ="list of enemies\n[\n";
@@ -109,6 +108,7 @@ string Map::strEnemies()const
     return result+="]";
 }
 
+/** return the state of towers (informations) */
 string Map::strTowers()const
 {
     string result ="list of towers\n[\n";
@@ -276,6 +276,7 @@ void Map::improveAllEnemies(int numeroOfWave)
         enemy->improveStatistics(numeroOfWave);
     }
 }
+
 /**return the first enemy not dead and who is the who is the closest to the king and too in range of tower,
 that is to say the farthest on the map else return -1
 take in parameter the tower which wants to attack as well as the middle of the size of the image of the tower*/
@@ -512,47 +513,47 @@ void Map::calculPositionOfSand(int position)
     switch(position-1)
     {
         case 0:
-            {
-                xOfTheNextTower=100;
-                yOfTheNextTower=305;
-                break;
-            }
+        {
+            xOfTheNextTower=100;
+            yOfTheNextTower=305;
+            break;
+        }
         case 1:
-            {
-                xOfTheNextTower=360;
-                yOfTheNextTower=305;
-                break;
-            }
+        {
+            xOfTheNextTower=360;
+            yOfTheNextTower=305;
+            break;
+        }
         case 2:
-            {
-                xOfTheNextTower=660;
-                yOfTheNextTower=305;
-                break;
-            }
+        {
+            xOfTheNextTower=660;
+            yOfTheNextTower=305;
+            break;
+        }
         case 3:
-            {
-                xOfTheNextTower=990;
-                yOfTheNextTower=305;
-                break;
-            }
+        {
+            xOfTheNextTower=990;
+            yOfTheNextTower=305;
+            break;
+        }
         case 4:
-            {
-                xOfTheNextTower=40;
-                yOfTheNextTower=540;
-                break;
-            }
+        {
+            xOfTheNextTower=40;
+            yOfTheNextTower=540;
+            break;
+        }
         case 5:
-            {
-                xOfTheNextTower=300;
-                yOfTheNextTower=540;
-                break;
-            }
+        {
+            xOfTheNextTower=300;
+            yOfTheNextTower=540;
+            break;
+        }
         case 6:
-            {
-                xOfTheNextTower=975;
-                yOfTheNextTower=540;
-                break;
-            }
+        {
+            xOfTheNextTower=975;
+            yOfTheNextTower=540;
+            break;
+        }
     }
 }
 

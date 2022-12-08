@@ -5,12 +5,12 @@ using namespace std;
 
 void StateDie::walk()
 {
-    //cout << "impossible the enemy is die, he canno't walk" << endl;
+    //impossible the enemy is die, he canno't walk
 }
 
 void StateDie::attackKing(King &king)
 {
-    //cout << "impossible the enemy is die, he canno't attack" << "ENNEMY => " << enemy->getInformations() << endl;
+    //impossible the enemy is die, he canno't attack
 }
 
 void StateDie::die()

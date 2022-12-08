@@ -7,7 +7,7 @@ using namespace std;
 
 void StateAttack::walk()
 {
-    //cout << "impossible the enemy is in attack mode, he canno't attack and walk at the same time" << endl;
+    //impossible the enemy is in attack mode, he canno't attack and walk at the same time
 }
 void StateAttack::attackKing(King &king)
 {

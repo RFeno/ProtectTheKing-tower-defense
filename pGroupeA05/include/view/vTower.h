@@ -11,8 +11,6 @@ class vTower
         int y;
         sf::Sprite* towerSprite;
         sf::Sprite* attackSprite;
-        sf::Sprite bulletSprite;
-        sf::Clock bulletClock;
 
     public:
 

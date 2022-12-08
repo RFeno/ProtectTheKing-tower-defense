@@ -14,7 +14,6 @@ class King
 
         const static int xKing = 1200;
 
-
         int getHealth()
         {
             return health;
@@ -29,8 +28,6 @@ class King
         void receiveDamage(int damage);
         King *clone()const;
         std::string getInformations()const;
-
-
 
     protected:
 

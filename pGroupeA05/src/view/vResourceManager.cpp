@@ -92,12 +92,6 @@ vResourceManager::~vResourceManager()
         delete lightning;
     }
 
-    ///TOWERS
-    for(vTower *vTower: listOfvTower)
-    {
-        delete vTower;
-    }
-
     ///INFORMATIONS AND DIGITS
     for(Sprite *gem: gemSprites)
     {

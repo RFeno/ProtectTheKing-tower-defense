@@ -37,6 +37,13 @@ vGameBoard::vGameBoard(RenderWindow &window)
 vGameBoard::~vGameBoard()
 {
     //dtor
+    ///TOWERS
+    for(vTower *vTower: listOfvTower)
+    {
+        delete vTower;
+    }
+
+    //ressources manager delete enemies and utils
 }
 
 /** allow to run and launch view game */
@@ -77,7 +84,7 @@ void vGameBoard::launchView()
 void vGameBoard::updateVennemyForView()
 {
     //bind enemy on model to sprite on screen
-    //bind because AIP
+    //clone because AIP
     for(int i=0;i<(int)game.getMap()->getEnemies().size();i++)
     {
         listOfvEnnemies[i]->chargeInformations(game.getMap()->getEnemies()[i]->clone());
@@ -286,7 +293,7 @@ void vGameBoard::InputHandler(Event event)
         }
     }
 }
-
+/** detect the events of buttons to manage the speed of the game*/
 void vGameBoard::eventsGameSpeed()
 {
     if(isSpriteClicked(*pauseButtonSprite))
@@ -344,6 +351,7 @@ void vGameBoard::eventsChoiceTowers()
     }
 }
 
+/** event to active which towers the player want to buy*/
 void vGameBoard::eventsActiveTowersChoice(TypeOfTowerPrice type)
 {
     if(!game.getMap()->isAllPlacesOccupied())
@@ -418,7 +426,7 @@ void vGameBoard::eventsSpells()
     lightningStockNumberText.setString(to_string(game.getPlayer()->getLightningNumber()));
 }
 
-/***/
+/**event to buy the spell and debit the player wallet*/
 void vGameBoard::eventsActiveSpell(TypeOfSpell type)
 {
     //type == (type and price)
@@ -531,8 +539,6 @@ void vGameBoard::updateGame()
 
             updateKingHealth();
 
-
-
             attackClock.restart();
         }
 
@@ -546,6 +552,7 @@ void vGameBoard::updateGame()
 /** Update the health bar of king */
 void vGameBoard::updateKingHealth()
 {
+    //we thought there was no need to clone because we just recover the value of his health
     double kingHealthMax = game.getMap()->getKing().getKingHealthMax();
     double kingHealthReel = game.getMap()->getKing().getHealth();
     double remainingHealth = (kingHealthReel  / kingHealthMax );
@@ -623,6 +630,7 @@ void vGameBoard::drawEntities()
                 windowFromMain->draw(*sixSprites[i]);
                 windowFromMain->draw(*sevenSprites[i]);
             }
+
             windowFromMain->draw(chooseNumberText);
             windowFromMain->draw(*closeButtonSprite);
             windowFromMain->draw(*headerShopSprite);
@@ -892,7 +900,7 @@ void vGameBoard::drawGameSpeedView()
 /** draw the menu of fail */
 void vGameBoard::drawFailEntities()
 {
-    changeStatsPosition(game.isGameOver());
+    changeStatsPosition();
 
     if(game.isGameOver())
     {
@@ -912,9 +920,10 @@ void vGameBoard::drawFailEntities()
     }
 }
 
-void vGameBoard::changeStatsPosition(bool isGameOver)
+/** change the location of stats of player wher he failed */
+void vGameBoard::changeStatsPosition()
 {
-    if(isGameOver)
+    if(game.isGameOver())
     {
         gemSprites[4]->setPosition(650, 275);
         playerGemsNumberText.setPosition(690,270);
@@ -1106,9 +1115,7 @@ void vGameBoard::activeMessagePopUp(std::string message)
 /** buy the tower*/
 void vGameBoard::buyTower(TypeOfTowerPrice type, int position)
 {
-
     bool positionAlreadyUsed = game.getMap()->isTowerPositonAlreadyUsed(position);
-
 
     /**clone when add because AIP */
     if(!positionAlreadyUsed)
@@ -1177,16 +1184,15 @@ void vGameBoard::resetGameView()
 
     listOfvTower.clear();
     isChoosingNumberForPositionTower = false;
-    changeStatsPosition(game.isGameOver());
+    changeStatsPosition();
     // reset spells stock
     acidStockNumberText.setString(to_string(game.getPlayer()->getAcidNumber()));
     fireStockNumberText.setString(to_string(game.getPlayer()->getFireNumber()));
     lightningStockNumberText.setString(to_string(game.getPlayer()->getLightningNumber()));
 }
-
+/** verify if all images are accessibles and load via the resources manager*/
 bool vGameBoard::verifyImage()
 {
-    resourceManager.verifyImage();
     resourceManager.loadSprite();
     sf::Font font = resourceManager.font;
 
@@ -1384,10 +1390,6 @@ bool vGameBoard::verifyImage()
     sevenSprites = resourceManager.sevenSprites;
 
     listOfvEnnemies = resourceManager.listOfvEnnemies;
-    listOfvTower = resourceManager.listOfvTower;
-    listOfAcideCloudSpell = resourceManager.listOfAcideCloudSpell;
-    listOfFireSpell = resourceManager.listOfFireSpell;
-    listOfLigntningSpell = resourceManager.listOfLigntningSpell;
 
     return true;
 }

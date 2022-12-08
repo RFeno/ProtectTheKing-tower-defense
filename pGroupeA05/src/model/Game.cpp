@@ -135,21 +135,6 @@ void Game::ennemiesAttack()
     }
 }
 
-/** attack the enemies who is nearby (inused) */
-void Game::towerAttack()
-{
-    for(Tower* tower:mapOfGame->getTowers())
-    {
-        for(Enemies* enemy:mapOfGame->getEnemies())
-        {
-            if(tower->isInRange(enemy->getX(),0))
-            {
-                tower->attackEnemy(*enemy);
-            }
-        }
-    }
-}
-
 /** detect if is the end of wave */
 bool Game::isEndOfWave()
 {

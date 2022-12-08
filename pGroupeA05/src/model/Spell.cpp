@@ -32,6 +32,7 @@ Spell& Spell::operator=(const Spell& rhs)
     return *this;
 }
 
+/** attack all enemies in the map received as argument*/
 void Spell::attackEnemies(vector<Enemies*> listOfEnemies)
 {
     for(Enemies *enemy:listOfEnemies)

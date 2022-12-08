@@ -37,6 +37,7 @@ string Orc::getInformations()const
     return "[id: "+ to_string(*id)+"      |Orc           x:"+ to_string(x) +"    health:" + to_string(health) + "    market value:" + to_string(marketValue) + "     score value:" + to_string(scoreValue) +"  walking speed:"+to_string(walkingSpeed) + " ]";
 }
 
+/** clone the enemy */
 Orc* Orc::clone() const
 {
     return new Orc(*this);

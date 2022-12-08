@@ -26,11 +26,13 @@ KnightOfDeath& KnightOfDeath::operator=(const KnightOfDeath& rhs)
     return *this;
 }
 
+/**return the state (informations) of enemy*/
 string KnightOfDeath::getInformations()const
 {
     return "[id: "+ to_string(*id)+ "      |KnightOfDeath x:"+ to_string(x) +"    health:" + to_string(health) + "    market value:" + to_string(marketValue) + "    score value:" + to_string(scoreValue) +" walking speed:"+to_string(walkingSpeed) + "]";
 }
 
+/** return a clone of enemy */
 KnightOfDeath* KnightOfDeath::clone() const
 {
     return new KnightOfDeath(*this);

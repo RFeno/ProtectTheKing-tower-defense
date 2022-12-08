@@ -23,7 +23,6 @@ class Game
         bool isGameOver();
         void createWave();
         void ennemiesWalk();
-        void towerAttack();
         void ennemiesAttack();
         bool isEndOfWave();
         void increaseGameSpeed();
