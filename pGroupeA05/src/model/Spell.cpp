@@ -43,3 +43,9 @@ void Spell::attackEnemies(vector<Enemies*> listOfEnemies)
         }
     }
 }
+
+/** clone the spell */
+void Spell::clone()const
+{
+    return Spell(*this);
+}

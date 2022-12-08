@@ -68,14 +68,17 @@ class Player
         {
             return listOfSpells;
         }
+
          int getAcidNumber()
         {
             return acidNumber;
         }
+
         int getFireNumber()
         {
             return fireNumber;
         }
+
         int getLightningNumber()
         {
             return lightningNumber;
@@ -109,6 +112,7 @@ class Player
         int coins;
         int score;
         int numberOfEnemyKilled = 0;
+        //AIP because spell are managed and accesible by only the player
         std::vector<Spell*> listOfSpells;
         int acidNumber = 0;
         int fireNumber = 0;

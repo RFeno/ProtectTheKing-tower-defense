@@ -11,10 +11,14 @@ Player::Player(int coins, int score): coins(coins),score(score)
     //ctor
 }
 
-Player::Player(const Player& other): coins(other.coins),score(other.score)
+Player::Player(const Player& other): coins(other.coins),score(other.score), acidNumber(other.acidNumer), firNumber(other.fireNumber), lightningNumber(other.lightningNumber), numberOfEnemyKilled(other.numberOfEnemyKilled)
 {
     //copy ctor
-
+    //clone because AIP
+    for(Spell *spell:other.listOfSpells)
+    {
+        listOfSpells.push_back(spell->clone());
+    }
 }
 
 Player::~Player()
@@ -32,6 +36,23 @@ Player& Player::operator=(const Player& rhs)
 
     this->coins=rhs.coins;
     this->score=rhs.score;
+    this->acidNumber=rhs.acidNumber;
+    this->fireNumber=rhs.fireNumber;
+    this->lightningNumber=rhs.lightningNumber;
+    this->numberOfEnemyKilled=rhs.numberOfEnemyKilled;
+
+    for(Spell* spell: listOfSpells)
+    {
+        delete spell;
+    }
+
+    this->listOfSpells.clear();
+
+    //clone because AIP
+    for(Spell *spell:rhs.listOfSpells)
+    {
+        listOfSpells.push_back(spell->clone());
+    }
 
     //assignment operator
     return *this;

@@ -392,6 +392,8 @@ void vGameBoard::eventsSpells()
         eventsActiveSpell(lightning);
     }
 
+    /***ATTENTION METTRE LES CLONES */
+
     //button to active
     if(isSpriteClicked(*acideCloudSprite))
     {
