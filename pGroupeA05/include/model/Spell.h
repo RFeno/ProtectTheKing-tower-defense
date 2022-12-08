@@ -32,7 +32,6 @@ enum SizeOfSpell : int
     FIRE_HEIGHT = 909,
     LIGHTNING_WIDTH = 2398,
     LIGHTNING_HEIGHT = 909,
-
 };
 
 class Spell
@@ -42,8 +41,7 @@ class Spell
         virtual ~Spell();
         Spell(const Spell& other);
         Spell& operator=(const Spell& other);
-
-        void attackEnemies(std::vector<Enemies*> listOfEnemies);
+        Spell* clone()const;
 
     protected:
 

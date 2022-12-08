@@ -33,6 +33,7 @@ class Game
         void debitPlayerWallet(int valueOfDebit);
         void creditPlayerWallet(int valueOfCredit);
         void increasePlayerScore(int valueToAdd);
+        bool spellAttack(TypeOfSpell type, DamageOfSpell damage);
 
         Map* getMap()const
         {

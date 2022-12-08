@@ -397,8 +397,9 @@ void vGameBoard::eventsSpells()
     //button to active
     if(isSpriteClicked(*acideCloudSprite))
     {
-        cout <<  "acide cloud spell active button click" << endl;
-        if(game.getPlayer()->activeSpell(acidCloud,game.getMap()->getEnemies()))
+        cout <<  "acid cloud spell active button click" << endl;
+
+        if(game.spellAttack(acidCloud,cloudDamage))
         {
             game.setAcidCloudActive(true);
         }
@@ -406,7 +407,7 @@ void vGameBoard::eventsSpells()
     else if(isSpriteClicked(*fireSprite))
     {
         cout <<  "fire spell active button click" << endl;
-        if(game.getPlayer()->activeSpell(fire,game.getMap()->getEnemies()))
+        if(game.spellAttack(fire,fireDamage))
         {
             game.setFireActive(true);
         }
@@ -414,7 +415,7 @@ void vGameBoard::eventsSpells()
     else if(isSpriteClicked(*lightningSprite))
     {
         cout <<  "lightning spell active button click" << endl;
-        if(game.getPlayer()->activeSpell(lightning,game.getMap()->getEnemies()))
+        if(game.spellAttack(lightning,lightningDamage))
         {
             game.setLightningActive(true);
         }
@@ -453,7 +454,6 @@ bool vGameBoard::isSpriteClicked (Sprite &spr)
 	if(mousePos.x > spr.getPosition().x
 		&& mousePos.x < spr.getPosition().x + (spr.getTexture()->getSize().x * spr.getScale().x)
 		&& mousePos.y > spr.getPosition().y && mousePos.y < spr.getPosition().y + (spr.getTexture()->getSize().y * spr.getScale().y)
-		&& Mouse::isButtonPressed(Mouse::Left)
 	)
 	{
 		return true;
@@ -1392,6 +1392,9 @@ bool vGameBoard::verifyImage()
     sevenSprites = resourceManager.sevenSprites;
 
     listOfvEnnemies = resourceManager.listOfvEnnemies;
+    listOfAcideCloudSpell = resourceManager.listOfAcideCloudSpell;
+    listOfFireSpell = resourceManager.listOfFireSpell;
+    listOfLigntningSpell = resourceManager.listOfLigntningSpell;
 
     return true;
 }

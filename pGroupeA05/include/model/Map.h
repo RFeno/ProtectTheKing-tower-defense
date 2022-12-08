@@ -4,6 +4,7 @@
 #include "Tower.h"
 #include "Enemies.h"
 #include "King.h"
+#include "Spell.h"
 
 #include <list>
 #include <vector>
@@ -44,6 +45,8 @@ class Map
         bool isAllPlacesOccupied();
         void confrontationTowersEnemies();
         void confrontationEnemiesKing();
+        void spellAttack(DamageOfSpell damage);
+
         int getMiddlePositionOfTower(Tower &tower);
 
 

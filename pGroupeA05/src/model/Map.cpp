@@ -650,3 +650,12 @@ int Map::getMiddlePositionOfTower(Tower &tower)
         }
     }
 }
+
+/** the enemies reveive damage of spell */
+void Map::spellAttack(DamageOfSpell damage)
+{
+    for(Enemies *enemy:listOfEnemies)
+    {
+        enemy->receiveDamage(damage);
+    }
+}

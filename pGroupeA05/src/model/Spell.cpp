@@ -32,20 +32,8 @@ Spell& Spell::operator=(const Spell& rhs)
     return *this;
 }
 
-/** attack all enemies in the map received as argument*/
-void Spell::attackEnemies(vector<Enemies*> listOfEnemies)
-{
-    for(Enemies *enemy:listOfEnemies)
-    {
-        if(enemy->isSpawn())
-        {
-            enemy->receiveDamage(damage);
-        }
-    }
-}
-
 /** clone the spell */
-void Spell::clone()const
+Spell* Spell::clone()const
 {
-    return Spell(*this);
+    return new Spell(*this);
 }

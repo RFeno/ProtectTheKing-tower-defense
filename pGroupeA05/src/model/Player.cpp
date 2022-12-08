@@ -11,7 +11,7 @@ Player::Player(int coins, int score): coins(coins),score(score)
     //ctor
 }
 
-Player::Player(const Player& other): coins(other.coins),score(other.score), acidNumber(other.acidNumer), firNumber(other.fireNumber), lightningNumber(other.lightningNumber), numberOfEnemyKilled(other.numberOfEnemyKilled)
+Player::Player(const Player& other): coins(other.coins),score(other.score), acidNumber(other.acidNumber), fireNumber(other.fireNumber), lightningNumber(other.lightningNumber), numberOfEnemyKilled(other.numberOfEnemyKilled)
 {
     //copy ctor
     //clone because AIP
@@ -65,9 +65,9 @@ void Player::addScore(int ScoreToAdd)
 }
 
 /** if the type of spell is in the list of player, use the spell and after remove */
-bool Player::activeSpell(TypeOfSpell type,vector<Enemies*> listOfEnemies)
+bool Player::activeSpell(TypeOfSpell type)
 {
-    if(useAndRemoveSpell(type,listOfEnemies))
+    if(removeSpell(type))
     {
         return true;
     }
@@ -75,16 +75,12 @@ bool Player::activeSpell(TypeOfSpell type,vector<Enemies*> listOfEnemies)
 }
 
 /** use the spell to cause damage and then remove the spell in the list of spell of player*/
-bool Player::useAndRemoveSpell(TypeOfSpell type,vector<Enemies*> listOfEnemies)
+bool Player::removeSpell(TypeOfSpell type)
 {
     int index = searchSpellByType(type);
 
     if(index!=-1)
     {
-        ///USE
-        listOfSpells[index]->attackEnemies(listOfEnemies);
-
-        ///REMOVE
         Spell *tmp = *(listOfSpells.begin() + index);
         listOfSpells.erase(listOfSpells.begin()+index);
         delete tmp;

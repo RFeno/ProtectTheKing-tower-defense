@@ -21,8 +21,8 @@ class Player
         Player *clone()const;
         void buySpell(TypeOfSpell type);
         int searchSpellByType(TypeOfSpell type);
-        bool useAndRemoveSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);
-        bool activeSpell(TypeOfSpell type,std::vector<Enemies*> listOfEnemies);
+        bool removeSpell(TypeOfSpell type);
+        bool activeSpell(TypeOfSpell type);
         void addScore(int score);
         void updateSpellsNumber();
         void clearListOfSpells();
@@ -111,12 +111,15 @@ class Player
         //attributes
         int coins;
         int score;
-        int numberOfEnemyKilled = 0;
+
         //AIP because spell are managed and accesible by only the player
         std::vector<Spell*> listOfSpells;
         int acidNumber = 0;
         int fireNumber = 0;
         int lightningNumber = 0;
+        int numberOfEnemyKilled = 0;
+
+
 
 };
 

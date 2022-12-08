@@ -250,3 +250,14 @@ void Game::resetGame()
     mapOfGame->getKing().setHealth(mapOfGame->getKing().getKingHealthMax());
     numeroOfWave=0;
 }
+
+/** allow the player to attack enemies with spells*/
+bool Game::spellAttack(TypeOfSpell type, DamageOfSpell damage)
+{
+    if(player->removeSpell(type))
+    {
+        mapOfGame->spellAttack(damage);
+        return true;
+    }
+    return false;
+}
