@@ -4,6 +4,7 @@
 TowerEarth::TowerEarth(int x, int y,int position, int damage,int level,int price,int range):Tower(x,y,damage,level,price,range,position)
 {
     this->type=earth;
+    this->attackActivated=false;
 }
 
 TowerEarth::~TowerEarth()

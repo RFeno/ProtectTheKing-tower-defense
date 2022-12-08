@@ -43,7 +43,7 @@ vEnnemy& vEnnemy::operator=(const vEnnemy& rhs)
     return *this;
 }
 
-/*give texture to vEnemy and configure it */
+/**give texture to vEnemy and configure it */
 void vEnnemy::chargeInformations(Enemies *enemy)
 {
     //health bar

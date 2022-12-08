@@ -8,7 +8,8 @@ enum TypeOfTowerPrice : int
     sand = 100,
     earth = 150,
     ice = 250,
-    iron = 400
+    iron = 400,
+    none = 0,
 };
 
 class Tower

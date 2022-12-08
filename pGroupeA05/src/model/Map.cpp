@@ -221,6 +221,12 @@ void Map::addTower(TypeOfTowerPrice type,int position)
             listOfTower.push_back(new TowerIron(xOfTheNextTower,yOfTheNextTower,position));
             break;
         }
+
+        case none:
+        {
+            cout << "this tower cannot be instancied" << endl;
+            break;
+        }
     }
 }
 /** return the index of the tower on the map else return -1*/
@@ -345,6 +351,9 @@ void Map::calculPositionOfNewTower(TypeOfTowerPrice type, int position)
             break;
         case sand:
             calculPositionOfSand(position);
+            break;
+        case none:
+            cout << "this tower cannot be instancied" << endl;
             break;
     }
 }

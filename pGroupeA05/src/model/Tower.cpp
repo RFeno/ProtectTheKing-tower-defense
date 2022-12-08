@@ -24,6 +24,7 @@ Tower::Tower(int xTower, int yTower, int damage, int level, int price,int range,
     }
 
     this->attackActivated=false;
+    type=none;
 
 }
 
@@ -35,6 +36,7 @@ Tower::~Tower()
 Tower::Tower(const Tower& other): xTower(other.xTower), yTower(other.yTower), damage(other.damage), level(other.level), price(other.price), range(other.range), position(other.position), attackActivated(other.attackActivated)
 {
     //copy ctor
+    this->type=other.type;
 }
 
 Tower& Tower::operator=(const Tower& rhs)
