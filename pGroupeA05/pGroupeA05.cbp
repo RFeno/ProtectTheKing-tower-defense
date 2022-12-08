@@ -68,7 +68,6 @@
 		<Unit filename="include/model/TowerSand.h" />
 		<Unit filename="include/view/vEnnemy.h" />
 		<Unit filename="include/view/vGameBoard.h" />
-		<Unit filename="include/view/vGameManager.h" />
 		<Unit filename="include/view/vMainMenu.h" />
 		<Unit filename="include/view/vResourceManager.h" />
 		<Unit filename="include/view/vTower.h" />
@@ -98,7 +97,6 @@
 		<Unit filename="src/model/TowerSand.cpp" />
 		<Unit filename="src/view/vEnnemy.cpp" />
 		<Unit filename="src/view/vGameBoard.cpp" />
-		<Unit filename="src/view/vGameManager.cpp" />
 		<Unit filename="src/view/vMainMenu.cpp" />
 		<Unit filename="src/view/vResourceManager.cpp" />
 		<Unit filename="src/view/vTower.cpp" />
