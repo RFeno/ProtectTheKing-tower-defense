@@ -44,7 +44,7 @@ class Enemies
         Enemies& operator=(const Enemies& other);
 
         ///methods
-        void attackKing(King &king);
+        bool attackKing();
         void walk();
         void receiveDamage(int damage);
         void changeState(State *state);

@@ -9,10 +9,9 @@ void StateAttack::walk()
 {
     //impossible the enemy is in attack mode, he canno't attack and walk at the same time
 }
-void StateAttack::attackKing(King &king)
+bool StateAttack::attackKing()
 {
-    //TODO
-    king.receiveDamage(this->enemy->getDamage());
+    return true;
 }
 
 void StateAttack::die()

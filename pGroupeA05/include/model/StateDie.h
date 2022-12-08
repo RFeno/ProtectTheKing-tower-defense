@@ -9,7 +9,7 @@ class StateDie : public State
     public:
         void walk() override;
         void die() override;
-        void attackKing(King &king)override;
+        bool attackKing()override;
 
     protected:
 

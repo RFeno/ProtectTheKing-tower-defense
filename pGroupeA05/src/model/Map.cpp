@@ -597,7 +597,7 @@ void Map::confrontationTowersEnemies()
                 if(getFirstEnemyNotDead(*tower) == searchEnemy(*enemy))
                 {
                     tower->setAttacking(true);
-                    tower->attackEnemy(*enemy);
+                    enemy->receiveDamage(tower->getDamage());
                 }
                 else
                 {
@@ -613,7 +613,10 @@ void Map::confrontationEnemiesKing()
 {
     for(Enemies *enemy: listOfEnemies)
     {
-        enemy->attackKing(*king);
+        if(enemy->attackKing())
+        {
+            king->receiveDamage(enemy->getDamage());
+        }
     }
 }
 

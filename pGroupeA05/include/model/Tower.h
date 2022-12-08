@@ -11,7 +11,6 @@ enum TypeOfTowerPrice : int
     iron = 400
 };
 
-
 class Tower
 {
     public:

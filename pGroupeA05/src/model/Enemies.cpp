@@ -107,9 +107,9 @@ void Enemies::walk()
 }
 
 /** the enemies attack the king*/
-void Enemies::attackKing(King &king)
+bool Enemies::attackKing()
 {
-    this->state->attackKing(king);
+    return this->state->attackKing();
 }
 
 /**change the health of enemy */

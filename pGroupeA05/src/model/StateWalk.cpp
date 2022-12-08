@@ -12,9 +12,9 @@ void StateWalk::walk()
     }
 }
 
-void StateWalk::attackKing(King &king)
+bool StateWalk::attackKing()
 {
-    //impossible a enemy canno't walk and attack at the same time
+    return false;
 }
 
 void StateWalk::die()

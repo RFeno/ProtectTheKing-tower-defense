@@ -126,15 +126,6 @@ void Game::ennemiesWalk()
     }
 }
 
-/** the enemies attack the king */
-void Game::ennemiesAttack()
-{
-    for(Enemies* enemy:mapOfGame->getEnemies())
-    {
-        enemy->attackKing(mapOfGame->getKing());
-    }
-}
-
 /** detect if is the end of wave */
 bool Game::isEndOfWave()
 {

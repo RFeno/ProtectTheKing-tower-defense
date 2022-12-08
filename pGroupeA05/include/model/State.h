@@ -19,7 +19,7 @@ class State
 
         virtual void walk() = 0;
         virtual void die() = 0;
-        virtual void attackKing(King &king) = 0;
+        virtual bool attackKing() = 0;
 
 
     protected:

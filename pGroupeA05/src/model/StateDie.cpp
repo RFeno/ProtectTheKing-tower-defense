@@ -8,9 +8,9 @@ void StateDie::walk()
     //impossible the enemy is die, he canno't walk
 }
 
-void StateDie::attackKing(King &king)
+bool StateDie::attackKing()
 {
-    //impossible the enemy is die, he canno't attack
+    return false;
 }
 
 void StateDie::die()
